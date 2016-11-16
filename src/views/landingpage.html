@@ -1,126 +1,147 @@
   <body ng-app="musementApp" ui-view>
     <main>
-      <div class="hero">
-        <nav>
-          <img src="./static/img/musement-logotype.svg" class="logotype" alt="" />
-          <ul class="anchors">
-            <li><a href="/login">Login</a></li>
-          </ul>
-        </nav>
-        <div class="content">
-          <img src="./static/img/musement.svg" alt="" class="logo"/>
-          <h2>{{ 'WHAT' | translate }}</h2>
-          <h4>{{ 'WHAT2' | translate }}</h4>
-          <div class="signup">
-            <p>{{ 'EMAIL' | translate }}</p>
-              <div class="input-elements">
-                <input ng-model="guest" type="email" class="dark-input" name="email" value="" placeholder="Email" id="email-input" required="true">
-                <input type="button" name="submit" value="{{ 'SEND' | translate }}" id="submit-button" ng-click="submit(guest)">
-                <div role="alert" class="error">
-                  <span>{{ message | translate }}</span>
-                </div>
-              </div>
+      <div class="head">
+        <div class="hexagon">
+          <img src="/static/img/logo_ww.svg" alt="Wetopia" />
+          <div class="title_hexagon">
+            <h1>Wetopia</h1>
+            <h2>
+              Te ayudamos a crear tu Startup
+            </h2>
           </div>
-      </div>
-    </div>
+          <div class="form_hexagon" id="top">
+            <p>
+              ¿Quieres ser parte?.
+            </p>
+            <input type="text" name="name" placeholder="Nombre">
+            <input type="email" name="email" placeholder="Correo">
+            <select class="" name="">
+              <option disabled selected value>¿Qué Necesitas?</option>
+              <option value="validate">Validar Idea / Proyecto</option>
+              <option value="team">Encontrar Equipo</option>
+              <option value="advice">Asesoría</option>
+              <option value="investment">Inversión</option>
+            </select>
+            <input type="submit" name="send" value="Quiero ser parte">
+          </div>
+          <div class="head_text">
+            <p>
+              Como <span>emprendedores</span>, nosotros entendemos los problemas que surgen al crear una
 
-      <div class="content">
-        <div class="learn-more">
-          <p id="learn-more">{{ 'LEARN' | translate }}</p>
-          <img src="./static/img/arrow.svg" class="arrow" alt="" />
-        </div>
-        <div class="section develop-your-project">
-          <h2><span>{{ 'BUILD' | translate }}</span>{{ 'IDEA' | translate }}</h2>
-          <img src="/static/img/people.svg" class="people" alt="" />
-          <p>{{ 'PASSION' | translate }}</p>
-        </div>
-        <div class="section">
-          <h2><span>{{ 'SECOND_HEADER' | translate }}</span>{{ 'SECOND_HEADER_TEXT' | translate }}</h2>
-          <div class="two-column">
-            <div class="column">
-              <img src="/static/img/share.svg" alt="" />
-              <p>{{ 'SHARING' | translate }}</p>
-            </div>
-            <div class="column">
-              <img src="/static/img/document.svg" alt="" />
-              <p>{{ 'IMPROVING' | translate }}</p>
-            </div>
+              <span>StartUp</span>, es por eso que queremos darte el espacio para ayudarte a construir una empresa exitosa.
+            </p>
+            <p>
+              Queremos formar una comunidad para <span>Compartir</span> y <span>Ayudar</span> a <span>emprendedores</span> durante todo el proceso.
+            </p>
           </div>
         </div>
-        <!-- Start how it works -->
-        <div class="section blue">
-          <h2>{{ 'WORKS' | translate }}</h2>
-          <div class="three-column">
-            <div class="column">
-              <p class="subtitle">{{ 'SHARE' | translate }}</p>
-              <img src="/static/img/user.svg" alt="" />
-              <p>{{ 'POST' | translate }}</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">{{ 'CONTRIBUTE' | translate }}</p>
-              <img src="/static/img/moments.svg" alt="" />
-              <p>{{ 'COMMUNITY' | translate }}</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">{{ 'APPLY' | translate }}</p>
-              <img src="/static/img/apply.svg" alt="" />
-              <p>{{ 'APPLICATION' | translate }}</p>
+
+      </div>
+        <!-- End Head  -->
+
+        <!-- Start Idea -->
+        <div class="step-landing">
+          <div class="step_title">
+            <img src="/static/img/idea.svg" alt="" />
+            Idea
+          </div>
+          <div class="step_image">
+            <img src="/static/img/idea_h.png" alt="" />
+          </div>
+          <div class="step_text">
+            <p>
+              Todo comienza con una <span class="brown">idea</span>, aquí es donde tú decides que quieres hacer algo y compartes lo que te gustaría hacer. Nosotros, como comunidad, te damos retroalimentación para ayudarte a validar tu <span class="brown">idea</span>.
+
+              <p>
+                Este es el lugar donde te das cuenta si tu idea funciona y si puedes desarrollarla hacia un <span class="red">Proyecto</span>.
+              </p>
+            </p>
+          </div>
+        </div>
+        <!-- End Idea -->
+
+        <!-- Start Project -->
+        <div class="step-landing">
+          <div class="step_title" id="project-title_inverse">
+            <img src="/static/img/project.svg" alt="" />
+            Proyecto
+          </div>
+          <div class="step_image" id="project-image_inverse">
+            <img src="/static/img/project_h.png" alt="" />
+          </div>
+          <div class="step_text" id="project-text_inverse">
+            <p>
+              En el <span class="red">Proyecto</span>, puedes validar áreas específicas acerca de cómo va a ser tu <span class="blue">StartUp</span>. Por ejemplo, puedes validar el diseño, el producto, el wireframe, la campaña de marketing; y profesionales te darán retroalimentación para que puedas tomar las decisiones correctas.
+            </p>
+          </div>
+        </div>
+        <!-- End Project -->
+
+        <!-- Start Team -->
+        <div class="step-landing">
+          <div class="step_title">
+            <img src="/static/img/team.svg" alt="" />
+            Equipo
+          </div>
+          <div class="step_image">
+            <img src="/static/img/team_h.png" alt="" />
+          </div>
+          <div class="step_text">
+            ¡Construir una <span class="blue">StartUp</span> consiste en <span>Ayudar</span> y <span>Compartir</span>, es por eso que te alentamos a encontrar un Equipo!
+            <p>
+              No se trata solamente de encontrar un diseñador, programador o vendedor. Se trata de encontrar personas que comparten tu visión y se apasionan por tu proyecto.
+            </p>
+          </div>
+        </div>
+        <!-- End Team -->
+        <!-- divisor -->
+        <div class="divisor left"></div>
+        <!-- divisor -->
+        <!-- Start SecondForm -->
+        <div class="secondForm">
+          <div class="balloons">
+            <img src="/static/img/balloons.svg" alt="" />
+          </div>
+          <div class="secondForm_text">
+            ¡Bueno, eso es todo por ahora!
+          </div>
+          <div class="secondForm_text-second">
+            <p>
+              Si te gustaría formar parte de nuestra comunidad regístrate y en cuanto iniciemos operaciones serás el primero en saber.
+            </p>
+          </div>
+          <div class="form_hexagon">
+            <input type="text" class="secondForm_form" name="name" placeholder="Nombre">
+            <input type="email" class="secondForm_form" name="email" placeholder="Correo">
+            <select class="secondForm_form" name="">
+              <option disabled selected value>¿Qué Necesitas?</option>
+              <option value="validate">Validar Idea / Proyecto</option>
+              <option value="team">Encontrar Equipo</option>
+              <option value="advice">Asesoría</option>
+              <option value="investment">Inversión</option>
+            </select>
+            <input type="submit" id="secondForm_button" name="send" value="Quiero ser parte">
+          </div>
+        </div>
+        <!-- End SecondForm -->
+
+        <!-- divisor -->
+          <div class="divisor"></div>
+        <!-- divisor -->
+
+        <!-- Start footer -->
+        <div class="community">
+          <p>
+            ¡Queremos tener la comunidad de emprendedores más grande del mundo y queremos que formes parte de ella, así que recuerda,
+          </p>
+          <h3>... Comparte y Ayuda!</h3>
+          <div class="social">
+            <div class="social_fb">
+              <!-- <img src="" alt="" /> -->
             </div>
           </div>
         </div>
-        <!-- End how it works -->
-      </div>
-      <!-- End hero (section) -->
+        <!-- End footer -->
 
-      <!-- Start full width (section) -->
-
-      <!-- Start moment -->
-      <div class="section">
-        <div class="two-column">
-          <div class="column">
-            <h2>{{ 'MOMENT' | translate }}</h2>
-            <img src="/static/img/watch.svg" alt="" />
-            <p>{{ 'MOMENT_DESCRIPTION' | translate }}</p>
-          </div>
-          <div class="column">
-            <h2>{{ 'LEADERS' | translate }}</h2>
-            <img src="/static/img/archivements.svg" alt="" />
-            <p>{{ 'KEY_PEOPLE' | translate }}</p>
-          </div>
-        </div>
-      </div>
-      <!-- End moment -->
-
-      <!-- Start grow idea -->
-      <div class="content-light grow">
-        <h2>{{ 'TIME' | translate }}</h2>
-      </div>
-      <!-- End grow idea -->
-
-      <div class="call-to-action content">
-        <h2>{{ 'AFTER' | translate }}</h2>
-        <p>{{ 'COUNTDOWN' | translate }}</p>
-        <div class="input-elements">
-          <input type="email" class="dark-input" name="email" value="" placeholder="Email" required="true" id="email-input2">
-          <input type="button" name="submit" value="{{ 'SEND' | translate }}" id="submit-button2">
-        </div>
-        <div class="thanks-email">
-        </div>
-      </div>
     </main>
-    <footer>
-      <img src="./static/img/musement-logotype.svg" alt="" class="musement-logo"/>
-      <p>{{ 'CONTACT' | translate }}</p>
-      <div class="follow">
-        <ul>
-          <li class="twitter">
-            <a href="http://www.twitter.com/musementco" target="_blank">
-              <div class="logo" alt="Follow us on Twitter" /></div>
-            </a>
-          </li>
-          <li class="facebook"><a href="http://www.facebook.com/musementco" target="_blank"><div class="logo" alt="" /></div></a></li>
-          <li class="snapchat"><a href="http://www.snapchat.com/add/musementco" target="_blank"><div class="logo" alt="" /></div></a></li>
-        </ul>
-      </div>
-    </footer>
   </body>
