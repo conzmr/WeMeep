@@ -44,8 +44,40 @@ p{
 .red{
   color: $red;
 }
+<<<<<<< HEAD
 .blue{
   color: $blue_dark;
+=======
+.input-elements {
+  padding: 10px 0;
+}
+input[type="text"], input[type="email"], input[type="password"], textarea {
+  outline: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 3px 20px 3px 10px;
+}
+.input-elements input[type="email"], input[type="text"] {
+  background: rgba(0, 0, 0, .3);
+  color: rgb(255, 255, 255);
+  width: 200px;
+}
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+input[type="button"], input[type="submit"] {
+  cursor: pointer;
+  background: rgb(247, 193, 108);
+  font-size: 1rem;
+  padding: 0.6rem 3rem;
+  color: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+input[type="button"].green-button, input[type="submit"].green-button {
+  background: $green;
+>>>>>>> b4d687cfe20dbd1fa8a68ddfe30fca5c3a33e9c0
 }
 
 
