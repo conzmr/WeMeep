@@ -1,22 +1,25 @@
-# Musement
+# Wetopia
 
-<img src="http://musement.co/static/img/musement.svg" width="100%" height="85">
+<img src="http://musement.co/static/img/wetopia_w.png" width="100%" height="85">
 
-**Welcome to Musement!**
+**Welcome to Wetopia!**
 
-Musement is a platform for people who want to share their ideas and projects, creating the moment.
+Wetopia is the platform where entrepreneurs share ideas and improve their work
 
 ### Getting started
 
 ##### System requirements
 
-macOS, Ubuntu Linux
+Mac OS
+Any Linux Distro
+
+##### Third-party software versions
 
 | Module   | Version  |
 | -------- | -------- |
 | NodeJS   | v4.4.4   |
-| MongoDB  | v3.2.10  |
-| NPM      | v2.15.9  |
+| MongoDB  | v3.2.X   |
+| NPM      | v2.15.X  |
 | SendGrid | v4.7.1   |
 
 **Install dependencies**
@@ -25,9 +28,9 @@ macOS, Ubuntu Linux
 npm install
 ```
 
-### Building Musement
+### Building Wetopia
 
-Musement currently uses Angular as the main frontend framework, Webpack as compiler and module manager, Gulp in CSS and HTML minification and more.
+Wetopia currently uses Angular as the main frontend framework, Webpack as compiler and module manager, Gulp in CSS and HTML minification and more.
 
 Compile files in the project
 ```bash
@@ -44,13 +47,10 @@ Run the project
 npm start
 ```
 
-### Setting SendGrid
+### Running Mongo on the web server
 
-Wetopia uses SendGrid as its mailing service. The current web API we are using it is v3. Please consider this for API consulting.
-
-Run these on terminal for API Key designation
+Run these on the server terminal for Mongo access
 ```bash
-echo "export SENDGRID_API_KEY='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'" > sendgrid.env
-echo "sendgrid.env" >> .gitignore
-source ./sendgrid.env
+export LC_ALL=C
+mongo
 ```
