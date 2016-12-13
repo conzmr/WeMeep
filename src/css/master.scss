@@ -120,12 +120,12 @@ body {
     outline: none;
     font-size: 0.7em;
     border-radius: 5px;
-    padding: 1.5% 5px;
+    padding: 3px 5px;
     width: 100%;
-    margin-top: 2%;
+    margin-top: 15px;
   }
   input[type="button"], input[type="submit"] {
-    margin-top: 6%;
+    margin-top: 5px;
     cursor: pointer;
     background: #0091B3;
     font-size: 0.8em;
@@ -138,11 +138,11 @@ body {
   select{
     background: white;
     color: $holder;
-    margin-top: 2%;
+    margin-top: 15px;
     outline: none;
     font-size: 0.7em;
     border-radius: 5px;
-    padding: 1.5% 5px;
+    padding: 3px 5px;
     width: 100%;
     -webkit-appearance: none;
    -moz-appearance: none;

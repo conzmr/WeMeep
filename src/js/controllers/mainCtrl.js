@@ -1,5 +1,5 @@
 angular.module('musementApp')
-.controller('mainCtrl', function($scope, loginDataService, invitationDataService, localStorageService, $state, AuthService, $translate) {
+.controller('mainCtrl', function($scope, loginDataService, invitationDataService, localStorageService, $state, AuthService, $translate, $window) {
 
   $scope.segue = [{}];
   if (AuthService.isAuthenticated()) {
@@ -16,9 +16,11 @@ angular.module('musementApp')
       invitationDataService.invitation(invitationInfo, function(res){
         if (res.status == 201)
           $scope.message = $translate.instant('VALID_EMAIL');
+          $window.alert("Checa tu correo :)");
       });
     }
     else
+      $window.alert("Correo Invalido :(");  
       $scope.message = $translate.instant('INVALID_EMAIL');
   }
 
