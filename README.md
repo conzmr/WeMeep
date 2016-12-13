@@ -1,6 +1,7 @@
 # Wetopia
 
-<img src="http://musement.co/static/img/wetopia_w.png" width="25%" height="25%">
+<img src="http://musement.co/static/img/wetopia_w.png" width="10%" height="10%" style= "display:block;
+    margin:auto;">
 
 **Welcome to Wetopia!**
 
