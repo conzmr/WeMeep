@@ -1,0 +1,19 @@
+@mixin font($family, $weight){
+  font : {
+  family: $family;
+  weight: $weight;
+}
+}
+
+@mixin zIndex($zIndex){
+  position: relative;
+  z-index: $zIndex;
+}
+
+@mixin queryWHMT($max-width, $max-height, $width, $height, $marginTop){
+  @media screen and (max-width: #{$max-width}px) and (max-height: #{$max-height}px){
+  		width: #{$width}px;
+  		height: #{$height}px;
+  		margin-top: #{$marginTop}px;
+  }
+}
