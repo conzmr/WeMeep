@@ -10,29 +10,54 @@ line-height: 40px;
 @import "helper/variables";
 @font-face {
     font-family: 'Museo';
-    src: url('/static/fonts/MuseoSans-300.otf');
+    src: url('../fonts/MuseoSans-300.otf');
 }
 @font-face {
     font-family: 'Museo_D';
-    src: url('/static/fonts/MuseoSans_500.otf');
+    src: url('../fonts/MuseoSans_500.otf');
+}
+@keyframes backgroundAnimation {
+    0% {
+        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    33% {
+        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    66% {
+        background: url('../img/Login_bac_1.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    100% {
+        background: url('../img/Login_bac_2.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
 }
 
 .fixed-background {
-    position: fixed;
+    position: absolute;
     z-index: 0;
     width: 100%;
     height: 100%;
     text-align: center;
-    background: url('/static/img/Login_bac_1.jpg') no-repeat center center fixed;
-    background-size: cover;
 }
 
 * {
     color: $text-gray;
-    @include font( 'Museo', 300);
+    @include font( 'Museo_D', 500);
 }
 
 body {
+    &.hexagon-bg {
+        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+        -webkit-animation: backgroundAnimation 2s linear 0s infinite;
+        animation: backgroundAnimation 2s linear 0s infinite;
+    }
     margin: 0;
 }
 
@@ -43,7 +68,8 @@ a {
 .centered-form {
     margin: auto;
     @include zIndex(1);
-    width: 350px;
+    max-width: 350px;
+    min-width: 300px;
     height: 480px;
     background: white;
     margin-top: 75px;
@@ -52,7 +78,7 @@ a {
 
     p {
         color: $pt-gray;
-        font-size: 15px;
+        font-size: 16px;
         margin-top: 30px;
         margin-bottom: 30px;
     }
@@ -98,7 +124,6 @@ a {
 
     p {
         color: $wetopia-yellow;
-        @include font( 'Museo_D', 500);
         margin-right: 25px;
         padding-top: 20px;
     }
@@ -108,11 +133,14 @@ input {
     border-color: transparent;
     background: $textfield-gray;
     margin-bottom: 20px;
-    margin-left: -5px;
+    margin-left: -6px;
     @include zIndex(2);
-    border-radius: 4px;
     font-size: 12px;
     width: 150px;
+
+    &:not(.form-button) {
+        border-radius: 0 4px 4px 0;
+    }
 
     &[value="Registrarse"] {
         width: 90px;
@@ -140,6 +168,8 @@ input {
     margin-top: 5px;
     margin-left: 0;
     cursor: pointer;
+    border-radius: 4px;
+    outline: none;
 
     &:active {
         transform: scale(0.95);
@@ -160,4 +190,368 @@ input {
     margin-bottom: 18px;
     height: 105px;
     margin-top: 20px;
+}
+
+#createIdea-form {
+    height: 350px;
+    top: 10%;
+    @media screen and (max-width: 750px) and (max-height: 420px) {
+        top: 22%;
+    }
+    @media screen and (max-width: 700px) and (max-height: 420px) {
+        top: 26%;
+    }
+    @media screen and (max-width: 570px) and (max-height: 350px) {
+        top: 30%;
+    }
+}
+
+#describeIdea-form {
+    margin-top: 3%;
+    max-width: 480px;
+    min-width: 330px;
+    height: auto;
+}
+
+#selectTeamIdea-form {
+    height: auto;
+    display: block;
+
+    .form-description {
+        width: 75%;
+    }
+
+    input {
+        &[type=file] {
+            display: none;
+        }
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .select-image {
+        padding-top: 25px;
+
+        label {
+            text-align: center;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 75px;
+            }
+
+            p {
+                color: $pt-gray;
+                display: block;
+                margin-top: 0;
+            }
+        }
+    }
+
+    .select-team {
+        width: 190px;
+        margin-left: 20px;
+        text-align: left;
+        margin-top: -15px;
+
+        img {
+            margin-right: -10px;
+            height: 50px;
+
+            &:last-child {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.select-image {
+    height: 140px;
+    width: 190px;
+    background: $textfield-gray;
+    margin-left: 20px;
+    margin-top: -18px;
+    box-sizing: border-box;
+}
+
+#createIdea-form,
+#describeIdea-form,
+#selectTeamIdea-form {
+    .form-cancel {
+        font-size: 12px;
+        margin-top: 0;
+        padding-bottom: 20px;
+        margin-bottom: 0;
+    }
+
+    input {
+        width: 250px;
+        margin-bottom: 30px;
+
+        &[type=button] {
+            width: 90px;
+            color: white;
+            background-color: $wetopia-blue;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.step-img {
+    width: 100%;
+
+    img {
+        width: 70px;
+        margin-top: 40px;
+    }
+}
+
+.form-description {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    text-align: left;
+    margin: auto;
+
+    img {
+        height: 40px;
+        z-index: 3;
+        position: relative;
+    }
+
+    textarea {
+        width: 95%;
+        margin-top: -38px;
+        box-sizing: border-box;
+        margin-left: 18px;
+        padding-right: 15px;
+        background: $textfield-gray;
+        height: 90px;
+        text-indent: 10px;
+        @include font( 'Museo', 300);
+        font-size: 12px;
+        line-height: 18px;
+        border: {
+            radius: 4px;
+            color: transparent;
+        }
+    }
+
+    .textarea-length {
+        width: 95%;
+        box-sizing: border-box;
+        text-align: right;
+        margin-left: 18px;
+        color: $pt-gray;
+        font-size: 12px;
+        margin-top: 0;
+    }
+
+    p {
+        display: inline-block;
+        margin-top: 8px;
+        vertical-align: top;
+        margin-left: -3px;
+        color: $text-gray;
+        font-size: 14px;
+        padding-bottom: 7px;
+    }
+
+    span {
+        color: $wetopia-red;
+        font-weight: bolder;
+    }
+}
+
+#show-problem {
+    display: none;
+}
+
+#input-team-members {
+    margin-top: -523px;
+    z-index: 3;
+    width: 100%;
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    height: 100%;
+    @media screen and (orientation: landscape) {
+         @media screen and (max-height: 450px){
+            transform: rotate(0deg);
+        }
+    }
+    padding: {
+        top: 20px;
+        bottom: 20px;
+    }
+
+    .done-button {
+        position: absolute;
+        width: 100%;
+        bottom: 15px;
+        padding-top: 10px;
+        border-top: 2px solid $textfield-gray;
+    }
+
+    input {
+        &[value=Listo] {
+            background-color: $wetopia-blue;
+            font-size: 14px;
+            width: 80px;
+            margin-bottom: 0;
+        }
+
+        &[name=team-members] {
+            width: 90%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            height: 30px;
+            font-size: 15px;
+            text-indent: 10px;
+            margin-left: 0;
+            margin-bottom: 15px;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        height: 383px;
+        margin: 0;
+        overflow-y: scroll;
+        padding-top: 15px;
+        border-top: 2px solid $textfield-gray;
+
+        &::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            background-color: white;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: $textfield-gray;
+        }
+
+        li {
+            padding: 0 15px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+
+            img {
+                height: 35px;
+                display: inline-block;
+
+                &:nth-child(4) {
+                    height: 28px;
+                    vertical-align: top;
+                    margin-top: 3px;
+                    float: right;
+                    cursor: pointer;
+                }
+            }
+
+            p {
+                display: inline-block;
+                vertical-align: top;
+                margin: {
+                    top: 10px;
+                    left: -3px;
+                    bottom: 0;
+                }
+                font-size: 14px;
+
+                &:nth-child(2) {
+                    color: $text-gray;
+                    margin-right: 3px;
+                }
+            }
+        }
+    }
+}
+/* SWITCH */
+.onoffswitch {
+    top: 28px;
+    position: absolute;
+    display: inline-block;
+    right: 5%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    .onoffswitch-checkbox {
+        display: none;
+    }
+
+    .onoffswitch-label {
+        width: 30px;
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        border: 2px solid $textfield-gray;
+        border-radius: 10px;
+    }
+
+    .onoffswitch-switch {
+        display: block;
+        width: 15px;
+        margin: -1px;
+        background: #FFFFFF;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 13px;
+        border: 2px solid $textfield-gray;
+        border-radius: 10px;
+        transition: all 0.3s ease-in 0s;
+    }
+
+    .onoffswitch-inner {
+        display: block;
+        width: 200%;
+        margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+
+        &::after,
+        &::before {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 13px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        &::before {
+            content: "";
+            padding-left: 5px;
+            background-color: $wetopia-blue;
+        }
+
+        &::after {
+            content: "";
+            padding-right: 5px;
+            background-color: $textfield-gray;
+            text-align: right;
+        }
+    }
+
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0;
+    }
 }

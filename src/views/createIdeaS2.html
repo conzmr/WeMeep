@@ -1,0 +1,37 @@
+<body class="hexagon-bg">
+    <div class="fixed-background">
+        <form class="centered-form" id="describeIdea-form" action="index.html" method="post">
+            <div class="step-img">
+                <img src="/static/img/secondStep_Create Idea.svg">
+            </div>
+            <p>Nueva Idea</p>
+            <div class="form-description">
+                <img src="/static/img/Create Idea_idea.svg">
+                <p>Describe tu idea</p>
+                <textarea name="description" class="" maxlength="300" placeholder="¿Qué tienes en mente? Cuenta tu idea de la manera más breve y objetiva posible :)"></textarea>
+                <p class="textarea-length">300</p>
+            </div>
+            <div class="form-description">
+                <img src="/static/img/Create Idea_problem.svg">
+                <p>¿Tu idea resuelve algún <span>problema</span>?</p>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked onclick="switchVisibility()">
+                    <label class="onoffswitch-label" for="myonoffswitch">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
+                </div>
+                <div id="show-problem">
+                    <textarea class="" name="problem" maxlength="300" placeholder="¿Cuál es el problema? Descríbelo."></textarea>
+                    <p class="textarea-length ">300</p>
+                </div>
+            </div>
+            <input class="form-button" type="button" name="description-button" value="Siguiente">
+            <a href="#">
+                <p class="form-cancel">Cancelar</p>
+            </a>
+        </form>
+    </div>
+    <script src="../js/createIdea.js">
+    </script>
+</body>
