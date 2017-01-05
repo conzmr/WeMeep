@@ -1,41 +1,33 @@
-/* Para los hover=
- transition: background 1200ms;
-Se pone en el normal y en el de hover
-
-Para subir o bajar textos puedo aplica
-line-height: 40px;
+/*
+EXPRESION
+#contenedor {
+  max-width: 1200px;
+  width: expression(document.body.clientWidth > 1201? "1200px": "auto");
+}
  */
 @import "helper/placeholders";
 @import "helper/mixins";
 @import "helper/variables";
+@import "helper/tags";
+
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans-300.otf');
+    src: url('../../public/fonts/MuseoSans-300.otf');
 }
 @font-face {
     font-family: 'Museo_D';
-    src: url('../fonts/MuseoSans_500.otf');
+    src: url('../../public/fonts/MuseoSans_500.otf');
 }
-@keyframes backgroundAnimation {
-    0% {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
 
-    33% {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    66% {
-        background: url('../img/Login_bac_1.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    100% {
-        background: url('../img/Login_bac_2.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
+@keyframes backgroundAnimation  {
+  0%   {background: url('../../public/img/Login_bac_0.jpg') no-repeat center fixed;
+  background-size: cover;}
+  33%   {background: url('../../public/img/Login_bac_0.jpg') no-repeat center fixed;
+  background-size: cover;}
+  66%  {background: url('../../public/img/Login_bac_1.jpg') no-repeat center fixed;
+  background-size: cover;}
+  100%  {background: url('../../public/img/Login_bac_2.jpg') no-repeat center fixed;
+  background-size: cover;}
 }
 
 .fixed-background {
@@ -52,13 +44,15 @@ line-height: 40px;
 }
 
 body {
-    &.hexagon-bg {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-        -webkit-animation: backgroundAnimation 2s linear 0s infinite;
-        animation: backgroundAnimation 2s linear 0s infinite;
-    }
-    margin: 0;
+  background: white;
+  &.hexagon-bg{
+    background:url('../../public/img/Login_bac_0.jpg') no-repeat center fixed;
+    background-size: cover;
+    -webkit-animation:  backgroundAnimation 2s linear 0s infinite ;
+    animation: backgroundAnimation 2s linear 0s infinite ;
+  }
+  margin: 0;
+  @include scrollbar(8px, $pt-gray);
 }
 
 a {
@@ -89,6 +83,8 @@ a {
             margin-top: -10px;
         }
     }
+
+
     @media screen and (min-height: 1000px) {
         margin-top: 250px;
     }
@@ -112,11 +108,13 @@ a {
         }
     }
     @media screen and (orientation: portrait) {
-         @include queryWHMT(420, 740, 330, 480, 120);
+        @include queryWHMT(420, 740, 330, 480, 120);
         @include queryWHMT(380, 670, 300, 480, 75);
         @include queryWHMT(350, 580, 270, 450, 60);
     }
+
 }
+
 
 .upper-text-form {
     width: 100%;
@@ -138,8 +136,8 @@ input {
     font-size: 12px;
     width: 150px;
 
-    &:not(.form-button) {
-        border-radius: 0 4px 4px 0;
+    &[type="text"]{
+      border-radius: 0 4px 4px 0;
     }
 
     &[value="Registrarse"] {
@@ -192,366 +190,1201 @@ input {
     margin-top: 20px;
 }
 
+
 #createIdea-form {
     height: 350px;
     top: 10%;
+
     @media screen and (max-width: 750px) and (max-height: 420px) {
-        top: 22%;
+        top:22%;
     }
     @media screen and (max-width: 700px) and (max-height: 420px) {
-        top: 26%;
+        top:26%;
     }
-    @media screen and (max-width: 570px) and (max-height: 350px) {
-        top: 30%;
-    }
-}
-
-#describeIdea-form {
-    margin-top: 3%;
-    max-width: 480px;
-    min-width: 330px;
-    height: auto;
-}
-
-#selectTeamIdea-form {
-    height: auto;
-    display: block;
-
-    .form-description {
-        width: 75%;
-    }
-
-    input {
-        &[type=file] {
-            display: none;
-        }
-    }
-
-    p {
-        margin-bottom: 0;
-    }
-
-    .select-image {
-        padding-top: 25px;
-
-        label {
-            text-align: center;
-            cursor: pointer;
-
-            img {
-                width: 100%;
-                height: 75px;
-            }
-
-            p {
-                color: $pt-gray;
-                display: block;
-                margin-top: 0;
-            }
-        }
-    }
-
-    .select-team {
-        width: 190px;
-        margin-left: 20px;
-        text-align: left;
-        margin-top: -15px;
-
-        img {
-            margin-right: -10px;
-            height: 50px;
-
-            &:last-child {
-                cursor: pointer;
-            }
-        }
+    @media screen and (max-width: 570px) and (max-height: 350px){
+      top:30%;
     }
 }
 
-.select-image {
-    height: 140px;
-    width: 190px;
-    background: $textfield-gray;
-    margin-left: 20px;
-    margin-top: -18px;
-    box-sizing: border-box;
+#describeIdea-form{
+  margin-top: 3%;
+  max-width: 480px;
+  min-width: 330px;
+  height: auto;
 }
 
-#createIdea-form,
-#describeIdea-form,
-#selectTeamIdea-form {
-    .form-cancel {
-        font-size: 12px;
-        margin-top: 0;
-        padding-bottom: 20px;
-        margin-bottom: 0;
+#selectTeamIdea-form{
+  height: auto;
+  display: block;
+
+  .tooltip {
+    .tooltiptext {
+      margin-top: -4px;
+      left: 65%;
     }
 
-    input {
-        width: 250px;
-        margin-bottom: 30px;
+  }
 
-        &[type=button] {
-            width: 90px;
-            color: white;
-            background-color: $wetopia-blue;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+  .form-description{
+    width: 75%;
+  }
+
+  input{
+    &[type=file]{
+      display: none;
     }
-}
+  }
 
-.step-img {
-    width: 100%;
+  p{
+    margin-bottom: 0;
+  }
 
-    img {
-        width: 70px;
-        margin-top: 40px;
-    }
-}
-
-.form-description {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px;
-    position: relative;
-    text-align: left;
-    margin: auto;
-
-    img {
-        height: 40px;
-        z-index: 3;
-        position: relative;
-    }
-
-    textarea {
-        width: 95%;
-        margin-top: -38px;
-        box-sizing: border-box;
-        margin-left: 18px;
-        padding-right: 15px;
-        background: $textfield-gray;
-        height: 90px;
-        text-indent: 10px;
-        @include font( 'Museo', 300);
-        font-size: 12px;
-        line-height: 18px;
-        border: {
-            radius: 4px;
-            color: transparent;
-        }
-    }
-
-    .textarea-length {
-        width: 95%;
-        box-sizing: border-box;
-        text-align: right;
-        margin-left: 18px;
-        color: $pt-gray;
-        font-size: 12px;
-        margin-top: 0;
-    }
-
-    p {
-        display: inline-block;
-        margin-top: 8px;
-        vertical-align: top;
-        margin-left: -3px;
-        color: $text-gray;
-        font-size: 14px;
-        padding-bottom: 7px;
-    }
-
-    span {
-        color: $wetopia-red;
-        font-weight: bolder;
-    }
-}
-
-#show-problem {
-    display: none;
-}
-
-#input-team-members {
-    margin-top: -523px;
-    z-index: 3;
-    width: 100%;
-    display: none;
-    position: absolute;
-    box-sizing: border-box;
-    height: 100%;
-    @media screen and (orientation: landscape) {
-         @media screen and (max-height: 450px){
-            transform: rotate(0deg);
-        }
-    }
-    padding: {
-        top: 20px;
-        bottom: 20px;
-    }
-
-    .done-button {
-        position: absolute;
+  .select-image{
+    padding-top: 25px;
+    label{
+      text-align: center;
+      cursor: pointer;
+      img{
         width: 100%;
-        bottom: 15px;
-        padding-top: 10px;
-        border-top: 2px solid $textfield-gray;
+        height: 75px;
+      }
+      p{
+      color: $pt-gray;
+      display: block;
+      margin-top: 0;
+      }
     }
+  }
+}
 
-    input {
-        &[value=Listo] {
-            background-color: $wetopia-blue;
-            font-size: 14px;
-            width: 80px;
-            margin-bottom: 0;
-        }
-
-        &[name=team-members] {
-            width: 90%;
-            box-sizing: border-box;
-            border-radius: 5px;
-            height: 30px;
-            font-size: 15px;
-            text-indent: 10px;
-            margin-left: 0;
-            margin-bottom: 15px;
-        }
+.select-team{
+  width: 190px;
+  margin-left: 20px;
+  text-align: left;
+  margin-top: -15px;
+  img{
+    margin-right: -10px;
+    height: 50px;
+    &#add-members{
+      cursor: pointer;
     }
+  }
+}
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-        height: 383px;
-        margin: 0;
-        overflow-y: scroll;
-        padding-top: 15px;
-        border-top: 2px solid $textfield-gray;
+.select-image{
+  height: 140px;
+  width: 190px;
+  background: $textfield-gray;
+  margin-left: 20px;
+  margin-top: -18px;
+  box-sizing: border-box;
+}
 
-        &::-webkit-scrollbar-track {
-            border-radius: 20px;
-            background-color: white;
-        }
+#createIdea-form, #describeIdea-form, #selectTeamIdea-form{
+.form-cancel{
+  font-size: 12px;
+  margin-top: 0;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+}
 
-        &::-webkit-scrollbar {
-            width: 6px;
-            background-color: white;
-        }
+input {
+    width: 250px;
+    margin-bottom: 30px;
 
-        &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: $textfield-gray;
-        }
-
-        li {
-            padding: 0 15px;
-            display: block;
-            box-sizing: border-box;
-            width: 100%;
-            text-align: left;
-
-            img {
-                height: 35px;
-                display: inline-block;
-
-                &:nth-child(4) {
-                    height: 28px;
-                    vertical-align: top;
-                    margin-top: 3px;
-                    float: right;
-                    cursor: pointer;
-                }
-            }
-
-            p {
-                display: inline-block;
-                vertical-align: top;
-                margin: {
-                    top: 10px;
-                    left: -3px;
-                    bottom: 0;
-                }
-                font-size: 14px;
-
-                &:nth-child(2) {
-                    color: $text-gray;
-                    margin-right: 3px;
-                }
-            }
-        }
+    &[type=button]{
+      width: 90px;
+      color: white;
+      background-color: $wetopia-blue;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
 }
-/* SWITCH */
-.onoffswitch {
-    top: 28px;
-    position: absolute;
-    display: inline-block;
-    right: 5%;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+}
 
-    .onoffswitch-checkbox {
-        display: none;
+.step-img{
+  width: 100%;
+
+  img{
+    width: 70px;
+    margin-top: 40px;
+
+  }
+}
+
+.form-description{
+  box-sizing: border-box;
+  width: 100%;
+  padding:20px;
+  position: relative;
+  text-align: left;
+  margin: auto;
+
+  &.make-comment{
+    width: 100%;
+    textarea{
+      margin-top: -18px;
+      max-width: 440px;
+      font-size: 13px;
     }
 
-    .onoffswitch-label {
-        width: 30px;
-        display: block;
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid $textfield-gray;
-        border-radius: 10px;
+    span{
+      font:{
+        size:16px;
+        weight: normal;
+      }
     }
 
-    .onoffswitch-switch {
-        display: block;
-        width: 15px;
-        margin: -1px;
-        background: #FFFFFF;
-        position: absolute;
+    .blue-button{
+      font-size: 15px;
+      width: 100px;
+    }
+
+    .button-zone{
+      max-width: 440px;
+      box-sizing: border-box;
+      text-align: right;
+      margin-left: 18px;
+      margin-top: 0;
+    }
+  }
+
+  &.movil-p{
+    @media screen and (max-width: 600px){
+      padding:{
         top: 0;
         bottom: 0;
-        right: 13px;
-        border: 2px solid $textfield-gray;
-        border-radius: 10px;
-        transition: all 0.3s ease-in 0s;
+      }
+    }
+  }
+
+  img{
+    height: 40px;
+    z-index: 3;
+    position: relative;
+  }
+
+  textarea{
+    width: 95%;
+    margin-top: -38px;
+    box-sizing: border-box;
+    margin-left: 18px;
+    padding-right: 15px;
+    background: $textfield-gray;
+    height: 90px;
+    text-indent: 10px;
+    @include font('Museo', 300);
+    font-size: 12px;
+    line-height: 18px;
+    border:{
+      radius:4px;
+      color:transparent;
+    }
+  }
+
+  .textarea-length{
+    width: 95%;
+    box-sizing: border-box;
+    text-align: right;
+    margin-left: 18px;
+    color: $pt-gray;
+    font-size: 12px;
+    margin-top: 0;
+  }
+
+  p{
+    display: inline-block;
+    margin-top: 8px;
+    vertical-align: top;
+    margin-left: -3px;
+    color: $text-gray;
+    font-size: 14px;
+    padding-bottom: 7px;
+  }
+
+  span{
+    font-weight: bolder;
+  }
+}
+
+#show-problem{
+  display: none;
+}
+
+#input-team-members{
+  margin-top: -523px;
+  z-index: 3;
+  width: 100%;
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  height: 100%;
+  @media screen and (orientation: landscape) {
+       @media screen and (max-height: 450px){
+          transform: rotate(0deg);
+      }
+  }
+
+  padding: {
+    top:20px;
+    bottom: 20px;
+  }
+
+  .done-button{
+    position: absolute;
+    width: 100%;
+    bottom:15px;
+    padding-top: 10px;
+    border-top: 2px solid $textfield-gray;
+  }
+
+  input{
+
+    &[value=Listo]{
+      background-color: $wetopia-blue;
+      font-size: 14px;
+      width: 80px;
+      margin-bottom: 0;
     }
 
-    .onoffswitch-inner {
+    &[name=team-members]{
+    width: 90%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 15px;
+    text-indent: 10px;
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+}
+
+  ul{
+    list-style-type: none;
+    padding: 0;
+    height: 383px;
+    margin: 0;
+    overflow-y: scroll;
+    padding-top: 15px;
+    border-top: 2px solid $textfield-gray;
+
+    @include scrollbar(6px, $textfield-gray);
+
+    li{
+      padding: 0 15px;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      img{
+        height: 35px;
+        display: inline-block;
+
+        &:nth-child(4){
+          height: 28px;
+          vertical-align: top;
+          margin-top: 3px;
+          float:right;
+          cursor: pointer;
+        }
+      }
+      p{
+        display: inline-block;
+        vertical-align: top;
+        margin:{
+          top:10px;
+          left:-3px;
+          bottom: 0;
+        }
+        font-size: 14px;
+
+        &:nth-child(2){
+          color: $text-gray;
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+}
+
+
+/* SWITCH */
+.onoffswitch {
+  top:28px;
+   position: absolute;
+   display: inline-block;
+   right: 5%;
+   -webkit-user-select:none;
+   -moz-user-select:none;
+   -ms-user-select: none;
+
+   .onoffswitch-checkbox {
+      display: none;
+   }
+   .onoffswitch-label {
+     width: 30px;
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid $textfield-gray;
+      border-radius: 10px;
+   }
+
+   .onoffswitch-switch {
+      display: block;
+      width: 15px;
+      margin: -1px;
+      background: #FFFFFF;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 13px;
+      border: 2px solid $textfield-gray;
+      border-radius: 10px;
+      transition: all 0.3s ease-in 0s;
+   }
+
+   .onoffswitch-inner {
+      display: block;
+      width: 200%;
+      margin-left: -100%;
+      transition: margin 0.3s ease-in 0s;
+
+      &::before, &::after{
         display: block;
-        width: 200%;
-        margin-left: -100%;
-        transition: margin 0.3s ease-in 0s;
+        float: left;
+        width: 50%;
+        height: 13px;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        &::after,
-        &::before {
-            display: block;
-            float: left;
-            width: 50%;
-            height: 13px;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      &::before{
+        content: "";
+        padding-left: 5px;
+        background-color: $wetopia-blue;
+      }
 
-        &::before {
-            content: "";
-            padding-left: 5px;
-            background-color: $wetopia-blue;
-        }
+      &::after{
+        content: "";
+        padding-right: 5px;
+        background-color: $textfield-gray;
+        text-align: right;
+      }
+   }
 
-        &::after {
-            content: "";
-            padding-right: 5px;
-            background-color: $textfield-gray;
-            text-align: right;
-        }
+   .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+      margin-left: 0;
+   }
+
+   .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+      right: 0px;
+   }
+}
+
+nav{
+  margin: 0;
+  z-index: 1001;
+  padding: 0;
+  top:0;
+  position: fixed;
+  background: white;
+  width: 100%;
+  @media screen and (max-width: 260px){
+    min-width: 260px;
+  }
+
+  ul{
+    list-style-type: none;
+    padding: 20px 55px;
+    margin: 0;
+    text-align: center;
+
+    @media screen and (max-width: 400px){
+      padding: 20px 20px;
     }
 
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-        margin-left: 0;
+    @media screen and (max-width: 300px){
+      padding: 15px 10px;
     }
 
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-        right: 0;
+    li{
+      display: inline-block;
+      img{
+        margin: 0 10px;
+        vertical-align: middle;
+        @media screen and (max-width: 360px){
+          margin: 0 5px;
+        }
+      }
+      #nav-wetopia-logo, #nav-user-img{
+        height: 40px;
+      }
+      #discover-logo, #notifications-icon{
+        height: 30px;
+      }
+      #idea-logo{
+        height: 45px;
+      }
+      &.nav-middle{
+        margin-left: 200px;
+        @media screen and (max-width: 821px){
+          margin: auto;
+        }
+      }
+
+      &.nav-right{
+        float: right;
+
+        &:nth-child(4){
+          @media screen and (max-width: 821px){
+            width: 100%;
+          }
+        }
+      }
+
+
+      &.nav-left{
+        float: left;
+      }
     }
+  }
+}
+
+
+.wrapper{
+  display: inline-block;
+  vertical-align: middle;
+  padding: 10px;
+  margin-right: 10px;
+  width: 210px;
+  text-align: right;
+  position: relative;
+
+  &:hover{
+    i{
+      &.fa-search{
+        color: $wetopia-blue;
+      }
+    }
+    input{
+      border: 1px solid $pt-gray;
+      width: 210px;
+    }
+  }
+  i{
+    &.fa-search{
+      color: $pt-gray;
+      cursor: pointer;
+      z-index: 4;
+      position: absolute;
+      top:14px;
+      right: 15px;
+    }
+  }
+  input{
+    border-radius: 3px;
+    z-index: 3;
+    margin: 0;
+    font-size: 15px;
+    padding: 0;
+    height: 28px;
+    background-color: white;
+    width: 200px;
+    text-indent: 10px;
+
+    &::-webkit-search-cancel-button{
+      -webkit-appearance: none;
+    }
+  }
+}
+
+.inner-nav{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+    &:hover{
+      ul{
+        visibility: visible;
+      }
+    }
+
+  ul{
+    right: -55%;
+    position: absolute;
+    width: 320px;
+    list-style-type: none;
+    padding: 5px;
+    border-radius: 4px;
+    @extend %white-tooltip;
+
+    &::after, &::before {
+	bottom: 100%;
+	left: 82%;
+  @media screen and (max-width: 400px){
+    left:91%;
+  }
+}
+    @media screen and (max-width: 400px){
+      right: 0%;
+      width: 280px;
+    }
+    li{
+      float: left;
+      color: $pt-gray;
+      display: inline-block;
+      margin: 0 10px;
+      @media screen and (max-width: 400px){
+        margin: 0 5px;
+      }
+      img{
+        height: 15px;
+        margin: 2px 3px 0 3px;
+        vertical-align: top;
+      }
+      a{
+        color: $pt-gray;
+        cursor: pointer;
+        &:hover{
+          color: $text-gray;
+        }
+      }
+    }
+  }
+}
+
+.blue-text{
+  color: $wetopia-blue;
+  &#stats-link{
+    margin-left: 5px;
+    color: $wetopia-blue;
+    font-size: 18px;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-bottom: 60px;
+
+    img{
+      height: 18px;
+      margin-right: 20px;
+    }
+
+    @media screen and (max-width: 350px){
+      font-size: 16px;
+      img{
+        height: 16px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.green-text{
+  color: $wetopia-green;
+}
+
+.red-text{
+  color: $wetopia-red;
+}
+
+.yellow-text{
+  color: $wetopia-yellow;
+}
+
+.aqua-text{
+  color: $wetopia-aqua;
+}
+
+.pt-h{
+  color:$pt-gray;
+  font-size: 15px;
+  clear: both;
+}
+
+.pivote-t{
+  color:$pt-gray;
+  font-size: 16px;
+  clear: both;
+
+  &.act{
+    &::before{
+      content: "Pivote actual ";
+    }
+    &::after{
+      content: "º";
+    }
+  }
+  &.prev{
+    color: $wetopia-blue;
+    font-weight: bolder;
+    &::after{
+      content: "º Pivote";
+    }
+  }
+}
+
+.idea-info{
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin-top: 120px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.idea-img{
+  background: url("../../public/img/ex2.jpg") no-repeat center;
+  background-size: cover;
+  height: 400px;
+  width: 90%;
+  border-radius: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto;
+  @media screen and (max-width: 1000px){
+    height: 360px;
+    width: 100%;
+  }
+  @media screen and (max-width: 950px){
+    height: 340px;
+    margin-top: 45px;
+  }
+  @media screen and (max-width: 900px){
+    height: 300px;
+    margin-top: 80px;
+  }
+  @media screen and (max-width: 750px){
+    height: 250px;
+    margin-top: 0px;
+  }
+  @media screen and (max-width: 600px){
+    height: 350px;
+    width: 95%;
+  }
+  @media screen and (max-width: 390px){
+    height: 300px;
+  }
+  @media screen and (max-width: 350px){
+    height: 250px;
+  }
+}
+
+.filter{
+  p{
+    color:$pt-gray;
+    font-size: 13px;
+    display: inline-block;
+  }
+  img{
+    vertical-align: middle;
+    cursor: pointer;
+    height: 15px;
+    margin: 0 3px;
+    display: inline-block;
+  }
+}
+
+.mid-page{
+  height: auto;
+  width: 49%;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: auto;
+
+  &.left-align{
+    text-align: left;
+
+    &.pad-left{
+      @media screen and (min-width: 900px){
+        padding-left: 40px;
+
+        &.min-w-350{
+          @media screen and (max-width: 600px){
+            min-width: 350px;
+          }
+        }
+    }
+  }
+}
+
+  @media screen and (max-width: 750px){
+    width: 80%;
+    min-width: 250px;
+  }
+  @media screen and (max-width: 600px){
+    width: 100%;
+    min-width: 250px;
+  }
+
+  .aqua-text, .red-text{
+    font:{
+      weight: normal;
+      size: 16px;
+    }
+    margin:{
+      right: 10px;
+      left: 5px;
+    }
+    vertical-align: middle;
+    &.top-span{
+      vertical-align: top;
+      font-weight: bolder;
+    }
+
+  }
+
+  p{
+    &.tab-paragraph{
+      margin-bottom: 10px;
+      margin-right: 15px;
+    }
+    margin-bottom: 0;
+    .edit{
+      vertical-align: middle;
+    }
+  }
+
+}
+
+.prev-pivote, .act-pivote{
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  display: inline-block;
+  line-height: 40px;
+  cursor: pointer;
+
+  &:hover{
+    transform: scale(1.15);
+    transition: .3s;
+  }
+}
+
+.prev-pivote{
+  background: url("../../public/img/hex negative_Idea.svg") center center no-repeat;
+  color: $wetopia-blue;
+}
+
+.act-pivote{
+  background: url("../../public/img/hex_Idea.svg") center center no-repeat;
+  color: white;
+}
+
+.username-tag{
+  font-weight: bolder;
+}
+
+.tab-paragraph{
+  margin:{
+    left: 45px;
+    top: 0;
+    bottom:30px;
+  }
+  @include font('Museo', 300);
+
+}
+
+.idea-title{
+  font:{
+    size:40px;
+    weight:bold;
+  }
+}
+
+.idea-header{
+  text-align: left;
+  padding: 0 0 0 20px;
+  height: auto;
+
+  .pivote-t{
+    margin:{
+      bottom:0;
+      top:15px;
+    }
+  }
+
+  .pt-h{
+    margin: {
+      top:15px;
+      bottom:0;
+    }
+    font-size: 14px;
+  }
+  p{
+      margin:{
+        top:0;
+        bottom:10px;
+      }
+  }
+
+  .idea-header-info{
+
+
+    select{
+      display: inline-block;
+      color: $wetopia-blue;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      outline: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: url("../../public/img/icons/arrow-gray.svg") no-repeat right center;
+      background-size: 30px 27px;
+    }
+
+      option{
+        color: $wetopia-blue;
+      }
+    p{
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: -webkit-baseline-middle;
+    }
+  }
+
+  img{
+    height: 17px;
+  }
+
+  .blue-text{
+    display: inline-block;
+  }
+
+  .select-team{
+    display: inline-block;
+    margin: 0 5px 0 0px;
+    width: auto;
+
+
+    img{
+      height: 30px;
+      vertical-align: middle;
+      margin-right: -5px;
+    }
+  }
+
+  @media screen and (max-width: 600px){
+    padding: 20px 20px 20px 30px;
+  }
+}
+
+.edit{
+  cursor: pointer;
+  font-size: 13px;
+  color: $pt-gray;
+  vertical-align: bottom;
+  i{
+    @extend .edit;
+  }
+}
+
+.left{
+  float: left;
+  text-align: left;
+}
+
+.right, .left{
+  display: inline-block;
+}
+
+.right{
+  float: right;
+  text-align: right;
+
+  &.filter{
+    &.pad-right{
+      padding-right: 10px;
+      img{
+      
+      }
+    }
+  }
+
+}
+.user{
+  background: red;
+  img{
+    height: 35px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  p{
+    display: inline-block;
+    &:nth-child(3){
+      color:$pt-gray;
+    }
+  }
+  .right{
+    padding: 13px 0 0 0;
+
+    p,img{
+      margin: 0 10px;
+      vertical-align: top;
+
+      @media screen and (max-width: 350px){
+        margin: 0 3px;
+      }
+
+    }
+
+    p{
+      img{
+        margin: 0;
+      }
+    }
+    img{
+      height: 15px;
+    }
+  }
+}
+
+.comment{
+  max-width: 500px;
+  p{
+    clear: both;
+    font-size: 14px;
+  }
+}
+
+.replies{
+  margin-left: 35px;
+  .user{
+    p{
+      margin: 0;
+    }
+  }
+}
+
+.red-button{
+  @include colorbutton($wetopia-red);
+  &[value="Proyecto"]{
+    background:$wetopia-red url('../../public/img/Duplicate_Idea.svg') 12% 50% no-repeat;
+    height: 30px;
+    margin: 15px 0;
+    padding-left: 25px;
+    background-size: 16px;
+    width: 120px;
+    font:{
+      size:16px;
+    }
+  }
+
+}
+
+.blue-button{
+  @include colorbutton($wetopia-blue);
+
+  &[value="Pivotear"]{
+    height: 25px;
+    margin: 15px;
+    width: 80px;
+    font:{
+      size:14px;
+    }
+  }
+}
+
+.left-center-align{
+  float: left;
+  width: auto;
+  text-align: center;
+  &.counter{
+    counter-reset: index;
+      p{
+        counter-increment: index;
+        &::before{
+          content: counter(index)"º";
+        }
+      }
+    }
+    &.piv-count{
+      margin-bottom: 10px;
+      counter-reset: index;
+      .piv-history{
+        counter-increment: index;
+          .prev-pivote, .act-pivote{
+            &::before{
+              content: counter(index)"º";
+            }
+          }
+          .prev{
+            &::before{
+              content: counter(index)"º Pivote\A";
+              font-weight: bolder;
+              white-space: pre-wrap;
+            }
+          }
+        }
+      }
+}
+
+#res-statistics{
+  margin-top: 100px;
+
+  table{
+    margin-top: 10px;
+  }
+  tr{
+    width: auto;
+    td{
+      color: $pt-gray;
+      font-size: 14px;
+    }
+    .number{
+      text-align: right;
+    }
+    &.highlighted{
+      td{
+        color: $text-gray;
+      }
+    }
+    img{
+      height: 25px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.text-img{
+  img{
+    height: 45px;
+    vertical-align: middle;
+  }
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.rot-270-right{
+  transform: rotate(270deg);
+}
+
+
+#top-filter{
+  margin: 20px 0;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltiptext {
+        width: auto;
+        color: $text-gray;
+        @include font('Museo', 300);
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 12px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -45px;
+        @extend %white-tooltip;
+
+        &::after, &::before {
+    	bottom: 100%;
+    	left: 50%;
+    }
+    }
+    &:hover{
+      .tooltiptext{
+        visibility: visible;
+      }
+    }
+}
+
+.center-container{
+  text-align: center;
+  width: 100%;
+}
+
+.piv-history{
+  display: inline-block;
+  &:hover{
+    span{
+      display:inline-block;
+    }
+  }
+  span{
+    color: $wetopia-blue;
+    font-size: 13px;
+    position: relative;
+    margin: 0 10px;
+    top:8px;
+    display: none;
+    text-align: left;
+
+    &.act{
+      &::before{
+        content:"Pivote Actual \A";
+        font-weight: bolder;
+        white-space: pre-wrap;
+      }
+    }
+
+    &::after{
+      content:" "attr(date);
+      font-weight: bolder;
+    }
+  }
+}
+
+#likes-cont{
+  margin-top: 100px;
+  .like-cont{
+    display: inline-block;
+    margin-top: 15px;
+      #like-4{
+        background: url("../../public/img/like 4_Idea.svg") center center no-repeat;
+      }
+      #like-3{
+        background: url("../../public/img/like 3_Idea.svg") center center no-repeat;
+      }
+      #like-2{
+        background: url("../../public/img/like 2_Idea.svg") center center no-repeat;
+      }
+      #like-1{
+        background: url("../../public/img/like 1_Idea.svg") center center no-repeat;
+      }
+      &:hover{
+        .like-img{
+          transform: scale(1.2);
+        }
+        #like-4{
+          background: url("../../public/img/like 4_Active.svg");
+        }
+        #like-3{
+          background: url("../../public/img/like 3_Active.svg");
+        }
+        #like-2{
+          background: url("../../public/img/like 2_Active.svg");
+        }
+        #like-1{
+          background: url("../../public/img/like 1_Active.svg");
+        }
+        span{
+          display: block;
+        }
+      }
+  }
+  .like-img{
+    height: 41px;
+    width: 36px;
+    background-size: cover;
+    cursor: pointer;
+  }
+  span{
+    display: none;
+    font:{
+      size:17px;
+      weight:bolder;
+    }
+    vertical-align: middle;
+    position: absolute;
+    left: 185px;
+    top:185px;
+  }
 }
