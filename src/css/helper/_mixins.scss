@@ -5,6 +5,12 @@
 }
 }
 
+@mixin backimg($img, $ext) {
+  background: url("../../public/img/#{$img}.#{$ext}") no-repeat center center;
+  background-size: cover;
+}
+
+
 @mixin zIndex($zIndex){
   position: relative;
   z-index: $zIndex;
