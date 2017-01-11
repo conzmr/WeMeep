@@ -39,6 +39,28 @@ EXPRESION
     }
 }
 
+@-moz-keyframes backgroundAnimation {
+    0% {
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    33% {
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    66% {
+        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    100% {
+        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+}
+
 .fixed-background {
     position: absolute;
     z-index: 0;
@@ -59,7 +81,13 @@ body {
         background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
         -webkit-animation: backgroundAnimation 2s linear 0s infinite;
+        -moz-animation: backgroundAnimation 2s linear 0s infinite;
+        -o-animation: backgroundAnimation 2s linear 0s infinite;
         animation: backgroundAnimation 2s linear 0s infinite;
+        animation-name:backgroundAnimation;
+animation-duration:2s;
+animation-delay: 0s;
+animation-iteration-count:infinite;
     }
     margin: 0;
     @include scrollbar(8px, $pt-gray);
@@ -89,8 +117,8 @@ a {
 
     .logo-img {
         img {
-            height: 140px;
-            margin-top: -10px;
+            height: 100px;
+            margin-top: 40px;
         }
     }
     @media screen and (min-height: 1000px) {
