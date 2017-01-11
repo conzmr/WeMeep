@@ -38,7 +38,6 @@ EXPRESION
         background-size: cover;
     }
 }
-
 @-moz-keyframes backgroundAnimation {
     0% {
         background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
@@ -84,10 +83,10 @@ body {
         -moz-animation: backgroundAnimation 2s linear 0s infinite;
         -o-animation: backgroundAnimation 2s linear 0s infinite;
         animation: backgroundAnimation 2s linear 0s infinite;
-        animation-name:backgroundAnimation;
-animation-duration:2s;
-animation-delay: 0s;
-animation-iteration-count:infinite;
+        animation-name: backgroundAnimation;
+        animation-duration: 2s;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
     }
     margin: 0;
     @include scrollbar(8px, $pt-gray);
@@ -1413,6 +1412,7 @@ nav {
     &.piv-count {
         margin-bottom: 10px;
         counter-reset: index;
+        position: relative;
 
         .piv-history {
             counter-increment: index;
@@ -1530,12 +1530,21 @@ nav {
         }
     }
 
+    &:hover {
+        span {
+            z-index: 1000;
+        }
+    }
+
     span {
         color: $wetopia-blue;
+        background: white;
         font-size: 13px;
-        position: relative;
-        margin: 0 10px;
-        top: 8px;
+        width: 180px;
+        position: absolute;
+        margin: 0 0 0 10px;
+        top: 40%;
+        left: 100%;
         display: none;
         text-align: left;
 
@@ -1550,6 +1559,10 @@ nav {
         &::after {
             content: " "attr(date);
             font-weight: bolder;
+        }
+        @media screen and (max-width: 600px) {
+            top: 115%;
+            left: 20%;
         }
     }
 }
