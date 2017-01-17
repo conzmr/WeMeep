@@ -1,23 +1,23 @@
-var path = "../../public/img/";
+var path = "static/img/";
 var data = [{
     value: 25,
     color: "#8DC63F",
-    img: path + "like 4_Active.svg",
+    img: path + "like 4_1_single.svg",
     p: "¡Me encanta, lo necesito ya!"
 }, {
     value: 9,
     color: "#EF4136",
-    img: path + "like 3_Active.svg",
+    img: path + "like 3_1_single.svg",
     p: "¡Me encanta!, mas no es lo mío"
 }, {
     value: 11,
     color: "#FBC326",
-    img: path + "like 2_Active.svg",
+    img: path + "like 2_single.svg",
     p: "Me gusta, pero aún le falta algo"
 }, {
     value: 5,
     color: "#00A9CD",
-    img: path + "like 1_Active.svg",
+    img: path + "like 1_1_single.svg",
     p: "No me agrada"
 }];
 

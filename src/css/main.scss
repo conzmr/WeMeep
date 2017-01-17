@@ -743,9 +743,7 @@ nav {
                     }
 
                     #discover-logo {
-                        height: 30px;
                         content: url("#{$path}/img/discover_Hover.svg");
-                        margin-right: 5px;
                     }
                 }
             }
@@ -849,6 +847,206 @@ nav {
 
         &::-webkit-search-cancel-button {
             -webkit-appearance: none;
+        }
+    }
+}
+
+.scroll-list {
+    overflow-y: scroll;
+    @include scrollbar(4px, $pt-gray);
+}
+
+.display-inner {
+    position: relative;
+    display: inline-block;
+
+    &:hover {
+        ul {
+            visibility: visible;
+        }
+    }
+
+    ul {
+        right: -45px;
+        position: absolute;
+        width: 240px;
+        list-style-type: none;
+        padding: 5px;
+        border-radius: 4px;
+        visibility: hidden;
+        @extend %white-tooltip;
+        text-align: left;
+
+        .scroll-list {
+            height: 250px;
+        }
+
+        .pt-h {
+            margin: 5px 10px;
+            font-size: 17px;
+        }
+
+        &::after,
+        &::before {
+            bottom: 100%;
+            right: 62px;
+            @media screen and (max-width: 360px) {
+                right: 58px;
+            }
+        }
+    }
+}
+
+.not-block {
+    width: 100%;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0 3px 0 0;
+    margin: 7px 0;
+    position: relative;
+
+    &.new {
+        border-left: 4px solid $wetopia-red;
+    }
+
+    .time-ago {
+        color: $pt-gray;
+        display: block;
+        font-size: 11px;
+        flex-grow: 1;
+        margin-top: 2px;
+
+        &:after {
+            content: " ago";
+        }
+    }
+
+    &.commented {
+        span {
+            &.name {
+                &:after {
+                    content: " commented";
+                }
+            }
+
+            &.act-pivot,
+            &.prev-pivot {
+                &:after {
+                    color: $text-gray;
+                }
+            }
+
+            &.prev-pivot {
+                &:after {
+                    content: "º pivot";
+                }
+            }
+
+            &.act-pivot {
+                &:after {
+                    content: "new pivot";
+                }
+            }
+        }
+    }
+
+    &.says {
+        span {
+            &.name {
+                &:after {
+                    content: " says";
+                }
+            }
+
+            &.like-1,
+            &.like-2,
+            &.like-3,
+            &.like-4 {
+                &:after {
+                    background: {
+                        repeat: no-repeat;
+                        size: cover;
+                        position: center;
+                    }
+                    height: 13px;
+                    display: inline-block;
+                    width: 13px;
+                    content: " ";
+                }
+            }
+
+            &.like-4 {
+                &:before {
+                    content: '"I love it and I want it know" ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 4_Active.svg");
+                }
+            }
+
+            &.like-3 {
+                &:before {
+                    content: '"I like it but it\0027s not my thing" ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 3_Active.svg");
+                }
+            }
+
+            &.like-2 {
+                &:before {
+                    content: '"I like it but still lacks something." ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 2_Active.svg");
+                }
+            }
+
+            &.like-1 {
+                &:before {
+                    content: '"I don\0027t like it." ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 1_Active.svg");
+                }
+            }
+        }
+    }
+
+    img {
+        height: 35px;
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+    p {
+        margin: 0;
+
+        span {
+            font-size: 13px;
+            color: $text-gray;
+
+            &:after,
+            &:before {
+                color: $pt-gray;
+            }
+
+            &.on {
+                &:before {
+                    content: " on ";
+                }
+
+                &:after {
+                    content: "\A";
+                }
+            }
         }
     }
 }
@@ -2307,7 +2505,6 @@ nav {
         .clip-circ-img {
             height: auto;
             width: auto;
-            clip-path: circle(23px at center);
         }
 
         img {
@@ -2353,7 +2550,7 @@ nav {
                 margin-top: 35px;
             }
             @media screen and (max-width: 360px) {
-                width: 100px;
+                width: 90px;
                 font-size: 13px;
                 margin-top: 15px;
             }
