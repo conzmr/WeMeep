@@ -71,7 +71,7 @@ angular.module('musementApp')
         localStorageService.set('token', res.data.token)
         localStorageService.set('username', res.data.username)
         localStorageService.set('user_id', res.data._id)
-        $state.go('dashboard')
+        $state.go('home')
       }
     }, function(res) {
       console.log('Err in signup', res);
