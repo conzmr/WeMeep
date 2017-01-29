@@ -3,27 +3,83 @@
     <nav>
         <ul>
             <li class="nav-left">
-                <img id="nav-wetopia-logo" src="/static/img/logo_ww.svg" alt="Wetopia" />
+                <img id="nav-wetopia-logo" src="static/img/logo_ww.svg" alt="Wetopia" />
                 <div class="discover-div aqua-text inner-nav">
-                    <img id="discover-logo" src="/static/img/discover.svg" />
+                    <img id="discover-logo" src="static/img/discover.svg" />
                     <ul>
-                        <li id="first-nav-element"><img src="/static/img/idea_1.svg"><a href="#">Ideas</a></li>
-                        <li><img src="/static/img/proyect.svg"><a href="#">Proyectos</a></li>
-                        <li><img src="/static/img/persons.svg"><a href="#">Personas</a></li>
-                        <li><img src="/static/img/discover_Hover.svg"><a href="#">Más</a></li>
+                        <li id="first-nav-element"><img src="static/img/idea_1.svg"><a href="#">Ideas</a></li>
+                        <li><img src="static/img/proyect.svg"><a href="#">Proyectos</a></li>
+                        <li><img src="static/img/persons.svg"><a href="#">Personas</a></li>
+                        <li><img src="static/img/discover_Hover.svg"><a href="#">Más</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-middle"><img id="idea-logo" src="/static/img/create.svg" /></li>
+            <li class="nav-middle"><img id="idea-logo" src="static/img/create.svg" /></li>
             <li class="nav-right">
-                <img id="notifications-icon" src="/static/img/Notify.svg">
+                <div class="display-inner">
+                    <img id="notifications-icon" src="static/img/Notify.svg">
+                    <ul>
+                        <p class="pt-h">Notifications</p>
+                        <div class="scroll-list">
+                            <li class="not-block says new"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Mary</span>
+                                    <span class="like-4"></span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>1 min</span>
+                                </p>
+                            </li>
+                            <li class="not-block commented new"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Mary</span>
+                                    <span class="act-pivot"></span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>2 min</span>
+                                </p>
+                            </li>
+                            <li class="not-block says"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Kevin</span>
+                                    <span class="like-3"></span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>30 min</span>
+                                </p>
+                            </li>
+                            <li class="not-block says"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Erick</span>
+                                    <span class="like-2"></span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>2 days</span>
+                                </p>
+                            </li>
+                            <li class="not-block commented"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Josh</span>
+                                    <span class="prev-pivot">3</span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>10 days</span>
+                                </p>
+                            </li>
+                            <li class="not-block says"><img src="static/img/Create Idea_profilePhoto.svg">
+                                <p>
+                                    <span class="name">Pancho</span>
+                                    <span class="like-1"></span>
+                                    <span class="on">Idea Name</span>
+                                    <span class=time-ago>1 month</span>
+                                </p>
+                            </li>
+
+                        </div>
+                    </ul>
+                </div>
                 <div class="inner-nav">
-                    <img id="nav-user-img" src="/static/img/Create Idea_profilePhoto.svg" />
+                    <img id="nav-user-img" src="static/img/Create Idea_profilePhoto.svg" />
                     <ul>
                         <li>Mis:</li>
-                        <li><img src="/static/img/idea_1.svg"><a href="#">Ideas</a></li>
-                        <li><img src="/static/img/proyect.svg"><a href="#">Proyectos</a></li>
-                        <li><img src="/static/img/profile.svg"><a href="#">Perfil</a></li>
+                        <li><img src="static/img/idea_1.svg"><a href="#">Ideas</a></li>
+                        <li><img src="static/img/proyect.svg"><a href="#">Proyectos</a></li>
+                        <li><img src="static/img/profile.svg"><a href="#">Perfil</a></li>
                     </ul>
                 </div>
             </li>
@@ -201,7 +257,7 @@
             </div>
             <div id="res-statistics" class="left-align">
                 <p class="pt-h">¿Interesante?</p>
-                <table>
+                <table class="right-num">
                     <tr>
                         <td><img src="/static/img/like 4_Idea.svg"></td>
                         <td class="number">11</td>
@@ -271,7 +327,7 @@
                 </div>
             </div>
             <div class="left-align" id="new-p">
-                <p class="act-pivote simple">7</p>
+                <p class="act-pivote not simple">7</p>
                 <blue>Nuevo Pivote</blue>
             </div>
             <div class="mid-page">
