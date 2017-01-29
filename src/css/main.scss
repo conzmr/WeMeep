@@ -82,13 +82,68 @@ a {
         margin-top: 30px;
         margin-bottom: 30px;
     }
-
-    .logo-img {
-        img {
-            height: 140px;
-            margin-top: -10px;
-        }
+    .photo {
+      width: 125px;
+      height: 125px;
+      z-index: 1;
+      // border-radius: 50%;
+      -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      margin: 0 auto;
+      position: relative;
+      margin-bottom: 20px;
+      background-image: url('../img/photo_Login.svg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      input {
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        position: absolute;
+        cursor: pointer;
+      }
     }
+    .photo img{
+      width: 125px;
+      height: 125px;
+      z-index: 0;
+      // border-radius: 50%;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      top:0;
+      background: transparent;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .profile-picture {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      margin-top: 1em;
+    }
+
+    // .logo-img {
+    //     img {
+    //       width: 125px;
+    //       height: 125px;
+    //       z-index: 0;
+    //       border-radius: 50%;
+    //       margin: 0 auto;
+    //       margin-bottom: 20px;
+    //       top:0;
+    //       background: transparent;
+    //       background-size: cover;
+    //       background-position: center center;
+    //       background-repeat: no-repeat;
+    //     }
+    // }
     @media screen and (min-height: 1000px) {
         margin-top: 250px;
     }

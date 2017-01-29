@@ -5,13 +5,14 @@ require('angular-jwt')
 require('angular-translate')
 require('ng-file-upload')
 require('ng-tags-input')
+require('angular-animate')
 require('angular-translate-loader-static-files')
 
 //Change in production
 //to http://musement.co and in development to http://localhost:8080
 window.HOST='http://localhost:8080'
 
-angular.module('musementApp',['ui.router', 'LocalStorageModule', 'angular-jwt','pascalprecht.translate', 'ngFileUpload', 'ngTagsInput'])//, 'ngFileUpload'
+angular.module('musementApp',['ui.router', 'LocalStorageModule', 'angular-jwt','pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate'])//, 'ngFileUpload'
 .factory('httpRequestInterceptor', function (localStorageService) {
   return {
     request: function (config) {

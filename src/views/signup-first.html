@@ -1,0 +1,21 @@
+  <div class="form-input">
+      <img src="/static/img/Login_user.svg">
+      <input type="text" name="signup-username" placeholder="Nombre de usuario" ng-model="user.username">
+  </div>
+  <div class="form-input">
+      <img src="/static/img/Login_mail.svg">
+      <input type="text" name="signup-email" placeholder="Email" ng-model="user.email" required="true">
+  </div>
+  <div class="form-input">
+      <img src="/static/img/Login_pass.svg">
+      <input type="password" name="signup-password" placeholder="Contraseña" ng-model="user.password" required="true">
+  </div>
+  <div class="form-input">
+      <img src="/static/img/Login_repeat.svg">
+      <input type="password" name="signup-lastname" placeholder="Repetir contraseña" ng-model="user.confirm_password">
+      <div role="alert">
+        <span class="error" ng-show="submitted && (user.password !== user.confirm_password) && signup.confirm_password.$dirty">
+          Passwords do not match</span>
+      </div>
+  </div>
+  <a ui-sref="signup.second" class="btn btn-block btn-info">Next</a>

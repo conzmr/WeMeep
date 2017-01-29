@@ -111,3 +111,22 @@ $gray: #999;
   transition: 0.5s;
   transform: translateX(100%);
 }
+
+// Animations
+
+
+/* scale up */
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+// Split Right
+@keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+
+.ng-enter{ animation: scaleUp 0.5s both ease-in; z-index: 8888; }
+
+/* Signup2 ---------------------- */
+   .page-signup2.ng-leave      { transform-origin: 50% 50%; animation: rotateOutNewspaper .5s both ease-in; }
+   .page-signup2.ng-enter      { animation:slideInUp 0.5s both ease-in; }

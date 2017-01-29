@@ -7,17 +7,17 @@ angular.module('musementApp')
         templateUrl: "/static/views/landingpage.html",
         authenticate: false //Doesn't requires authentication
       })
-      .state("signup", {
-        url: "/signup",
-        controller: "signupCtrl",
-        templateUrl: "/static/views/signup.html",
-        authenticate: false //Doesn't requires authentication
-      })
       .state("login", {
         url: "/login",
         controller: 'loginCtrl',
-        templateUrl: "/static/views/login.html",
+        templateUrl: "/static/views/wetopia_login.html",
         authenticate: false
+      })
+      .state("home", {
+        url: "/",
+        // controller: "homeCtrl",
+        templateUrl: "/static/views/home.html",
+        authenticate: true
       })
       .state("feed", {
         url: "/",
@@ -65,6 +65,24 @@ angular.module('musementApp')
         url: "not-found",
         templateUrl: "/static/views/feed.not-found.html",
         authenticate: true
+      })
+      .state("signup", {
+        url: "/signup",
+        templateUrl: "/static/views/signup.html",
+        controller: "signupCtrl",
+        authenticate: false //Doesn't requires authentication
+      })
+      .state("signup.first",{
+        url: "/first",
+        // controller: "signupCtrl",
+        templateUrl:"/static/views/signup-first.html",
+        authenticate: false
+      })
+      .state("signup.second",{
+        url: "/second",
+        // controller: "signupCtrl",
+        templateUrl:"/static/views/signup-second.html",
+        authenticate: false
       })
 
 
