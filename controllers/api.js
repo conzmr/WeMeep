@@ -9,9 +9,9 @@ let express = require('express'),
 
 //Models
 let User = require("../models/user.js"),
-    Project = require("../models/project.js"),
+    Idea = require("../models/idea.js"),
     Moment = require("../models/moment.js"),
-    Tag = require("../models/tag.js")
+    Category = require("../models/category.js")
 
 //config files
 let invite = require("../config/createinvitation.js"),
@@ -52,9 +52,8 @@ router.post('/signup', function(req, res){
       } else {
         new User({
           email: req.body.email,
-          surname: req.body.surname,
+          lastname: req.body.lastname,
           name: req.body.name,
-          tags: req.body.tags,
           username: req.body.username,
           password: bcrypt.hashSync(req.body.password),
           image: req.body.image || null
@@ -104,9 +103,9 @@ router.post('/invitation', function(req, res) {
       res.status(500).json({'message': 'Ops! Please try again :'})
   })
 })
-// Tag consulting
+// Category consulting
 router.get('/tags', function(req, res){
-  Tag.find({})
+  Category.find({})
   .exec(function(err, tags){
     if (err)
       res.status(500).json({'error': err})
@@ -421,7 +420,7 @@ router.route('/users/u=:username/p=:project')
     else if (!user)
     res.status(404).json({'err':{'errmsg': "No user found"}})
     else {
-      Project.findOne({'name': req.params.project, 'members': user._id})
+      Idea.findOne({'name': req.params.project, 'members': user._id})
       .exec(function(err, project) {
         if (err)
         res.status(500).json({'error': err});
@@ -432,9 +431,9 @@ router.route('/users/u=:username/p=:project')
   })
 })
 
-router.route('/users/:user_id/projects')
+router.route('/users/:user_id/ideas')
 .get(function (req, res) { //remove like from moment
-  Project.find({'members':req.params.user_id})
+  Idea.find({'members':req.params.user_id})
   .populate('members','name username surname image color')
   .exec(function(err, projects) {
     if (err)
@@ -443,42 +442,45 @@ router.route('/users/:user_id/projects')
       res.status(200).json({'projects': projects})
   })
 })
-.post(function (req, res) {
-  let projectname = req.body.name.split(' ').join('-').toLowerCase()
+.post(function (req, res) { /* CREATE AN IDEA */
+  let ideaname = req.body.name.split(' ').join('-').toLowerCase()
 
-  Project.findOne({members: req.U_ID, projectname: projectname})
-  .exec(function(err,projectFound){
+  Idea.findOne({members: req.U_ID, ideaname: ideaname})
+  .exec(function(err, ideaFound){
     if (err) {
       return res.status(500).json({'err':err})
     }
-    if (projectFound)
-      return res.status(300).json({'err':{message: "Error, you allready have a project with this name"}})
+    if (ideaFound)
+      return res.status(300).json({'err':{message: "Error, you already have an idea with this name"}})
 
-    let project = new Project({
+    let idea = new Idea({
       admin: req.U_ID,
+      banner: req.body.banner,
       description: req.body.description,
+      problem: req.body.problem,
       name: req.body.name,
-      projectname: projectname
+      categories: req.body.categories,
+      ideaname: ideaname
     })
     if (!req.body.members || req.body.members.length == 0)
-      project.members = [req.U_ID]
+      idea.members = [req.U_ID]
     else {
-      project.members = req.body.members
-      project.members.push(req.U_ID)
+      idea.members = req.body.members
+      idea.members.push(req.U_ID)
     }
-    project.save(function(err, project) {
+    idea.save(function(err, idea) {
       if (err)
         return res.status(500).json({'err':err})
       User.update(
-        { _id: {$in: project.members} },
-        { $push: {"projects":  project._id} },
+        { _id: {$in: idea.members} },
+        { $push: {"ideas":  idea._id} },
         { multi: true }
       )
       .exec(function(err){
         if (err)
           return res.status(500).json({'error': err,});
         else
-          res.status(201).json({message: 'Project created!', project: project});
+          res.status(201).json({message: 'Idea created!', idea: idea});
       })
     })
 
@@ -488,7 +490,7 @@ router.route('/users/:user_id/projects')
 
 router.route('/projects/:project_id')
 .get(function (req, res) {
-  Project.findById(req.params.project_id)
+  Idea.findById(req.params.project_id)
   .lean()
   .populate('members moments', 'name surname username image color')
   .populate({
@@ -519,7 +521,7 @@ router.route('/projects/:project_id')
 
 router.route('/projects/:project_id/logo')
 .post(upload, function(req,res){
-  Project.findById(req.params.project_id)
+  Idea.findById(req.params.project_id)
   .exec(function(err, project) {
     if (err)
       return res.status(500).json({'error': err})
@@ -548,7 +550,7 @@ router.route('/projects/:project_id/moments')
 })
 .post(function (req, res) {
   //TODO: validate that the user owns this project
-  Project.findByIdAndUpdate(req.params.project_id, { $addToSet: {moments: req.body.moment} })
+  Idea.findByIdAndUpdate(req.params.project_id, { $addToSet: {moments: req.body.moment} })
   .exec(function(err) {
     if (err)
     res.status(500).json({'error': err, 'success': false});

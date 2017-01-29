@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 var userSchema = new mongoose.Schema({
     name: String,
-    surname: String,
+    lastname: String,
     pro: {type: Boolean, default: false},
     email: {
       type: String,
@@ -28,9 +28,9 @@ var userSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    projects: [{
-      type: mongoose.Schema.Types.ObjectId, /* Object ID from projects */
-      ref: 'Project'
+    ideas: [{
+      type: mongoose.Schema.Types.ObjectId, /* Object ID from ideas */
+      ref: 'Idea'
     }],
     tags: [{
       type: mongoose.Schema.Types.ObjectId, /* Object ID from tags */
