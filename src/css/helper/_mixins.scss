@@ -5,6 +5,12 @@
 }
 }
 
+@mixin backimg($img, $ext) {
+  background: url("../../public/img/#{$img}.#{$ext}") no-repeat center center;
+  background-size: cover;
+}
+
+
 @mixin zIndex($zIndex){
   position: relative;
   z-index: $zIndex;
@@ -15,5 +21,36 @@
   		width: #{$width}px;
   		height: #{$height}px;
   		margin-top: #{$marginTop}px;
+  }
+}
+
+@mixin scrollbar($width, $bar-color){
+  &::-webkit-scrollbar-track{
+border-radius: 20px;
+background-color: white;
+}
+
+&::-webkit-scrollbar{
+width: $width;
+background-color: white;
+}
+
+&::-webkit-scrollbar-thumb
+{
+border-radius: 10px;
+background-color: $bar-color;
+}
+}
+
+@mixin colorbutton($color){
+  background-color: $color;
+  border-radius: 5px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:active{
+    transform: scale(.95);
   }
 }

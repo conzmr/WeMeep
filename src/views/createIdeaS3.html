@@ -18,11 +18,17 @@
             </div>
             <div class="form-description">
                 <img src="/static/img/Create Idea_team.svg">
-                <p>Agrega a tu Team</p>
+                <p class="gray-sub">Agrega a tu Team</p>
                 <div class="select-team">
-                    <img src="/static/img/Create Idea_profilePhoto.svg">
-                    <img src="/static/img/Create Idea_profilePhoto.svg">
-                    <img src="/static/img/Create Idea_addPeople.svg" onclick="changeVisibility('input-team-members')">
+                    <div class="tooltip">
+                        <img src="/static/img/Create Idea_profilePhoto.svg">
+                        <p class="tooltiptext">UserName</p>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/static/img/Create Idea_profilePhoto.svg">
+                        <p class="tooltiptext">UserName</p>
+                    </div>
+                    <img id="add-members" src="/static/img/Create Idea_addPeople.svg" onclick="changeVisibility('input-team-members')">
                 </div>
             </div>
             <input class="form-button" type="button" name="selectTeam-button" value="Siguiente">
@@ -51,7 +57,6 @@
             </div>
         </form>
     </div>
-
     <script src="../js/createIdea.js">
     </script>
 </body>

@@ -1,39 +1,61 @@
-/* Para los hover=
- transition: background 1200ms;
-Se pone en el normal y en el de hover
-
-Para subir o bajar textos puedo aplica
-line-height: 40px;
- */
+/*
+EXPRESION
+#contenedor {
+  max-width: 1200px;
+  width: expression(document.body.clientWidth > 1201? "1200px": "auto");
+}
+*/
 @import "helper/placeholders";
 @import "helper/mixins";
 @import "helper/variables";
+@import "helper/tags";
 @font-face {
     font-family: 'Museo';
-    src: url('../fonts/MuseoSans-300.otf');
+    src: url('#{$path}/fonts/MuseoSans-300.otf');
 }
 @font-face {
     font-family: 'Museo_D';
-    src: url('../fonts/MuseoSans_500.otf');
+    src: url('#{$path}/fonts/MuseoSans_500.otf');
 }
 @keyframes backgroundAnimation {
     0% {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     33% {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     66% {
-        background: url('../img/Login_bac_1.jpg') no-repeat center fixed;
+        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     100% {
-        background: url('../img/Login_bac_2.jpg') no-repeat center fixed;
+        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+}
+@-moz-keyframes backgroundAnimation {
+    0% {
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    33% {
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    66% {
+        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
+        background-size: cover;
+    }
+
+    100% {
+        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
         background-size: cover;
     }
 }
@@ -52,13 +74,22 @@ line-height: 40px;
 }
 
 body {
+    background: white;
+
     &.hexagon-bg {
-        background: url('../img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
         -webkit-animation: backgroundAnimation 2s linear 0s infinite;
+        -moz-animation: backgroundAnimation 2s linear 0s infinite;
+        -o-animation: backgroundAnimation 2s linear 0s infinite;
         animation: backgroundAnimation 2s linear 0s infinite;
+        animation-name: backgroundAnimation;
+        animation-duration: 2s;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
     }
     margin: 0;
+    @include scrollbar(8px, $pt-gray);
 }
 
 a {
@@ -76,12 +107,13 @@ a {
     vertical-align: middle;
     box-shadow: 0 0 70px 10px $pt-gray;
 
-    p {
+    .gray-sub {
         color: $pt-gray;
         font-size: 16px;
         margin-top: 30px;
         margin-bottom: 30px;
     }
+    
     .photo {
       width: 125px;
       height: 125px;
@@ -128,22 +160,6 @@ a {
       text-align: center;
       margin-top: 1em;
     }
-
-    // .logo-img {
-    //     img {
-    //       width: 125px;
-    //       height: 125px;
-    //       z-index: 0;
-    //       border-radius: 50%;
-    //       margin: 0 auto;
-    //       margin-bottom: 20px;
-    //       top:0;
-    //       background: transparent;
-    //       background-size: cover;
-    //       background-position: center center;
-    //       background-repeat: no-repeat;
-    //     }
-    // }
     @media screen and (min-height: 1000px) {
         margin-top: 250px;
     }
@@ -193,7 +209,7 @@ input {
     font-size: 12px;
     width: 150px;
 
-    &:not(.form-button) {
+    &[type="text"] {
         border-radius: 0 4px 4px 0;
     }
 
@@ -272,6 +288,13 @@ input {
     height: auto;
     display: block;
 
+    .tooltip {
+        .tooltiptext {
+            margin-top: -4px;
+            left: 65%;
+        }
+    }
+
     .form-description {
         width: 75%;
     }
@@ -305,20 +328,20 @@ input {
             }
         }
     }
+}
 
-    .select-team {
-        width: 190px;
-        margin-left: 20px;
-        text-align: left;
-        margin-top: -15px;
+.select-team {
+    width: 190px;
+    margin-left: 20px;
+    text-align: left;
+    margin-top: -15px;
 
-        img {
-            margin-right: -10px;
-            height: 50px;
+    img {
+        margin-right: -10px;
+        height: 50px;
 
-            &:last-child {
-                cursor: pointer;
-            }
+        &#add-members {
+            cursor: pointer;
         }
     }
 }
@@ -332,16 +355,17 @@ input {
     box-sizing: border-box;
 }
 
+.form-cancel {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: $pt-gray;
+    cursor: pointer;
+}
+
 #createIdea-form,
 #describeIdea-form,
 #selectTeamIdea-form {
-    .form-cancel {
-        font-size: 12px;
-        margin-top: 0;
-        padding-bottom: 20px;
-        margin-bottom: 0;
-    }
-
     input {
         width: 250px;
         margin-bottom: 30px;
@@ -373,15 +397,60 @@ input {
     text-align: left;
     margin: auto;
 
+    &.make-comment {
+        width: 100%;
+
+        textarea {
+            margin-top: -18px;
+            max-width: 440px;
+            font-size: 13px;
+        }
+
+        span {
+            font: {
+                size: 16px;
+                weight: normal;
+            }
+        }
+
+        .blue-button {
+            font-size: 15px;
+            width: 100px;
+        }
+
+        .button-zone {
+            max-width: 440px;
+            box-sizing: border-box;
+            text-align: right;
+            margin-left: 18px;
+            margin-top: 3px;
+        }
+    }
+
+    &.movil-p {
+        @media screen and (max-width: 600px) {
+            padding: {
+                top: 0;
+                bottom: 0;
+            }
+        }
+    }
+
     img {
         height: 40px;
         z-index: 3;
         position: relative;
+
+        &.duplicate-idea-img {
+            height: 11px;
+            vertical-align: text-bottom;
+            cursor: pointer;
+        }
     }
 
     textarea {
         width: 95%;
-        margin-top: -38px;
+        margin-top: -20px;
         box-sizing: border-box;
         margin-left: 18px;
         padding-right: 15px;
@@ -418,7 +487,6 @@ input {
     }
 
     span {
-        color: $wetopia-red;
         font-weight: bolder;
     }
 }
@@ -428,7 +496,7 @@ input {
 }
 
 #input-team-members {
-    margin-top: -523px;
+    margin-top: -515px;
     z-index: 3;
     width: 100%;
     display: none;
@@ -441,8 +509,7 @@ input {
         }
     }
     padding: {
-        top: 20px;
-        bottom: 20px;
+        top: 15px;
     }
 
     .done-button {
@@ -481,21 +548,7 @@ input {
         overflow-y: scroll;
         padding-top: 15px;
         border-top: 2px solid $textfield-gray;
-
-        &::-webkit-scrollbar-track {
-            border-radius: 20px;
-            background-color: white;
-        }
-
-        &::-webkit-scrollbar {
-            width: 6px;
-            background-color: white;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: $textfield-gray;
-        }
+        @include scrollbar(6px, $textfield-gray);
 
         li {
             padding: 0 15px;
@@ -608,5 +661,1968 @@ input {
 
     .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
         right: 0;
+    }
+}
+
+nav {
+    margin: 0;
+    z-index: 1001;
+    padding: 0;
+    top: 0;
+    position: fixed;
+    background: white;
+    width: 100%;
+    @media screen and (max-width: 260px) {
+        min-width: 260px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 20px 55px;
+        margin: 0;
+        text-align: center;
+        @media screen and (max-width: 500px) {
+            padding: 20px;
+        }
+        @media screen and (max-width: 300px) {
+            padding: 15px 10px;
+        }
+
+        li {
+            display: inline-block;
+
+            img {
+                margin: 0 10px;
+                vertical-align: middle;
+                @media screen and (max-width: 360px) {
+                    margin: 0 5px;
+                }
+            }
+
+            #nav-user-img,
+            #nav-wetopia-logo {
+                height: 40px;
+            }
+
+            .discover-div {
+                display: inline-block;
+                position: relative;
+                width: auto;
+                height: auto;
+
+                &.inner-nav {
+                    ul {
+                        left: -53%;
+                        width: 350px;
+
+                        li {
+                            &:not(#first-nav-element) {
+                                margin-left: 3px;
+                            }
+
+                            &#first-nav-element {
+                                margin-left: 0;
+                            }
+
+                            &:nth-child(4) {
+                                margin-right: 0;
+                            }
+
+                            img {
+                                width: 18px;
+                                vertical-align: top;
+                            }
+                        }
+
+                        &::after,
+                        &::before {
+                            left: 12%;
+                            @media screen and (max-width: 420px) {
+                                left: 21%;
+                            }
+                        }
+                        @media screen and (max-width: 420px) {
+                            top: 190%;
+                            left: -130%;
+                        }
+                        @media screen and (max-width: 400px) {
+                            width: 295px;
+
+                            li {
+                                img {
+                                    height: 12px;
+                                }
+
+                                a {
+                                    font-size: 13px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:after {
+                    content: "Descubrir";
+                    font-size: 13px;
+                    visibility: hidden;
+                    position: absolute;
+                    top: 25%;
+                    left: 100%;
+                    @media screen and (max-width: 420px) {
+                        top: 100%;
+                        left: -16%;
+                    }
+                    @media screen and (max-width: 350px) {
+                        left: -35%;
+                    }
+                }
+
+                &:hover {
+                    &:after {
+                        visibility: visible;
+                    }
+
+                    #discover-logo {
+                        content: url("#{$path}/img/discover_Hover.svg");
+                    }
+                }
+            }
+
+            #discover-logo {
+                height: 25px;
+                cursor: pointer;
+            }
+
+            #notifications-icon {
+                height: 30px;
+                cursor: pointer;
+
+                &:hover {
+                    content: url("#{$path}/img/Notify_Hover.svg");
+                }
+            }
+
+            #idea-logo {
+                height: 60px;
+                margin-top: -10px;
+                cursor: pointer;
+
+                &:hover {
+                    content: url("#{$path}/img/create_Hover.svg");
+                    padding-left: 130px;
+                    @media screen and (max-width: 670px) {
+                        padding: 0;
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            &.nav-middle {
+                margin-left: 200px;
+                @media screen and (max-width: 1100px) {
+                    margin: auto;
+                }
+            }
+
+            &.nav-right {
+                float: right;
+
+                &:nth-child(4) {
+                    @media screen and (max-width: 1100px) {
+                        width: 100%;
+                    }
+                }
+            }
+
+            &.nav-left {
+                float: left;
+            }
+        }
+    }
+}
+
+.wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px;
+    margin-right: 10px;
+    width: 210px;
+    text-align: right;
+    position: relative;
+
+    &:hover {
+        i {
+            &.fa-search {
+                color: $wetopia-blue;
+            }
+        }
+
+        input {
+            border: 1px solid $pt-gray;
+            width: 210px;
+        }
+    }
+
+    i {
+        &.fa-search {
+            color: $pt-gray;
+            cursor: pointer;
+            z-index: 4;
+            position: absolute;
+            top: 14px;
+            right: 15px;
+        }
+    }
+
+    input {
+        border-radius: 3px;
+        z-index: 3;
+        margin: 0;
+        font-size: 15px;
+        padding: 0;
+        height: 28px;
+        background-color: white;
+        width: 200px;
+        text-indent: 10px;
+
+        &::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+    }
+}
+
+.scroll-list {
+    overflow-y: scroll;
+    @include scrollbar(4px, $pt-gray);
+}
+
+.display-inner {
+    position: relative;
+    display: inline-block;
+
+    &:hover {
+        ul {
+            visibility: visible;
+        }
+    }
+
+    ul {
+        right: -45px;
+        position: absolute;
+        width: 240px;
+        list-style-type: none;
+        padding: 5px;
+        border-radius: 4px;
+        visibility: hidden;
+        @extend %white-tooltip;
+        text-align: left;
+
+        .scroll-list {
+            height: 250px;
+        }
+
+        .pt-h {
+            margin: 5px 10px;
+            font-size: 17px;
+        }
+
+        &::after,
+        &::before {
+            bottom: 100%;
+            right: 62px;
+            @media screen and (max-width: 360px) {
+                right: 58px;
+            }
+        }
+    }
+}
+
+.not-block {
+    width: 100%;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0 3px 0 0;
+    margin: 7px 0;
+    position: relative;
+
+    &.new {
+        border-left: 4px solid $wetopia-red;
+    }
+
+    .time-ago {
+        color: $pt-gray;
+        display: block;
+        font-size: 11px;
+        flex-grow: 1;
+        margin-top: 2px;
+
+        &:after {
+            content: " ago";
+        }
+    }
+
+    &.commented {
+        span {
+            &.name {
+                &:after {
+                    content: " commented";
+                }
+            }
+
+            &.act-pivot,
+            &.prev-pivot {
+                &:after {
+                    color: $text-gray;
+                }
+            }
+
+            &.prev-pivot {
+                &:after {
+                    content: "º pivot";
+                }
+            }
+
+            &.act-pivot {
+                &:after {
+                    content: "new pivot";
+                }
+            }
+        }
+    }
+
+    &.says {
+        span {
+            &.name {
+                &:after {
+                    content: " says";
+                }
+            }
+
+            &.like-1,
+            &.like-2,
+            &.like-3,
+            &.like-4 {
+                &:after {
+                    background: {
+                        repeat: no-repeat;
+                        size: cover;
+                        position: center;
+                    }
+                    height: 13px;
+                    display: inline-block;
+                    width: 13px;
+                    content: " ";
+                }
+            }
+
+            &.like-4 {
+                &:before {
+                    content: '"I love it and I want it know" ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 4_Active.svg");
+                }
+            }
+
+            &.like-3 {
+                &:before {
+                    content: '"I like it but it\0027s not my thing" ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 3_Active.svg");
+                }
+            }
+
+            &.like-2 {
+                &:before {
+                    content: '"I like it but still lacks something." ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 2_Active.svg");
+                }
+            }
+
+            &.like-1 {
+                &:before {
+                    content: '"I don\0027t like it." ';
+                }
+
+                &:after {
+                    background-image: url("#{$path}/img/like 1_Active.svg");
+                }
+            }
+        }
+    }
+
+    img {
+        height: 35px;
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+    p {
+        margin: 0;
+
+        span {
+            font-size: 13px;
+            color: $text-gray;
+
+            &:after,
+            &:before {
+                color: $pt-gray;
+            }
+
+            &.on {
+                &:before {
+                    content: " on ";
+                }
+
+                &:after {
+                    content: "\A";
+                }
+            }
+        }
+    }
+}
+
+.inner-nav {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+        ul {
+            visibility: visible;
+        }
+    }
+
+    ul {
+        right: -30%;
+        position: absolute;
+        width: 330px;
+        list-style-type: none;
+        padding: 5px;
+        border-radius: 4px;
+        @extend %white-tooltip;
+
+        &::after,
+        &::before {
+            bottom: 100%;
+            left: 87%;
+            @media screen and (max-width: 400px) {
+                left: 93%;
+            }
+        }
+        @media screen and (max-width: 400px) {
+            right: 0;
+            width: 285px;
+        }
+
+        li {
+            float: left;
+            color: $pt-gray;
+            display: inline-block;
+            margin: 0 10px;
+            @media screen and (max-width: 400px) {
+                margin: 0 5px;
+            }
+
+            img {
+                height: 15px;
+                margin: 2px 3px 0;
+                vertical-align: top;
+            }
+
+            a {
+                color: $pt-gray;
+                cursor: pointer;
+
+                &:hover {
+                    color: $text-gray;
+                }
+            }
+        }
+    }
+}
+
+.blue-text {
+    color: $wetopia-blue;
+
+    &#stats-link {
+        margin-left: 5px;
+        color: $wetopia-blue;
+        font-size: 18px;
+        font-weight: bolder;
+        cursor: pointer;
+        margin-bottom: 60px;
+
+        img {
+            height: 18px;
+            margin-right: 20px;
+
+            &#right-blue-arrow {
+                height: 15px;
+                width: 15px;
+                padding-right: 5px;
+            }
+        }
+        @media screen and (max-width: 350px) {
+            font-size: 16px;
+
+            img {
+                height: 16px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.green-text {
+    color: $wetopia-green;
+}
+
+.red-text {
+    color: $wetopia-red;
+}
+
+.color-red {
+    color: $color-red;
+}
+
+.yellow-text {
+    color: $color-yellow;
+}
+
+.aqua-text {
+    color: $wetopia-aqua;
+}
+
+.pt-h {
+    color: $pt-gray;
+    font-size: 15px;
+    clear: both;
+}
+
+.pivote-t {
+    color: $pt-gray;
+    font-size: 16px;
+    clear: both;
+
+    &.act {
+        &::before {
+            content: "Pivote actual ";
+        }
+
+        &::after {
+            content: "º";
+        }
+    }
+
+    &.prev {
+        color: $wetopia-blue;
+        font-weight: bolder;
+
+        &::after {
+            content: "º Pivote";
+        }
+    }
+}
+
+.idea-info {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin-top: 120px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.idea-img {
+    background: url("#{$path}/img/ex2.jpg") no-repeat center;
+    background-size: cover;
+    height: 400px;
+    width: 90%;
+    border-radius: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    @media screen and (max-width: 1000px) {
+        height: 360px;
+        width: 100%;
+    }
+    @media screen and (max-width: 950px) {
+        height: 340px;
+        margin-top: 45px;
+    }
+    @media screen and (max-width: 900px) {
+        height: 300px;
+        margin-top: 80px;
+    }
+    @media screen and (max-width: 750px) {
+        height: 250px;
+        margin-top: 0;
+    }
+    @media screen and (max-width: 600px) {
+        height: 350px;
+        width: 95%;
+    }
+    @media screen and (max-width: 390px) {
+        height: 300px;
+    }
+    @media screen and (max-width: 350px) {
+        height: 250px;
+    }
+}
+
+.filter {
+    p {
+        color: $pt-gray;
+        font-size: 13px;
+        display: inline-block;
+    }
+
+    img {
+        vertical-align: middle;
+        cursor: pointer;
+        height: 15px;
+        margin: 0 3px;
+        display: inline-block;
+
+        &:nth-child(2) {
+            height: 10px;
+        }
+    }
+}
+
+.left-align {
+    text-align: left;
+    padding: {
+        top: 20px;
+    }
+
+    &#idea-to-project {
+        padding-top: 0;
+    }
+}
+
+.mid-page {
+    height: auto;
+    width: 49%;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: auto;
+
+    &.left-align {
+        text-align: left;
+
+        &.pad-left {
+            @media screen and (min-width: 900px) {
+                padding-left: 40px;
+
+                &.min-w-350 {
+                    @media screen and (max-width: 600px) {
+                        min-width: 350px;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 750px) {
+        width: 80%;
+        min-width: 250px;
+    }
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        min-width: 250px;
+    }
+
+    .aqua-text,
+    .red-text {
+        font: {
+            weight: normal;
+            size: 16px;
+        }
+        margin: {
+            right: 10px;
+            left: 5px;
+        }
+        vertical-align: middle;
+
+        &.top-span {
+            vertical-align: top;
+            font-weight: bolder;
+        }
+    }
+
+    p {
+        &.tab-paragraph {
+            margin-bottom: 10px;
+            margin-right: 15px;
+            @media screen and (max-width: 600px) {
+                margin: {
+                    right: 0;
+                    left: 0;
+                }
+            }
+        }
+        margin-bottom: 0;
+
+        .edit {
+            vertical-align: middle;
+        }
+    }
+}
+
+.act-pivote,
+.prev-pivote {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+    line-height: 40px;
+
+    &:not(.not) {
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.15);
+            transition: 0.3s;
+        }
+    }
+
+    &.simple {
+        &:after {
+            content: "º";
+        }
+    }
+}
+
+.prev-pivote {
+    background: url("#{$path}/img/hex negative_Idea.svg") center center no-repeat;
+    color: $wetopia-blue;
+}
+
+.act-pivote {
+    background: url("#{$path}/img/hex_Idea.svg") center center no-repeat;
+    color: white;
+}
+
+.username-tag {
+    font-weight: bolder;
+}
+
+.tab-paragraph {
+    margin: {
+        left: 45px;
+        top: 0;
+        bottom: 30px;
+    }
+    @include font( 'Museo', 300);
+}
+
+.idea-title {
+    font: {
+        size: 40px;
+        weight: bold;
+    }
+}
+
+.idea-header {
+    text-align: left;
+    padding: 0 0 0 20px;
+    height: auto;
+
+    .pivote-t {
+        margin: {
+            bottom: 0;
+            top: 15px;
+        }
+    }
+
+    .pt-h {
+        margin: {
+            top: 15px;
+            bottom: 0;
+        }
+        font-size: 14px;
+    }
+
+    p {
+        margin: {
+            top: 0;
+            bottom: 10px;
+        }
+    }
+
+    .idea-header-info {
+        select {
+            font-size: 15px;
+            display: inline-block;
+            color: $wetopia-blue;
+            border: 0;
+            cursor: pointer;
+            width: 100px;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: white url("#{$path}/img/arrowDown.svg") no-repeat right center;
+            background-size: 13px 20px;
+        }
+
+        option {
+            color: $wetopia-blue;
+        }
+
+        p {
+            font-size: 14px;
+            display: inline-block;
+            vertical-align: -webkit-baseline-middle;
+        }
+    }
+
+    img {
+        height: 13px;
+    }
+
+    .blue-text {
+        display: inline-block;
+    }
+
+    .select-team {
+        display: inline-block;
+        margin: 0 5px 0 0;
+        width: auto;
+
+        img {
+            height: 30px;
+            vertical-align: middle;
+            margin-right: -5px;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        padding: 20px 20px 20px 30px;
+    }
+}
+
+.edit {
+    cursor: pointer;
+    font-size: 13px;
+    color: $pt-gray;
+    vertical-align: bottom;
+
+    i {
+        @extend .edit;
+    }
+}
+
+.left {
+    float: left;
+    text-align: left;
+}
+
+.left,
+.right {
+    display: inline-block;
+}
+
+.right {
+    float: right;
+    text-align: right;
+
+    &.filter {
+        &.pad-right {
+            padding-right: 10px;
+        }
+    }
+}
+
+.user {
+    img {
+        height: 35px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    p {
+        display: inline-block;
+
+        &:nth-child(3) {
+            color: $pt-gray;
+        }
+    }
+
+    .right {
+        padding: 13px 0 0;
+
+        img,
+        p {
+            margin: 0 10px;
+            vertical-align: top;
+            @media screen and (max-width: 350px) {
+                margin: 0 3px;
+            }
+        }
+
+        p {
+            img {
+                margin: 0;
+            }
+        }
+
+        img {
+            height: 15px;
+        }
+    }
+}
+
+.comment {
+    max-width: 500px;
+
+    p {
+        clear: both;
+        font-size: 14px;
+    }
+}
+
+.replies {
+    margin-left: 35px;
+
+    .user {
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.red-button {
+    @include colorbutton($wetopia-red);
+
+    &[value="Proyecto"] {
+        background: $wetopia-red url('#{$path}/img/proyects.svg') 12% 50% no-repeat;
+        height: 30px;
+        margin: 15px 0;
+        padding-left: 25px;
+        background-size: 16px;
+        width: 120px;
+        font: {
+            size: 16px;
+        }
+    }
+}
+
+.blue-button {
+    @include colorbutton($wetopia-blue);
+
+    &[value="Pivotear"] {
+        height: 25px;
+        margin: 15px;
+        width: 80px;
+        font: {
+            size: 14px;
+        }
+    }
+}
+
+.left-center-align {
+    float: left;
+    width: auto;
+    text-align: center;
+
+    &.counter {
+        counter-reset: index;
+
+        p {
+            counter-increment: index;
+
+            &::before {
+                content: counter(index)"º";
+            }
+        }
+    }
+
+    &.piv-count {
+        margin-bottom: 10px;
+        counter-reset: index;
+        position: relative;
+
+        .piv-history {
+            counter-increment: index;
+
+            .act-pivote,
+            .prev-pivote {
+                &::before {
+                    content: counter(index)"º";
+                }
+            }
+
+            .prev {
+                &::before {
+                    content: counter(index)"º Pivote\A";
+                    font-weight: bolder;
+                    white-space: pre-wrap;
+                }
+            }
+
+            span {
+                @media screen and (max-width: 600px) {
+                    top: 115%;
+                    left: 20%;
+                }
+            }
+        }
+    }
+}
+
+.piv-simple {
+    position: relative;
+
+    .prev {
+        &::before {
+            content: attr(piv-num)"º Pivote\A";
+            font-weight: bolder;
+            white-space: pre-wrap;
+        }
+    }
+}
+
+.right-num {
+    tr {
+        width: auto;
+
+        td {
+            font-size: 14px;
+        }
+
+        .number {
+            text-align: right;
+        }
+
+        img {
+            height: 25px;
+            vertical-align: middle;
+        }
+    }
+}
+
+#res-statistics {
+    margin-top: 70px;
+
+    table {
+        margin-top: 10px;
+    }
+
+    tr {
+        &.highlighted {
+            td {
+                color: $text-gray;
+            }
+        }
+
+        td {
+            color: $pt-gray;
+        }
+
+        img {
+            height: 25px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.text-img {
+    img {
+        height: 45px;
+        vertical-align: middle;
+    }
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.rot-270-right {
+    transform: rotate(270deg);
+}
+
+#top-filter {
+    margin: 20px 0;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltiptext {
+        width: auto;
+        color: $text-gray;
+        @include font( 'Museo', 300);
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 12px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -45px;
+        @extend %white-tooltip;
+
+        &::after,
+        &::before {
+            bottom: 100%;
+            left: 50%;
+        }
+    }
+
+    &:hover {
+        .tooltiptext {
+            visibility: visible;
+        }
+    }
+}
+
+.center-container {
+    text-align: center;
+    width: 100%;
+}
+
+.piv-history {
+    display: inline-block;
+
+    &.hover,
+    &:hover {
+        span {
+            display: inline-block;
+        }
+    }
+
+    &:hover {
+        span {
+            z-index: 100;
+        }
+    }
+
+    span {
+        color: $wetopia-blue;
+        background: white;
+        font-size: 13px;
+        width: 180px;
+        position: absolute;
+        margin: 0 0 0 10px;
+        top: 40%;
+        left: 100%;
+        display: none;
+        text-align: left;
+
+        &.act {
+            &::before {
+                content: "Pivote Actual \A";
+                font-weight: bolder;
+                white-space: pre-wrap;
+            }
+        }
+
+        &::after {
+            content: " "attr(date);
+            font-weight: bolder;
+        }
+    }
+}
+
+#likes-cont {
+    margin-top: 100px;
+
+    .like-cont {
+        display: inline-block;
+        margin-top: 15px;
+
+        #like-4 {
+            background: url("#{$path}/img/like 4_Idea.svg") center center no-repeat;
+        }
+
+        #like-3 {
+            background: url("#{$path}/img/like 3_Idea.svg") center center no-repeat;
+        }
+
+        #like-2 {
+            background: url("#{$path}/img/like 2_Idea.svg") center center no-repeat;
+        }
+
+        #like-1 {
+            background: url("#{$path}/img/like 1_Idea.svg") center center no-repeat;
+        }
+
+        &:hover {
+            .like-img {
+                transform: scale(1.2);
+            }
+
+            #like-4 {
+                background: url("#{$path}/img/like 4_Active.svg");
+            }
+
+            #like-3 {
+                background: url("#{$path}/img/like 3_Active.svg");
+            }
+
+            #like-2 {
+                background: url("#{$path}/img/like 2_Active.svg");
+            }
+
+            #like-1 {
+                background: url("#{$path}/img/like 1_Active.svg");
+            }
+
+            span {
+                display: block;
+            }
+        }
+    }
+
+    .like-img {
+        height: 41px;
+        width: 36px;
+        background-size: cover;
+        cursor: pointer;
+    }
+
+    span {
+        display: none;
+        font: {
+            size: 17px;
+            weight: bolder;
+        }
+        vertical-align: middle;
+        position: absolute;
+        left: 185px;
+        top: 220px;
+    }
+}
+
+.center-div-f {
+    text-align: center;
+    margin: auto;
+    background: white;
+}
+
+#Pivotear-modal {
+    .blue-button {
+        margin-bottom: 7px;
+    }
+
+    textarea {
+        margin-top: -18px;
+    }
+
+    .center-div-f {
+        border-radius: 20px;
+        box-shadow: 0 0 10px 1px $pt-gray;
+        height: auto;
+        padding: 20px;
+        width: 70%;
+        @media screen and (max-width: 600px) {
+            width: 85%;
+        }
+
+        #piv-m {
+            margin-bottom: 55px;
+        }
+
+        .form-description {
+            padding: 0;
+        }
+
+        .mid-page {
+            clear: both;
+            padding-top: 0;
+
+            span {
+                margin: 0 5px;
+            }
+        }
+
+        .left-center-align {
+            margin-bottom: 10px;
+        }
+
+        pth {
+            display: block;
+            padding-top: 10px;
+            font-size: 18px;
+        }
+
+        blue {
+            font-size: 18px;
+        }
+
+        .act-pivote,
+        .prev-pivote {
+            margin: 0;
+        }
+
+        .left-align {
+            padding: 10px 5px 20px 15px;
+            @media screen and (max-width: 750px) {
+                padding-bottom: 20px;
+                padding-left: 60px;
+            }
+            @media screen and (max-width: 600px) {
+                padding-left: 10px;
+            }
+            @media screen and (max-width: 350px) {
+                padding-left: 0;
+            }
+        }
+
+        .pt-h {
+            text-align: left;
+        }
+    }
+}
+
+.modal {
+    z-index: 9999;
+    position: fixed;
+    display: none;
+    padding: {
+        top: 20px;
+    }
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.content {
+    margin-top: 90px;
+    padding: 10 60px;
+    max-width: 1500px;
+    @media screen and (max-width: 500px) {
+        padding: 10 20px;
+    }
+}
+
+.section-nav {
+    height: 25px;
+    min-width: 310px;
+
+    ul {
+        padding: 0;
+        list-style-type: none;
+    }
+
+    li {
+        float: left;
+        margin: 5px 70px 5px 0;
+
+        &:hover {
+            border-bottom: 3px solid $wetopia-blue;
+
+            a {
+                color: $wetopia-blue;
+                cursor: pointer;
+            }
+        }
+        @media screen and (max-width: 600px) {
+            margin-right: 30px;
+        }
+        @media screen and (max-width: 480px) {
+            font-size: 13px;
+        }
+    }
+}
+
+.section {
+    width: 100%;
+    height: auto;
+    margin: 0 0 90px;
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+
+    .center-container {
+        margin-top: 20px;
+    }
+}
+
+.cards-cont {
+    padding: 15px 0;
+    width: 100%;
+    clear: both;
+    margin-top: 20px;
+}
+
+.tag-card {
+    display: inline-block;
+}
+
+.card {
+    width: 230px;
+    margin: 0 20px 0 0;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    .user {
+        height: 30px;
+
+        img {
+            height: 25px;
+        }
+
+        p {
+            font-size: 12px;
+            margin: 8px 0;
+        }
+
+        .right {
+            padding-top: 7px;
+            font-size: 12px;
+            line-height: 18px;
+
+            img {
+                height: 15px;
+            }
+        }
+    }
+
+    &:hover {
+        transform: scale(1.07);
+        transition-duration: 0.4s;
+    }
+
+    &.idea {
+        &.short {
+            &:hover {
+                .user {
+                    border-color: $wetopia-blue;
+                }
+            }
+        }
+
+        .right {
+            color: $wetopia-blue;
+        }
+
+        &:hover {
+            .card-info {
+                border-color: $wetopia-blue;
+            }
+
+            .right {
+                &:before {
+                    content: "Idea";
+                }
+            }
+        }
+    }
+
+    &.large {
+        .card-info {
+            height: 150px;
+        }
+
+        .card-img {
+            border-radius: 10px 10px 0 0;
+        }
+    }
+
+    &.short {
+        .card-info {
+            height: 100px;
+        }
+
+        .user {
+            border: 2px solid $pt-gray;
+            border-bottom: none;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            padding-left: 5px;
+        }
+    }
+
+    &.project {
+        &.short {
+            &:hover {
+                .user {
+                    border-color: $wetopia-red;
+                }
+            }
+        }
+
+        .right {
+            color: $wetopia-red;
+        }
+
+        &:hover {
+            .card-info {
+                border-color: $wetopia-red;
+            }
+
+            .right {
+                &:before {
+                    content: "Project";
+                }
+            }
+        }
+    }
+}
+
+.card-img {
+    clear: both;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+    @include backimg(ex2, jpg);
+}
+
+.card-info {
+    border: 2px solid $pt-gray;
+    border-top: none;
+    background: white;
+    width: auto;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .dark-title {
+        margin: 0;
+    }
+
+    .left {
+        img {
+            vertical-align: middle;
+        }
+
+        p {
+            color: $pt-gray;
+            display: inline-block;
+            width: auto;
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+    }
+}
+
+.dark-title {
+    font: {
+        size: 16px;
+        weight: bolder;
+    }
+    color: $text-gray;
+}
+
+.card-p {
+    margin: 0;
+    @include font( 'Museo', 300);
+    font-size: 13px;
+}
+
+.upper-img {
+    text-align: center;
+    display: inline-block;
+
+    &:nth-child(1) {
+        img {
+            height: 15px;
+        }
+    }
+
+    &:nth-child(2) {
+        img {
+            height: 11px;
+        }
+    }
+
+    &:nth-child(3) {
+        img {
+            height: 15px;
+        }
+    }
+
+    img {
+        display: block;
+        margin: auto auto 5px;
+    }
+
+    p {
+        margin: auto;
+    }
+    margin: 10px 10px 5px 5px;
+
+    &:hover {
+        p {
+            color: $text-gray;
+        }
+    }
+}
+
+.footer-nav {
+    a {
+        color: $pt-gray;
+        display: inline-block;
+        font-size: 13px;
+        margin: 0 2px;
+
+        &:hover {
+            color: $text-gray;
+        }
+    }
+    text-align: center;
+}
+
+.category {
+    width: 190px;
+    height: 220px;
+    position: relative;
+    cursor: pointer;
+
+    .cat-img {
+        @include backimg(ex2, jpg);
+        width: 100%;
+        height: 100%;
+        z-index: 19;
+    }
+
+    .darkness {
+        border-radius: 20px;
+        z-index: 20;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    p {
+        color: white;
+        font: {
+            size: 16px;
+            weight: bolder;
+        }
+        z-index: 20;
+        position: absolute;
+        top: 90px;
+        left: 60px;
+    }
+
+    .cat-img,
+    .darkness {
+        border-radius: 20px;
+    }
+
+    &:hover {
+        .darkness {
+            opacity: 0;
+            transition-duration: 1s;
+        }
+
+        p {
+            font-size: 20px;
+            top: 80px;
+            left: 55px;
+            transition-duration: 0.4s;
+        }
+    }
+}
+
+.darkness {
+    background-color: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+}
+
+#stats-resume {
+    table {
+        margin: 100px 0;
+        @media screen and (max-width: 750px) {
+            margin: {
+                top: 10px;
+                bottom: 50px;
+            }
+        }
+    }
+
+    p {
+        margin: 10px 0;
+
+        img {
+            height: 25px;
+            vertical-align: middle;
+            margin-right: 10px;
+            padding-bottom: 5px;
+        }
+        font-size: 16px;
+    }
+
+    tr {
+        height: 30px;
+
+        &:nth-child(1) {
+            img {
+                height: 13px;
+            }
+        }
+
+        &:nth-child(2) {
+            img {
+                height: 16px;
+            }
+        }
+
+        &:nth-child(4) {
+            img {
+                height: 20px;
+            }
+        }
+
+        td {
+            &:first-child {
+                width: 30px;
+                text-align: center;
+            }
+
+            &:last-child {
+                color: $pt-gray;
+            }
+
+            img {
+                height: 10px;
+            }
+        }
+    }
+}
+
+#graph-cont {
+    table {
+        margin: auto auto 20px;
+
+        tr {
+            &:not(.highlighted) {
+                td {
+                    color: $pt-gray;
+                }
+            }
+
+            td {
+                color: $text-gray;
+
+                &:nth-child(2) {
+                    width: 40px;
+                    text-align: center;
+                }
+
+                &.number {
+                    &:after {
+                        content: " votantes";
+                    }
+                }
+            }
+        }
+    }
+}
+
+#votes-num {
+    width: auto;
+    margin: 25px 0;
+
+    &:after {
+        content: " votantes en total";
+    }
+}
+
+#greater-act {
+    .form-description {
+        clear: both;
+    }
+
+    .upper-cont {
+        float: right;
+        width: auto;
+        margin-top: 30px;
+        @media screen and (max-width: 1160px) {
+            float: left;
+            clear: left;
+            margin-left: 10px;
+        }
+        @media screen and (max-width: 350px) {
+            margin-left: 0;
+        }
+
+        div {
+            display: inline-block;
+            height: auto;
+            margin: 0 20px 20px 0;
+
+            &:nth-child(1) {
+                img {
+                    height: 15px;
+                }
+            }
+
+            &:nth-child(2) {
+                img {
+                    height: 12px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        img {
+            display: inline-block;
+            height: 18px;
+            margin: 0 1px;
+            vertical-align: bottom;
+        }
+
+        p {
+            color: $text-gray;
+            margin: 0;
+            display: inline-block;
+            font-size: 13px;
+
+            &:nth-child(2) {
+                img {
+                    width: 23px;
+                }
+            }
+        }
+    }
+}
+
+#donut-chart {
+    margin: auto;
+    max-width: 400px;
+    max-height: 400px;
+}
+
+#go-back-idea {
+    cursor: pointer;
+    margin: {
+        bottom: 0;
+        top: 20px;
+    }
+
+    img {
+        height: 7px;
+        transform: rotate(90deg);
+        vertical-align: middle;
+    }
+}
+
+.donut-center {
+    border-radius: 150px;
+}
+
+.donut-cont {
+    position: relative;
+    margin: auto;
+    max-width: 400px;
+    max-height: 400px;
+
+    .donut-center {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        top: 25%;
+        left: 25%;
+        box-sizing: border-box;
+        border: {
+            color: rgba(0,0,0,0.4);
+            style: solid;
+            width: 6px;
+        }
+
+        .clip-circ-img {
+            height: auto;
+            width: auto;
+        }
+
+        img {
+            height: 80px;
+            margin-top: -10px;
+            @media screen and (min-width: 760px) and (max-width: 860px) {
+                height: 65px;
+            }
+            @media screen and (max-width: 400px) {
+                height: 70px;
+            }
+            @media screen and (max-width: 360px) {
+                height: 60px;
+            }
+        }
+
+        #dc-percentage {
+            color: $text-gray;
+            font-size: 17px;
+            width: auto;
+            margin: 50px auto auto;
+            @media screen and (min-width: 910px) and (max-width: 990px) {
+                margin-top: 40px;
+            }
+            @media screen and (min-width: 860px) and (max-width: 910px) {
+                width: 120px;
+                font-size: 16px;
+                margin-top: 30px;
+            }
+            @media screen and (min-width: 760px) and (max-width: 860px) {
+                width: 70px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+            @media screen and (max-width: 440px) {
+                margin-top: 40px;
+            }
+            @media screen and (max-width: 400px) {
+                font-size: 16px;
+            }
+            @media screen and (max-width: 390px) {
+                font-size: 14px;
+                margin-top: 35px;
+            }
+            @media screen and (max-width: 360px) {
+                width: 90px;
+                font-size: 13px;
+                margin-top: 15px;
+            }
+
+            &:after {
+                content: "% de los votos";
+            }
+        }
+
+        #dc-p {
+            font-size: 15px;
+            font-weight: bold;
+            width: 150px;
+            margin: -15px auto auto;
+            @media screen and (min-width: 860px) and (max-width: 910px) {
+                width: 120px;
+                font-size: 13px;
+            }
+            @media screen and (min-width: 760px) and (max-width: 860px) {
+                font-size: 13px;
+                width: 110px;
+            }
+            @media screen and (max-width: 400px) {
+                font-size: 14px;
+            }
+            @media screen and (max-width: 390px) {
+                font-size: 12px;
+                width: 100px;
+            }
+            @media screen and (max-width: 360px) {
+                font-size: 11px;
+            }
+        }
     }
 }
