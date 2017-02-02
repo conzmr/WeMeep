@@ -338,8 +338,8 @@ router.route('/users/:user_id/avatar')
   })
 })
 
-router.route('/moments/:moment_id/feedback')
-.get(function (req, res) { //Get detailed information of the moment
+router.route('/ideas/:idea_id/feedback')
+.get(function (req, res) { //Get detailed information of the idea
   Moment.findById(req.params.moment_id, 'feedback')
   .populate('feedback')
   .sort('-feedback._id')
@@ -353,9 +353,10 @@ router.route('/moments/:moment_id/feedback')
   });
 })
 .post(function (req, res) {
+  /* COMMENT AN IDEA */
   let feedback = req.body.text;
   //TODO: add attachments into the feedback
-  Moment.findById(req.params.moment_id) //User, comment
+  Idea.findById(req.params.idea_id) //User, comment
   .update({ $addToSet: { 'feedback': {'user': req.U_ID, 'text': feedback} } })
   .exec(function(err) {
     if (err) {
@@ -366,7 +367,7 @@ router.route('/moments/:moment_id/feedback')
   });
 });
 
-router.route('/moments/:moment_id/likes')
+router.route('/ideas/:idea_id/:feedback_id/star')
 .get(function (req, res) {
   Moment.findById(req.params.moment_id, 'likes')
   .exec(function(err, moment) {
@@ -381,15 +382,18 @@ router.route('/moments/:moment_id/likes')
   })
 })
 .post(function (req, res) {
-  Moment.findById(req.params.moment_id)
-  .update({ $addToSet: { hearts: req.U_ID } })
+  //Idea.findById(req.params.idea_id, {}, {'feedback._id':req.params.feedback_id})
+  Idea.findById(req.params.idea_id)
+  //.find({'feedback.text':"Great idea man! Keep it up."})
+  //.elemMatch('feedback', {_id:req.params.feedback_id})
+  .update({'feedback._id':req.params.feedback_id},{ $addToSet: { 'feedback.stars': req.U_ID } })
   .exec(function(err, result) {
     if (err) {
       res.status(500).json({'error': err})
-    } else if (result.nModified == 0) //If the moment wasn't modified, means it didn't liked
-      res.status(400).json({'message': "Already liked."})
+    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
+      res.status(400).json({'message': "Already starred."})
     else {
-      res.status(201).json({'message': "Successfully liked"})
+      res.status(201).json(result)
     }
   })
 })
