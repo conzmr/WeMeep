@@ -11,51 +11,51 @@ EXPRESION
 @import "helper/tags";
 @font-face {
     font-family: 'Museo';
-    src: url('#{$path}/fonts/MuseoSans-300.otf');
+    src: url('/static/fonts/MuseoSans-300.otf');
 }
 @font-face {
     font-family: 'Museo_D';
-    src: url('#{$path}/fonts/MuseoSans_500.otf');
+    src: url('/static/fonts/MuseoSans_500.otf');
 }
 @keyframes backgroundAnimation {
     0% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     33% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     66% {
-        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_1.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     100% {
-        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_2.jpg') no-repeat center fixed;
         background-size: cover;
     }
 }
 @-moz-keyframes backgroundAnimation {
     0% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     33% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     66% {
-        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_1.jpg') no-repeat center fixed;
         background-size: cover;
     }
 
     100% {
-        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
+        background: url('/static/img/Login_bac_2.jpg') no-repeat center fixed;
         background-size: cover;
     }
 }
@@ -66,6 +66,11 @@ EXPRESION
     width: 100%;
     height: 100%;
     text-align: center;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
 }
 
 * {
@@ -73,21 +78,21 @@ EXPRESION
     @include font( 'Museo_D', 500);
 }
 
+.hexagon-bg {
+    background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
+    background-size: cover;
+    -webkit-animation: backgroundAnimation 2s linear 0s infinite;
+    -moz-animation: backgroundAnimation 2s linear 0s infinite;
+    -o-animation: backgroundAnimation 2s linear 0s infinite;
+    animation: backgroundAnimation 2s linear 0s infinite;
+    animation-name: backgroundAnimation;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
 body {
     background: white;
-
-    &.hexagon-bg {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-        -webkit-animation: backgroundAnimation 2s linear 0s infinite;
-        -moz-animation: backgroundAnimation 2s linear 0s infinite;
-        -o-animation: backgroundAnimation 2s linear 0s infinite;
-        animation: backgroundAnimation 2s linear 0s infinite;
-        animation-name: backgroundAnimation;
-        animation-duration: 2s;
-        animation-delay: 0s;
-        animation-iteration-count: infinite;
-    }
     margin: 0;
     @include scrollbar(8px, $pt-gray);
 }
@@ -99,11 +104,10 @@ a {
 .centered-form {
     margin: auto;
     @include zIndex(1);
-    max-width: 350px;
+    width: 330px;
     min-width: 300px;
     height: 480px;
     background: white;
-    margin-top: 75px;
     vertical-align: middle;
     box-shadow: 0 0 70px 10px $pt-gray;
 
@@ -113,58 +117,12 @@ a {
         margin-top: 30px;
         margin-bottom: 30px;
     }
-    
-    .photo {
-      width: 125px;
-      height: 125px;
-      z-index: 1;
-      // border-radius: 50%;
-      -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      margin: 0 auto;
-      position: relative;
-      margin-bottom: 20px;
-      background-image: url('../img/photo_Login.svg');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      input {
-        opacity: 0;
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        position: absolute;
-        cursor: pointer;
-      }
-    }
-    .photo img{
-      width: 125px;
-      height: 125px;
-      z-index: 0;
-      // border-radius: 50%;
-      margin: 0 auto;
-      margin-bottom: 20px;
-      top:0;
-      background: transparent;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-    }
-    .profile-picture {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      margin-top: 1em;
-    }
-    @media screen and (min-height: 1000px) {
-        margin-top: 250px;
-    }
-    @media screen and (min-height: 1200px) {
-        margin-top: 400px;
+
+    .logo-img {
+        img {
+            height: 100px;
+            margin-top: 40px;
+        }
     }
     @media screen and (orientation: landscape) {
          @media screen and (max-height: 450px){
@@ -201,6 +159,7 @@ a {
 }
 
 input {
+    outline: none;
     border-color: transparent;
     background: $textfield-gray;
     margin-bottom: 20px;
@@ -208,6 +167,10 @@ input {
     @include zIndex(2);
     font-size: 12px;
     width: 150px;
+
+    &:not([type="button"]) {
+        text-indent: 4px;
+    }
 
     &[type="text"] {
         border-radius: 0 4px 4px 0;
@@ -226,6 +189,7 @@ input {
 .form-input {
     img {
         height: 35px;
+        margin-left: 10px;
         vertical-align: middle;
         @include zIndex(3);
     }
@@ -264,8 +228,7 @@ input {
 }
 
 #createIdea-form {
-    height: 350px;
-    top: 10%;
+    height: auto;
     @media screen and (max-width: 750px) and (max-height: 420px) {
         top: 22%;
     }
@@ -278,15 +241,21 @@ input {
 }
 
 #describeIdea-form {
-    margin-top: 3%;
-    max-width: 480px;
+    width: 480px;
     min-width: 330px;
     height: auto;
+
+    .form-description {
+        p {
+            margin: 9px 0 0;
+        }
+    }
 }
 
 #selectTeamIdea-form {
     height: auto;
     display: block;
+    padding-bottom: 20px;
 
     .tooltip {
         .tooltiptext {
@@ -296,7 +265,7 @@ input {
     }
 
     .form-description {
-        width: 75%;
+        width: 80%;
     }
 
     input {
@@ -305,8 +274,8 @@ input {
         }
     }
 
-    p {
-        margin-bottom: 0;
+    .form-subtitle {
+        margin: 10px 0 2px 2px;
     }
 
     .select-image {
@@ -339,6 +308,7 @@ input {
     img {
         margin-right: -10px;
         height: 50px;
+        padding: 0 4px;
 
         &#add-members {
             cursor: pointer;
@@ -1470,11 +1440,12 @@ nav {
             color: $wetopia-blue;
             border: 0;
             cursor: pointer;
+            margin-left: 5px;
             width: 100px;
             outline: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background: white url("#{$path}/img/arrowDown.svg") no-repeat right center;
+            background: white url("/static/img/arrowDown.svg") no-repeat right center;
             background-size: 13px 20px;
         }
 
@@ -1495,17 +1466,17 @@ nav {
 
     .blue-text {
         display: inline-block;
+        margin-left: 4px;
     }
 
     .select-team {
         display: inline-block;
-        margin: 0 5px 0 0;
+        margin: 0 10px 0 0;
         width: auto;
 
         img {
             height: 30px;
             vertical-align: middle;
-            margin-right: -5px;
         }
     }
     @media screen and (max-width: 600px) {
@@ -1557,6 +1528,7 @@ nav {
 
         &:nth-child(3) {
             color: $pt-gray;
+            margin-left: 5px;
         }
     }
 
@@ -1771,6 +1743,8 @@ nav {
         left: 50%;
         margin-left: -45px;
         @extend %white-tooltip;
+        margin-top: -4px;
+        left: 65%;
 
         &::after,
         &::before {
@@ -1887,6 +1861,7 @@ nav {
     .like-img {
         height: 41px;
         width: 36px;
+        margin: 0 3px;
         background-size: cover;
         cursor: pointer;
     }
@@ -2002,7 +1977,7 @@ nav {
 
 .content {
     margin-top: 90px;
-    padding: 10 60px;
+    padding: 10px 60px;
     max-width: 1500px;
     @media screen and (max-width: 500px) {
         padding: 10 20px;

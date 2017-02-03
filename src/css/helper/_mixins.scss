@@ -1,56 +1,49 @@
-@mixin font($family, $weight){
-  font : {
-  family: $family;
-  weight: $weight;
+@mixin font($family, $weight) {
+    font: {
+        family: $family;
+        weight: $weight;
+    }
 }
-}
-
 @mixin backimg($img, $ext) {
-  background: url("../../public/img/#{$img}.#{$ext}") no-repeat center center;
-  background-size: cover;
+    background: url("/static/img/#{$img}.#{$ext}") no-repeat center center;
+    background-size: cover;
 }
-
-
-@mixin zIndex($zIndex){
-  position: relative;
-  z-index: $zIndex;
+@mixin zIndex($zIndex) {
+    position: relative;
+    z-index: $zIndex;
 }
-
-@mixin queryWHMT($max-width, $max-height, $width, $height, $marginTop){
-  @media screen and (max-width: #{$max-width}px) and (max-height: #{$max-height}px){
-  		width: #{$width}px;
-  		height: #{$height}px;
-  		margin-top: #{$marginTop}px;
-  }
+@mixin queryWHMT($max-width, $max-height, $width, $height, $marginTop) {
+     @media screen and (max-width: #{$max-width}px) and (max-height: #{$max-height}px){
+        width: #{$width}px;
+        height: #{$height}px;
+        margin-top: #{$marginTop}px;
+    }
 }
+@mixin scrollbar($width, $bar-color) {
+    &::-webkit-scrollbar-track {
+        border-radius: 20px;
+        background-color: white;
+    }
 
-@mixin scrollbar($width, $bar-color){
-  &::-webkit-scrollbar-track{
-border-radius: 20px;
-background-color: white;
+    &::-webkit-scrollbar {
+        width: $width;
+        background-color: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: $bar-color;
+    }
 }
+@mixin colorbutton($color) {
+    background-color: $color;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
 
-&::-webkit-scrollbar{
-width: $width;
-background-color: white;
-}
-
-&::-webkit-scrollbar-thumb
-{
-border-radius: 10px;
-background-color: $bar-color;
-}
-}
-
-@mixin colorbutton($color){
-  background-color: $color;
-  border-radius: 5px;
-  color: white;
-  outline: none;
-  cursor: pointer;
-  font-weight: bold;
-
-  &:active{
-    transform: scale(.95);
-  }
+    &:active {
+        transform: scale(.95);
+    }
 }
