@@ -11,7 +11,8 @@ let express = require('express'),
 let User = require("../models/user.js"),
     Idea = require("../models/idea.js"),
     Moment = require("../models/moment.js"),
-    Category = require("../models/category.js")
+    Category = require("../models/category.js"),
+    Feedback = require("../models/feedback.js")
 
 //config files
 let invite = require("../config/createinvitation.js"),
@@ -354,17 +355,26 @@ router.route('/ideas/:idea_id/feedback')
 })
 .post(function (req, res) {
   /* COMMENT AN IDEA */
-  let feedback = req.body.text;
-  //TODO: add attachments into the feedback
-  Idea.findById(req.params.idea_id) //User, comment
-  .update({ $addToSet: { 'feedback': {'user': req.U_ID, 'text': feedback} } })
-  .exec(function(err) {
-    if (err) {
-      res.status(500).json({'error': err});
-    } else {
-      res.status(201).json({'message': "Feedback sent."});
-    }
+  let feedback = new Feedback({
+    user: req.U_ID,
+    comment: req.body.text
   });
+
+  feedback.save(function(err, feedback) {
+    if (err)
+      return res.status(500).json({'err':err})
+    Idea.update(
+      { _id: {$in: req.params.idea_id} },
+      { $push: {"feedback":  feedback._id} },
+      { multi: true }
+    )
+    .exec(function(err){
+      if (err)
+        return res.status(500).json({'error': err,});
+      else
+        res.status(201).json({message: 'Feedback sent.'});
+    })
+  })
 });
 
 router.route('/ideas/:idea_id/:feedback_id/star')
@@ -382,11 +392,9 @@ router.route('/ideas/:idea_id/:feedback_id/star')
   })
 })
 .post(function (req, res) {
-  //Idea.findById(req.params.idea_id, {}, {'feedback._id':req.params.feedback_id})
-  Idea.findById(req.params.idea_id)
-  //.find({'feedback.text':"Great idea man! Keep it up."})
-  //.elemMatch('feedback', {_id:req.params.feedback_id})
-  .update({'feedback._id':req.params.feedback_id},{ $addToSet: { 'feedback.stars': req.U_ID } })
+  /* Starr a Feddback on an IDEA */
+  Feedback.findById(req.params.feedback_id)
+  .update({ $addToSet: { 'stars': req.U_ID } })
   .exec(function(err, result) {
     if (err) {
       res.status(500).json({'error': err})
@@ -405,6 +413,22 @@ router.route('/ideas/:idea_id/:feedback_id/star')
     else
       res.status(200).json({"message": "Successfully un-liked"})
     console.log(moment)
+  })
+})
+
+router.route('/ideas/:idea_id/interest')
+.post(function (req, res) {
+  /* Show Interest on an IDEA */
+  Idea.findById(req.params.idea_id)
+  .update({ $addToSet: {'interest': {'userID': req.U_ID, 'type':req.body.interest} } })
+  .exec(function(err, result) {
+    if (err) {
+      res.status(500).json({'error': err})
+    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
+      res.status(400).json({'message': "Already shown interest."})
+    else {
+      res.status(201).json(result)
+    }
   })
 })
 
