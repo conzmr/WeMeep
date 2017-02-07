@@ -15,13 +15,13 @@
                 <img src="/static/img/Create Idea_problem.svg">
                 <p>¿Tu idea resuelve algún <span class="red-text">problema</span>?</p>
                 <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked onclick="switchVisibility()">
+                    <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked>
                     <label class="onoffswitch-label" for="myonoffswitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
                 </div>
-                <div id="show-problem">
+                <div ng-show="mySwitch" id="show-problem">
                     <textarea class="" name="problem" maxlength="300" placeholder="¿Cuál es el problema? Descríbelo."></textarea>
                     <p class="textarea-length ">300</p>
                 </div>
@@ -32,6 +32,4 @@
             </a>
         </form>
     </div>
-    <script src="../js/createIdea.js">
-    </script>
 </body>

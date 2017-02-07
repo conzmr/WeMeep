@@ -97,13 +97,14 @@
         </p>
         <div class="mid-page" id="graph-cont">
             <div class="donut-cont">
-                <canvas id="donut-chart" height="300px" width="300px"></canvas>
+                <canvas id="donut-chart" height="300px" width="300px" class="chart chart-doughnut" chart-data="data" chart-colors="colors" chart-labels="labels" chart-series="series"></canvas>
+                <!--<canvas id="donut-chart" height="300px" width="300px"></canvas>-->
                 <div class="donut-center">
-                    <p id="dc-percentage"></p>
+                    <p id="dc-percentage">{{percentage}}</p>
                     <div class="clip-circ-img">
-                        <img id="dc-img">
+                        <img id="dc-img" ng-src="/static/img/{{likeImg}}">
                     </div>
-                    <p id="dc-p"></p>
+                    <p style="color: {{likeColor}}" id="dc-p">{{likeLabel}}</p>
                 </div>
             </div>
             <p id="votes-num">50</p>
@@ -111,22 +112,22 @@
                 <tr>
                     <td class="number">11</td>
                     <td><img src="static/img/like 4_Active.svg"></td>
-                    <td><span class="green-text">¡Me encanta, lo necesito ya!</span></td>
+                    <td class="left-align"><span class="green-text">¡Me encanta, lo necesito ya!</span></td>
                 </tr>
                 <tr class="highlighted">
                     <td class="number">25</td>
                     <td><img src="static/img/like 3_Active.svg"></td>
-                    <td><span class="color-red">¡Me encanta!, mas no es lo mío.</span></td>
+                    <td class="left-align"><span class="color-red">¡Me encanta!, mas no es lo mío.</span></td>
                 </tr>
                 <tr>
                     <td class="number">9</td>
                     <td><img src="static/img/like 2_Active.svg"></td>
-                    <td><span class="yellow-text">Me gusta, pero aún le falta algo.</span></td>
+                    <td class="left-align"><span class="yellow-text">Me gusta, pero aún le falta algo.</span></td>
                 </tr>
                 <tr>
                     <td class="number">5</td>
                     <td><img src="static/img/like 1_Active.svg"></td>
-                    <td><span class="blue-text">No me agrada.</span></td>
+                    <td class="left-align"><span class="blue-text">No me agrada.</span></td>
                 </tr>
             </table>
         </div>
@@ -199,7 +200,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js">
-    </script>
-    <script src="../js/donutChart.js"></script>
+    <script src="../../node_modules/chart.js/Chart.min.js"></script>
+    <script src="../../node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 </body>

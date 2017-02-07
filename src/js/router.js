@@ -86,7 +86,7 @@ angular.module('musementApp')
             })
             .state("myIdea", {
                 url: "/myIdea",
-                // controller: "",
+                controller: "myIdeaCtrl",
                 templateUrl: "/static/views/myIdea.html",
                 authenticate: false
             })
@@ -104,17 +104,22 @@ angular.module('musementApp')
             })
             .state("createIdeaSecondStep", {
                 url: "/createIdeaSecondStep",
-                // controller: "",
+                controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
                 authenticate: false
             })
             .state("createIdeaThirdStep", {
                 url: "/createIdeaThirdStep",
-                // controller: "",
+                controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS3.html",
                 authenticate: false
             })
-
+            .state("myIdeaStatistics", {
+                url: "/myIdeaStatistics",
+                controller: "statisticsCtrl",
+                templateUrl: "/static/views/statistics.html",
+                authenticate: false
+            })
 
         // Send to landingpage if the URL was not found
         $urlRouterProvider.otherwise("not-found");

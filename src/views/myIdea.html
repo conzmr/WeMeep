@@ -253,7 +253,7 @@
                 <p class="prev-pivote"></p>
                 <p class="prev-pivote"></p>
                 <p class="act-pivote"></p>
-                <input class="blue-button" type="button" name="pivotear" id="openPivModal" value="Pivotear">
+                <input class="blue-button" type="button" name="pivotear" ng-click="pivotear=true" id="openPivModal" value="Pivotear">
             </div>
             <div id="res-statistics" class="left-align">
                 <p class="pt-h">¿Interesante?</p>
@@ -289,7 +289,7 @@
         </div>
     </div>
 
-    <div class="modal" id="Pivotear-modal">
+    <div ng-show="pivotear" class="modal" id="Pivotear-modal">
         <div class="center-div-f">
             <pth>Pivotear Idea</pth>
             <div class="left-align" id="piv-m">
@@ -332,7 +332,7 @@
             </div>
             <div class="mid-page">
                 <div class="form-description">
-                    <img src="../../public/img/Create Idea_idea.svg">
+                    <img src="/static/img/Create Idea_idea.svg">
                     <p><span class="aqua-text">Idea</span></p>
                     <textarea name="description" class="" maxlength="300" placeholder="¿Qué hay de nuevo en este pivote? ¿Cómo ha cambiado tu idea?"></textarea>
                     <p class="textarea-length">300</p>
@@ -346,10 +346,8 @@
                     <p class="textarea-length">300</p>
                 </div>
             </div>
-            <input class="blue-button" type="button" name="new-pivote" id="new-piv-btn" value="Pivotear">
-            <p id="piv-modal-cancel" class="form-cancel">Cancelar</p>
-
+            <input class="blue-button" type="button" name="new-pivote" ng-click="pivotear=false" id="new-piv-btn" value="Pivotear">
+            <p id="piv-modal-cancel" ng-click="pivotear=false" class="form-cancel">Cancelar</p>
         </div>
     </div>
-    <script src="../js/idea.js"></script>
 </body>

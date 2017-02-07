@@ -163,10 +163,10 @@ input {
     border-color: transparent;
     background: $textfield-gray;
     margin-bottom: 20px;
-    margin-left: -6px;
+    margin-left: -8px;
     @include zIndex(2);
     font-size: 12px;
-    width: 150px;
+    width: 135px;
 
     &:not([type="button"]) {
         text-indent: 4px;
@@ -189,7 +189,7 @@ input {
 .form-input {
     img {
         height: 35px;
-        margin-left: 10px;
+        margin-left: -6px;
         vertical-align: middle;
         @include zIndex(3);
     }
@@ -211,13 +211,25 @@ input {
     }
 }
 
+#form-button-cont {
+    margin-top: 30px;
+}
+
+a {
+    &#next-button {
+        font-size: 13px;
+        padding: 3px 20px;
+        margin-top: 30px;
+    }
+}
+
 #init-sesion-h {
     margin-bottom: 0;
     margin-top: 70px;
 }
 
 #signup-form-h {
-    margin-top: 70px;
+    margin-top: 40px;
     margin-bottom: 40px;
 }
 
@@ -461,15 +473,10 @@ input {
     }
 }
 
-#show-problem {
-    display: none;
-}
-
 #input-team-members {
     margin-top: -515px;
     z-index: 3;
     width: 100%;
-    display: none;
     position: absolute;
     box-sizing: border-box;
     height: 100%;
@@ -994,7 +1001,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 4_Active.svg");
+                    background-image: url("/static/img/like 4_Active.svg");
                 }
             }
 
@@ -1004,7 +1011,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 3_Active.svg");
+                    background-image: url("/static/img/like 3_Active.svg");
                 }
             }
 
@@ -1014,7 +1021,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 2_Active.svg");
+                    background-image: url("/static/img/like 2_Active.svg");
                 }
             }
 
@@ -1024,7 +1031,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 1_Active.svg");
+                    background-image: url("/static/img/like 1_Active.svg");
                 }
             }
         }
@@ -1682,6 +1689,10 @@ nav {
             height: 25px;
             vertical-align: middle;
         }
+
+        .left-align {
+            padding-top: 0;
+        }
     }
 }
 
@@ -1963,7 +1974,6 @@ nav {
 .modal {
     z-index: 9999;
     position: fixed;
-    display: none;
     padding: {
         top: 20px;
     }
@@ -2455,7 +2465,7 @@ nav {
         img {
             display: inline-block;
             height: 18px;
-            margin: 0 1px;
+            margin: 0 5px;
             vertical-align: bottom;
         }
 
@@ -2539,8 +2549,8 @@ nav {
         #dc-percentage {
             color: $text-gray;
             font-size: 17px;
-            width: auto;
-            margin: 50px auto auto;
+            width: 90px;
+            margin: 20px auto auto;
             @media screen and (min-width: 910px) and (max-width: 990px) {
                 margin-top: 40px;
             }
@@ -2578,7 +2588,7 @@ nav {
         #dc-p {
             font-size: 15px;
             font-weight: bold;
-            width: 150px;
+            width: 140px;
             margin: -15px auto auto;
             @media screen and (min-width: 860px) and (max-width: 910px) {
                 width: 120px;
@@ -2600,4 +2610,53 @@ nav {
             }
         }
     }
+}
+
+.photo {
+    width: 125px;
+    height: 125px;
+    z-index: 1;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 20px;
+    background: transparent;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    input {
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        position: absolute;
+        cursor: pointer;
+    }
+}
+
+.photo img {
+    width: 115px;
+    height: 115px;
+    z-index: 0;
+    border-radius: 50%;
+    margin: auto;
+    top: 0;
+    background: transparent;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.cosas-luis-cont {
+    top: 10px;
+    left: 45%;
+    position: absolute;
 }
