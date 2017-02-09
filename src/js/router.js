@@ -4,7 +4,7 @@ angular.module('musementApp')
             .state("landing", {
                 url: "/",
                 controller: "mainCtrl",
-                templateUrl: "/static/views/landingpage.html",
+                templateUrl: "/static/views/landing.html",
                 authenticate: false //Doesn't requires authentication
             })
             .state("login", {
@@ -17,53 +17,6 @@ angular.module('musementApp')
                 url: "/home",
                 // controller: "homeCtrl",
                 templateUrl: "/static/views/home.html",
-                authenticate: true
-            })
-            .state("feed", {
-                url: "/",
-                controller: "feedCtrl",
-                templateUrl: "/static/views/feed.html",
-                authenticate: true
-            })
-            .state("feed.inbox", {
-                url: "inbox",
-                controller: "inboxCtrl",
-                templateUrl: "/static/views/inbox.html",
-                authenticate: true
-            })
-            .state("feed.profile", {
-                url: "user/:username/",
-                controller: "profileCtrl",
-                templateUrl: "/static/views/profile.html",
-                authenticate: true
-            })
-            .state("feed.moment", {
-                url: "user/:username/moments/:moment_id",
-                controller: "momentCtrl",
-                templateUrl: "/static/views/moment.html",
-                authenticate: true
-            })
-            .state("feed.project", {
-                url: "user/:username/:projectname/",
-                controller: "projectCtrl",
-                templateUrl: "/static/views/profile.project.html",
-                authenticate: true
-            })
-            .state("feed.connections", {
-                url: "connections/",
-                templateUrl: "/static/views/feed.connections.html",
-                authenticate: true
-            })
-            .state("feed.new-project", {
-                url: "project/new",
-                controller: "projectCtrl",
-                templateUrl: "/static/views/feed.new-project.html",
-                authenticate: true
-            })
-
-        .state("feed.not-found", {
-                url: "not-found",
-                templateUrl: "/static/views/feed.not-found.html",
                 authenticate: true
             })
             .state("signup", {
@@ -120,6 +73,7 @@ angular.module('musementApp')
                 templateUrl: "/static/views/statistics.html",
                 authenticate: false
             })
+
 
         // Send to landingpage if the URL was not found
         $urlRouterProvider.otherwise("not-found");

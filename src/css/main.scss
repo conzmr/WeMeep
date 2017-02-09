@@ -2660,3 +2660,73 @@ nav {
     left: 45%;
     position: absolute;
 }
+
+.transparent-nav {
+    background: transparent;
+    padding: 10px 100px;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    @media screen and (max-width: 600px) {
+        padding: 10px 50px;
+    }
+    @media screen and (max-width: 450px) {
+        padding: 10px 20px;
+    }
+
+    .logo {
+        height: 40px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.logo-word {
+    display: inline-block;
+    margin: auto 10px;
+    height: 20px;
+    letter-spacing: 3px;
+}
+
+.margin-button {
+    padding: 2px 25px;
+    border: 3px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 20px;
+    margin: auto 0 auto auto;
+
+    &.blue {
+        color: $wetopia-blue;
+        border-color: $wetopia-blue;
+    }
+    /*cannot transform all*/
+}
+
+.main-cont {
+    width: 100%;
+    height: auto;
+}
+
+.subtitle {
+    font: {
+        size: 23px;
+    }
+}
+
+.sub-cont {
+    width: 285px;
+    text-align: right;
+    margin: 200px 100px auto auto;
+}
+
+.flex-cont {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+#join-button {
+    margin: auto 0 auto auto;
+}
