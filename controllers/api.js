@@ -516,18 +516,19 @@ router.route('/users/:user_id/ideas')
 
 })
 
-router.route('/projects/:project_id')
+/* GET the information for an idea */
+router.route('/ideas/:idea_id')
 .get(function (req, res) {
-  Idea.findById(req.params.project_id)
+  Idea.findById(req.params.idea_id)
   .lean()
-  .populate('members moments', 'name surname username image color')
+  .populate('members', 'username image')
   .populate({
-    path: 'moments',
-    model: 'Moment',
+    path: 'feedback',
+    model: 'Feedback',
     populate: {
       path: 'user',
       model: 'User',
-      select: 'name username surname image color'
+      select: 'image name username'
     }
   })
   .exec(function (err, project) {
@@ -546,6 +547,7 @@ router.route('/projects/:project_id')
   //TODO: Delete project
   res.status(501).json({'message':'Not yet supported.'})
 })
+
 
 router.route('/projects/:project_id/logo')
 .post(upload, function(req,res){
