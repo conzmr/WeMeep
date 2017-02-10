@@ -10,7 +10,7 @@ angular.module('musementApp')
             .state("login", {
                 url: "/login",
                 controller: 'loginCtrl',
-                templateUrl: "/static/views/wetopia_login.html",
+                templateUrl: "/static/views/login.html",
                 authenticate: false
             })
             .state("home", {
