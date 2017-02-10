@@ -1,14 +1,6 @@
 <body>
     <div class="fixed-background hexagon-bg">
-        <div class="cosas-luis-cont">
-            <a ui-sref-active="active" ui-sref=".first"><span>1</span> first</a>
-            <a ui-sref-active="active" ui-sref=".second"><span>2</span> second</a>
-            <pre>
-          {{ user }}
-      </pre>
-        </div>
-
-        <form class="centered-form" ng-submit="signUp()">
+        <form name="signUpForm" class="centered-form" ng-submit="signUp()">
             <div class="upper-text-form">
                 <a href="#">
                     <p>Login</p>
