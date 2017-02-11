@@ -60,6 +60,19 @@ EXPRESION
     }
 }
 
+input[type=email],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
 .fixed-background {
     position: absolute;
     z-index: 0;
@@ -104,11 +117,11 @@ a {
 .centered-form {
     margin: auto;
     @include zIndex(1);
-    width: 330px;
-    min-width: 300px;
-    height: 480px;
+    width: auto;
+    min-width: 270px;
+    height: auto;
     background: white;
-    vertical-align: middle;
+    padding: 25px;
     box-shadow: 0 0 70px 10px $pt-gray;
 
     .gray-sub {
@@ -153,8 +166,6 @@ a {
 
     p {
         color: $wetopia-yellow;
-        margin-right: 25px;
-        padding-top: 20px;
     }
 }
 
@@ -213,6 +224,7 @@ input {
 
 #form-button-cont {
     margin-top: 30px;
+    margin-bottom: 60px;
 }
 
 a {
@@ -367,14 +379,14 @@ a {
 
     img {
         width: 70px;
-        margin-top: 40px;
+        margin-top: 30px;
     }
 }
 
 .form-description {
     box-sizing: border-box;
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
     position: relative;
     text-align: left;
     margin: auto;
@@ -1606,7 +1618,7 @@ nav {
         margin: 15px;
         width: 80px;
         font: {
-            size: 14px;
+            size: 15px;
         }
     }
 }
@@ -2662,7 +2674,7 @@ nav {
 }
 
 .transparent-nav {
-    background: transparent;
+    background: rgba(255,255,255,0.55);
     padding: 10px 100px;
     display: -webkit-flex;
     display: flex;
@@ -2693,8 +2705,13 @@ nav {
     border: 3px solid;
     border-radius: 10px;
     cursor: pointer;
+    background: white;
     height: 20px;
     margin: auto 0 auto auto;
+
+    &:active {
+        transform: scale(.95);
+    }
 
     &.blue {
         color: $wetopia-blue;
@@ -2708,25 +2725,174 @@ nav {
     height: auto;
 }
 
+.dark-sub {
+    color: $text-gray;
+    font-size: 17px;
+    font-weight: bolder;
+}
+
 .subtitle {
     font: {
-        size: 23px;
+        size: 30px;
     }
 }
 
 .sub-cont {
-    width: 285px;
+    max-width: 370px;
     text-align: right;
     margin: 200px 100px auto auto;
+    @media screen and (max-width: 600px) {
+        margin-right: 50px;
+    }
+    @media screen and (max-width: 450px) {
+        margin-right: 20px;
+    }
+}
+
+.sub-left {
+    max-width: 550px;
+    margin: 200px auto auto 100px;
+    text-align: left;
+}
+
+.modsize-cont {
+    max-width: 450px;
+}
+
+.fit-cont {
+    max-width: 500px;
+
+    .blue-button {
+        margin-right: 60px;
+    }
 }
 
 .flex-cont {
     display: -webkit-flex;
     display: flex;
     width: 100%;
+    height: 500px;
     position: relative;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    blue {
+        font-weight: bolder;
+    }
+
+    &.land-list {
+        margin: 50px auto;
+        padding: 0 20px;
+        max-width: 900px;
+        height: auto;
+
+        &.last {
+            margin-top: 200px;
+        }
+    }
+
+    p {
+        margin: 8px 0;
+        line-height: 25px;
+    }
+
+    pt-h {
+        font-size: 15px;
+    }
 }
 
-#join-button {
+.join-button {
     margin: auto 0 auto auto;
+    padding: 4px 35px;
+    height: 20px;
+    display: inline-flex;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.big-logo {
+    height: 200px;
+    margin: auto;
+}
+
+#big-logo-cont {
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 600px;
+}
+
+.button-img {
+    width: 110px;
+    height: 30px;
+    margin: 10px 0;
+    /*If it is a btn
+    cursor: pointer;
+
+    &:active {
+        transform: scale(0.95);
+    }*/
+}
+
+.flex-modal {
+    display: -webkit-flex;
+    display: flex;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    &.white {
+        background-color: rgba(255,255,255,0.35);
+    }
+}
+/*ESTO VA EN UN ONCLICK!!!!*/
+.blur {
+    filter: blur(1.5px);
+}
+
+#landing-cf {
+    box-shadow: 0 0 3px 1px #CCC;
+    padding: 0;
+    text-align: center;
+
+    .blue-div {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        max-width: 320px;
+        height: 85px;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        margin-bottom: 40px;
+
+        p {
+            color: white;
+            font-size: 14px;
+            font-weight: bolder;
+            margin: auto;
+        }
+    }
+
+    .form-input {
+        display: table;
+        margin: 5px auto;
+
+        input {
+            width: 180px;
+        }
+    }
+
+    input[type=button] {
+        margin-bottom: 50px;
+    }
+}
+
+.blue-div {
+    background: $wetopia-blue;
 }
