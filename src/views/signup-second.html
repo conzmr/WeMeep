@@ -12,10 +12,10 @@
 </div>
 <div class="form-input">
     <img src="/static/img/Login_name.svg">
-    <input type="text" name="signup-name" placeholder="Firstname">
+    <input type="text" name="signup-name" placeholder="Firstname" ng-model="user.name">
 </div>
 <div class="form-input">
     <img src="/static/img/Login_last.svg">
-    <input type="text" name="signup-lastname" placeholder="Lastname">
+    <input type="text" name="signup-lastname" placeholder="Lastname" ng-model="user.surname">
 </div>
-<input type="button" value="Done" class="form-button" ng-click="signUp()" name="create">
+<input type="button" value="Done" class="form-button" ng-click="signUp()" ng-disabled="!secondValidation"  ng-class="{'block': !secondValidation}" name="create">
