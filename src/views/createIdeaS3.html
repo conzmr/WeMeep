@@ -1,60 +1,54 @@
-<body>
-    <div class="fixed-background hexagon-bg">
-        <form class="centered-form" id="selectTeamIdea-form" action="index.html" method="post">
-            <div class="step-img">
-                <img src="/static/img/finalStep_Create Idea.svg">
-            </div>
-            <p>Nueva Idea</p>
-            <div class="form-description">
-                <img src="/static/img/Create Idea_img.svg">
-                <p class="form-subtitle">Imagen de portada</p>
-                <div class="select-image">
-                    <label for="input-image">
-                      <img src="/static/img/Create Idea_uploadPhoto.svg"/>
-                      <p>subir imagen</p>
-                  </label>
-                    <input type="file" id="input-image" name="idea-image" accept="image/*">
-                </div>
-            </div>
-            <div class="form-description">
-                <img src="/static/img/Create Idea_team.svg">
-                <p class="form-subtitle">Agrega a tu Team</p>
-                <div class="select-team">
-                    <div class="tooltip">
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p class="tooltiptext">UserName</p>
-                    </div>
-                    <div class="tooltip">
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p class="tooltiptext">UserName</p>
-                    </div>
-                    <img id="add-members" src="/static/img/Create Idea_addPeople.svg" ng-click="inputTeamMembers=true">
-                </div>
-            </div>
-            <input class="form-button" type="button" name="selectTeam-button" value="Siguiente">
-            <a href="#">
-                <p class="form-cancel">Cancelar</p>
-            </a>
-            <div ng-show="inputTeamMembers" class="centered-form" id="input-team-members">
-                <input type="text" id="name-member-input" name="team-members">
-                <ul id="members-list">
-                    <li>
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p>FirstName</p>
-                        <p>userName</p>
-                        <img src="/static/img/Create Idea_add.svg">
-                    </li>
-                    <li>
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p>FirstName</p>
-                        <p>userName</p>
-                        <img src="/static/img/Create Idea_added.svg">
-                    </li>
-                </ul>
-                <div class="done-button">
-                    <input class="form-button" id="soy" type="button" name="done-selection" value="Listo" ng-click="inputTeamMembers=false">
-                </div>
-            </div>
-        </form>
+<div class="step-img">
+    <img src="/static/img/finalStep_Create Idea.svg">
+</div>
+<p>New Idea</p>
+<div class="form-description">
+    <img src="/static/img/Create Idea_img.svg">
+    <p class="form-subtitle">Add Cover</p>
+    <div class="select-image">
+        <div class="createIdea-cover">
+          <input type="file" ngf-select name="file" ng-model="idea.cover" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+          <img ngf-thumbnail="idea.cover">
+        </div>
+        <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
     </div>
-</body>
+</div>
+<div class="form-description">
+    <img src="/static/img/Create Idea_team.svg">
+    <p class="form-subtitle">Add Team Members</p>
+    <div class="select-team">
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <img id="add-members" src="/static/img/Create Idea_addPeople.svg" ng-click="inputTeamMembers=true">
+    </div>
+</div>
+<input class="form-button" type="button" name="selectTeam-button" value="Create Idea" ng-click="submitIdea()">
+<a href="#">
+    <p class="form-cancel">Cancel</p>
+</a>
+<div ng-show="inputTeamMembers" class="centered-form" id="input-team-members">
+    <input type="text" id="name-member-input" name="team-members">
+    <ul id="members-list">
+        <li>
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p>FirstName</p>
+            <p>userName</p>
+            <img src="/static/img/Create Idea_add.svg">
+        </li>
+        <li>
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p>FirstName</p>
+            <p>userName</p>
+            <img src="/static/img/Create Idea_added.svg">
+        </li>
+    </ul>
+    <div class="done-button">
+        <input class="form-button" id="soy" type="button" name="done-selection" value="Ready" ng-click="inputTeamMembers=false">
+    </div>
+</div>
