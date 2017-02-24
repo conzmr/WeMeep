@@ -193,6 +193,48 @@ input {
         vertical-align: middle;
         @include zIndex(3);
     }
+    .tags{
+      width: 250px;
+    }
+    .host{
+      display: inline-block;
+      position: relative;
+    }
+    tags-input{
+      width: 250px;
+      margin-bottom: 30px;
+      list-style-type: none;
+    }
+    auto-complete {
+      ul.suggestion-list{
+        list-style-type: none;
+        li.suggestion-item{
+          display: inline-block;
+          margin: 3px;
+          background: $textfield-gray;
+          border: 25px;
+          padding: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+    ul.tag-list{
+      li.tag-item{
+        list-style-type: none;
+        font-size: 15px;
+        display: inline-block;
+        padding: 0.3em;
+        background: $textfield-gray;
+        margin: 0 2px;
+        a.remove-button{
+          background: $pt-gray;
+          padding: 2px;
+          border-radius: 25px;
+          font-size: 13px;
+          cursor: pointer;
+        }
+      }
+    }
 }
 
 .form-button {

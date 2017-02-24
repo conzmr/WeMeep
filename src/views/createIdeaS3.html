@@ -7,8 +7,8 @@
     <p class="form-subtitle">Add Cover</p>
     <div class="select-image">
         <div class="createIdea-cover">
-          <input type="file" ngf-select name="file" ng-model="idea.cover" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
-          <img ngf-thumbnail="idea.cover">
+          <input type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+          <img ngf-thumbnail="idea.banner">
         </div>
         <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
     </div>
@@ -28,7 +28,7 @@
         <img id="add-members" src="/static/img/Create Idea_addPeople.svg" ng-click="inputTeamMembers=true">
     </div>
 </div>
-<input class="form-button" type="button" name="selectTeam-button" value="Create Idea" ng-click="submitIdea()">
+<input class="form-button" type="button" name="selectTeam-button" value="Create Idea" ng-click="createIdea()">
 <a href="#">
     <p class="form-cancel">Cancel</p>
 </a>
