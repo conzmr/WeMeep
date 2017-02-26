@@ -3,7 +3,7 @@ angular.module('musementApp')
         $stateProvider
             .state("landing", {
                 url: "/",
-                controller: "mainCtrl",
+                controller: "landingCtrl",
                 templateUrl: "/static/views/landing.html",
                 authenticate: false //Doesn't requires authentication
             })
@@ -77,6 +77,11 @@ angular.module('musementApp')
                 url: "/myIdeaStatistics",
                 controller: "statisticsCtrl",
                 templateUrl: "/static/views/statistics.html",
+                authenticate: false
+            })
+            .state("test", {
+                url: "/test",
+                templateUrl: "/static/views/test.html",
                 authenticate: false
             })
 
