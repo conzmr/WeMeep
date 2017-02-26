@@ -1,11 +1,12 @@
 angular.module("musementApp")
+    /*
     .config(['ChartJsProvider', function(ChartJsProvider) {
 
-        ChartJsProvider.setOptions({
-            innerRadius: "90%"
-        });
-        // Quite labels, bigger inner radius, quite separation lines
-    }])
+            ChartJsProvider.setOptions({
+                innerRadius: "90%"
+            });
+            // Quite labels, bigger inner radius, quite separation lines
+        }])*/
     .controller("statisticsCtrl", ['$scope', '$timeout', function($scope, $timeout) {
 
         $scope.labels = ["¡Me encanta, lo necesito ya!", "¡Me encanta!, mas no es lo mío",
