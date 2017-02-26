@@ -9,6 +9,7 @@ EXPRESION
 @import "helper/mixins";
 @import "helper/variables";
 @import "helper/tags";
+@import "helper/animations";
 @font-face {
     font-family: 'Museo';
     src: url('/static/fonts/MuseoSans-300.otf');
@@ -16,48 +17,6 @@ EXPRESION
 @font-face {
     font-family: 'Museo_D';
     src: url('/static/fonts/MuseoSans_500.otf');
-}
-@keyframes backgroundAnimation {
-    0% {
-        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    33% {
-        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    66% {
-        background: url('/static/img/Login_bac_1.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    100% {
-        background: url('/static/img/Login_bac_2.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-}
-@-moz-keyframes backgroundAnimation {
-    0% {
-        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    33% {
-        background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    66% {
-        background: url('/static/img/Login_bac_1.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    100% {
-        background: url('/static/img/Login_bac_2.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
 }
 
 input[type=email],
@@ -71,6 +30,7 @@ input[type=url] {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    outline: none;
 }
 
 .fixed-background {
@@ -134,9 +94,10 @@ a {
     .logo-img {
         img {
             height: 100px;
-            margin-top: 40px;
+            margin-top: 20px;
         }
     }
+    /*
     @media screen and (orientation: landscape) {
          @media screen and (max-height: 450px){
             transform: rotate(270deg);
@@ -157,7 +118,7 @@ a {
          @include queryWHMT(420, 740, 330, 480, 120);
         @include queryWHMT(380, 670, 300, 480, 75);
         @include queryWHMT(350, 580, 270, 450, 60);
-    }
+    }*/
 }
 
 .upper-text-form {
@@ -180,7 +141,8 @@ input {
     width: 135px;
 
     &:not([type="button"]) {
-        text-indent: 4px;
+        text-indent: 8px;
+        height: 15px;
     }
 
     &[type="text"] {
@@ -207,7 +169,7 @@ input {
 }
 
 .form-button {
-    background: $wetopia-green;
+    background: $pt-gray;
     color: white;
     width: 70px;
     height: 23px;
@@ -221,6 +183,7 @@ input {
         transform: scale(0.95);
     }
 }
+
 .block {
     background: $pt-gray;
     color: white;
@@ -236,7 +199,7 @@ input {
 
 #form-button-cont {
     margin-top: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 0;
 }
 
 a {
@@ -253,8 +216,8 @@ a {
 }
 
 #signup-form-h {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #new-user-img {
@@ -277,7 +240,7 @@ a {
 }
 
 #describeIdea-form {
-    width: 480px;
+    width: 450px;
     min-width: 330px;
     height: auto;
 
@@ -302,6 +265,7 @@ a {
 
     .form-description {
         width: 80%;
+        padding: 10px 0;
     }
 
     input {
@@ -373,8 +337,8 @@ a {
 #describeIdea-form,
 #selectTeamIdea-form {
     input {
-        width: 250px;
-        margin-bottom: 30px;
+        width: 220px;
+        margin-bottom: 25px;
 
         &[type=button] {
             width: 90px;
@@ -1242,6 +1206,10 @@ nav {
     margin-top: 120px;
     padding: 10px;
     box-sizing: border-box;
+
+    .form-description {
+        padding: 20px;
+    }
 }
 
 .idea-img {
@@ -2687,8 +2655,10 @@ nav {
 }
 
 .transparent-nav {
-    background: rgba(255,255,255,0.55);
+    background: rgba(245,245,245,0.35);
     padding: 10px 100px;
+    max-width: 100%;
+    position: fixed;
     display: -webkit-flex;
     display: flex;
     box-sizing: border-box;
@@ -2718,7 +2688,7 @@ nav {
     border: 3px solid;
     border-radius: 10px;
     cursor: pointer;
-    background: white;
+    background: rgba(255,255,255,0.6);
     height: 20px;
     margin: auto 0 auto auto;
 
@@ -2735,7 +2705,14 @@ nav {
 
 .main-cont {
     width: 100%;
-    height: auto;
+    z-index: 1;
+    background: white;
+    //height: auto;
+    //trying paralaxx
+    //perspective: 1px;
+    //height: 100vh;
+    //overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .dark-sub {
@@ -2751,15 +2728,8 @@ nav {
 }
 
 .sub-cont {
-    max-width: 370px;
+    max-width: 400px;
     text-align: right;
-    margin: 200px 100px auto auto;
-    @media screen and (max-width: 600px) {
-        margin-right: 50px;
-    }
-    @media screen and (max-width: 450px) {
-        margin-right: 20px;
-    }
 }
 
 .sub-left {
@@ -2790,18 +2760,35 @@ nav {
     flex-direction: column;
     box-sizing: border-box;
 
+    &.ng-show {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation: fadeIn 3s linear 0s;
+        -moz-animation: fadeIn 3s linear 0s;
+        -o-animation: fadeIn 3s linear 0s;
+        animation: fadeIn 3s linear 0s;
+    }
+
     blue {
         font-weight: bolder;
     }
 
     &.land-list {
-        margin: 50px auto;
+        margin: 50px auto 50px 80px;
         padding: 0 20px;
-        max-width: 900px;
+        width: 70%;
         height: auto;
+        @media screen and (max-width: 800px) {
+            margin-left: 50px;
+        }
+        @media screen and (max-width: 800px) {
+            margin-left: 30px;
+        }
 
         &.last {
             margin-top: 200px;
+            padding-bottom: 60px;
+            margin-bottom: 0;
         }
     }
 
@@ -2818,7 +2805,6 @@ nav {
 .join-button {
     margin: auto 0 auto auto;
     padding: 4px 35px;
-    height: 20px;
     display: inline-flex;
     margin-top: 10px;
     border-radius: 10px;
@@ -2826,14 +2812,26 @@ nav {
 
 .big-logo {
     height: 200px;
-    margin: auto;
+    margin: auto auto 40px;
 }
 
 #big-logo-cont {
-    padding: 10px 20px;
     box-sizing: border-box;
     margin: auto;
+    padding: 0 30px;
     max-width: 600px;
+}
+
+#blue-fixed-sub {
+    position: fixed;
+    right: 100px;
+    top: 220px;
+    @media screen and (max-width: 600px) {
+        right: 50px;
+    }
+    @media screen and (max-width: 450px) {
+        right: 20px;
+    }
 }
 
 .button-img {
@@ -2851,7 +2849,7 @@ nav {
 .flex-modal {
     display: -webkit-flex;
     display: flex;
-    z-index: 9999;
+    z-index: 99999;
     position: fixed;
     left: 0;
     top: 0;
@@ -2891,21 +2889,231 @@ nav {
             margin: auto;
         }
     }
+}
 
-    .form-input {
-        display: table;
-        margin: 5px auto;
+.form-input {
+    display: table;
+    margin: 5px auto;
 
-        input {
-            width: 180px;
+    input,
+    select {
+        width: 180px;
+    }
+
+    input {
+        &::-webkit-input-placeholder {
+            color: $pt-gray;
+        }
+
+        &::-moz-placeholder {
+            color: $pt-gray;
+        }
+        background: $textfield-gray;
+    }
+
+    select {
+        font-size: 12px;
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: $textfield-gray url("/static/img/arrowDown.svg") no-repeat right center;
+        background-size: 10px 18px;
+        height: 22px;
+        color: $pt-gray;
+        text-indent: 5px;
+        margin-left: -5px;
+        outline: none;
+        border-color: transparent;
+        @include zIndex(2);
+        border-radius: 0 4px 4px 0;
+        @-moz-document url-prefix() {
+            text-indent: 2px;
         }
     }
 
     input[type=button] {
         margin-bottom: 50px;
+        margin-bottom: 50px;
+        border-radius: 8px;
+        font-size: 14px;
+        height: 23px;
+        width: 80px;
     }
 }
 
 .blue-div {
     background: $wetopia-blue;
+}
+
+#land-up {
+    //position: absolute;
+    background: url('/static/img/Landing_bg1.jpg') no-repeat center fixed;
+    background-size: cover;
+    z-index: 0;
+    -webkit-animation: backgroundLanding 12s linear 0s;
+    -moz-animation: backgroundLanding 12s linear 0s;
+    //-o-animation: backgroundLanding 12s linear 0s;
+    animation: backgroundLanding 12s linear 0s;
+    animation-name: backgroundLanding;
+    -webkit-animation-name: backgroundLanding;
+    animation-iteration-count: infinite;
+}
+
+#static-bg {
+    background: url('/static/img/Landing_bg_abajo.svg') no-repeat right bottom fixed;
+    background-size: cover;
+    @media screen and (max-width: 560px) {
+        background: white;
+    }
+
+    .flex-cont {
+        &.land-list {
+            @media screen and (max-width: 560px) {
+                width: 90%;
+            }
+        }
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation: fadeIn 1.5s linear 0s;
+    -moz-animation: fadeIn 1.5s linear 0s;
+    -o-animation: fadeIn 1.5s linear 0s;
+    animation: fadeIn 1.5s linear 0s;
+}
+
+.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation: fadeOut 0.3s linear 0s;
+    -moz-animation: fadeOut 0.3s linear 0s;
+    -o-animation: fadeOut 0.3s linear 0s;
+    animation: fadeOut 0.3s linear 0s;
+    opacity: 0;
+}
+
+.scroll-debug {
+    position: fixed;
+    bottom: 10px;
+    right: 100px;
+    color: black;
+    font-size: 50px;
+    z-index: 9999999;
+}
+
+.footer {
+    width: 100%;
+}
+
+.wetopia-word {
+    letter-spacing: 3px;
+}
+
+#footer-land {
+    background-color: rgba(204,204,204,0.7);
+    padding: 10px 0;
+    height: 150px;
+    box-sizing: border-box;
+
+    .wetopia-word {
+        font-size: 16px;
+        color: white;
+        margin: auto auto 10px;
+    }
+
+    .img-container {
+        margin: auto;
+        text-align: center;
+    }
+
+    img {
+        height: 50px;
+        margin: 5px 10px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    transition: all linear 0.5s;
+}
+
+#join-btn-land {
+    margin-left: 10px;
+}
+
+#people-regist {
+    margin: 18px 25px 0 auto;
+    @media screen and (max-width: 500px) {
+        margin: 18px auto;
+    }
+    @media screen and (max-width: 350px) {
+        font-size: 15px;
+    }
+}
+/*test*/
+.animate-show.ng-hide-add {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation: fadeOut 0.5s linear 0s;
+    -moz-animation: fadeOut 0.5s linear 0s;
+    -o-animation: fadeOut 0.5s linear 0s;
+    animation: fadeOut 0.5s linear 0s;
+}
+
+.animate-show.ng-hide-remove {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation: fadeIn 0.5s linear 0s;
+    -moz-animation: fadeIn 0.5s linear 0s;
+    -o-animation: fadeIn 0.5s linear 0s;
+    animation: fadeIn 0.5s linear 0s;
+}
+
+.animate-show.ng-hide {
+    opacity: 0;
+    padding: 0 10px;
+}
+
+.sub-sub-t {
+    font-size: 18px;
+}
+
+.sub-cont {
+    &.ng-hide {
+        opacity: 0;
+        padding: 0 10px;
+    }
+
+    &.ng-hide-remove {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation: fadeIn 0.5s linear 0s;
+        -moz-animation: fadeIn 0.5s linear 0s;
+        -o-animation: fadeIn 0.5s linear 0s;
+        animation: fadeIn 0.5s linear 0s;
+        transition: all linear 0.5s;
+    }
+
+    #join-btn-land {
+        @media screen and (max-width: 500px) {
+            display: table;
+            margin: 10px auto;
+            width: 60px;
+            text-align: center;
+        }
+    }
+}
+
+#idea1-btn {
+    height: 40px;
+}
+
+#select-ph {
+    color: $wetopia-blue;
 }

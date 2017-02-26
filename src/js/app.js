@@ -8,13 +8,14 @@ require('ng-tags-input')
 require('angular-animate')
 require('angular-translate-loader-static-files')
 require('angular-chart.js')
+require('angular-click-outside')
 
 //Change in production
 //to http://musement.co and in development to http://localhost:8080
 window.HOST = 'http://localhost:8080'
 
 angular.module('musementApp', ['ui.router', 'LocalStorageModule',
-        'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js'
+        'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js', 'angular-click-outside'
     ]) //, 'ngFileUpload'
     .factory('httpRequestInterceptor', function(localStorageService) {
         return {
