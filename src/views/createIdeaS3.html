@@ -33,7 +33,40 @@
     <p class="form-cancel">Cancel</p>
 </a>
 <div ng-show="inputTeamMembers" class="centered-form" id="input-team-members">
-    <input type="text" id="name-member-input" name="team-members">
+  <tags-input ng-model="idea.members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0"  add-from-autocomplete-only="true" template="tag-project">
+          <auto-complete source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
+  </tags-input>
+
+  <script type="text/ng-template" id="tag-project">
+    <div class="tag-template">
+          <img ng-src="{{data.image}}">
+          <p>{{$getDisplayText()}}</p>
+          <img src="/static/img/Create Idea_added.svg" ng-click="$removeTag()">
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="autocomplete-project">
+        <div class="autocomplete-template">
+          <img ng-src="{{data.image}}">
+          <!-- <p>{{$getDisplayText()}}</p> -->
+            <span ng-bind-html="$highlight($getDisplayText())"></span>
+            <span>@{{data.username}}</span>
+            <img src="/static/img/Create Idea_add.svg">
+          </div>
+        </div>
+</script>
+
+        <!-- <div class="tag-template">
+          <div class="left-panel">
+            <img class="profile-image" ng-src="{{data.image}}" ng-if="data.image"/>
+          </div>
+          <div class="right-panel">
+            <span>{{$getDisplayText()}}</span>
+            <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+          </div>
+        </div> -->
+<!-- </script> -->
+    <!-- <input type="text" id="name-member-input" name="team-members">
     <ul id="members-list">
         <li>
             <img src="/static/img/Create Idea_profilePhoto.svg">
@@ -47,7 +80,7 @@
             <p>userName</p>
             <img src="/static/img/Create Idea_added.svg">
         </li>
-    </ul>
+    </ul> -->
     <div class="done-button">
         <input class="form-button" id="soy" type="button" name="done-selection" value="Ready" ng-click="inputTeamMembers=false">
     </div>

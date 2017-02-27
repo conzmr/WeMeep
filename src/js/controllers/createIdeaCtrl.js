@@ -1,12 +1,32 @@
 angular.module('musementApp')
+  .filter('containsMember', function() {
+    return function (array, needle) {
+      for (var i = 0; i < array.length; i++) {
+        if (array[i]._id == needle)
+        return true
+      }
+      return false
+    };
+  })
     .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
 
       let user_id = localStorageService.get('user_id');
       $scope.idea = {};
       $scope.mySwitch = false;
       $scope.inputTeamMembers = false;
-      $scope.tags = []
+      $scope.tags = [];
+      $scope.members = [];
 
+
+       // Load members when creating a project
+       $scope.loadMembers = function($query) {
+         return $http.get(HOST + '/api/members/' + user_id, {cache: true}).then(function(response) {
+           var members = response.data;
+           return members.filter(function(member) {
+             return member.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+           });
+         });
+     }
 
       // Load categories when creating a moment
       $scope.loadTags = function($query) {
@@ -17,6 +37,8 @@ angular.module('musementApp')
           })
         })
       }
+
+
 
       $scope.createIdea = function() {
         if (this.idea.banner == undefined) {
@@ -47,6 +69,7 @@ angular.module('musementApp')
         ideaInfo.description = this.idea.description
         ideaInfo.categories = this.idea.categories
         ideaInfo.problem = this.idea.problem
+        ideaInfo.members = this.idea.members
         ideaInfo.banner = banner
 
         createIdeaDataService.setIdea(ideaInfo, user_id, function(res){
