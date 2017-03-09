@@ -11,5 +11,6 @@ db.categories.insert([
   {"name":"Technology"},
   {"name":"Health"},
   {"name":"Education"},
+  {"name":"Social"},
   {"name":"Others"}
 ]);
