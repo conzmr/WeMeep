@@ -1,0 +1,95 @@
+tags-input {
+    display: block;
+    border-color: transparent;
+    outline: none;
+}
+
+tags-input *,
+tags-input *:after,
+tags-input *:before {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+tags-input .host {
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 100%;
+    outline: none;
+}
+
+tags-input .host:active {
+    outline: none;
+}
+
+tags-input .tags {
+    padding: 1px;
+    overflow: hidden;
+    word-wrap: break-word;
+    cursor: text;
+    border: transparent;
+    width: 100%;
+    outline: none;
+}
+
+tags-input .tags.focused {
+    outline: none;
+    border: transparent;
+}
+
+tags-input .tags .tag-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    outline: none;
+}
+
+tags-input .tags .input {
+    border: 0;
+    outline: none;
+    margin: 2px;
+    padding: 0 0 0 5px;
+    float: left;
+    height: 26px;
+    width: 100% !important;
+}
+
+tags-input .tags .input::-ms-clear {
+    display: none;
+    outline: none;
+    border: transparent;
+}
+
+tags-input[disabled] .host:focus {
+    outline: none;
+}
+
+tags-input .autocomplete {
+    margin-top: 5px;
+    position: absolute;
+    padding: 5px 0;
+    z-index: 999;
+    width: 100%;
+    outline: none;
+}
+
+tags-input .autocomplete .suggestion-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    max-height: 280px;
+    overflow-y: auto;
+    position: relative;
+}
+
+tags-input .autocomplete .suggestion-item {
+    //padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    outline: none;
+    text-overflow: ellipsis;
+    //    color: #000;
+}

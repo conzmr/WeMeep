@@ -4,9 +4,11 @@ angular.module("musementApp")
     $scope.join = false;
     $scope.scrolled = 0;
     $scope.h = $window.innerHeight;
+
     $scope.closeThis = function() {
         $scope.join = false;
     }
+
     $document.on('scroll', function() {
         $scope.$apply(function() {
             $scope.scrolled = $window.scrollY;
@@ -16,7 +18,6 @@ angular.module("musementApp")
             }*/
         })
     });
-
 
     /*
         var vm = this;

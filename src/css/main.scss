@@ -6,6 +6,7 @@ EXPRESION
 }
 */
 @import "helper/placeholders";
+@import "helper/ng-tags-input";
 @import "helper/mixins";
 @import "helper/variables";
 @import "helper/tags";
@@ -166,6 +167,55 @@ input {
         vertical-align: middle;
         @include zIndex(3);
     }
+
+    .tags {
+        width: 250px;
+    }
+
+    .host {
+        display: inline-block;
+        position: relative;
+    }
+
+    tags-input {
+        width: 250px;
+        margin-bottom: 30px;
+        list-style-type: none;
+    }
+
+    auto-complete {
+        ul.suggestion-list {
+            list-style-type: none;
+
+            li.suggestion-item {
+                display: inline-block;
+                margin: 3px;
+                background: $textfield-gray;
+                border: 25px;
+                padding: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    ul.tag-list {
+        li.tag-item {
+            list-style-type: none;
+            font-size: 15px;
+            display: inline-block;
+            padding: 0.3em;
+            background: $textfield-gray;
+            margin: 0 2px;
+
+            a.remove-button {
+                background: $pt-gray;
+                padding: 2px;
+                border-radius: 25px;
+                font-size: 13px;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .form-button {
@@ -317,11 +367,9 @@ a {
 }
 
 .select-image {
-    height: 140px;
-    width: 190px;
-    background: $textfield-gray;
     margin-left: 20px;
     margin-top: -18px;
+    width: 90%;
     box-sizing: border-box;
 }
 
@@ -423,10 +471,10 @@ a {
         margin-top: -20px;
         box-sizing: border-box;
         margin-left: 18px;
-        padding-right: 15px;
+        padding: 3px 10px;
         background: $textfield-gray;
         height: 90px;
-        text-indent: 10px;
+        //text-indent: 10px;
         @include font( 'Museo', 300);
         font-size: 12px;
         line-height: 18px;
@@ -446,14 +494,36 @@ a {
         margin-top: 0;
     }
 
+    .form-button {
+        margin: 0 auto !important;
+    }
+
+    .form-cancel {
+        text-align: center;
+        margin: 0;
+    }
+
+    .flex-cont {
+        height: auto;
+    }
+
     p {
-        display: inline-block;
-        margin-top: 8px;
-        vertical-align: top;
-        margin-left: -3px;
-        color: $text-gray;
-        font-size: 14px;
+        //  margin-left: -3px;
         padding-bottom: 7px;
+
+        &:not(.form-cancel) {
+            color: $text-gray;
+            font-size: 14px;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 12px;
+        }
+
+        &#describe-problem-p {
+            @media screen and (max-width: 360px) {
+                width: 200px;
+            }
+        }
     }
 
     span {
@@ -462,12 +532,13 @@ a {
 }
 
 #input-team-members {
-    margin-top: -515px;
+    margin-top: -560px;
+    margin-left: -25px;
     z-index: 3;
     width: 100%;
     position: absolute;
-    box-sizing: border-box;
-    height: 100%;
+    box-sizing: content-box;
+    height: 125%;
     @media screen and (orientation: landscape) {
          @media screen and (max-height: 450px){
             transform: rotate(0deg);
@@ -479,6 +550,7 @@ a {
 
     .done-button {
         position: absolute;
+        margin-left: -25px;
         width: 100%;
         bottom: 15px;
         padding-top: 10px;
@@ -508,7 +580,7 @@ a {
     ul {
         list-style-type: none;
         padding: 0;
-        height: 383px;
+        // height: 383px;
         margin: 0;
         overflow-y: scroll;
         padding-top: 15px;
@@ -558,7 +630,7 @@ a {
     top: 28px;
     position: absolute;
     display: inline-block;
-    right: 5%;
+    left: 90%;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -3116,4 +3188,171 @@ nav {
 
 #select-ph {
     color: $wetopia-blue;
+}
+
+#autocomplete-project {
+    img {
+        height: 35px;
+        display: inline-block;
+
+        &:nth-child(4) {
+            height: 28px;
+            vertical-align: top;
+            margin-top: 3px;
+            float: right;
+            cursor: pointer;
+        }
+    }
+
+    span {
+        display: inline-block;
+        vertical-align: top;
+        margin: {
+            top: 10px;
+            left: -3px;
+            bottom: 0;
+        }
+        font-size: 14px;
+
+        &:nth-child(2) {
+            color: $text-gray;
+            margin-right: 3px;
+        }
+    }
+}
+
+#team-members-tags {
+    -moz-appearance: none;
+
+    input {
+        margin-bottom: 10px;
+        -moz-appearance: none;
+        position: absolute;
+        top: 10px;
+        left: 0;
+        font-size: 13px;
+        @include font("Museo", 300);
+    }
+
+    .user-tag {
+        color: $pt-gray;
+        font-weight: lighter;
+    }
+
+    .name-tag {
+        font-size: 15px;
+        margin-right: 5px;
+        font-weight: lighter;
+    }
+
+    .tag-list {
+        -moz-appearance: none;
+        margin-top: 30px;
+        border-color: transparent;
+    }
+
+    .tag-template {
+        -moz-appearance: none;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center;
+        align-items: center;
+        border-color: transparent;
+
+        .name-tag {
+            margin: auto auto auto 0;
+            padding: 0;
+        }
+    }
+
+    .tag-item {
+        margin-top: 5px;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center;
+        align-items: center;
+        width: 100%;
+
+        .remove-pic {
+            float: right;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    }
+
+    .ng-isolate-scope {
+        width: 100%;
+    }
+
+    .user-team-img {
+        height: 30px;
+        width: 30px;
+        display: inline-flex;
+        margin: auto 5px auto 0;
+
+        &.polygon-clip-hexagon {
+            -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            -webkit-clip-path: url("#polygon-clip-hexagon");
+            clip-path: url("#polygon-clip-hexagon");
+            height: 30px;
+            width: 30px;
+            background: {
+                size: cover;
+                position: center;
+            }
+        }
+    }
+
+    .polygon-each-img-wrap {
+        display: inline-flex;
+        margin: auto 5px auto 0;
+    }
+
+    .create-team-img {
+        height: 30px !important;
+        margin: auto 0 auto auto;
+    }
+}
+
+.autocomplete-template {
+    height: auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.tag-project {
+    margin-top: 5px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    border-color: transparent;
+}
+
+.clip-svg {
+    width: 0;
+    height: 0;
+}
+
+#cover-input {
+    cursor: pointer; //    visibility: hidden;
+    display: none;
+}
+
+.label-input {
+    cursor: pointer;
+
+    &#idea-cover-img {
+        height: 190px;
+        width: 100%;
+        background: {
+            size: cover;
+            position: center;
+            repeat: no-repeat;
+        }
+    }
 }

@@ -1,22 +1,19 @@
-<body>
-    <div class="fixed-background hexagon-bg">
-        <form class="centered-form" id="createIdea-form" action="index.html" method="post">
-            <div class="step-img">
-                <img src="/static/img/firstStep_Create Idea.svg">
-            </div>
-            <p class="gray-sub">Nueva Idea</p>
-            <div class="form-input">
-                <img src="/static/img/Create Idea_name.svg">
-                <input type="text" name="signup-name" placeholder="Nombre de tu idea">
-            </div>
-            <div class="form-input">
-                <img src="/static/img/Create Idea_tag.svg">
-                <input type="text" name="signup-lastname" placeholder="3 categorías separadas por comas">
-            </div>
-            <input class="form-button" type="button" name="createIdea-button" value="Siguiente">
-            <a href="#">
-                <p class="form-cancel">Cancelar</p>
-            </a>
-        </form>
-    </div>
-</body>
+<div class="step-img">
+    <img src="/static/img/firstStep_Create Idea.svg">
+</div>
+<p class="gray-sub">New Idea</p>
+<div class="form-input">
+    <img src="/static/img/Create Idea_name.svg">
+    <input type="text" name="signup-name" placeholder="Name for your idea" ng-model="idea.name">
+</div>
+<div class="form-input">
+    <img src="/static/img/Create Idea_tag.svg">
+    <tags-input ng-model="idea.categories" display-property="name" placeholder="Add Categories" replace-spaces-with-dashes="false" min-length="0"  add-from-autocomplete-only="true">
+          <auto-complete source="loadTags($query)" max-tags="3" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" ng-show="idea.categories.length<=2"></auto-complete>
+</tags-input>
+    <!-- <input type="text" name="signup-lastname" placeholder="3 categories (separate with commas)" ng-model="idea.categories"> -->
+</div>
+<input class="form-button" type="button" name="createIdea-button" value="Next" ui-sref="createIdea.second">
+<a href="/home">
+    <p class="form-cancel">Cancel</p>
+</a>

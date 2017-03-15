@@ -10,84 +10,112 @@
         </nav>
 
         <div class="flex-cont" id="land-up" ng-style="{ 'height': '{{h}}px'} ">
+
             <div class="sub-cont " id="blue-fixed-sub" ng-class="{'fadeOut': scrolled>=h/2, 'fadeIn':scrolled<h/2}">
-                <blue class="subtitle">This utopia will help you to create your new startup</blue>
-                <a class="blue-button join-button " id="join-btn-land" href="# " ng-click="join=true ">Join</a>
-            </div>
-        </div>
-        <div class="main-cont ">
-            <!--<span class='scroll-debug'>{{scrolled}}</span>-->
-            <div class="flex-cont fadeIn  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=h/2" ng-style="{'height':'{{h}}px'}">
-                <div class="flex-cont" id="big-logo-cont">
-                    <img class="big-logo" src="/static/img/logo_ww.svg" alt="Wetopia">
-                    <p class="pt-h">As entrepeneurs we understand the problems that arise when creating a StartUp. </p>
-                    <p class="pt-h">That's why we want to help you build a successfull business. We want to create a community to share and help entrepreneurs throught the process.</p>
-                    <a class="margin-button blue" id="people-regist" href="#">People registered in wetopia</a>
+
+                <div class="sub-cont animate-show ng-animate ng-hide-animate ng-hide-add" id="blue-fixed-sub" ng-show="scrolled<h/2 && scrolled > 10 " ng-style="{ 'visibility' : (scrolled < 2) ? 'hidden' : 'visible' }">
+
+                    <blue class="subtitle">This utopia will help you to create your new startup</blue>
+                    <a class="blue-button join-button " id="join-btn-land" href="# " ng-click="join=true ">Join</a>
                 </div>
             </div>
-            <div id="static-bg">
-                <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/2)">
-                    <p class="dark-sub">Everything starts with an</p>
-                    <img class="button-img" id="idea1-btn" src="/static/img/idea_1.svg" alt="Idea">
-                    <p class="pt-h">This is where you decide that you want to create something and share it with others. As a community they will give you feedback to help you validate your idea.</p>
-                </div>
-                <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/3)">
-                    <p class="pt-h sub-sub-t">Coming soon</p>
-                    <p class="dark-sub">If your idea works it will become a</p>
-                    <img class="button-img" src="/static/img/project.svg" alt="Project">
-                    <p class="pt-h">Here you can validate specific areas like design, product, wireframe, marketing campaign and experts and experts will give you feedback to make the right decisions.</p>
-                </div>
-                <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/4)">
-                    <p class="dark-sub">Project validated = New Startup</p>
-                    <img class="button-img" src="/static/img/startup_1.svg" alt="Startup">
-                    <p class="pt-h">Building a StartUp is about helping and sharing, so we encourage you to find a team!</p>
-                    <p class="pt-h">It's not just about fiding a designer, programmer, salesperson, it's about finding people who share your vision and are passionate about your project</p>
-                </div>
-                <div class="flex-cont land-list last  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(3*h)-(h/3)||scrolled<h">
-                    <div class="modsize-cont">
-                        <blue class="subtitle">Would you like to be part of our community?</blue>
-                    </div>
-                    <div class="fit-cont">
-                        <p class="pt-h">Join us and as soon as we start operations you will be the first to know.</p>
-                        <a class="blue-button join-button right" href="#" ng-click="join=true">Join</a>
+            <div class="main-cont ">
+                <!--<span class='scroll-debug'>{{scrolled}}</span>-->
+                <div class="flex-cont fadeIn  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=h/2" ng-style="{'height':'{{h}}px'}">
+                    <div class="flex-cont" id="big-logo-cont">
+                        <img class="big-logo" src="/static/img/logo_ww.svg" alt="Wetopia">
+                        <p class="pt-h">As entrepeneurs we understand the problems that arise when creating a StartUp. </p>
+                        <p class="pt-h">That's why we want to help you build a successfull business. We want to create a community to share and help entrepreneurs throught the process.</p>
+                        <a class="margin-button blue" id="people-regist" href="#">People registered in wetopia</a>
                     </div>
                 </div>
-            </div>
-            <div class="flex-cont footer" id="footer-land">
-                <div class="img-container">
-                    <p class="wetopia-word">WETOPIA</p>
-                    <img src="/static/img/twitter.svg">
-                    <img src="/static/img/facebook.svg">
-                    <img src="/static/img/snap.svg">
+                <div id="static-bg">
+                    <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/2)">
+                        <p class="dark-sub">Everything starts with an</p>
+
+                        <img class="button-img" id="idea1-btn" src="/static/img/idea_1.svg" alt="Idea">
+
+                        <img class="button-img" src="/static/img/ideabutton.svg" alt="Idea">
+
+                        <p class="pt-h">This is where you decide that you want to create something and share it with others. As a community they will give you feedback to help you validate your idea.</p>
+                    </div>
+                    <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/3)">
+                        <p class="pt-h sub-sub-t">Coming soon</p>
+                        <p class="dark-sub">If your idea works it will become a</p>
+
+                        <img class="button-img" src="/static/img/project.svg" alt="Project">
+
+                        <img class="button-img" src="/static/img/projectbutton.svg" alt="Project">
+
+                        <p class="pt-h">Here you can validate specific areas like design, product, wireframe, marketing campaign and experts and experts will give you feedback to make the right decisions.</p>
+                    </div>
+                    <div class="flex-cont land-list  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(2*h)-(h/4)">
+                        <p class="dark-sub">Project validated = New Startup</p>
+
+                        <img class="button-img" src="/static/img/startup_1.svg" alt="Startup">
+                        <p class="pt-h">Building a StartUp is about helping and sharing, so we encourage you to find a team!</p>
+                        <p class="pt-h">It's not just about fiding a designer, programmer, salesperson, it's about finding people who share your vision and are passionate about your project</p>
+                    </div>
+                    <div class="flex-cont land-list last  animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>=(3*h)-(h/3)||scrolled<h">
+
+                        <img class="button-img" src="/static/img/startupbutton.svg" alt="Startup">
+                        <p class="pt-h">Building a StartUp is about helping and sharing, so we encourage you to find a team!</p>
+                        <p class="pt-h">It's not just about fiding a designer, programmer, salesperson, it's about finding people who share your vision and are passionate about your project</p>
+                    </div>
+                    <div class="flex-cont land-list last" ng-class="{'fadeIn': scrolled>=(3*h)-(h/3)}">
+
+                        <div class="modsize-cont">
+                            <blue class="subtitle">Would you like to be part of our community?</blue>
+                        </div>
+                        <div class="fit-cont">
+                            <p class="pt-h">Join us and as soon as we start operations you will be the first to know.</p>
+                            <a class="blue-button join-button right" href="#" ng-click="join=true">Join</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-cont footer" id="footer-land">
+                    <div class="img-container">
+                        <p class="wetopia-word">WETOPIA</p>
+                        <img src="/static/img/twitter.svg">
+                        <img src="/static/img/facebook.svg">
+                        <img src="/static/img/snap.svg">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="flex-modal white " ng-show="join">
-        <div class="centered-form" id="landing-cf" click-outside="closeThis()" outside-if-not="join-button">
-            <div class="blue-div">
-                <p>Join us and as soon as we start operations you will be the first to know.</p>
-            </div>
-            <div class="form-input">
-                <img src="/static/img/Login_user.svg">
-                <input type="text" name="land-name" placeholder="Name" required="true">
-            </div>
-            <div class="form-input">
-                <img src="/static/img/Login_mail.svg">
-                <input type="text" name="land-email" placeholder="Email" required="true">
-            </div>
-            <div class="form-input">
-                <img src="/static/img/pregunta.svg">
-                <select class="" placeholder="What are you interested in?" name="select-land-input">
+        <div class="flex-modal white " ng-show="join">
+
+            <div class="centered-form" id="landing-cf" click-outside="closeThis()" outside-if-not="join-button">
+
+                <div class="blue-div">
+                    <p>Join us and as soon as we start operations you will be the first to know.</p>
+                </div>
+                <div class="form-input">
+                    <img src="/static/img/Login_user.svg">
+
+                    <input type="text" name="land-name" placeholder="Name" required="true">
+
+                </div>
+                <div class="form-input">
+                    <img src="/static/img/Login_mail.svg">
+                    <input type="text" name="land-email" placeholder="Email" required="true">
+                </div>
+                <div class="form-input">
+                    <img src="/static/img/pregunta.svg">
+
+                    <select class="" placeholder="What are you interested in?" name="select-land-input">
                   <option id="select-ph" disabled="disabled" selected required="true">What are you interested in?</option>
                   <option value="Validate my Idea">Validate my Idea</option>
                   <option value="Find Team">Find Team</option>
                   <option value="Mentorship">Mentorship</option>
                   <option value="Investment">Investment</option>
                 </select>
-            </div>
-            <input type="button" value="Join" class="form-button" name="join" ng-click="join=false">
-        </div>
 
-    </div>
+                    <input type="text" name="land-interest" placeholder="What are you interested in?" required="true">
+
+                </div>
+                <input type="button" value="Join" class="form-button" name="join" ng-click="join=false">
+            </div>
+
+        </div>
 </body>

@@ -51,21 +51,27 @@ angular.module('musementApp')
             })
             .state("createIdea", {
                 url: "/createIdea",
-                // controller: "",
+                controller: "createIdeaCtrl",
+                templateUrl: "/static/views/createIdea.html",
+                authenticate: true
+            })
+            .state("createIdea.first", {
+                url: "/first",
+                // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS1.html",
-                authenticate: false
+                authenticate: true
             })
-            .state("createIdeaSecondStep", {
-                url: "/createIdeaSecondStep",
-                controller: "createIdeaCtrl",
+            .state("createIdea.second", {
+                url: "/second",
+                // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
-                authenticate: false
+                authenticate: true
             })
-            .state("createIdeaThirdStep", {
-                url: "/createIdeaThirdStep",
-                controller: "createIdeaCtrl",
+            .state("createIdea.third", {
+                url: "/third",
+                // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS3.html",
-                authenticate: false
+                authenticate: true
             })
             .state("myIdeaStatistics", {
                 url: "/myIdeaStatistics",
