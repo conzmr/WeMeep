@@ -6,11 +6,27 @@
     <img src="/static/img/Create Idea_name.svg">
     <input type="text" name="signup-name" placeholder="Name for your idea" ng-model="idea.name">
 </div>
-<div class="form-input">
+<div class="form-input" id="cat-select">
     <img src="/static/img/Create Idea_tag.svg">
-    <tags-input ng-model="idea.categories" display-property="name" placeholder="Add Categories" replace-spaces-with-dashes="false" min-length="0"  add-from-autocomplete-only="true">
-          <auto-complete source="loadTags($query)" max-tags="3" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" ng-show="idea.categories.length<=2"></auto-complete>
-</tags-input>
+      <input ng-model="categorySelect" type="text" id="category-selected" name="category-selector" ng-click="show = true" value="" placeholder="Category">
+      <div class="list-cont" ng-model="categoryList" ng-show="show">
+        <ul class="tooltip-selector">
+          <li ng-click="selectCategory('Art')">Art</li>
+          <li ng-click="selectCategory('Hand-Craft')">Hand-Craft</li>
+          <li ng-click="selectCategory('Design')">Design</li>
+          <li ng-click="selectCategory('Fashion')">Fashion</li>
+          <li ng-click="selectCategory('Film & Photography')">Film & Photography</li>
+          <li ng-click="selectCategory('Food')">Food</li>
+          <li ng-click="selectCategory('Games')">Games</li>
+          <li ng-click="selectCategory('Music')">Music</li>
+          <li ng-click="selectCategory('Economics')">Economics</li>
+          <li ng-click="selectCategory('Technology')">Technology</li>
+          <li ng-click="selectCategory('Health')">Health</li>
+          <li ng-click="selectCategory('Education')">Education</li>
+          <li ng-click="selectCategory('Others')">Others</li>
+        </ul>
+      </div>
+    </select>
     <!-- <input type="text" name="signup-lastname" placeholder="3 categories (separate with commas)" ng-model="idea.categories"> -->
 </div>
 <input class="form-button" type="button" name="createIdea-button" value="Next" ui-sref="createIdea.second">

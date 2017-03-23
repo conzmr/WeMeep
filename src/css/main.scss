@@ -1148,6 +1148,7 @@ nav {
         border-radius: 4px;
         @extend %white-tooltip;
 
+
         &::after,
         &::before {
             bottom: 100%;
@@ -1800,6 +1801,78 @@ nav {
 
 #top-filter {
     margin: 20px 0;
+}
+
+.tooltip-selector{
+width: 100%;
+  list-style-type: none;
+  box-sizing: border-box;
+  padding: 0px 5px;
+  text-align: center;
+  display: block;
+  height: 120px;
+  z-index: 100;
+  overflow: auto;
+  margin: 5px auto;
+
+  @include scrollbar(4.5px, $pt-gray) ;
+  li{
+    color: $gray-lighter;
+    @include font( 'Museo', 300);
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px auto;
+
+    &.selected, &:hover{
+      color: $link-blue-color;
+
+    }
+  }
+}
+
+#cat-select{
+  position: relative;
+
+  #category-selected{
+    cursor: pointer;
+    color: $gray-lighter;
+  }
+
+  .list-cont{
+    width: 90%;
+    padding: 0px 5px;
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    top: 40px;
+    background: $textfield-gray;
+    border-radius: 5px;
+    //visibility: visible;
+    // visibility: none;
+    //visibility: hidden;
+    margin-top: 0;
+    box-sizing: border-box;
+    text-align: center;
+    display: block;
+    box-shadow: 0 4px 3px 2px #CCC;
+    @extend %gray-tooltip;
+
+&::after,
+    &::before {
+        bottom: 100%;
+        left: 50%;
+    }
+
+  }
+
+  &:hover{
+    .list-cont{
+  //    visibility: visible;
+    }
+  }
+
+
 }
 
 .tooltip {
@@ -2726,33 +2799,123 @@ nav {
     position: absolute;
 }
 
+.sub-gray{
+  font-size: 28px;
+  text-align: center;
+}
+
 .transparent-nav {
-    background: rgba(245,245,245,0.35);
-    padding: 10px 100px;
+    background: transparent;
+    //padding: 20px 100px;
+    padding: 0 50px;
+    height: 80px;
     max-width: 100%;
     position: fixed;
     display: -webkit-flex;
     display: flex;
     box-sizing: border-box;
-    @media screen and (max-width: 600px) {
-        padding: 10px 50px;
+
+    .hamburguer-menu{
+      width: 40px;
+      cursor: pointer;
+      outline: none;
+      display: none;
+      @media screen and (max-width: 500px){
+        display: inline-block;
+        margin: auto 30px auto auto;
+      }
     }
+
+
+
+    &.scroll-white{
+      background: white;
+      box-shadow: 0px 2px 4px 4px $pt-gray;
+    }
+
+    @media screen and (max-width: 940px) {
+        padding: 0px 40px;
+    }
+
     @media screen and (max-width: 450px) {
-        padding: 10px 20px;
+        padding: 0px 10px;
     }
 
     .logo {
-        height: 40px;
+        height: 45px;
         display: inline-block;
-        vertical-align: middle;
+        margin: auto auto auto 0;
+        @media screen and (max-width: 450px) {
+            margin-top: 15px;
+        }
     }
+}
+
+.menu{
+  width: auto;
+  margin: auto 0px auto auto;
+   text-align: right;
+   padding-left: 10px;
+
+   @media screen and (max-width: 500px){
+     display: none;
+   }
+
+
+
+  p,a{
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px auto;
+  }
+  p{
+    font-weight: bold;
+
+    padding: 0 7px;
+    &.bluelink{
+      border-left: 2px solid $text-gray;
+      &:active, &:hover{
+        color: $aqua-active;
+        font-weight: bold;
+      }
+    }
+  }
+  a{
+
+    margin-right: 30px;
+    color: $gray-dark;
+
+    &:hover{
+      color: $gray-lighter;
+      font-weight: bolder;
+    }
+
+    &:active{
+      color: $aqua-active;
+      font-weight: bolder;
+    }
+
+  @media screen and (max-width: 950px){
+    margin-right: 20px;
+  }
+
+  @media screen and (max-width: 910px){
+    margin-right: 10px;
+  }
+
+  }
+
 }
 
 .logo-word {
     display: inline-block;
     margin: auto 10px;
-    height: 20px;
+    height: 25px;
     letter-spacing: 3px;
+    red, blue{
+      font-size: 18px;
+    }
 }
 
 .margin-button {
@@ -2801,7 +2964,34 @@ nav {
 
 .sub-cont {
     max-width: 400px;
-    text-align: right;
+    text-align: left;
+    margin: 200px auto 150px 10%;
+    .title{
+      line-height: 36px;
+    }
+    @media screen and (max-width:500px){
+      text-align: center;
+      margin-top: 90px;
+      margin: {
+        top: 90px;
+        left: auto;
+        right: auto;
+      }
+    }
+
+}
+
+.title{
+  font-size: 35px;
+  @include font('Museo', 500);
+  font-weight: bold;
+  @media screen and (max-width:500px){
+    text-align: center;
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
 }
 
 .sub-left {
@@ -2826,11 +3016,78 @@ nav {
     display: -webkit-flex;
     display: flex;
     width: 100%;
-    height: 500px;
     position: relative;
     -webkit-flex-direction: column;
     flex-direction: column;
     box-sizing: border-box;
+
+    .experts-cont{
+      width: auto;
+      padding: 10px 0;
+      margin: auto;
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: row;
+
+
+
+        &.fadeIn{
+          animation-duration: 2s;
+        }
+
+        &.ng-hide{
+          -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+          -webkit-animation: fadeOut 1.7s linear 0s;
+          -moz-animation: fadeOut 1.7s linear 0s;
+          -o-animation: fadeOut 1.7s linear 0s;
+          animation: fadeOut 1.7s linear 0s;
+        }
+
+        &.ng-hide-add {
+            transition: all linear 1.7s;
+          }
+
+        &.ng-hide-add{
+          -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+          -webkit-animation: fadeOut 1.7s linear 0s;
+          -moz-animation: fadeOut 1.7s linear 0s;
+          -o-animation: fadeOut 1.7s linear 0s;
+          animation: fadeOut 1.7s linear 0s;
+        }
+
+
+
+      img{
+        height: 115px;
+        margin: auto 30px auto 0;
+      }
+
+
+      .simple-cont{
+        position: relative;
+        height: auto;
+        margin: auto;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+
+        .quote-sign{
+          margin: 15px 0 0 auto;
+          line-height: 14px;
+        }
+
+        .quote{
+          line-height: 14px;
+          margin: 5px auto 0 auto;
+        }
+      }
+    }
+
+    .sub-gray{
+      margin: 0 auto 30px auto;
+    }
 
     &.ng-show {
         -webkit-animation-name: fadeIn;
@@ -2869,9 +3126,34 @@ nav {
         line-height: 25px;
     }
 
+    .sub-paragraph{
+      margin: 20px auto 20px 0;
+      @media screen and (max-width: 500px){
+        margin: 20px auto 20px auto;
+text-align: center;
+max-width: 300px;
+      }
+    }
+
     pt-h {
         font-size: 15px;
     }
+}
+
+#our-community{
+  margin-bottom: 30px;
+      padding: 0 20px;
+}
+
+
+.quote{
+  font-size: 14px;
+  max-width: 350px;
+}
+
+.quote-sign{
+  font-size: 14px;
+  font-style: italic;
 }
 
 .join-button {
@@ -2880,6 +3162,14 @@ nav {
     display: inline-flex;
     margin-top: 10px;
     border-radius: 10px;
+
+    &:hover{
+      box-shadow: 0px 2px 2px 0px $text-gray;
+    }
+
+    &:active{
+      background: $aqua-active;
+    }
 }
 
 .big-logo {
@@ -2894,17 +3184,6 @@ nav {
     max-width: 600px;
 }
 
-#blue-fixed-sub {
-    position: fixed;
-    right: 100px;
-    top: 220px;
-    @media screen and (max-width: 600px) {
-        right: 50px;
-    }
-    @media screen and (max-width: 450px) {
-        right: 20px;
-    }
-}
 
 .button-img {
     width: 110px;
@@ -2932,16 +3211,160 @@ nav {
     &.white {
         background-color: rgba(255,255,255,0.35);
     }
+
+    &.black{
+      background-color: rgba(0,0,0,0.35);
+    }
+
+    &#movil-land-menu{
+      background-color: rgba(0,0,0,0.80);
+      display: none;
+      @media screen and (max-width: 500px){
+        display: block;
+      }
+      .logo{
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        height: 50px;
+      }
+      flex-direction: column;
+      padding: 130px 0;
+
+      .sub-white{
+        margin: 60px auto;
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .close-x{
+        color: white;
+        font-size: 28px;
+        position: absolute;
+        right: 30px;
+        top: 25px;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
 }
 /*ESTO VA EN UN ONCLICK!!!!*/
 .blur {
-    filter: blur(1.5px);
+    filter: blur(1.8px);
 }
 
-#landing-cf {
-    box-shadow: 0 0 3px 1px #CCC;
+
+#login-land{
+.terms{
+  margin-right: 10px;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.form-button{
+  margin-bottom: 20px;
+}
+
+.sub-gray{
+  margin-bottom: 40px;
+}
+
+.terms{
+  cursor: pointer;
+}
+}
+
+.modal-form {
+        box-shadow: 0 0 15px 4px #CCC;
     padding: 0;
     text-align: center;
+    width: 335px;
+
+    .form-input{
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+      justify-content: center;
+      margin: 5px auto;
+    }
+    .flex-cont{
+      padding: 25px 35px;
+      .sub-gray{
+        color: $gray-medium;
+        font-weight: bold;
+        margin-bottom: 30px;
+        margin-top: 10px;
+      }
+      input{
+        height: 18px;
+        margin: auto auto auto -8px;
+        font-size: 15px;
+        text-indent: 15px;
+        @include font('Museo', 300) ;
+        width: 225px;
+
+      }
+      .form-button{
+        margin: 25px auto 30px auto;
+        font-size: 17px;
+        height: auto;
+        padding: 2px 36px;
+        width: auto;
+        border-radius: 5px;
+        text-align: center;
+        text-indent: 0;
+
+        &:hover{
+          box-shadow: 0px 2px 2px 0px $text-gray;
+        }
+
+        &:active{
+          background: $aqua-active;
+          transform: none;
+        }
+
+        &.enable{ //when correct inputs data
+          background: $link-blue-color;
+        }
+      }
+    }
+
+    .terms{
+      font-size: 11px;
+      line-height: 14px;
+      width: 200px;
+      margin: 0 auto 30px auto;
+
+      span{
+        cursor: pointer;
+      }
+    }
+
+    p{
+
+      &.already{
+        margin: 0 auto;
+          font-size: 14px;
+      }
+
+      &.bluelink{
+        margin-top: -7px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .close-x{
+      color: $pt-gray;
+      position: absolute;
+      top: 0px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
     .blue-div {
         display: -webkit-flex;
@@ -2962,6 +3385,7 @@ nav {
         }
     }
 }
+
 
 .form-input {
     display: table;
@@ -3019,9 +3443,176 @@ nav {
     background: $wetopia-blue;
 }
 
+#how-it-works{
+  background: url('/static/img/color_land_bg.svg') no-repeat center;
+  background-size: cover;
+
+  .sub-gray{
+    margin: 40px auto 80px auto;
+    @media screen and (max-width: 500px){
+      margin-bottom: 30px;
+    }
+
+  }
+
+  .simple-cont{
+    position: relative;
+
+      padding: 0 140px;
+    @media screen and (max-width: 850px){
+      padding: 0 70px;
+    }
+    @media screen and (max-width: 700px){
+      padding: 0 30px;
+    }
+    @media screen and (max-width: 500px){
+      padding: 0;
+    }
+
+    .simple-cont{
+      &.movil{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        @media screen and (max-width: 500px){
+          display: block;
+          z-index: 1000;
+        }
+      }
+    }
+  }
+
+  .infographic{
+    width: 100%;
+    padding: 0 !important;
+  }
+}
+
+.bluelink, bluelink{
+  color: $link-blue-color;
+}
+
+
+
+#bottom-land-bg{
+  background: url('/static/img/bottom_bg.svg') no-repeat center;
+  background-size: cover;
+
+  bluelink{
+    margin: 120px auto 30px auto;
+    font-size: 30px;
+    font-weight: bold;
+
+    @media screen and (max-width: 420px){
+      text-align: center;
+    }
+  }
+
+  .center-paragraph{
+    font-size: 24px;
+    font-weight: bold;
+    max-width: 380px;
+    text-align: center;
+    margin: auto;
+    color: $gray-medium;
+    @media screen and (max-width: 500px){
+      padding: 0 20px;
+    }
+  }
+
+  .blue-button{
+    margin: 30px auto 60px auto;
+    max-width: 255px;
+    background: $link-blue-color;
+    &:active{
+      background: $aqua-active;
+    }
+    &:active{
+      transform: none;
+    }
+  }
+
+  .footer{
+    width: 100%;
+    background: $pt-gray;
+    padding: 30px 50px;
+    flex-direction: row;
+
+    @media screen and (max-width: 600px){
+      padding: 30px 20px;
+    }
+  }
+
+  .small{
+    margin: 5px auto;
+    cursor: pointer;
+    font-size: 13px;
+    @media screen and (max-width: 600px){
+      font-size: 12px;
+      margin: 3px auto;
+    }
+  }
+
+
+  .icons{
+    margin: auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    img{
+      margin: 10px auto 20px auto;
+
+      @media screen and (max-width: 600px){
+        height: 16px;
+      }
+
+
+    }
+
+    .simple-cont{
+      text-align: center;
+      img{
+        margin: 2px;
+        cursor: pointer;
+        height: 35px;
+
+        @media screen and (max-width: 600px){
+          height: 28px;
+        }
+      }
+    }
+
+  }
+
+  .medium{
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .left{
+    margin: auto auto auto 0;
+    width: 120px;
+    @media screen and (max-width: 500px){
+      display: none;
+    }
+  }
+
+  .right{
+    margin: auto 0 auto auto;
+    text-align: left;
+    @media screen and (max-width: 500px){
+      display: none;
+    }
+  }
+}
+
 #land-up {
     //position: absolute;
-    background: url('/static/img/Landing_bg1.jpg') no-repeat center fixed;
+    background: url('/static/img/Landing_bg1.jpg') no-repeat center;
     background-size: cover;
     z-index: 0;
     -webkit-animation: backgroundLanding 12s linear 0s;
@@ -3032,6 +3623,51 @@ nav {
     -webkit-animation-name: backgroundLanding;
     animation-iteration-count: infinite;
 }
+
+.section-cont{
+  width: 100%;
+  display: inline-block;
+}
+
+#who-we-are {
+    //position: absolute;
+    background: url('/static/img/landing_upper_bg.svg') no-repeat right top;
+    background-size: cover;
+    z-index: 0;
+        width: 100%;
+    top: 0;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.simple-cont{
+  height: auto;
+  width: auto;
+  display: inline-block;
+
+  .login-btn{
+    color: $gray-dark;
+
+    &:active, &:hover{
+      color: $link-blue-color;
+      font-weight: bold;
+    }
+  }
+}
+
+#team-img{
+  background: url('/static/img/IMG_TEAM.png') no-repeat center;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  height: 130%;
+  width: 60%;
+  @media screen and (max-width: 800px){
+    visibility: hidden;
+  }
+}
+
 
 #static-bg {
     background: url('/static/img/Landing_bg_abajo.svg') no-repeat right bottom fixed;
@@ -3056,7 +3692,13 @@ nav {
     -moz-animation: fadeIn 1.5s linear 0s;
     -o-animation: fadeIn 1.5s linear 0s;
     animation: fadeIn 1.5s linear 0s;
+
+    &.fast{
+      animation-duration: .6s;
+    }
+
 }
+
 
 .fadeOut {
     -webkit-animation-name: fadeOut;
@@ -3115,8 +3757,22 @@ nav {
     transition: all linear 0.5s;
 }
 
-#join-btn-land {
+.sub-paragraph{
+  font-size: 20px;
+}
+
+.join-btn-land {
     margin-left: 10px;
+    border-radius: 8px;
+    background: $link-blue-color;
+    padding: 8px 15px;
+font-size: 23px;
+
+
+&:active{
+  background: $aqua-active;
+  transform: none;
+}
 }
 
 #people-regist {
@@ -3176,7 +3832,6 @@ nav {
         @media screen and (max-width: 500px) {
             display: table;
             margin: 10px auto;
-            width: 60px;
             text-align: center;
         }
     }
@@ -3355,4 +4010,20 @@ nav {
             repeat: no-repeat;
         }
     }
+}
+
+#request-land{
+  .sub-gray{
+        line-height: 30px;
+  }
+}
+
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+
+.fadeOutLeft {
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft;
 }

@@ -1,71 +1,78 @@
 angular.module("musementApp")
 
-.controller("landingCtrl", function($scope, $document, $window) {
+.controller("landingCtrl", function($scope, $document, $window,  $location, anchorSmoothScroll, $timeout, $interval, invitationDataService, $translate, localStorageService) {
     $scope.join = false;
+    $scope.login = false;
+    $scope.request = false;
+    $scope.movilMenu = false;
     $scope.scrolled = 0;
     $scope.h = $window.innerHeight;
+    $scope.showParagraph=false;
+    $scope.experts = 0;
 
-    $scope.closeThis = function() {
+    $interval( function(){
+      $scope.experts=($scope.experts+1)%2;
+    }, 8000);
+
+
+    $scope.closeLogin = function() {
+        $scope.login = false;
+        $scope.join = true;
+    }
+
+    $scope.closeSignup = function() {
+        $scope.login = true;
         $scope.join = false;
     }
+
+    $scope.gotoElement = function (eID){
+
+
+    $location.hash(eID);
+
+    anchorSmoothScroll.scrollTo(eID);
+  }
+
+  $scope.gotoElementMovilMenu = function (eID){
+
+
+  $location.hash(eID);
+  $scope.movilMenu = false;
+  anchorSmoothScroll.scrollTo(eID);
+}
+
+  $scope.getPosition = function($event){
+  var pos =$event.pageY;
+  console.log(pos);
+
+}
+
+$timeout(function(){ $scope.showParagraph=true; }, 1000);
 
     $document.on('scroll', function() {
         $scope.$apply(function() {
             $scope.scrolled = $window.scrollY;
-            /*
-            if ($scope.scrolled >= 500) { // if the percentage is >= 50, scroll to top
-                $window.scrollTo(0, 0);
-            }*/
         })
     });
 
-    /*
-        var vm = this;
-        vm.dx = 0;
-        vm.dy = 0;
-        var CARD = angular.element(document.querySelector('#land-up'));
+
+    $scope.submit = function(guest) {
+    if (guest != null) {
+        let invitationInfo = {};
+        invitationInfo.email = this.guest.email;
+        invitationInfo.name = this.guest.name;
+        console.log(JSON.stringify(invitationInfo));
+        invitationDataService.invitation(invitationInfo, function(res) {
+            if (res.status == 201)
+                $scope.message = $translate.instant('VALID_EMAIL');
+            $window.alert("Revisa tu bandeja de correo. ");
+            $scope.request=false;
+        });
+    } else
+        $window.alert("Por favor, ingresa un correo válido. ");
+    $scope.message = $translate.instant('INVALID_EMAIL');
+}
 
 
-        vm.styles = getStyles();
 
-        vm.onMove = function(event) {
-            var cardInfo = CARD.getBoundingClientRect();
-
-            var halfW = cardInfo.width / 2;
-            var halfH = cardInfo.height / 2;
-
-            var x = event.pageX - cardInfo.left;
-            var y = event.pageY - cardInfo.top;
-
-            var sceneX = -(halfW - x)
-            var sceneY = halfH - y;
-
-            vm.dx = constrain(sceneX, -halfW, halfW);
-            vm.dy = constrain(sceneY, -halfH, halfH);
-
-            vm.styles = getStyles();
-        };
-
-        function getStyles() {
-            var y = map(vm.dx, -100, 100, 100, -100);
-            var x = map(vm.dy, -100, 100, 500, -500);
-            var z = 0;
-
-            return {
-                transform: 'rotateX(' + x + 'deg) rotateY(' + y + 'deg) rotateZ(0deg)'
-            };
-        };
-
-        function map(n, start1, stop1, start2, stop2) {
-            return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-        }
-
-    })
-
-    //pivotear=false when is clicked outside the modal window??
-    start1)) * (stop2 - start2) + start2;
-    } *
-    /*/
 })
-
-//pivotear=false when is clicked outside the modal window??

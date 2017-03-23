@@ -4,7 +4,7 @@ angular.module('musementApp')
             .state("landing", {
                 url: "/",
                 controller: "landingCtrl",
-                templateUrl: "/static/views/landing.html",
+                templateUrl: "/static/views/wetopiaLanding.html",
                 authenticate: false //Doesn't requires authentication
             })
             .state("login", {

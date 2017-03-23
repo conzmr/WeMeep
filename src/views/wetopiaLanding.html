@@ -1,0 +1,190 @@
+<body>
+    <div ng-class="{'blur': join || login || request||movilMenu }" ng-mousemove="landingCtrl.onMove($event)">
+        <nav class="transparent-nav fadeIn " ng-class="{ 'scroll-white' : (scrolled > 1) }">
+            <img class=" logo " src="/static/img/logo_t.svg ">
+            <img class="hamburguer-menu " src="/static/img/hamburguermenu.png " ng-click="movilMenu=true">
+              <div class="menu">
+              <a ng-click="gotoElement('who-we-are')" >Who are we?</a>
+            <a ng-click="gotoElement('our-community')" >Our Community</a>
+            <a ng-click="gotoElement('how-it-works')">How it works</a>
+            <div class="simple-cont">
+              <!--<p class="login-btn" ng-click="login=true">Log In</p>
+              <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
+            </div>
+
+            </div>
+        </nav>
+        <div class="section-cont">
+          <div id="team-img">
+
+          </div>
+        <div class="flex-cont" id="who-we-are" >
+            <div class="sub-cont " >
+                <p class="title">A community to share ideas and build your StartUp!</p>
+                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">As entrepeneurs we understand the problems that arise when creating a StartUp.</p>
+                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">That's why we help you pivot and build a successfull business. We created a community to share and help entrepreneurs throught the process.</p>
+              <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
+                  <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="request=true ">Request an Invitation</a>
+            </div>
+            <div class="flex-cont" id="our-community">
+              <p class="sub-gray">OUR COMMUNITY</p>
+              <div class="simple-cont experts-cont fadeIn" ng-show="experts==0">
+                <img src="/static/img/IMG_COMMUNITY_PEDRO.png">
+                <div class="simple-cont">
+                <p class="quote">“This is the place where ideas become reality:
+                  pivot your idea, create a project, get answers and find the
+                  correct team, while helping others in their process."</p>
+                  <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
+                  </div>
+              </div>
+              <div class="simple-cont experts-cont fadeIn"  ng-show="experts==1">
+                <img src="/static/img/IMG_COMMUNITY_LUIS.png">
+                <div class="simple-cont">
+                <p class="quote">“For entrepreneurs, it’s essential to receive
+                  feedback during the process of a business idea, this helps
+                  ensure correct decisions along the way. Wetopia is the
+                  community that helps you in that & more.”</p>
+                  <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder CEO of Oh My!</p>
+                  </div>
+              </div>
+              <!--<div class="simple-cont experts-cont fadeIn" ng-show="experts==1">
+                <img src="/static/img/IMG_COMMUNITY.png">
+                <div class="simple-cont">
+                <p class="quote">“Wetopia has the potential to accelerate the
+                  process of idea validation and thus reduce the rate of
+                  business failure.”</p>
+                  <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
+                </div>-->
+              </div>
+            </div>
+        </div>
+</div>
+<div class="section-cont">
+<div class="flex-cont" id="how-it-works" >
+  <p class="sub-gray">HOW IT WORKS</p>
+  <div class="simple-cont">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>3/4*h" src="/static/img/infographic_1.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>2*h" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>3*h" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>4*h" src="/static/img/infographic_4.png">
+    <div class="simple-cont movil">
+      <img class="infographic" src="/static/img/infographic_1.png">
+      <img class="infographic" src="/static/img/infographic_2.png">
+      <img class="infographic" src="/static/img/infographic_3.png">
+      <img class="infographic" src="/static/img/infographic_4.png">
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section-cont">
+<div class="flex-cont" id="bottom-land-bg" >
+  <bluelink>Be part of the community!</bluelink>
+  <p class="center-paragraph">Join wetopia and discover the best community of entrepreneurs to help you build your StartUp</p>
+<!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
+  <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="request=true ">Request an Invitation</a>
+<div class="footer flex-cont">
+  <div class="left">
+    <p class="small">Home</p>
+    <p class="small">My Profile</p>
+    <p class="small">Create Idea</p>
+    <p class="small">My Idea</p>
+  </div>
+  <div class="icons">
+    <img src="/static/img/wetopia_dark.png">
+    <div class="simple-cont">
+<img src="/static/img/fb_icon_dark.svg">
+<img src="/static/img/twitter.svg">
+<img src="/static/img/instagram_dark.svg">
+<img src="/static/img/snap_dark.svg">
+    </div>
+
+  </div>
+  <div class="right">
+    <p class="medium-bold">Wetopia (c) 2017</p>
+    <p class="small">Terms & Conditions</p>
+    <p class="small">Privacy Policy</p>
+    <p class="small">Ethics Code</p>
+  </div>
+</div>
+</div>
+</div>
+      </div>
+      <div class="flex-modal white " ng-show="join">
+          <div class="centered-form modal-form" id="landing-cf"  click-outside="join=false" outside-if-not="join-button, signup-nav">
+            <div class="flex-cont">
+              <p class="close-x" ng-click="join=false">x</p>
+              <p class="sub-gray">SIGN UP</p>
+              <div class="form-input">
+                  <img src="/static/img/Login_user.svg">
+                  <input type="text" name="signup-name" placeholder="Name" required="true">
+              </div>
+              <div class="form-input">
+                  <img src="/static/img/Login_user.svg">
+                  <input type="text" name="signup-lastname" placeholder="Last Name" required="true">
+              </div>
+              <div class="form-input">
+                  <img src="/static/img/Login_mail.svg">
+                  <input type="text" name="signup-email" placeholder="Email" required="true">
+              </div>
+              <div class="form-input">
+                  <img src="/static/img/Login_pass.svg">
+                  <input type="password" name="signup-password" placeholder="Password" required="true">
+              </div>
+              <input type="button" value="Join" class="form-button " name="join" ng-click="join=false">
+              <p class="terms">By joining you are accepting our <span class="bluelink">Terms and Conditions,
+              Privacy Poliy </span>along with Wetopia's <span class="bluelink">Ethics Code</span></p>
+              <p class="already">Already have an account?</p>
+              <p class="bluelink already login-btn" ng-click="closeSignup()">Sign in</p>
+              </div>
+          </div>
+      </div>
+<!--Also flex modal black-->
+      <div class="flex-modal white " id="login-land"  ng-show="login">
+          <div class="centered-form modal-form" click-outside="login=false" outside-if-not="login-btn">
+            <div class="flex-cont">
+              <p class="close-x" ng-click="login=false">x</p>
+              <p class="sub-gray">LOG IN</p>
+              <div class="form-input">
+                  <img src="/static/img/Login_mail.svg">
+                  <input type="text" name="login-email" placeholder="Email" required="true">
+              </div>
+              <div class="form-input">
+                  <img src="/static/img/Login_pass.svg">
+                  <input type="password" name="login-password" placeholder="Password" required="true">
+              </div>
+              <p class="terms">Forgot your password?</p>
+              <input type="button" value="Join" class="form-button " name="login" ng-click="login=false">
+              <p class="already">Don't an account?</p>
+              <p class="bluelink already signup-nav" id="signup-nav" ng-click="closeLogin()">Join Now!</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="flex-modal white " id="request-land"  ng-show="request">
+          <div class="centered-form modal-form" click-outside="request=false" outside-if-not="request-btn">
+            <div class="flex-cont">
+              <p class="close-x" ng-click="request=false">x</p>
+              <p class="sub-gray">REQUEST INVITATION</p>
+              <div class="form-input">
+                  <img src="/static/img/Login_user.svg">
+                  <input type="text" ng-model="guest.name" name="request-name" placeholder="Name" required="true">
+              </div>
+              <div class="form-input">
+                  <img src="/static/img/Login_mail.svg">
+                  <input type="text" ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+              </div>
+              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest)" >
+              </div>
+          </div>
+      </div>
+
+      <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu">
+        <img class=" logo " src="/static/img/logo_t.svg ">
+              <p class="close-x" ng-click="movilMenu=false">x</p>
+              <p class="sub-white" ng-click="gotoElementMovilMenu('who-we-are')">WHO ARE WE?</p>
+              <p class="sub-white" ng-click="gotoElementMovilMenu('our-community')" >OUR COMMUNITY</p>
+              <p class="sub-white" ng-click="gotoElementMovilMenu('how-it-works')">HOW IT WORKS</p>
+
+      </div>
+  </body>

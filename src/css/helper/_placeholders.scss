@@ -31,3 +31,35 @@ pointer-events: none;
     opacity:0.6;
   }
 }
+
+%gray-tooltip{
+  z-index: 100;
+  visibility: hidden;
+  box-shadow: 0 0 6px 1px $pt-gray;
+  background: $textfield-gray;
+
+  &::after, &::before {
+border: solid transparent;
+content: " ";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+}
+
+  &::after{
+
+    border-color: rgba(255, 255, 255, 0);
+     border-bottom-color: $textfield-gray;
+      border-width: 8px;
+       margin-left: -8px;
+  }
+
+  &::before{
+    border-color: rgba(204, 204, 204, 0);
+    border-bottom-color: $pt-gray;
+    border-width: 10px;
+    margin-left: -10px;
+    opacity:0.6;
+  }
+}

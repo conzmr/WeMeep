@@ -11,11 +11,15 @@ angular.module('musementApp')
     .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
 
         let user_id = localStorageService.get('user_id');
+
         $scope.idea = {};
         $scope.mySwitch = false;
         $scope.inputTeamMembers = false;
         $scope.tags = [];
         $scope.members = [];
+        $scope.categorySelect = "";
+        $scope.show = false;
+
 
         /*
         click-outside="closeThis()"
@@ -97,6 +101,12 @@ angular.module('musementApp')
                     $state.go('showIdea')
                 }
             });
+        }
+
+        $scope.selectCategory = function(category){
+          $scope.categorySelect = category;
+          $scope.show = false;
+          console.log($scope.show);
         }
     })
     /*
