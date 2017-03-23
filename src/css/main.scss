@@ -9,55 +9,27 @@ EXPRESION
 @import "helper/mixins";
 @import "helper/variables";
 @import "helper/tags";
+@import "helper/animations";
 @font-face {
     font-family: 'Museo';
-    src: url('#{$path}/fonts/MuseoSans-300.otf');
+    src: url('/static/fonts/MuseoSans-300.otf');
 }
 @font-face {
     font-family: 'Museo_D';
-    src: url('#{$path}/fonts/MuseoSans_500.otf');
+    src: url('/static/fonts/MuseoSans_500.otf');
 }
-@keyframes backgroundAnimation {
-    0% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
 
-    33% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    66% {
-        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    100% {
-        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-}
-@-moz-keyframes backgroundAnimation {
-    0% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    33% {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    66% {
-        background: url('#{$path}/img/Login_bac_1.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
-
-    100% {
-        background: url('#{$path}/img/Login_bac_2.jpg') no-repeat center fixed;
-        background-size: cover;
-    }
+input[type=email],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
 
 .fixed-background {
@@ -66,6 +38,11 @@ EXPRESION
     width: 100%;
     height: 100%;
     text-align: center;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
 }
 
 * {
@@ -73,21 +50,21 @@ EXPRESION
     @include font( 'Museo_D', 500);
 }
 
+.hexagon-bg {
+    background: url('/static/img/Login_bac_0.jpg') no-repeat center fixed;
+    background-size: cover;
+    -webkit-animation: backgroundAnimation 2s linear 0s infinite;
+    -moz-animation: backgroundAnimation 2s linear 0s infinite;
+    -o-animation: backgroundAnimation 2s linear 0s infinite;
+    animation: backgroundAnimation 2s linear 0s infinite;
+    animation-name: backgroundAnimation;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
 body {
     background: white;
-
-    &.hexagon-bg {
-        background: url('#{$path}/img/Login_bac_0.jpg') no-repeat center fixed;
-        background-size: cover;
-        -webkit-animation: backgroundAnimation 2s linear 0s infinite;
-        -moz-animation: backgroundAnimation 2s linear 0s infinite;
-        -o-animation: backgroundAnimation 2s linear 0s infinite;
-        animation: backgroundAnimation 2s linear 0s infinite;
-        animation-name: backgroundAnimation;
-        animation-duration: 2s;
-        animation-delay: 0s;
-        animation-iteration-count: infinite;
-    }
     margin: 0;
     @include scrollbar(8px, $pt-gray);
 }
@@ -99,12 +76,11 @@ a {
 .centered-form {
     margin: auto;
     @include zIndex(1);
-    max-width: 350px;
-    min-width: 300px;
-    height: 480px;
+    width: auto;
+    min-width: 270px;
+    height: auto;
     background: white;
-    margin-top: 75px;
-    vertical-align: middle;
+    padding: 25px;
     box-shadow: 0 0 70px 10px $pt-gray;
 
     .gray-sub {
@@ -113,59 +89,14 @@ a {
         margin-top: 30px;
         margin-bottom: 30px;
     }
-    
-    .photo {
-      width: 125px;
-      height: 125px;
-      z-index: 1;
-      // border-radius: 50%;
-      -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      margin: 0 auto;
-      position: relative;
-      margin-bottom: 20px;
-      background-image: url('../img/photo_Login.svg');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      input {
-        opacity: 0;
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        position: absolute;
-        cursor: pointer;
-      }
+
+    .logo-img {
+        img {
+            height: 100px;
+            margin-top: 20px;
+        }
     }
-    .photo img{
-      width: 125px;
-      height: 125px;
-      z-index: 0;
-      // border-radius: 50%;
-      margin: 0 auto;
-      margin-bottom: 20px;
-      top:0;
-      background: transparent;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-    }
-    .profile-picture {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      margin-top: 1em;
-    }
-    @media screen and (min-height: 1000px) {
-        margin-top: 250px;
-    }
-    @media screen and (min-height: 1200px) {
-        margin-top: 400px;
-    }
+    /*
     @media screen and (orientation: landscape) {
          @media screen and (max-height: 450px){
             transform: rotate(270deg);
@@ -186,7 +117,7 @@ a {
          @include queryWHMT(420, 740, 330, 480, 120);
         @include queryWHMT(380, 670, 300, 480, 75);
         @include queryWHMT(350, 580, 270, 450, 60);
-    }
+    }*/
 }
 
 .upper-text-form {
@@ -195,19 +126,23 @@ a {
 
     p {
         color: $wetopia-yellow;
-        margin-right: 25px;
-        padding-top: 20px;
     }
 }
 
 input {
+    outline: none;
     border-color: transparent;
     background: $textfield-gray;
     margin-bottom: 20px;
-    margin-left: -6px;
+    margin-left: -8px;
     @include zIndex(2);
     font-size: 12px;
-    width: 150px;
+    width: 135px;
+
+    &:not([type="button"]) {
+        text-indent: 8px;
+        height: 15px;
+    }
 
     &[type="text"] {
         border-radius: 0 4px 4px 0;
@@ -226,8 +161,51 @@ input {
 .form-input {
     img {
         height: 35px;
+        margin-left: -6px;
         vertical-align: middle;
         @include zIndex(3);
+    }
+    .tags{
+      width: 250px;
+    }
+    .host{
+      display: inline-block;
+      position: relative;
+    }
+    tags-input{
+      width: 250px;
+      margin-bottom: 30px;
+      list-style-type: none;
+    }
+    auto-complete {
+      ul.suggestion-list{
+        list-style-type: none;
+        li.suggestion-item{
+          display: inline-block;
+          margin: 3px;
+          background: $textfield-gray;
+          border: 25px;
+          padding: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+    ul.tag-list{
+      li.tag-item{
+        list-style-type: none;
+        font-size: 15px;
+        display: inline-block;
+        padding: 0.3em;
+        background: $textfield-gray;
+        margin: 0 2px;
+        a.remove-button{
+          background: $pt-gray;
+          padding: 2px;
+          border-radius: 25px;
+          font-size: 13px;
+          cursor: pointer;
+        }
+      }
     }
 }
 
@@ -247,14 +225,40 @@ input {
     }
 }
 
+.block {
+    background: $pt-gray;
+    color: white;
+    width: 70px;
+    height: 23px;
+    margin-top: 5px;
+    margin-left: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    // cursor: not-allowed;
+}
+
+#form-button-cont {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+a {
+    &#next-button {
+        font-size: 13px;
+        padding: 3px 20px;
+        margin-top: 30px;
+    }
+}
+
 #init-sesion-h {
     margin-bottom: 0;
     margin-top: 70px;
 }
 
 #signup-form-h {
-    margin-top: 70px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #new-user-img {
@@ -264,8 +268,7 @@ input {
 }
 
 #createIdea-form {
-    height: 350px;
-    top: 10%;
+    height: auto;
     @media screen and (max-width: 750px) and (max-height: 420px) {
         top: 22%;
     }
@@ -278,15 +281,21 @@ input {
 }
 
 #describeIdea-form {
-    margin-top: 3%;
-    max-width: 480px;
+    width: 450px;
     min-width: 330px;
     height: auto;
+
+    .form-description {
+        p {
+            margin: 9px 0 0;
+        }
+    }
 }
 
 #selectTeamIdea-form {
     height: auto;
     display: block;
+    padding-bottom: 20px;
 
     .tooltip {
         .tooltiptext {
@@ -296,7 +305,8 @@ input {
     }
 
     .form-description {
-        width: 75%;
+        width: 80%;
+        padding: 10px 0;
     }
 
     input {
@@ -305,8 +315,8 @@ input {
         }
     }
 
-    p {
-        margin-bottom: 0;
+    .form-subtitle {
+        margin: 10px 0 2px 2px;
     }
 
     .select-image {
@@ -339,6 +349,7 @@ input {
     img {
         margin-right: -10px;
         height: 50px;
+        padding: 0 4px;
 
         &#add-members {
             cursor: pointer;
@@ -367,8 +378,8 @@ input {
 #describeIdea-form,
 #selectTeamIdea-form {
     input {
-        width: 250px;
-        margin-bottom: 30px;
+        width: 220px;
+        margin-bottom: 25px;
 
         &[type=button] {
             width: 90px;
@@ -385,14 +396,14 @@ input {
 
     img {
         width: 70px;
-        margin-top: 40px;
+        margin-top: 30px;
     }
 }
 
 .form-description {
     box-sizing: border-box;
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
     position: relative;
     text-align: left;
     margin: auto;
@@ -491,15 +502,10 @@ input {
     }
 }
 
-#show-problem {
-    display: none;
-}
-
 #input-team-members {
     margin-top: -515px;
     z-index: 3;
     width: 100%;
-    display: none;
     position: absolute;
     box-sizing: border-box;
     height: 100%;
@@ -543,7 +549,7 @@ input {
     ul {
         list-style-type: none;
         padding: 0;
-        height: 383px;
+        // height: 383px;
         margin: 0;
         overflow-y: scroll;
         padding-top: 15px;
@@ -1024,7 +1030,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 4_Active.svg");
+                    background-image: url("/static/img/like 4_Active.svg");
                 }
             }
 
@@ -1034,7 +1040,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 3_Active.svg");
+                    background-image: url("/static/img/like 3_Active.svg");
                 }
             }
 
@@ -1044,7 +1050,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 2_Active.svg");
+                    background-image: url("/static/img/like 2_Active.svg");
                 }
             }
 
@@ -1054,7 +1060,7 @@ nav {
                 }
 
                 &:after {
-                    background-image: url("#{$path}/img/like 1_Active.svg");
+                    background-image: url("/static/img/like 1_Active.svg");
                 }
             }
         }
@@ -1241,6 +1247,10 @@ nav {
     margin-top: 120px;
     padding: 10px;
     box-sizing: border-box;
+
+    .form-description {
+        padding: 20px;
+    }
 }
 
 .idea-img {
@@ -1470,11 +1480,12 @@ nav {
             color: $wetopia-blue;
             border: 0;
             cursor: pointer;
+            margin-left: 5px;
             width: 100px;
             outline: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background: white url("#{$path}/img/arrowDown.svg") no-repeat right center;
+            background: white url("/static/img/arrowDown.svg") no-repeat right center;
             background-size: 13px 20px;
         }
 
@@ -1495,17 +1506,17 @@ nav {
 
     .blue-text {
         display: inline-block;
+        margin-left: 4px;
     }
 
     .select-team {
         display: inline-block;
-        margin: 0 5px 0 0;
+        margin: 0 10px 0 0;
         width: auto;
 
         img {
             height: 30px;
             vertical-align: middle;
-            margin-right: -5px;
         }
     }
     @media screen and (max-width: 600px) {
@@ -1557,6 +1568,7 @@ nav {
 
         &:nth-child(3) {
             color: $pt-gray;
+            margin-left: 5px;
         }
     }
 
@@ -1627,7 +1639,7 @@ nav {
         margin: 15px;
         width: 80px;
         font: {
-            size: 14px;
+            size: 15px;
         }
     }
 }
@@ -1710,6 +1722,10 @@ nav {
             height: 25px;
             vertical-align: middle;
         }
+
+        .left-align {
+            padding-top: 0;
+        }
     }
 }
 
@@ -1771,6 +1787,8 @@ nav {
         left: 50%;
         margin-left: -45px;
         @extend %white-tooltip;
+        margin-top: -4px;
+        left: 65%;
 
         &::after,
         &::before {
@@ -1887,6 +1905,7 @@ nav {
     .like-img {
         height: 41px;
         width: 36px;
+        margin: 0 3px;
         background-size: cover;
         cursor: pointer;
     }
@@ -1988,7 +2007,6 @@ nav {
 .modal {
     z-index: 9999;
     position: fixed;
-    display: none;
     padding: {
         top: 20px;
     }
@@ -2002,7 +2020,7 @@ nav {
 
 .content {
     margin-top: 90px;
-    padding: 10 60px;
+    padding: 10px 60px;
     max-width: 1500px;
     @media screen and (max-width: 500px) {
         padding: 10 20px;
@@ -2480,7 +2498,7 @@ nav {
         img {
             display: inline-block;
             height: 18px;
-            margin: 0 1px;
+            margin: 0 5px;
             vertical-align: bottom;
         }
 
@@ -2564,8 +2582,8 @@ nav {
         #dc-percentage {
             color: $text-gray;
             font-size: 17px;
-            width: auto;
-            margin: 50px auto auto;
+            width: 90px;
+            margin: 20px auto auto;
             @media screen and (min-width: 910px) and (max-width: 990px) {
                 margin-top: 40px;
             }
@@ -2603,7 +2621,7 @@ nav {
         #dc-p {
             font-size: 15px;
             font-weight: bold;
-            width: 150px;
+            width: 140px;
             margin: -15px auto auto;
             @media screen and (min-width: 860px) and (max-width: 910px) {
                 width: 120px;
@@ -2625,4 +2643,451 @@ nav {
             }
         }
     }
+}
+
+.photo {
+    width: 125px;
+    height: 125px;
+    z-index: 1;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 20px;
+    background: transparent;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('/static/img/photo_Login.svg');
+
+    input {
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        position: absolute;
+        cursor: pointer;
+    }
+}
+
+.photo img {
+    width: 115px;
+    height: 115px;
+    z-index: 0;
+    border-radius: 50%;
+    margin: auto;
+    top: 0;
+    background: transparent;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.cosas-luis-cont {
+    top: 10px;
+    left: 45%;
+    position: absolute;
+}
+
+.transparent-nav {
+    background: rgba(245,245,245,0.35);
+    padding: 10px 100px;
+    max-width: 100%;
+    position: fixed;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    @media screen and (max-width: 600px) {
+        padding: 10px 50px;
+    }
+    @media screen and (max-width: 450px) {
+        padding: 10px 20px;
+    }
+
+    .logo {
+        height: 40px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.logo-word {
+    display: inline-block;
+    margin: auto 10px;
+    height: 20px;
+    letter-spacing: 3px;
+}
+
+.margin-button {
+    padding: 2px 25px;
+    border: 3px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.6);
+    height: 20px;
+    margin: auto 0 auto auto;
+
+    &:active {
+        transform: scale(.95);
+    }
+
+    &.blue {
+        color: $wetopia-blue;
+        border-color: $wetopia-blue;
+    }
+    /*cannot transform all*/
+}
+
+.main-cont {
+    width: 100%;
+    z-index: 1;
+    background: white;
+    //height: auto;
+    //trying paralaxx
+    //perspective: 1px;
+    //height: 100vh;
+    //overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dark-sub {
+    color: $text-gray;
+    font-size: 17px;
+    font-weight: bolder;
+}
+
+.subtitle {
+    font: {
+        size: 30px;
+    }
+}
+
+.sub-cont {
+    max-width: 370px;
+    text-align: right;
+}
+
+.sub-left {
+    max-width: 550px;
+    margin: 200px auto auto 100px;
+    text-align: left;
+}
+
+.modsize-cont {
+    max-width: 450px;
+}
+
+.fit-cont {
+    max-width: 500px;
+
+    .blue-button {
+        margin-right: 60px;
+    }
+}
+
+.flex-cont {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    height: 500px;
+    position: relative;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    &.ng-show {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation: fadeIn 3s linear 0s;
+        -moz-animation: fadeIn 3s linear 0s;
+        -o-animation: fadeIn 3s linear 0s;
+        animation: fadeIn 3s linear 0s;
+    }
+
+    blue {
+        font-weight: bolder;
+    }
+
+    &.land-list {
+        margin: 50px auto 50px 80px;
+        padding: 0 20px;
+        width: 70%;
+        height: auto;
+        @media screen and (max-width: 800px) {
+            margin-left: 50px;
+        }
+        @media screen and (max-width: 800px) {
+            margin-left: 30px;
+        }
+
+        &.last {
+            margin-top: 200px;
+            padding-bottom: 60px;
+            margin-bottom: 0;
+        }
+    }
+
+    p {
+        margin: 8px 0;
+        line-height: 25px;
+    }
+
+    pt-h {
+        font-size: 15px;
+    }
+}
+
+.join-button {
+    margin: auto 0 auto auto;
+    padding: 4px 35px;
+    display: inline-flex;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.big-logo {
+    height: 200px;
+    margin: auto auto 40px;
+}
+
+#big-logo-cont {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 30px;
+    max-width: 600px;
+}
+
+#blue-fixed-sub {
+    position: fixed;
+    right: 100px;
+    top: 220px;
+    @media screen and (max-width: 600px) {
+        right: 50px;
+    }
+    @media screen and (max-width: 450px) {
+        right: 20px;
+    }
+}
+
+.button-img {
+    width: 110px;
+    height: 30px;
+    margin: 10px 0;
+    /*If it is a btn
+    cursor: pointer;
+
+    &:active {
+        transform: scale(0.95);
+    }*/
+}
+
+.flex-modal {
+    display: -webkit-flex;
+    display: flex;
+    z-index: 99999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    &.white {
+        background-color: rgba(255,255,255,0.35);
+    }
+}
+/*ESTO VA EN UN ONCLICK!!!!*/
+.blur {
+    filter: blur(1.5px);
+}
+
+#landing-cf {
+    box-shadow: 0 0 3px 1px #CCC;
+    padding: 0;
+    text-align: center;
+
+    .blue-div {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        max-width: 320px;
+        height: 85px;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        margin-bottom: 40px;
+
+        p {
+            color: white;
+            font-size: 14px;
+            font-weight: bolder;
+            margin: auto;
+        }
+    }
+
+    .form-input {
+        display: table;
+        margin: 5px auto;
+
+        input {
+            width: 180px;
+        }
+    }
+
+    input[type=button] {
+        margin-bottom: 50px;
+        margin-bottom: 50px;
+        border-radius: 8px;
+        font-size: 14px;
+        height: 23px;
+        width: 80px;
+    }
+}
+
+.blue-div {
+    background: $wetopia-blue;
+}
+
+#land-up {
+    //position: absolute;
+    background: url('/static/img/Landing_bg.jpg') no-repeat center fixed;
+    background-size: cover;
+    z-index: 0;
+    -webkit-animation: backgroundLanding 12s linear 0s infinite;
+    -moz-animation: backgroundLanding 12s linear 0s infinite;
+    -o-animation: backgroundLanding 12s linear 0s infinite;
+    animation: backgroundLanding 12s linear 0s infinite;
+    animation-name: backgroundLanding;
+    animation-duration: 12s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+#static-bg {
+    background: url('/static/img/Landing_bg_abajo.svg') no-repeat right bottom fixed;
+    background-size: cover;
+    @media screen and (max-width: 560px) {
+        background: white;
+    }
+
+    .flex-cont {
+        &.land-list {
+            @media screen and (max-width: 560px) {
+                width: 90%;
+            }
+        }
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation: fadeIn 1.5s linear 0s;
+    -moz-animation: fadeIn 1.5s linear 0s;
+    -o-animation: fadeIn 1.5s linear 0s;
+    animation: fadeIn 1.5s linear 0s;
+}
+
+.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation: fadeOut 1s linear 0s;
+    -moz-animation: fadeOut 1s linear 0s;
+    -o-animation: fadeOut 1s linear 0s;
+    animation: fadeOut 1s linear 0s;
+    opacity: 0;
+}
+
+.scroll-debug {
+    position: fixed;
+    bottom: 10px;
+    right: 100px;
+    color: black;
+    font-size: 50px;
+    z-index: 9999999;
+}
+
+.footer {
+    width: 100%;
+}
+
+.wetopia-word {
+    letter-spacing: 3px;
+}
+
+#footer-land {
+    background-color: rgba(204,204,204,0.7);
+    padding: 10px 0;
+    height: 150px;
+    box-sizing: border-box;
+
+    .wetopia-word {
+        font-size: 16px;
+        color: white;
+        margin: auto auto 10px;
+    }
+
+    .img-container {
+        margin: auto;
+        text-align: center;
+    }
+
+    img {
+        height: 50px;
+        margin: 5px 10px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    transition: all linear 0.5s;
+}
+
+#join-btn-land {
+    margin-left: 10px;
+}
+
+#people-regist {
+    margin: 18px 25px 0 auto;
+    @media screen and (max-width: 500px) {
+        margin: 18px auto;
+    }
+    @media screen and (max-width: 350px) {
+        font-size: 15px;
+    }
+}
+/*test*/
+.animate-show.ng-hide-add {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation: fadeOut 0.5s linear 0s;
+    -moz-animation: fadeOut 0.5s linear 0s;
+    -o-animation: fadeOut 0.5s linear 0s;
+    animation: fadeOut 0.5s linear 0s;
+}
+
+.animate-show.ng-hide-remove {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation: fadeIn 0.5s linear 0s;
+    -moz-animation: fadeIn 0.5s linear 0s;
+    -o-animation: fadeIn 0.5s linear 0s;
+    animation: fadeIn 0.5s linear 0s;
+}
+
+.animate-show.ng-hide {
+    opacity: 0;
+    padding: 0 10px;
+}
+
+.sub-sub-t {
+    font-size: 18px;
 }

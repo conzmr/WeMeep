@@ -1,37 +1,30 @@
-<body class="hexagon-bg">
-    <div class="fixed-background">
-        <form class="centered-form" id="describeIdea-form" action="index.html" method="post">
+
             <div class="step-img">
                 <img src="/static/img/secondStep_Create Idea.svg">
             </div>
-            <p class="gray-sub">Nueva Idea</p>
+            <p class="gray-sub">New Idea</p>
             <div class="form-description">
                 <img src="/static/img/Create Idea_idea.svg">
-                <p>Describe tu idea</p>
-                <textarea name="description" class="" maxlength="300" placeholder="¿Qué tienes en mente? Cuenta tu idea de la manera más breve y objetiva posible :)"></textarea>
+                <p>Describe your idea</p>
+                <textarea name="description" class="" maxlength="300" placeholder="What do you have on mind? Tell us about your idea briefly  and concisely :)" ng-model="idea.description"></textarea>
                 <p class="textarea-length">300</p>
             </div>
             <div class="form-description">
                 <img src="/static/img/Create Idea_problem.svg">
-                <p>¿Tu idea resuelve algún <span class="red-text">problema</span>?</p>
+                <p>Does your idea resolve some <span class="red-text">problem</span>?</p>
                 <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked onclick="switchVisibility()">
+                    <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked ng-model="idea.solveProblem">
                     <label class="onoffswitch-label" for="myonoffswitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
                 </div>
-                <div id="show-problem">
-                    <textarea class="" name="problem" maxlength="300" placeholder="¿Cuál es el problema? Descríbelo."></textarea>
+                <div ng-show="mySwitch" id="show-problem">
+                    <textarea class="" name="problem" maxlength="300" placeholder="Which is the problem, describe it." ng-model="idea.problem"></textarea>
                     <p class="textarea-length ">300</p>
                 </div>
             </div>
-            <input class="form-button" type="button" name="description-button" value="Siguiente">
+            <input class="form-button" type="button" name="description-button" value="Next" ui-sref="createIdea.third">
             <a href="#">
-                <p class="form-cancel">Cancelar</p>
+                <p class="form-cancel">Cancel</p>
             </a>
-        </form>
-    </div>
-    <script src="../js/createIdea.js">
-    </script>
-</body>

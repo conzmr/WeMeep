@@ -1,62 +1,87 @@
-<body class="hexagon-bg">
-    <div class="fixed-background">
-        <form class="centered-form" id="selectTeamIdea-form" action="index.html" method="post">
-            <div class="step-img">
-                <img src="/static/img/finalStep_Create Idea.svg">
-            </div>
-            <p>Nueva Idea</p>
-            <div class="form-description">
-                <img src="/static/img/Create Idea_img.svg">
-                <p>Imagen de portada</p>
-                <div class="select-image">
-                    <label for="input-image">
-                      <img src="/static/img/Create Idea_uploadPhoto.svg"/>
-                      <p>subir imagen</p>
-                  </label>
-                    <input type="file" id="input-image" name="idea-image" accept="image/*">
-                </div>
-            </div>
-            <div class="form-description">
-                <img src="/static/img/Create Idea_team.svg">
-                <p class="gray-sub">Agrega a tu Team</p>
-                <div class="select-team">
-                    <div class="tooltip">
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p class="tooltiptext">UserName</p>
-                    </div>
-                    <div class="tooltip">
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p class="tooltiptext">UserName</p>
-                    </div>
-                    <img id="add-members" src="/static/img/Create Idea_addPeople.svg" onclick="changeVisibility('input-team-members')">
-                </div>
-            </div>
-            <input class="form-button" type="button" name="selectTeam-button" value="Siguiente">
-            <a href="#">
-                <p class="form-cancel">Cancelar</p>
-            </a>
-            <div class="centered-form" id="input-team-members">
-                <input type="text" id="name-member-input" name="team-members" onkeyup="getMemberName()">
-                <ul id="members-list">
-                    <li>
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p>FirstName</p>
-                        <p>userName</p>
-                        <img src="/static/img/Create Idea_add.svg">
-                    </li>
-                    <li>
-                        <img src="/static/img/Create Idea_profilePhoto.svg">
-                        <p>FirstName</p>
-                        <p>userName</p>
-                        <img src="/static/img/Create Idea_added.svg">
-                    </li>
-                </ul>
-                <div class="done-button">
-                    <input class="form-button" id="soy" type="button" name="done-selection" value="Listo" onclick="changeVisibility('input-team-members')">
-                </div>
-            </div>
-        </form>
+<div class="step-img">
+    <img src="/static/img/finalStep_Create Idea.svg">
+</div>
+<p>New Idea</p>
+<div class="form-description">
+    <img src="/static/img/Create Idea_img.svg">
+    <p class="form-subtitle">Add Cover</p>
+    <div class="select-image">
+        <div class="createIdea-cover">
+          <input type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+          <img ngf-thumbnail="idea.banner">
+        </div>
+        <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
     </div>
-    <script src="../js/createIdea.js">
-    </script>
-</body>
+</div>
+<div class="form-description">
+    <img src="/static/img/Create Idea_team.svg">
+    <p class="form-subtitle">Add Team Members</p>
+    <div class="select-team">
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <img id="add-members" src="/static/img/Create Idea_addPeople.svg" ng-click="inputTeamMembers=true">
+    </div>
+</div>
+<input class="form-button" type="button" name="selectTeam-button" value="Create Idea" ng-click="createIdea()">
+<a href="#">
+    <p class="form-cancel">Cancel</p>
+</a>
+<div ng-show="inputTeamMembers" class="centered-form" id="input-team-members">
+  <tags-input ng-model="idea.members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0"  add-from-autocomplete-only="true" template="tag-project">
+          <auto-complete source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
+  </tags-input>
+
+  <script type="text/ng-template" id="tag-project">
+    <div class="tag-template">
+          <img ng-src="{{data.image}}">
+          <p>{{$getDisplayText()}}</p>
+          <img src="/static/img/Create Idea_added.svg" ng-click="$removeTag()">
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="autocomplete-project">
+        <div class="autocomplete-template">
+          <img ng-src="{{data.image}}">
+          <!-- <p>{{$getDisplayText()}}</p> -->
+            <span ng-bind-html="$highlight($getDisplayText())"></span>
+            <span>@{{data.username}}</span>
+            <img src="/static/img/Create Idea_add.svg">
+          </div>
+        </div>
+</script>
+
+        <!-- <div class="tag-template">
+          <div class="left-panel">
+            <img class="profile-image" ng-src="{{data.image}}" ng-if="data.image"/>
+          </div>
+          <div class="right-panel">
+            <span>{{$getDisplayText()}}</span>
+            <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+          </div>
+        </div> -->
+<!-- </script> -->
+    <!-- <input type="text" id="name-member-input" name="team-members">
+    <ul id="members-list">
+        <li>
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p>FirstName</p>
+            <p>userName</p>
+            <img src="/static/img/Create Idea_add.svg">
+        </li>
+        <li>
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p>FirstName</p>
+            <p>userName</p>
+            <img src="/static/img/Create Idea_added.svg">
+        </li>
+    </ul> -->
+    <div class="done-button">
+        <input class="form-button" id="soy" type="button" name="done-selection" value="Ready" ng-click="inputTeamMembers=false">
+    </div>
+</div>

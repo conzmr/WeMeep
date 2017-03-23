@@ -10,7 +10,7 @@ angular.module('musementApp')
       localStorageService.set('token', res.data.token) //Set the token for reuse in every request
       localStorageService.set('user_id', res.data._id) //Set the user_id in the localStorageService
       localStorageService.set('username', res.data.username) //Set the user_id in the localStorageService
-      $state.go('feed')
+      $state.go('home')
     },
     function(res) { //error callback
       switch (res.status) {
