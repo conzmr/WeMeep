@@ -10,10 +10,6 @@ var guestSchema = new mongoose.Schema({
     name: {
       type: String,
       required: true
-    },
-    preference: {
-      type: String,
-      required: true
     }
 });
 
