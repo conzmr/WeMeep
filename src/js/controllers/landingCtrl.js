@@ -61,6 +61,7 @@ $timeout(function(){ $scope.showParagraph=true; }, 1000);
 
   $scope.clearRequest = function(){
       $scope.request = false;
+      $scope.error = false;
       $scope.guest.name = "";
       $scope.guest.email = "";
       $scope.mailRequestError="";
@@ -80,16 +81,26 @@ $timeout(function(){ $scope.showParagraph=true; }, 1000);
             $window.alert("Done! Check your inbox.");
             $scope.clearRequest();
           }
-          else if (res.status == 400){
+      },function(res) { //error callback
+        switch (res.status) {
+          case 400:
           $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
-          $scope.mailRequestError="Email already ";
+          $scope.mailRequestError="Email already registered.  ";
+          break;
+          case 500:
+          $scope.error=true;
+          $scope.message = $translate.instant('INVALID_EMAIL');
+          $scope.mailRequestError="Please enter a valid email address. ";
+
         }
-        });
+      }
+    );
     } else{
+      $scope.error=true;
     $scope.mailRequestError="Please enter a valid email address.";
     $scope.message = $translate.instant('INVALID_EMAIL');
-    $scope.error=true;
+
   }
 }
 
