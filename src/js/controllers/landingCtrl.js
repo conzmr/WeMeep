@@ -9,6 +9,8 @@ angular.module("musementApp")
     $scope.h = $window.innerHeight;
     $scope.showParagraph=false;
     $scope.experts = 0;
+    $scope.mailRequestError="";
+    $scope.error=false;
 
     $interval( function(){
       $scope.experts=($scope.experts+1)%2;
@@ -55,24 +57,54 @@ $timeout(function(){ $scope.showParagraph=true; }, 1000);
         })
     });
 
+    $scope.guest={};
+
+  $scope.clearRequest = function(){
+      $scope.request = false;
+      $scope.guest.name = "";
+      $scope.guest.email = "";
+      $scope.mailRequestError="";
+    }
+
 
     $scope.submit = function(guest) {
     if (guest != null) {
         let invitationInfo = {};
         invitationInfo.email = this.guest.email;
         invitationInfo.name = this.guest.name;
-        console.log(JSON.stringify(invitationInfo));
+        JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
-            if (res.status == 201)
+            if (res.status == 201){
                 $scope.message = $translate.instant('VALID_EMAIL');
-            $window.alert("Revisa tu bandeja de correo. ");
+            $window.alert("Done! Check your inbox.");
             $scope.request=false;
+            $scope.clearRequest();
+          }
         });
     } else
-        $window.alert("Por favor, ingresa un correo válido. ");
+        $window.alert("Please enter a valid email address.");
     $scope.message = $translate.instant('INVALID_EMAIL');
 }
 
+window.Object.defineProperty( Element.prototype, 'documentOffsetTop', {
+    get: function () {
+        return this.offsetTop + ( this.offsetParent ? this.offsetParent.documentOffsetTop : 0 );
+    }
+} );
 
+$scope.infoScroll1 = document.getElementById( 'info-1' ).documentOffsetTop-$scope.h;
+$scope.infoScroll2 = document.getElementById( 'info-2' ).documentOffsetTop-$scope.h+$scope.infoScroll1;
+$scope.infoScroll3 = $scope.infoScroll2+$scope.h;
+$scope.infoScroll4 = $scope.infoScroll3+$scope.h;
+
+function elmYPosition(eID) {
+    var elm = document.getElementById(eID);
+    var y = elm.offsetTop;
+    var node = elm;
+    while (node.offsetParent && node.offsetParent != document.body) {
+        node = node.offsetParent;
+        y += node.offsetTop;
+    } return y;
+}
 
 })

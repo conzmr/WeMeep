@@ -1227,6 +1227,12 @@ nav {
 
 .red-text {
     color: $wetopia-red;
+    &.error{
+      font-size: 11px;
+      position: absolute;
+      bottom: -25px;
+      left: 33px;
+    }
 }
 
 .color-red {
@@ -3289,6 +3295,7 @@ max-width: 300px;
       -webkit-justify-content: center;
       justify-content: center;
       margin: 5px auto;
+      position: relative;
     }
     .flex-cont{
       padding: 25px 35px;
@@ -3305,6 +3312,7 @@ max-width: 300px;
         text-indent: 15px;
         @include font('Museo', 300) ;
         width: 225px;
+
 
       }
       .form-button{
@@ -3475,6 +3483,10 @@ max-width: 300px;
         top: 0;
         left: 0;
         display: none;
+        @media screen and (min-height: 1000px){
+          display: block;
+          z-index: 1000;
+        }
         @media screen and (max-width: 500px){
           display: block;
           z-index: 1000;
@@ -3661,8 +3673,15 @@ max-width: 300px;
   position: absolute;
   z-index: -1;
   right: 0;
-  height: 130%;
+//  height: 130%;
   width: 60%;
+  height: 900px;
+  @media screen and (max-width: 1200px){
+    height: 800px;
+  }
+  @media screen and (max-width: 1030px){
+    height: 700px;
+  }
   @media screen and (max-width: 800px){
     visibility: hidden;
   }

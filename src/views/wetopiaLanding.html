@@ -10,6 +10,7 @@
             <div class="simple-cont">
               <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
+              <!--<span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
 
             </div>
@@ -63,10 +64,10 @@
 <div class="flex-cont" id="how-it-works" >
   <p class="sub-gray">HOW IT WORKS</p>
   <div class="simple-cont">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>3/4*h" src="/static/img/infographic_1.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>2*h" src="/static/img/infographic_2.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>3*h" src="/static/img/infographic_3.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" ng-show="scrolled>4*h" src="/static/img/infographic_4.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>405" src="/static/img/infographic_1.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>850" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1900" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2500" src="/static/img/infographic_4.png">
     <div class="simple-cont movil">
       <img class="infographic" src="/static/img/infographic_1.png">
       <img class="infographic" src="/static/img/infographic_2.png">
@@ -162,7 +163,7 @@
       </div>
 
       <div class="flex-modal white " id="request-land"  ng-show="request">
-          <div class="centered-form modal-form" click-outside="request=false" outside-if-not="request-btn">
+          <div class="centered-form modal-form" click-outside="clearRequest()" outside-if-not="request-btn">
             <div class="flex-cont">
               <p class="close-x" ng-click="request=false">x</p>
               <p class="sub-gray">REQUEST INVITATION</p>
@@ -171,8 +172,9 @@
                   <input type="text" ng-model="guest.name" name="request-name" placeholder="Name" required="true">
               </div>
               <div class="form-input">
-                  <img src="/static/img/Login_mail.svg">
-                  <input type="text" ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+                  <img ng-src="{{error?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" src="/static/img/Login_mail.svg">
+                  <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+                      <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
               </div>
               <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest)" >
               </div>

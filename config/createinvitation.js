@@ -10,10 +10,9 @@ var insertInvite = function(req, callback) {
   // Set the information needed
   newGuest.email = req.body.email;
   newGuest.name = req.body.name;
-  newGuest.preference = req.body.preference;
 
   // Set email information
-  var from_email = new helper.Email('hello@musement.co', 'Wetopia'); //email, fromname
+  var from_email = new helper.Email('l@wetopia.co', 'Wetopia'); //email, fromname
   var to_email = new helper.Email(newGuest.email);
   var subject = 'Invitation Request';
   var content = new helper.Content('text/html', 'Welcome to Wetopia'); //This is literally the content; expressed in html if template is needed
@@ -37,7 +36,7 @@ var insertInvite = function(req, callback) {
   var recipient_request = sendgrid.emptyRequest({
     method: 'POST',
     path: '/v3/contactdb/recipients',
-    body: [{"email": newGuest.email, "first_name": newGuest.name, "interest": newGuest.preference}]
+    body: [{"email": newGuest.email, "first_name": newGuest.name}]
   });
 
 

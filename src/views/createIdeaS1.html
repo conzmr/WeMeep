@@ -27,6 +27,9 @@
         </ul>
       </div>
     </select>
+    <tags-input ng-model="idea.categories" display-property="name" placeholder="Add Categories" replace-spaces-with-dashes="false" min-length="0"  add-from-autocomplete-only="true">
+          <auto-complete source="loadTags($query)" max-tags="1" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" ng-show="idea.categories.length<=1"></auto-complete>
+</tags-input>
     <!-- <input type="text" name="signup-lastname" placeholder="3 categories (separate with commas)" ng-model="idea.categories"> -->
 </div>
 <input class="form-button" type="button" name="createIdea-button" value="Next" ui-sref="createIdea.second">
