@@ -75,15 +75,22 @@ $timeout(function(){ $scope.showParagraph=true; }, 1000);
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){
-                $scope.message = $translate.instant('VALID_EMAIL');
+            $scope.error = false;
+            $scope.message = $translate.instant('VALID_EMAIL');
             $window.alert("Done! Check your inbox.");
-            $scope.request=false;
             $scope.clearRequest();
           }
+          else if (res.status == 400){
+          $scope.error=true;
+          $scope.message = $translate.instant('INVALID_EMAIL');
+          $scope.mailRequestError="Email already ";
+        }
         });
-    } else
-        $window.alert("Please enter a valid email address.");
+    } else{
+    $scope.mailRequestError="Please enter a valid email address.";
     $scope.message = $translate.instant('INVALID_EMAIL');
+    $scope.error=true;
+  }
 }
 
 window.Object.defineProperty( Element.prototype, 'documentOffsetTop', {
