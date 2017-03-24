@@ -12,7 +12,8 @@ let User = require("../models/user.js"),
     Idea = require("../models/idea.js"),
     Moment = require("../models/moment.js"),
     Category = require("../models/category.js"),
-    Feedback = require("../models/feedback.js")
+    Feedback = require("../models/feedback.js"),
+    Guest = require("../models/guest.js")
 
 //config files
 let invite = require("../config/createinvitation.js"),
@@ -36,12 +37,37 @@ router.post('/upload', function(req, res) { // API path that will upload the fil
   })
 })
 
+//invite a user to Wetopia
+router.post('/invitation', function(req, res) {
+  //find if the user is not already in the invitation database
+  Guest.findOne({ 'email': req.body.email.toLowerCase()}, 'email')
+  .exec(function (err, user) { // if there are any errors, return the error
+    if (err) {
+      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
+    }
+    else {
+      if (user) { //TODO: it would be better to validate all this with mongoose
+        if (user.email == req.body.email)
+          res.status(400).json({'message': "That email and username are already registered. Try with another ones."})
+      }
+      else {
+        invite.insertInvite(req, function(response){
+          if (response.success)
+            res.status(201).json({'message': 'Thanks, please check your email :)'})
+          else
+            res.status(500).json({'message': 'Ops! Please try again :('})
+        })
+      }
+    }
+  })
+})
+
 //register NEW USER
 router.post('/signup', function(req, res){
   User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ]}, 'email username')
   .exec(function (err, user) { // if there are any errors, return the error
     if (err) {
-      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if the user is already registered
+      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
     } else {
       if (user) { //TODO: it would be better to validate all this with mongoose
         if (user.username == req.body.username && user.email == req.body.email)
@@ -96,14 +122,7 @@ router.post('/authenticate', function(req, res) {
   })
 })
 
-router.post('/invitation', function(req, res) {
-  invite.insertInvite(req, function(response){
-    if (response.success)
-      res.status(201).json({'message': 'Thanks, please check your email :'})
-    else
-      res.status(500).json({'message': 'Ops! Please try again :'})
-  })
-})
+
 // Category consulting
 router.get('/tags', function(req, res){
   Category.find({})
