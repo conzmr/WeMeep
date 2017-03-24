@@ -29,8 +29,11 @@ bower_components
 build/Release
 
 # Dependency directory
-node_modules
 bower_components
+
+# Ignore all node_modules except angular-click-outside which is maintained by hand
+/node_modules/*
+!/node_modules/angular-click-outside
 
 # Optional npm cache directory
 .npm
