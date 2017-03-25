@@ -3776,7 +3776,7 @@ max-width: 300px;
 
 #who-we-are {
     //position: absolute;
-    background: url('/static/img/landing_upper_bg.svg') no-repeat right top;
+    background: url('/static/img/BG_HEX.svg') no-repeat right top;
     background-size: cover;
     z-index: 0;
         width: 100%;
@@ -3806,14 +3806,14 @@ max-width: 300px;
   position: absolute;
   z-index: -1;
   right: 0;
-//  height: 130%;
+  height: 130%;
   width: 60%;
-  height: 900px;
+
   @media screen and (max-width: 1200px){
-    height: 800px;
+//    height: 800px;
   }
   @media screen and (max-width: 1030px){
-    height: 700px;
+//    height: 700px;
   }
   @media screen and (max-width: 800px){
     visibility: hidden;
