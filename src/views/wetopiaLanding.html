@@ -10,7 +10,7 @@
             <div class="simple-cont">
               <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
-              <!--<span class='scroll-debug'>{{scrolled}}</span>-->
+              <!--  <span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
 
             </div>
@@ -27,9 +27,10 @@
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
                   <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="request=true ">Request an Invitation</a>
             </div>
-            <div class="flex-cont" id="our-community">
+            <div class="flex-cont" id="our-community" ng-style="visibility && {'visibility':'visible'}">
               <p class="sub-gray">OUR COMMUNITY</p>
-              <div class="simple-cont experts-cont fadeIn" ng-show="experts==0">
+              <div class="flex-cont relative">
+              <div class="simple-cont experts-cont animate-slow ng-animate ng-hide-animate ng-hide-add" ng-show="experts==0">
                 <img src="/static/img/IMG_COMMUNITY_PEDRO.png">
                 <div class="simple-cont">
                 <p class="quote">“This is the place where ideas become reality:
@@ -38,7 +39,7 @@
                   <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
                   </div>
               </div>
-              <div class="simple-cont experts-cont fadeIn"  ng-show="experts==1">
+              <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==1">
                 <img src="/static/img/IMG_COMMUNITY_LUIS.png">
                 <div class="simple-cont">
                 <p class="quote">“For entrepreneurs, it’s essential to receive
@@ -56,6 +57,7 @@
                   business failure.”</p>
                   <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
                 </div>-->
+                </div>
               </div>
             </div>
         </div>
@@ -64,12 +66,12 @@
 <div class="flex-cont" id="how-it-works" >
   <p class="sub-gray">HOW IT WORKS</p>
   <div class="simple-cont">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>405" src="/static/img/infographic_1.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>850" src="/static/img/infographic_2.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1900" src="/static/img/infographic_3.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2500" src="/static/img/infographic_4.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>480" src="/static/img/infographic1_n.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>1000" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1650" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2150" src="/static/img/infographic_4.png">
     <div class="simple-cont movil">
-      <img class="infographic" src="/static/img/infographic_1.png">
+      <img class="infographic" src="/static/img/infographic1_n.png">
       <img class="infographic" src="/static/img/infographic_2.png">
       <img class="infographic" src="/static/img/infographic_3.png">
       <img class="infographic" src="/static/img/infographic_4.png">
@@ -85,12 +87,14 @@
 <!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
   <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="request=true ">Request an Invitation</a>
 <div class="footer flex-cont">
+    <!--
   <div class="left">
     <p class="small">Home</p>
     <p class="small">My Profile</p>
     <p class="small">Create Idea</p>
     <p class="small">My Idea</p>
   </div>
+  -->
   <div class="icons">
     <img src="/static/img/wetopia_dark.png">
     <div class="simple-cont">
@@ -101,12 +105,14 @@
     </div>
 
   </div>
+  <!--
   <div class="right">
     <p class="medium-bold">Wetopia (c) 2017</p>
     <p class="small">Terms & Conditions</p>
     <p class="small">Privacy Policy</p>
     <p class="small">Ethics Code</p>
   </div>
+-->
 </div>
 </div>
 </div>

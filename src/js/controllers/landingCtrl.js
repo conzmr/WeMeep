@@ -15,7 +15,7 @@ angular.module("musementApp")
 
     $interval( function(){
       $scope.experts=($scope.experts+1)%2;
-    }, 8000);
+    }, 12000);
 
 
     $scope.closeLogin = function() {
@@ -50,7 +50,9 @@ angular.module("musementApp")
 
 }
 
-$timeout(function(){ $scope.showParagraph=true; }, 1000);
+$timeout(function(){ $scope.showParagraph=true;
+$scope.visibility=true;
+ }, 1000);
 
     $document.on('scroll', function() {
         $scope.$apply(function() {

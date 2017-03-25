@@ -17,7 +17,7 @@ angular.module('musementApp')
                 url: "/home",
                 // controller: "homeCtrl",
                 templateUrl: "/static/views/home.html",
-                authenticate: true
+                authenticate: false
             })
             .state("signup", {
                 url: "/signup",
@@ -53,25 +53,25 @@ angular.module('musementApp')
                 url: "/createIdea",
                 controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdea.html",
-                authenticate: true
+                authenticate: false //mover
             })
             .state("createIdea.first", {
                 url: "/first",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS1.html",
-                authenticate: true
+                authenticate: false //mover
             })
             .state("createIdea.second", {
                 url: "/second",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
-                authenticate: true
+                authenticate: false //mover
             })
             .state("createIdea.third", {
                 url: "/third",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS3.html",
-                authenticate: true
+                authenticate:false //mover
             })
             .state("myIdeaStatistics", {
                 url: "/myIdeaStatistics",
