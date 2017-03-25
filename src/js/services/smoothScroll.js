@@ -34,7 +34,7 @@ angular.module('musementApp')
 
         function elmYPosition(eID) {
             var elm = document.getElementById(eID);
-            var y = elm.offsetTop - 100;
+            var y = elm.offsetTop;
             var node = elm;
             while (node.offsetParent && node.offsetParent != document.body) {
                 node = node.offsetParent;

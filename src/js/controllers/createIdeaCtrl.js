@@ -20,16 +20,8 @@ angular.module('musementApp')
         $scope.categorySelect = "";
         $scope.show = false;
 
-
-        /*
-        click-outside="closeThis()"
-                $scope.closeThis = function() {
-                    $scope.inputTeamMembers = false;
-                    console.log("cierrate al"); //not working
-                }
-        */
         if ($scope.idea.banner == undefined) {
-            $scope.idea.banner = "/static/img/Image_default.svg"; //Modificar
+            $scope.idea.banner = "/static/img/Image_default.svg";
         }
 
         // Load members when creating a project

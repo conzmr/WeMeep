@@ -1,5 +1,102 @@
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <nav class="transparent-nav scroll-white static" >
+        <img class=" logo " src="/static/img/logo_t.svg ">
+        <div class="createIdea">
+          <p class="blue-text">CREATE</p>
+          <a href="/createIdea/first"><img src="/static/img/create.svg" /></a>
+          <p class="blue-text">IDEA</p>
+        </div>
+        <div class="right">
+          <div class="wrapper">
+              <input id="nav-search" type="search" name="navsearch" />
+              <i class="fa fa-search"></i>
+          </div>
+          <div class="display-inner">
+              <img id="notifications-icon" src="/static/img/Notify.svg">
+              <ul>
+                  <p class="pt-h">Notifications</p>
+                  <div class="scroll-list">
+                      <li class="not-block says new"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Mary</span>
+                              <span class="like-4"></span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>1 min</span>
+                          </p>
+                      </li>
+                      <li class="not-block commented new"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Mary</span>
+                              <span class="act-pivot"></span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>2 min</span>
+                          </p>
+                      </li>
+                      <li class="not-block says"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Kevin</span>
+                              <span class="like-3"></span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>30 min</span>
+                          </p>
+                      </li>
+                      <li class="not-block says"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Erick</span>
+                              <span class="like-2"></span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>2 days</span>
+                          </p>
+                      </li>
+                      <li class="not-block commented"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Josh</span>
+                              <span class="prev-pivot">3</span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>10 days</span>
+                          </p>
+                      </li>
+                      <li class="not-block says"><img src="/static/img/Create Idea_profilePhoto.svg">
+                          <p>
+                              <span class="name">Pancho</span>
+                              <span class="like-1"></span>
+                              <span class="on">Idea Name</span>
+                              <span class=time-ago>1 month</span>
+                          </p>
+                      </li>
+
+                  </div>
+              </ul>
+          </div>
+          <div class="inner-nav">
+              <div class="polygon-each-img-wrap">
+                  <div class="user-team-img polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/Create Idea_profilePhoto.svg)'}"> <!--modify as create idea 3-->
+                  </div>
+              </div>
+
+              <ul>
+                  <li>Mis:</li>
+                  <li><img src="/static/img/idea_1.svg"><a href="#">Ideas</a></li>
+                  <li><img src="/static/img/proyect.svg"><a href="#">Proyectos</a></li>
+                  <li><img src="/static/img/profile.svg"><a href="#">Perfil</a></li>
+              </ul>
+          </div>
+
+
+        </div>
+
+
+
+    </nav>
+    <svg class="clip-svg">
+  <defs>
+    <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+      <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+    </clipPath>
+  </defs>
+</svg>
+    <!--
     <nav>
         <ul>
             <li class="nav-left">
@@ -93,6 +190,7 @@
             </li>
         </ul>
     </nav>
+  -->
     <div class="content">
         <div class="section">
             <div class="section-nav">
@@ -301,5 +399,29 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="footer flex-cont">
+      <div class="left">
+        <p class="small">Home</p>
+        <p class="small">My Profile</p>
+        <p class="small">Create Idea</p>
+        <p class="small">My Idea</p>
+      </div>
+      <div class="icons">
+        <img src="/static/img/wetopia_dark.png">
+        <div class="simple-cont">
+          <a href="https://www.facebook.com/wetopiaCo/"><img src="/static/img/fb_icon_dark.svg"></a>
+          <a href="https://twitter.com/wetopiaco"><img src="/static/img/twitter.svg"></a>
+          <a href="https://www.instagram.com/wetopia.co/"><img src="/static/img/instagram_dark.svg"></a>
+          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+        </div>
+
+      </div>
+      <div class="right">
+        <p class="medium-bold">Wetopia (c) 2017</p>
+        <p class="small">Terms & Conditions</p>
+        <p class="small">Privacy Policy</p>
+        <p class="small">Ethics Code</p>
+      </div>
     </div>
 </body>
