@@ -10,6 +10,7 @@ angular.module("musementApp")
     $scope.showParagraph=false;
     $scope.experts = 0;
     $scope.mailRequestError="";
+    $scope.thanks = false
     $scope.error=false;
 
     $interval( function(){
@@ -78,8 +79,8 @@ $timeout(function(){ $scope.showParagraph=true; }, 1000);
             if (res.status == 201){
             $scope.error = false;
             $scope.message = $translate.instant('VALID_EMAIL');
-            $window.alert("Done! Check your inbox.");
             $scope.clearRequest();
+            $scope.thanks = true;
           }
       },function(res) { //error callback
         switch (res.status) {

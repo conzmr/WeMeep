@@ -3587,6 +3587,7 @@ max-width: 300px;
 
     .simple-cont{
       text-align: center;
+
       img{
         margin: 2px;
         cursor: pointer;
@@ -4045,4 +4046,33 @@ font-size: 23px;
 .fadeOutLeft {
   -webkit-animation-name: fadeOutLeft;
   animation-name: fadeOutLeft;
+}
+
+.alert-modal{
+  .medium{
+    max-width: 240px;
+font-size: 14px;
+margin: 0px auto;
+color: $gray-medium;
+  }
+
+  .done-icon{
+    margin-bottom: 15px;
+  }
+
+  .smaller{
+    color: $gray-lighter;
+    font-size: 12px;
+    margin: 10px auto 5px auto;
+  }
+
+  .simple-cont{
+    img{
+      cursor: pointer;
+    }
+    a{
+      margin: 2px;
+    }
+  }
+
 }

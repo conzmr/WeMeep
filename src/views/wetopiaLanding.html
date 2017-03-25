@@ -94,10 +94,10 @@
   <div class="icons">
     <img src="/static/img/wetopia_dark.png">
     <div class="simple-cont">
-<img src="/static/img/fb_icon_dark.svg">
-<img src="/static/img/twitter.svg">
-<img src="/static/img/instagram_dark.svg">
-<img src="/static/img/snap_dark.svg">
+      <a href="https://www.facebook.com/wetopiaCo/"><img src="/static/img/fb_icon_dark.svg"></a>
+      <a href="https://twitter.com/wetopiaco"><img src="/static/img/twitter.svg"></a>
+      <a href="https://www.instagram.com/wetopia.co/"><img src="/static/img/instagram_dark.svg"></a>
+      <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
     </div>
 
   </div>
@@ -177,6 +177,28 @@
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
               </div>
               <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest)" >
+              </div>
+          </div>
+      </div>
+
+      <div class="flex-modal white alert-modal"  ng-show="thanks">
+          <div class="centered-form modal-form" click-outside="thanks=false">
+            <div class="flex-cont">
+              <p class="close-x" ng-click="thanks=false">x</p>
+              <p class="sub-gray">THANK YOU!</p>
+              <img class="done-icon" src="/static/img/DONE_ICON.svg">
+              <p class="medium">You are now part of Wetopia!</p>
+              <p class="medium">Keep and eye on your inbox because you'll be
+                receiving news from us very soon!</p>
+            <p class="smaller">In the meantime follow us on:</p>
+              <div class="icons">
+                <div class="simple-cont">
+            <a href="https://www.facebook.com/wetopiaCo/"><img src="/static/img/fb_icon_dark.svg"></a>
+            <a href="https://twitter.com/wetopiaco"><img src="/static/img/twitter.svg"></a>
+            <a href="https://www.instagram.com/wetopia.co/"><img src="/static/img/instagram_dark.svg"></a>
+            <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+                </div>
+              </div>
               </div>
           </div>
       </div>
