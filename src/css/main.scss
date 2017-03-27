@@ -2825,7 +2825,7 @@ width: 100%;
       display: none;
       @media screen and (max-width: 500px){
         display: inline-block;
-        margin: auto 30px auto auto;
+        margin: auto 0px auto auto;
       }
     }
 
@@ -3084,6 +3084,8 @@ width: 100%;
       &.absolute{
         position: absolute;
         visibility: hidden;
+        top: 0;
+        left: 0;
       }
 
         &.fadeIn{
@@ -3196,10 +3198,13 @@ max-width: 300px;
 }
 
 #our-community{
-  margin-bottom: 30px;
-      padding: 0 20px;
+      padding: 0 20px 30px;
       padding-top: 150px;
       visibility: hidden;
+
+      @media screen and (max-width: 400px){
+        padding-bottom: 60px;
+      }
 }
 
 
@@ -3772,6 +3777,7 @@ max-width: 300px;
 .section-cont{
   width: 100%;
   display: inline-block;
+  position: relative;
 }
 
 #who-we-are {
@@ -3801,13 +3807,13 @@ max-width: 300px;
 }
 
 #team-img{
-  background: url('/static/img/IMG_TEAM.png') no-repeat center;
+  background: url('/static/img/IMG_MAIN.jpg') no-repeat center;
   background-size: cover;
   position: absolute;
   z-index: -1;
   right: 0;
-  height: 130%;
-  width: 60%;
+  height: 100%;
+  width: 50%;
 
   @media screen and (max-width: 1200px){
 //    height: 800px;
