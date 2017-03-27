@@ -3015,6 +3015,9 @@ width: 100%;
     .title{
       line-height: 36px;
     }
+    @media screen and (min-width: 1500px){
+      margin-bottom: 100px;
+    }
     @media screen and (max-width:500px){
       text-align: center;
       margin-top: 90px;
@@ -3201,6 +3204,16 @@ max-width: 300px;
       padding: 0 20px 30px;
       padding-top: 150px;
       visibility: hidden;
+
+
+
+      @media screen and (min-width: 1400px){
+        padding-top: 220px;
+      }
+
+      @media screen and (min-width: 1600px){
+        padding-top: 300px;
+      }
 
       @media screen and (max-width: 400px){
         padding-bottom: 60px;
