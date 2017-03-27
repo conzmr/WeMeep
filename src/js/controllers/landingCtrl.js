@@ -1,6 +1,6 @@
 angular.module("musementApp")
 
-.controller("landingCtrl", function($scope, $document, $window,  $location, anchorSmoothScroll, $timeout, $interval, invitationDataService, $translate, localStorageService) {
+.controller("landingCtrl", function($scope, $document, $window,  $location, $timeout, $interval, invitationDataService, $translate, localStorageService) {
     $scope.join = false;
     $scope.login = false;
     $scope.request = false;
@@ -28,21 +28,6 @@ angular.module("musementApp")
         $scope.join = false;
     }
 
-    $scope.gotoElement = function (eID){
-
-
-    $location.hash(eID);
-
-    anchorSmoothScroll.scrollTo(eID);
-  }
-
-  $scope.gotoElementMovilMenu = function (eID){
-
-
-  $location.hash(eID);
-  $scope.movilMenu = false;
-  anchorSmoothScroll.scrollTo(eID);
-}
 
   $scope.getPosition = function($event){
   var pos =$event.pageY;
@@ -105,27 +90,6 @@ $scope.visibility=true;
     $scope.message = $translate.instant('INVALID_EMAIL');
 
   }
-}
-
-window.Object.defineProperty( Element.prototype, 'documentOffsetTop', {
-    get: function () {
-        return this.offsetTop + ( this.offsetParent ? this.offsetParent.documentOffsetTop : 0 );
-    }
-} );
-
-$scope.infoScroll1 = document.getElementById( 'info-1' ).documentOffsetTop-$scope.h;
-$scope.infoScroll2 = document.getElementById( 'info-2' ).documentOffsetTop-$scope.h+$scope.infoScroll1;
-$scope.infoScroll3 = $scope.infoScroll2+$scope.h;
-$scope.infoScroll4 = $scope.infoScroll3+$scope.h;
-
-function elmYPosition(eID) {
-    var elm = document.getElementById(eID);
-    var y = elm.offsetTop;
-    var node = elm;
-    while (node.offsetParent && node.offsetParent != document.body) {
-        node = node.offsetParent;
-        y += node.offsetTop;
-    } return y;
 }
 
 })

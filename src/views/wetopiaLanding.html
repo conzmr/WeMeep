@@ -4,9 +4,9 @@
             <img class=" logo " src="/static/img/logo_t.svg ">
             <img class="hamburguer-menu " src="/static/img/hamburguermenu.png " ng-click="movilMenu=true">
               <div class="menu">
-              <a ng-click="gotoElement('who-we-are')" >Who are we?</a>
-            <a ng-click="gotoElement('our-community')" >Our Community</a>
-            <a ng-click="gotoElement('how-it-works')">How it works</a>
+              <a href="#who-we-are" offset="30" du-smooth-scroll du-scrollspy >Who are we?</a>
+            <a href="#our-community" offset="30" du-smooth-scroll du-scrollspy>Our Community</a>
+            <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>How it works</a>
             <div class="simple-cont">
               <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
@@ -212,9 +212,9 @@
       <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu">
         <img class=" logo " src="/static/img/logo_t.svg ">
               <p class="close-x" ng-click="movilMenu=false">x</p>
-              <p class="sub-white" ng-click="gotoElementMovilMenu('who-we-are')">WHO ARE WE?</p>
-              <p class="sub-white" ng-click="gotoElementMovilMenu('our-community')" >OUR COMMUNITY</p>
-              <p class="sub-white" ng-click="gotoElementMovilMenu('how-it-works')">HOW IT WORKS</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#who-we-are" offset="30" du-smooth-scroll du-scrollspy >WHO ARE WE?</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#our-community" offset="30" du-smooth-scroll du-scrollspy >OUR COMMUNITY</p>
+              <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>HOW IT WORKS</p>
 
       </div>
   </body>
