@@ -15,7 +15,7 @@ angular.module('musementApp')
             })
             .state("home", {
                 url: "/home",
-                // controller: "homeCtrl",
+                controller: "homeCtrl",
                 templateUrl: "/static/views/home.html",
                 authenticate: false
             })

@@ -874,10 +874,17 @@ nav {
     display: inline-block;
     vertical-align: middle;
     padding: 10px;
+    margin: auto;
+    height: 30px;
     margin-right: 10px;
     width: 210px;
     text-align: right;
     position: relative;
+
+    @media screen and (max-width: 765px){
+      order: 4;
+      margin: auto;
+    }
 
     &:hover {
 
@@ -918,33 +925,50 @@ nav {
 
 .scroll-list {
     overflow-y: scroll;
-    @include scrollbar(4px, $pt-gray);
+    @include scrollbar(1px, white);
 }
 
 .display-inner {
   position: relative;
   margin: auto;
 
+  .polygon-each-img-wrap{
+    margin: auto 10px;
+  }
 
-    &:hover {
-        ul {
-            visibility: visible;
-        }
-    }
+  .polygon-clip-hexagon{
+    height: 28px !important;
+width: 23px !important;
+// No sirve, se necesita una imagen de fondo para crear efecto sombra box-shadow: 0 4px 3px 2px #CCC;
+  }
+
+  .sub-gray{
+    color: $gray-lighter;
+    font-size: 18px;
+    margin: 10px auto 0 auto;
+    @include font('Museo', 300);
+  }
+
 
     ul {
         right: -45px;
         position: absolute;
-        width: 240px;
+        top: 55px;
+        width: 270px;
         list-style-type: none;
-        padding: 5px;
-        border-radius: 4px;
-        visibility: hidden;
+        padding: 5px 0px;
+        border-radius: 1px;
+        visibility: visible;
         @extend %white-tooltip;
         text-align: left;
+        box-shadow: 2px 2px 5px 1px $gray-lighter;
 
         .scroll-list {
             height: 250px;
+        }
+
+        li{
+          cursor: pointer;
         }
 
         .pt-h {
@@ -955,10 +979,7 @@ nav {
         &::after,
         &::before {
             bottom: 100%;
-            right: 62px;
-            @media screen and (max-width: 360px) {
-                right: 58px;
-            }
+            right: 50px;
         }
     }
 }
@@ -970,16 +991,17 @@ nav {
     display: flex;
     -webkit-align-items: center;
     align-items: center;
-    padding: 0 3px 0 0;
-    margin: 7px 0;
+    padding: 0 5px 0 0;
+    margin: 15px 0;
     position: relative;
+    border-left: 10px solid transparent;
 
     &.new {
-        border-left: 4px solid $wetopia-red;
+        border-left: 10px solid $wetopia-red;
     }
 
     .time-ago {
-        color: $pt-gray;
+        color: $gray-lighter;
         display: block;
         font-size: 11px;
         flex-grow: 1;
@@ -1101,7 +1123,7 @@ nav {
 
             &:after,
             &:before {
-                color: $pt-gray;
+                color: $gray-lighter;
             }
 
             &.on {
@@ -1120,37 +1142,61 @@ nav {
 .inner-nav {
     position: relative;
     display: inline-block;
-    cursor: pointer;
     margin: auto auto auto 10px;
 
-    &:hover {
-        ul {
-            visibility: visible;
-        }
+    #profile-picture{
+      cursor: pointer;
+    }
+
+    .sup-cont{
+      border-bottom: 1px solid $pt-gray;
+      margin-bottom: 10px;
+
+      .gray-dark{
+        margin-bottom:3px;
+      }
     }
 
     ul {
-        right: -30%;
+        right: 0;
+        top: 55px;
         position: absolute;
-        width: 330px;
+        visibility: visible;
+        width: 140px;
         list-style-type: none;
-        padding: 5px;
-        border-radius: 4px;
+        padding: 15px 20px;
         @extend %white-tooltip;
+        border-radius: 1px;
+        box-shadow: 0px 1px 1px 1px #9B9B9B;
+
+        p{
+          font-size: 14px;
+          margin: 7px auto;
+          cursor: pointer;
+          line-height: 15px;
+        }
+
+        .gray-dark{
+          color: $gray-dark;
+        }
+
+        .gray-lighter{
+          color: $gray-lighter;
+
+          &.small{
+            font-size: 12px;
+            margin-top: 0px;
+          }
+        }
 
 
         &::after,
         &::before {
             bottom: 100%;
-            left: 87%;
-            @media screen and (max-width: 400px) {
-                left: 93%;
-            }
+            right: 6px;
+
         }
-        @media screen and (max-width: 400px) {
-            right: 0;
-            width: 285px;
-        }
+
 
         li {
             float: left;
@@ -2175,7 +2221,12 @@ width: 100%;
     padding: 15px 0;
     width: 100%;
     clear: both;
-    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .tag-card {
@@ -2183,18 +2234,32 @@ width: 100%;
 }
 
 .card {
-    width: 230px;
-    margin: 0 20px 0 0;
+    width: 210px;
+    margin: auto 15px;
     display: inline-block;
     cursor: pointer;
     border-radius: 10px;
     box-sizing: border-box;
 
     .user {
-        height: 30px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-direction: row;
 
-        img {
-            height: 25px;
+
+        .polygon-clip-hexagon {
+            height: 20px;
+            width: 16px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+
+        }
+
+        .polygon-each-img-wrap{
+          margin: auto 5px auto 0px;
         }
 
         p {
@@ -2202,147 +2267,93 @@ width: 100%;
             margin: 8px 0;
         }
 
-        .right {
-            padding-top: 7px;
-            font-size: 12px;
-            line-height: 18px;
-
-            img {
-                height: 15px;
-            }
+        .right-img{
+          height: 15px;
+          margin:auto 0 auto auto;
         }
     }
 
     &:hover {
-        transform: scale(1.07);
-        transition-duration: 0.4s;
+      .card-block{
+          box-shadow: 2px 2px 5px 1px $gray-lighter;
+          border-radius: 10px;
+      }
+
     }
 
-    &.idea {
-        &.short {
-            &:hover {
-                .user {
-                    border-color: $wetopia-blue;
-                }
-            }
-        }
-
-        .right {
-            color: $wetopia-blue;
-        }
-
-        &:hover {
-            .card-info {
-                border-color: $wetopia-blue;
-            }
-
-            .right {
-                &:before {
-                    content: "Idea";
-                }
-            }
-        }
-    }
-
-    &.large {
-        .card-info {
-            height: 150px;
-        }
-
-        .card-img {
-            border-radius: 10px 10px 0 0;
-        }
-    }
-
-    &.short {
-        .card-info {
-            height: 100px;
-        }
-
-        .user {
-            border: 2px solid $pt-gray;
-            border-bottom: none;
-            background: white;
-            border-radius: 10px 10px 0 0;
-            padding-left: 5px;
-        }
-    }
-
-    &.project {
-        &.short {
-            &:hover {
-                .user {
-                    border-color: $wetopia-red;
-                }
-            }
-        }
-
-        .right {
-            color: $wetopia-red;
-        }
-
-        &:hover {
-            .card-info {
-                border-color: $wetopia-red;
-            }
-
-            .right {
-                &:before {
-                    content: "Project";
-                }
-            }
-        }
-    }
 }
 
 .card-img {
     clear: both;
     width: 100%;
     box-sizing: border-box;
-    height: 150px;
+    height: 160px;
     @include backimg(ex2, jpg);
+    border: 1px solid $wetopia-blue;
+    border-radius: 10px 10px 0 0;
 }
 
 .card-info {
-    border: 2px solid $pt-gray;
+    border: 1px solid $gray-lighter;
     border-top: none;
-    background: white;
+    background: transparent;
     width: auto;
     border-radius: 0 0 10px 10px;
     margin-bottom: 5px;
-    padding: 5px 5px 5px 10px;
+    padding: 5px 13px;
     box-sizing: border-box;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 160px;
+
+
 
     .dark-title {
-        margin: 0;
+        margin: 10px auto 10px 0;
+        text-align: left;
+        @include font('Museo', 900);
+
+    }
+
+    .card-p{
+      margin: 0px auto auto 0;
+      text-align: left;
+      font-size: 12px;
     }
 
     .left {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-direction: row;
+      width: auto;
+      margin: auto auto auto 0;
         img {
-            vertical-align: middle;
+            margin: auto 0;
         }
 
         p {
-            color: $pt-gray;
+            color: $gray-lighter;
+            @include font('Museo', 300);
             display: inline-block;
             width: auto;
-            margin-bottom: 0;
-            font-size: 14px;
+            margin: auto auto auto 3px;
+            font-size: 11px;
         }
     }
 }
 
 .dark-title {
     font: {
-        size: 16px;
+        size: 14px;
         weight: bolder;
     }
-    color: $text-gray;
+    color: $gray-dark;
 }
 
 .card-p {
-    margin: 0;
     @include font( 'Museo', 300);
     font-size: 13px;
 }
@@ -2387,70 +2398,33 @@ width: 100%;
 }
 
 .footer-nav {
+      margin-top: -8px;
     a {
-        color: $pt-gray;
+        color: $gray-lighter;
         display: inline-block;
-        font-size: 13px;
+        font-size: 11px;
         margin: 0 2px;
-
-        &:hover {
-            color: $text-gray;
-        }
     }
     text-align: center;
 }
 
+.section-padd-cont{
+    margin: 20px auto 70px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    max-width: 900px;
+}
+
 .category {
-    width: 190px;
-    height: 220px;
+    width: 108px;
+    height: 150px;
     position: relative;
     cursor: pointer;
+    margin: 15px 10px;
 
-    .cat-img {
-        @include backimg(ex2, jpg);
-        width: 100%;
-        height: 100%;
-        z-index: 19;
-    }
-
-    .darkness {
-        border-radius: 20px;
-        z-index: 20;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    p {
-        color: white;
-        font: {
-            size: 16px;
-            weight: bolder;
-        }
-        z-index: 20;
-        position: absolute;
-        top: 90px;
-        left: 60px;
-    }
-
-    .cat-img,
-    .darkness {
-        border-radius: 20px;
-    }
-
-    &:hover {
-        .darkness {
-            opacity: 0;
-            transition-duration: 1s;
-        }
-
-        p {
-            font-size: 20px;
-            top: 80px;
-            left: 55px;
-            transition-duration: 0.4s;
-        }
-    }
 }
 
 .darkness {
@@ -2803,10 +2777,6 @@ width: 100%;
 #notifications-icon {
     height: 30px;
     cursor: pointer;
-
-    &:hover {
-        content: url("#{$path}/img/Notify_Hover.svg");
-    }
 }
 
 .transparent-nav {
@@ -2844,12 +2814,6 @@ width: 100%;
 
     }
 
-    .polygon-each-img-wrap{
-    height: 35px;
-    width: 30px;
-    }
-
-
 
 
             .polygon-clip-hexagon {
@@ -2857,10 +2821,10 @@ width: 100%;
                 clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
                 -webkit-clip-path: url("#polygon-clip-hexagon");
                 clip-path: url("#polygon-clip-hexagon");
-                height: 30px;
-                width: 30px;
+                height: 35px;
+                width: 33px;
                 display: inline-flex;
-                margin: auto 5px auto 0;
+                margin: auto 5px;
                 background: {
                     size: cover;
                     position: center;
@@ -2879,6 +2843,11 @@ width: 100%;
   justify-content: center;
   flex-direction: row;
 
+  @media screen and (max-width: 500px){
+  order: 3;
+  width: 100%;
+  }
+
   p{
     font-size: 13px;
     margin: auto 5px;
@@ -2894,7 +2863,32 @@ width: 100%;
 &.static{
   .logo{
     margin-right: 0;
+    @media screen and (max-width: 765px){
+    padding-right: 20px;
+    }
   }
+  @media screen and (max-width: 815px){
+    padding: 0 10px;
+  }
+
+  @media screen and (max-width: 745px){
+    padding-top: 7px;
+  }
+
+  @media screen and (max-width: 730px){
+   flex-wrap: wrap;
+   height: 110px;
+  }
+
+  @media screen and (max-width: 730px){
+   height: 150px;
+  }
+
+  @media screen and (max-width: 500px){
+   height: 170px;
+   padding-top: 10px;
+  }
+
 }
 
 
@@ -2920,7 +2914,11 @@ width: 100%;
         }
 
         &.nav-general{
+          padding-right: 110px;
           margin-right: 150px;
+          @media screen and (max-width: 765px){
+           margin-right: auto;
+          }
         }
     }
 
@@ -3099,6 +3097,40 @@ width: 100%;
     -webkit-flex-direction: column;
     flex-direction: column;
     box-sizing: border-box;
+
+    &.sub-nav{
+      margin-top: 30px;
+
+      &.no-margin-bot{
+        height: 30px;
+        margin-bottom: 20px;
+      }
+
+      .sub-gray{
+        cursor: pointer;
+        font-size: 25px;
+        padding-bottom: 10px;
+
+        &.active{
+          &:not(.not-hov){
+          font-weight: bold;
+          color: $wetopia-blue;
+          padding-bottom: 5px;
+          border-bottom: 5px solid $wetopia-blue;
+        }
+
+        &.not-hov{
+          cursor: default;
+          height: 30px;
+        }
+        }
+
+      }
+    }
+
+    &.row{
+      flex-direction: row;
+    }
 
     &.relative{
       position: relative;
@@ -3606,9 +3638,11 @@ max-width: 300px;
 }
 
 .small{
-  margin: 5px auto;
+  margin: 8px auto;
   cursor: pointer;
   font-size: 13px;
+  line-height: 25px;
+  display: block;
   @media screen and (max-width: 600px){
     font-size: 12px;
     margin: 3px auto;
@@ -3668,8 +3702,17 @@ max-width: 300px;
 .right{
   margin: auto 0 auto auto;
   text-align: left;
+  @media screen and (max-width: 765px){
+  padding-left: 100px;
+  }
+  @media screen and (max-width: 630px){
+  padding-left: 80px;
+  }
+  @media screen and (max-width: 530px){
+  padding-left: 50px;
+  }
   @media screen and (max-width: 500px){
-    display: none;
+  padding-left: 40px;
   }
 }
 
@@ -3730,7 +3773,6 @@ max-width: 300px;
     font-size: 13px;
     @media screen and (max-width: 600px){
       font-size: 12px;
-      margin: 3px auto;
     }
   }
 
