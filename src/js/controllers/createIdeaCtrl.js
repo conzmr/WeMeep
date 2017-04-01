@@ -17,8 +17,19 @@ angular.module('musementApp')
         $scope.inputTeamMembers = false;
         $scope.tags = [];
         $scope.members = [];
-        $scope.categorySelect = "";
-        $scope.show = false;
+        $scope.categorySelected = "";
+        $scope.showCategories = false;
+        loadTags();
+
+        $scope.selectCategory = function(category){
+          $scope.categorySelected = category;
+          $scope.showCategories = false;
+        }
+
+        $scope.changeShowCategories = function(){
+          $scope.showCategories = !$scope.showCategories;
+        }
+
 
         if ($scope.idea.banner == undefined) {
             $scope.idea.banner = "/static/img/Image_default.svg";
@@ -37,18 +48,17 @@ angular.module('musementApp')
         }
 
         // Load categories when creating a moment
-        $scope.loadTags = function($query) {
+        function loadTags($query) {
             return $http.get(HOST + '/api/tags', {
                 cache: true
             }).then(function(response) {
-                var tags = response.data;
-                return tags.filter(function(tag) {
-                    return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
-                })
+                var tags= response.data;
+                $scope.categories = [];
+                for(var i=0; i<tags.length; i++){
+                  $scope.categories[i] = tags[i].name;
+                }
             })
         }
-
-
 
         $scope.createIdea = function() {
             if (this.idea.banner == undefined) {
@@ -95,27 +105,4 @@ angular.module('musementApp')
             });
         }
 
-        $scope.selectCategory = function(category){
-          $scope.categorySelect = category;
-          $scope.show = false;
-          console.log($scope.show);
-        }
     })
-    /*
-    function getMemberName() {
-        var input, filter, ul, li, p, i;
-        input = document.getElementById("name-member-input");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("members-list");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            p = li[i].getElementsByTagName("p")[0].innerHTML + li[i].getElementsByTagName("p")[1].innerHTML;
-            if (p.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-
-            }
-        }
-    }
-    */

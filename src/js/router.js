@@ -67,12 +67,6 @@ angular.module('musementApp')
                 templateUrl: "/static/views/createIdeaS2.html",
                 authenticate: false //mover
             })
-            .state("createIdea.third", {
-                url: "/third",
-                // controller: "createIdeaCtrl",
-                templateUrl: "/static/views/createIdeaS3.html",
-                authenticate:false //mover
-            })
             .state("myIdeaStatistics", {
                 url: "/myIdeaStatistics",
                 controller: "statisticsCtrl",
