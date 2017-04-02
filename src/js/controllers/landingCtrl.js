@@ -64,10 +64,15 @@ $scope.visibility=true;
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){
-            $scope.error = false;
-            $scope.message = $translate.instant('VALID_EMAIL');
-            $scope.clearRequest();
-            $scope.thanks = true;
+              $scope.error = false;
+              $scope.message = $translate.instant('VALID_EMAIL');
+              $scope.clearRequest();
+              $scope.thanks = true;
+
+
+              analytics.track('Invitation:success', {
+                location: 'header'
+              });
           }
       },function(res) { //error callback
         switch (res.status) {
@@ -75,12 +80,16 @@ $scope.visibility=true;
           $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
           $scope.mailRequestError="Email already registered.  ";
+          analytics.track('Invitation:', {
+            location: 'header',
+            status: 'already-registered',
+            type: 'button'
+          });
           break;
           case 500:
           $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
           $scope.mailRequestError="Please enter a valid email address. ";
-
         }
       }
     );
