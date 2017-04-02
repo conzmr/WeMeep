@@ -1,29 +1,80 @@
-<div class="step-img">
-    <img src="/static/img/secondStep_Create Idea.svg">
-</div>
-<p class="gray-sub">New Idea</p>
+<div class="flex-cont create-cont">
+  <p class="sub-gray">CREATE IDEA</p>
 <div class="form-description">
-    <img src="/static/img/Create Idea_idea.svg">
-    <p>Describe your idea</p>
-    <textarea name="description" class="" maxlength="300" placeholder="What do you have on mind? Tell us about your idea briefly  and concisely :)" ng-model="idea.description"></textarea>
-    <p class="textarea-length">300</p>
+    <img src="/static/img/Create Idea_team.svg">
+    <p class="form-subtitle">Add your team members</p>
+    <div class="select-team">
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <div class="tooltip">
+            <img src="/static/img/Create Idea_profilePhoto.svg">
+            <p class="tooltiptext">Team Member</p>
+        </div>
+        <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">
+    </div>
 </div>
 <div class="form-description">
-    <img src="/static/img/Create Idea_problem.svg">
-    <p id="describe-problem-p">Does your idea resolve some <span class="red-text">problem</span>?</p>
-    <div class="onoffswitch">
-        <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked ng-model="idea.solveProblem">
-        <label class="onoffswitch-label" for="myonoffswitch">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
+    <img src="/static/img/Create Idea_img.svg">
+    <p class="form-subtitle">Cover Picture</p>
+    <div class="select-image">
+        <div class="createIdea-cover">
+            <input id="cover-input" type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+            <label for="cover-input">
+        <div class="label-input" id="idea-cover-img" ngf-background="idea.banner"/> </div>
         </label>
-    </div>
-    <div ng-show="mySwitch" id="show-problem">
-        <textarea class="" name="problem" maxlength="300" placeholder="Which is the problem? Describe it." ng-model="idea.problem"></textarea>
-        <p class="textarea-length ">300</p>
+        </div>
+        <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
     </div>
 </div>
-<input class="form-button" type="button" name="description-button" value="Next" ui-sref="createIdea.third">
-<a href="#">
-    <p class="form-cancel">Cancel</p>
-</a>
+    <input class="blue-button form-button lessmargin-button" type="button" name="selectTeam-button" value="Done" ng-click="createIdea()">
+</div>
+
+<div class="flex-modal white alert-modal" ng-show="inputTeamMembers" >
+<div class="centered-form modal-form" id="input-team-members" click-outside="inputTeamMembers=false" outside-if-not="add-members create-team-img tag-project">
+  <div class="flex-cont create-cont">
+    <p class="close-x" ng-click="inputTeamMembers=false">x</p>
+    <p class="sub-gray">ADD YOUR TEAM</p>
+    <tags-input id="team-members-tags" ng-model="idea.members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0" add-from-autocomplete-only="true" template="tag-project">
+        <auto-complete highlight-matched-text="false" source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
+    </tags-input>
+
+
+    <script type="text/ng-template" id="tag-project">
+        <div class="tag-template">
+            <div class="polygon-each-img-wrap">
+                <div class="user-team-img polygon-clip-hexagon" ng-style="{'background-image': 'url(' +data.image+ ')'}">
+                </div>
+            </div>
+            <p class="name-tag">{{$getDisplayText()}}</p>
+            <img class="create-team-img remove-pic" src="/static/img/Create Idea_added.svg" ng-click="$removeTag()">
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="autocomplete-project">
+        <div class="autocomplete-template">
+            <div class="polygon-each-img-wrap">
+                <div class="user-team-img polygon-clip-hexagon" ng-style="{'background-image': 'url(' +data.image+ ')'}">
+                </div>
+            </div>
+            <span class="name-tag" ng-bind-html="$highlight($getDisplayText())"></span>
+            <span class="user-tag">@{{data.username}}</span>
+            <img class="create-team-img" src="/static/img/Create Idea_add.svg">
+        </div>
+    </script>
+
+    <svg class="clip-svg">
+  <defs>
+    <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+      <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+    </clipPath>
+  </defs>
+</svg>
+
+<input class="blue-button form-button done-button" type="button" name="done-selection" value="Done" ng-click="inputTeamMembers=false">
+
+</div>
+</div>
+</div>
