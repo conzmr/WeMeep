@@ -10,7 +10,7 @@
             <div class="simple-cont">
               <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
-              <!--  <span class='scroll-debug'>{{scrolled}}</span>-->
+              <!--<p <span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
 
             </div>
@@ -19,13 +19,19 @@
           <div id="team-img">
 
           </div>
-        <div class="flex-cont" id="who-we-are" >
+        <div class="flex-cont" id="who-we-are" ng-style="{'height':h}" >
             <div class="sub-cont " ng-style="!visibility && {'padding-bottom':'200px'}">
-                <p class="title">A community to share ideas and build your StartUp!</p>
-                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">As entrepeneurs we understand the problems that arise when creating a StartUp.</p>
-                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">That's why we help you pivot and build a successfull business. We created a community to share and help entrepreneurs throught the process.</p>
+                <p class="title">The platform where ideas become reality.</p>
+                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">Discover the potential of your creative ideas and/or support others in their process.</p>
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
-                  <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="request=true ">Request an Invitation</a>
+
+                  <div class="form-input flex-cont email">
+                      <p class="sub-paragraph fadeIn fast">We're launching soon.</p>
+                      <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+                      <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
+                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guest)">Join</a>
+                  </div>
+
             </div>
             </div>
             </div>
@@ -49,29 +55,60 @@
                   feedback during the process of a business idea, this helps
                   ensure correct decisions along the way. Wetopia is the
                   community that helps you in that & more.”</p>
-                  <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder CEO of Oh My!</p>
+                  <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder of Oh My!</p>
                   </div>
               </div>
-              <!--<div class="simple-cont experts-cont fadeIn" ng-show="experts==1">
-                <img src="/static/img/IMG_COMMUNITY.png">
+              <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==2">
+                <img src="/static/img/RubenV_IMG.png">
                 <div class="simple-cont">
                 <p class="quote">“Wetopia has the potential to accelerate the
                   process of idea validation and thus reduce the rate of
                   business failure.”</p>
                   <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
-                </div>-->
                 </div>
+                </div>
+                <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==3">
+                  <img src="/static/img/AxelG_IMG.png">
+                  <div class="simple-cont">
+                  <p class="quote">“For me, it made all the diference to receive feedback during the early stage &
+                    development of my proyect. It's essential to make the correct decisions since the beginning,
+                    to have a higher chance of success.”</p>
+                    <p class="quote-sign">-Axel Gaxiola, Founder of Feeder</p>
+                  </div>
+                  </div>
+              </div>
+              <div class="flex-wrap">
+                <img src="/static/img/LOGOS/Feeder.png">
+                <img src="/static/img/LOGOS/Kraken_LOGO.png">
+                <img src="/static/img/LOGOS/OhMy_LOGO.png">
+                <img src="/static/img/LOGOS/GroundEarthSystem_LOGO.png">
+                <img id="maxAnders" src="/static/img/LOGOS/MaxAnders.png">
+                <img id="gameTrady" src="/static/img/LOGOS/GameTrady_LOGO.png">
+                <img id="cleareMad" src="/static/img/LOGOS/CleareMaddicen_LOGO.png">
               </div>
         </div>
 </div>
 <div class="section-cont">
-<div class="flex-cont" id="how-it-works" >
-  <p class="sub-gray">HOW IT WORKS</p>
+  <div class="flex-cont" id="how-it-works">
+    <p class="sub-gray">HOW IT WORKS</p>
+    <div class="flex-cont">
+
+
+    <img id="gifMac" src="/static/img/WetopiaMacMockup.gif">
+    <div class="simple-cont">
+      <p class="right-p">Pivot and build a successful business.</p>
+      <p class="right-p">Measure the impact of your idea & take better decisions.</p>
+      <p class="right-p">Find people that complement your project & your team.</p>
+      <p class="right-p">Become an expert by giving valuable feedback.</p>
+    </div>
+    </div>
+  </div>
+<div class="flex-cont" id="infographic" >
   <div class="simple-cont">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>480" src="/static/img/infographic1_n.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>1000" src="/static/img/infographic_2.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1650" src="/static/img/infographic_3.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2150" src="/static/img/infographic_4.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>370" src="/static/img/infographic1_n.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>780" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1240" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>1680" src="/static/img/infographic_4.png">
     <div class="simple-cont movil">
       <img class="infographic" src="/static/img/infographic1_n.png">
       <img class="infographic" src="/static/img/infographic_2.png">
@@ -84,10 +121,15 @@
 
 <div class="section-cont">
 <div class="flex-cont" id="bottom-land-bg" >
-  <bluelink>Be part of the community!</bluelink>
-  <p class="center-paragraph">Join wetopia and discover the best community of entrepreneurs to help you build your StartUp</p>
+  <bluelink>Be part of Wetopia!</bluelink>
+  <p class="center-paragraph">Join Wetopia and turn your idea into a great Startup.</p>
 <!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
-  <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="request=true ">Request an Invitation</a>
+<div class="form-input flex-cont email">
+    <p class="sub-paragraph fadeIn fast center-advice">We're launching soon.</p>
+    <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+    <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
+    <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guest, 'header')">Join</a>
+</div>
 <div class="footer flex-cont">
     <!--
   <div class="left">
@@ -184,7 +226,7 @@
                   <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
               </div>
-              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest)" >
+              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest, 'footer')" >
               </div>
           </div>
       </div>

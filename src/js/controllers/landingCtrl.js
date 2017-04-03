@@ -14,7 +14,7 @@ angular.module("musementApp")
     $scope.error=false;
 
     $interval( function(){
-      $scope.experts=($scope.experts+1)%2;
+      $scope.experts=($scope.experts+1)%4;
     }, 12000);
 
 
@@ -56,11 +56,10 @@ $scope.visibility=true;
     }
 
 
-    $scope.submit = function(guest) {
+    $scope.submit = function(guest, position) {
     if (guest != null) {
         let invitationInfo = {};
         invitationInfo.email = this.guest.email;
-        invitationInfo.name = this.guest.name;
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){

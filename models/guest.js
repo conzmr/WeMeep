@@ -6,10 +6,6 @@ var guestSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    name: {
-      type: String,
-      required: true
     }
 });
 

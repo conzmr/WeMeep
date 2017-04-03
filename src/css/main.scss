@@ -19,6 +19,14 @@ EXPRESION
     font-family: 'Museo_D';
     src: url('/static/fonts/MuseoSans_500.otf');
 }
+@font-face {
+    font-family: 'Museo_700';
+    src: url('/static/fonts/Museo_Sans/Museo Sans/MuseoSans_700.otf');
+}
+@font-face {
+    font-family: 'Museo_900';
+    src: url('/static/fonts/Museo_Sans/Museo Sans/MuseoSans_900.otf');
+}
 
 input[type=email],
 input[type=search],
@@ -166,6 +174,68 @@ input {
         margin-left: -6px;
         vertical-align: middle;
         @include zIndex(3);
+    }
+
+    &.email{
+      max-width: 420px;
+      margin-top: 35px;
+      -webkit-justify-content: center;
+      justify-content: center;
+
+      .error{
+        bottom: -30px;
+        left: 15px;
+      }
+
+      .sub-paragraph{
+        color: $gray-lighter;
+        font-size: 16px;
+        margin-bottom: 5px;
+
+        &.center-advice{
+          text-align: center;
+          margin-bottom: -20px;
+        }
+      }
+      input{
+        height: 42px;
+        font-size: 20px;
+        line-height: 20px;
+        background: white;
+        margin: auto;
+        margin-left: auto;
+        margin-right: 0;
+        width: 330px;
+        border-radius: 8px 0 0 8px;
+        border: 1px solid $gray-lighter;
+        border-right: 0px solid transparent;
+
+        @media screen and (max-width: 500px){
+          width: 220px;
+        }
+
+
+        &::-webkit-input-placeholder {
+            color: $gray-lighter;
+            font-size: 20px;
+        }
+
+        &::-moz-placeholder {
+            color: $gray-lighter;
+            font-size: 20px;
+        }
+      }
+
+      .blue-button{
+        margin: auto;
+        margin-left: 0;
+        margin-right: auto;
+        border-radius: 0 8px  8px 0;
+        text-align: center;
+        padding: 7px 15px 9px;
+        border: 1px solid $wetopia-blue;
+        border-color: $wetopia-blue;
+      }
     }
 
     .tags {
@@ -3034,31 +3104,31 @@ width: 100%;
 }
 
 .sub-cont {
-    max-width: 400px;
-    text-align: left;
-    margin: 200px auto 100px 10%;
-    .title{
-      line-height: 36px;
+    max-width: 800px;
+    text-align: center;
+    margin: 100px auto 100px auto;
+
+    .sub-paragraph{
+      max-width: 450px;
+      text-align: center;
     }
+
+    .title{
+      line-height: 60px;
+      color: $text-gray;
+    }
+
     @media screen and (min-width: 1500px){
       margin-bottom: 100px;
-    }
-    @media screen and (max-width:500px){
-      text-align: center;
-      margin-top: 90px;
-      margin: {
-        top: 90px;
-        left: auto;
-        right: auto;
-      }
     }
 
 }
 
 .title{
-  font-size: 35px;
-  @include font('Museo', 500);
+  font-size: 55px;
+  font-family: 'Museo_700';
   font-weight: bold;
+  line-height: 60px;
   @media screen and (max-width:500px){
     text-align: center;
     margin: {
@@ -3246,7 +3316,8 @@ width: 100%;
     }
 
     .sub-paragraph{
-      margin: 20px auto 20px 0;
+      margin: 20px auto;
+      font-size: 22px;
       @media screen and (max-width: 500px){
         margin: 20px auto 20px auto;
 text-align: center;
@@ -3259,7 +3330,42 @@ max-width: 300px;
     }
 }
 
+.flex-wrap{
+  display: -webkit-flex;
+  display: flex;
+  max-width: 1100px;
+  -webkit-justify-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  margin: auto;
+
+  img{
+    height: 100px;
+    margin: 50px 30px;
+  }
+
+  #gameTrady{
+    height: 50px;
+  }
+
+  #maxAnders{
+    height: 90px;
+    margin-top: 20px;
+  }
+
+  #cleareMad{
+    height: 50px;
+  }
+
+}
+
 #our-community{
+
+    background: url('/static/img/BG_COMMUNITY.svg') no-repeat center;
+    background-size: cover;
       padding: 0 20px 30px;
       padding-top: 100px;
       visibility: hidden;
@@ -3576,11 +3682,42 @@ max-width: 300px;
 }
 
 #how-it-works{
+  background: #D8D8D8;
+  padding: 35px 20px;
+
+  .flex-cont{
+    flex-direction: row;
+  }
+  #gifMac{
+    margin-left: auto;
+    margin-right: 50px;
+    height: 250px;
+  }
+
+  .sub-gray{
+    width: 100%;
+  }
+  .right-p{
+    max-width: 350px;
+    text-align: left;
+    margin-left: 50px;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .simple-cont{
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+
+
+#infographic{
   background: url('/static/img/color_land_bg.svg') no-repeat center;
   background-size: cover;
 
   .sub-gray{
-    margin: 100px auto 0px auto;
+    margin: 100px auto 30px auto;
     @media screen and (max-width: 500px){
       margin-bottom: 30px;
     }
@@ -3589,8 +3726,7 @@ max-width: 300px;
 
   .simple-cont{
     position: relative;
-
-      padding: 0 215px;
+    padding: 0 300px;
     @media screen and (max-width: 850px){
       padding: 0 70px;
     }
@@ -3609,7 +3745,7 @@ max-width: 300px;
         display: none;
         @media screen and (min-height: 1000px){
           display: block;
-          z-index: 1000;
+          z-index: 10000;
         }
         @media screen and (max-width: 500px){
           display: block;
@@ -3667,15 +3803,13 @@ max-width: 300px;
     @media screen and (max-width: 600px){
       height: 16px;
     }
-
-
   }
 
   .simple-cont{
     text-align: center;
 
     img{
-      margin: 2px;
+      margin: 5px;
       cursor: pointer;
       height: 35px;
 
@@ -3725,6 +3859,7 @@ max-width: 300px;
   background: url('/static/img/bottom_bg.svg') no-repeat center;
   background-size: cover;
 
+
   bluelink{
     margin: 120px auto 30px auto;
     font-size: 30px;
@@ -3738,7 +3873,7 @@ max-width: 300px;
   .center-paragraph{
     font-size: 24px;
     font-weight: bold;
-    max-width: 380px;
+    max-width: 350px;
     text-align: center;
     margin: auto;
     color: $gray-medium;
@@ -3859,14 +3994,14 @@ max-width: 300px;
 }
 
 #who-we-are {
-    background: url('/static/img/BG_HEX.svg') no-repeat right top;
+    background: url('/static/img/BG_HEXAG.svg') no-repeat right -200px;
     background-size: cover;
     z-index: 0;
     width: 100%;
     top: 0;
     -webkit-justify-content: center;
     justify-content: center;
-    height: 100%;
+    height: 700px;
 }
 
 .simple-cont{
@@ -3885,13 +4020,13 @@ max-width: 300px;
 }
 
 #team-img{
-  background: url('/static/img/IMG_MAIN.jpg') no-repeat center;
+  //background: url('/static/img/IMG_BG.jpg') no-repeat center;
   background-size: cover;
   position: absolute;
   z-index: -1;
-  right: 0;
-  height: 100%;
-  width: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
 
   @media screen and (max-width: 1200px){
 //    height: 800px;
