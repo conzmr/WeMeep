@@ -79,12 +79,13 @@ $scope.visibility=true;
           $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
           $scope.mailRequestError="Email already registered.  ";
-          analytics.track('Invitation:', {
-            location: 'header',
-            status: 'already-registered',
-            type: 'button'
+
+          analytics.track('Invitation:already-registered', {
+            location: 'header'
           });
+
           break;
+          
           case 500:
           $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
