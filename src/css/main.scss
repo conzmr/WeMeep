@@ -177,10 +177,11 @@ input {
     }
 
     &.email{
-      max-width: 420px;
+      width: auto;
       margin-top: 35px;
       -webkit-justify-content: center;
       justify-content: center;
+      margin-bottom: 15px;
 
       .error{
         bottom: -30px;
@@ -290,6 +291,10 @@ input {
             }
         }
     }
+}
+
+.changeVisibility{
+  visibility: hidden;
 }
 
 .form-button {
@@ -3116,6 +3121,12 @@ width: 100%;
     .title{
       line-height: 60px;
       color: $text-gray;
+
+      @media screen and (max-width: 500px){
+        font-size: 46px;
+        line-height: 50px;
+        margin-top: 100px;
+      }
     }
 
     @media screen and (min-width: 1500px){
@@ -3343,12 +3354,15 @@ max-width: 300px;
   margin: auto;
 
   img{
-    height: 100px;
+    height: 80px;
     margin: 50px 30px;
   }
 
   #gameTrady{
     height: 50px;
+    @media screen and (max-width: 500px){
+      height: 40px;
+    }
   }
 
   #maxAnders{
@@ -3372,6 +3386,12 @@ max-width: 300px;
 
       @media screen and (max-width: 400px){
         padding-bottom: 60px;
+      }
+
+      .flex-wrap{
+        @media screen and (max-width: 500px){
+          margin-top: 50px;
+        }
       }
 }
 
@@ -3462,8 +3482,8 @@ max-width: 300px;
       padding: 130px 0;
 
       .sub-white{
-        margin: 60px auto;
-        font-size: 28px;
+        margin: auto;
+        font-size: 30px;
         font-weight: bold;
         color: white;
         text-align: center;
@@ -3682,32 +3702,52 @@ max-width: 300px;
 }
 
 #how-it-works{
-  background: #D8D8D8;
-  padding: 35px 20px;
+  background: $gray-dark-medium;
+  padding: 85px 20px 60px;
+
 
   .flex-cont{
     flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 30px;
   }
+
   #gifMac{
     margin-left: auto;
     margin-right: 50px;
     height: 250px;
+
+    @media screen and (max-width: 920px){
+      margin: auto;
+    }
+
+    @media screen and (max-width: 500px){
+      height: 180px;
+    }
   }
 
   .sub-gray{
     width: 100%;
   }
   .right-p{
-    max-width: 350px;
+    max-width: 380px;
+    min-width: 200px;
     text-align: left;
     margin-left: 50px;
     font-size: 18px;
     margin-bottom: 25px;
+    @media screen and (max-width: 920px){
+      margin: 15px auto;
+    }
   }
 
   .simple-cont{
     margin-right: auto;
     margin-left: 0;
+
+    @media screen and (max-width: 860px){
+      margin: 20px auto auto auto;
+    }
   }
 }
 
@@ -3715,6 +3755,7 @@ max-width: 300px;
 #infographic{
   background: url('/static/img/color_land_bg.svg') no-repeat center;
   background-size: cover;
+  margin-top: 50px;
 
   .sub-gray{
     margin: 100px auto 30px auto;
@@ -3747,7 +3788,7 @@ max-width: 300px;
           display: block;
           z-index: 10000;
         }
-        @media screen and (max-width: 500px){
+        @media screen and (max-width: 900px){
           display: block;
           z-index: 1000;
         }
@@ -3811,10 +3852,10 @@ max-width: 300px;
     img{
       margin: 5px;
       cursor: pointer;
-      height: 35px;
+      height: 40px;
 
       @media screen and (max-width: 600px){
-        height: 28px;
+        height: 35px;
       }
     }
   }
@@ -3883,7 +3924,7 @@ max-width: 300px;
   }
 
   .blue-button{
-    margin: 30px auto 60px auto;
+    margin: auto;
     max-width: 255px;
     background: $link-blue-color;
     &:active{
@@ -3892,6 +3933,10 @@ max-width: 300px;
     &:active{
       transform: none;
     }
+  }
+
+  #form-input-footer{
+    margin-bottom: 100px;
   }
 
   .footer{
@@ -3937,12 +3982,12 @@ max-width: 300px;
       text-align: center;
 
       img{
-        margin: 2px;
+        margin: 5px;
         cursor: pointer;
-        height: 35px;
+        height: 38px;
 
         @media screen and (max-width: 600px){
-          height: 28px;
+          height: 35px;
         }
       }
     }
@@ -4002,6 +4047,10 @@ max-width: 300px;
     -webkit-justify-content: center;
     justify-content: center;
     height: 700px;
+
+    @media screen and (max-width: 800px){
+      background-position: center ;
+    }
 }
 
 .simple-cont{
@@ -4020,21 +4069,15 @@ max-width: 300px;
 }
 
 #team-img{
-  //background: url('/static/img/IMG_BG.jpg') no-repeat center;
+  background: url('/static/img/IMG_BG.jpg') no-repeat center;
   background-size: cover;
   position: absolute;
   z-index: -1;
   bottom: 0;
   width: 100%;
-  height: 300px;
+  height: 50%;
 
-  @media screen and (max-width: 1200px){
-//    height: 800px;
-  }
-  @media screen and (max-width: 1030px){
-//    height: 700px;
-  }
-  @media screen and (max-width: 800px){
+  @media screen and (max-width: 600px){
     visibility: hidden;
   }
 }

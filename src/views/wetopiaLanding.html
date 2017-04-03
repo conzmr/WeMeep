@@ -10,7 +10,7 @@
             <div class="simple-cont">
               <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
-              <!--<p <span class='scroll-debug'>{{scrolled}}</span>-->
+              <!--<span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
 
             </div>
@@ -19,17 +19,17 @@
           <div id="team-img">
 
           </div>
-        <div class="flex-cont" id="who-we-are" ng-style="{'height':h}" >
-            <div class="sub-cont " ng-style="!visibility && {'padding-bottom':'200px'}">
+        <div class="flex-cont" id="who-we-are" ng-style="{'height':h+'px'}" >
+            <div class="sub-cont " >
                 <p class="title">The platform where ideas become reality.</p>
-                <p class="sub-paragraph fadeIn fast" ng-show="showParagraph">Discover the potential of your creative ideas and support others in their process.</p>
+                <p class="sub-paragraph changeVisibility" ng-class="{'fadeIn fast':  visibility}" ng-style="visibility && {'visibility':'visible'}">Discover the potential of your creative ideas and support others in their process.</p>
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
 
                   <div class="form-input flex-cont email">
                       <p class="sub-paragraph fadeIn fast">We're launching soon.</p>
-                      <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+                      <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
-                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guest)">Join</a>
+                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join</a>
                   </div>
 
             </div>
@@ -79,7 +79,7 @@
               </div>
               <div class="flex-wrap">
                 <img src="/static/img/LOGOS/Feeder.png">
-                <img src="/static/img/LOGOS/Kraken_LOGO.png">
+                <img id="kraken" src="/static/img/LOGOS/Kraken_LOGO.png">
                 <img src="/static/img/LOGOS/OhMy_LOGO.png">
                 <img src="/static/img/LOGOS/GroundEarthSystem_LOGO.png">
                 <img id="maxAnders" src="/static/img/LOGOS/MaxAnders.png">
@@ -105,10 +105,10 @@
   </div>
 <div class="flex-cont" id="infographic" >
   <div class="simple-cont">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>370" src="/static/img/infographic1_n.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>780" src="/static/img/infographic_2.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1240" src="/static/img/infographic_3.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>1680" src="/static/img/infographic_4.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>1200" src="/static/img/infographic1_n.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>1600" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>2100" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2550" src="/static/img/infographic_4.png">
     <div class="simple-cont movil">
       <img class="infographic" src="/static/img/infographic1_n.png">
       <img class="infographic" src="/static/img/infographic_2.png">
@@ -124,11 +124,11 @@
   <bluelink>Be part of Wetopia!</bluelink>
   <p class="center-paragraph">Join Wetopia and develop your idea into a great Startup.</p>
 <!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
-<div class="form-input flex-cont email">
+<div class="form-input flex-cont email" id="form-input-footer">
     <p class="sub-paragraph fadeIn fast center-advice">We're launching soon.</p>
-    <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
-    <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
-    <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guest, 'header')">Join</a>
+    <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="userEmail" name="request-email" placeholder="Email" required="true">
+    <p class="red-text error" ng-bind="footerRequestError" ng-show="error"></p>
+    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join</a>
 </div>
 <div class="footer flex-cont">
     <!--
@@ -223,10 +223,10 @@
               </div>
               <div class="form-input">
                   <img ng-src="{{error?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" src="/static/img/Login_mail.svg">
-                  <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guest.email" name="request-email" placeholder="Email" required="true">
+                  <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
               </div>
-              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guest, 'footer')" >
+              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guestEmail, 'footer')" >
               </div>
           </div>
       </div>
@@ -253,7 +253,7 @@
           </div>
       </div>
 
-      <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu">
+      <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu" g>
         <img class=" logo " src="/static/img/logo_t.svg ">
               <p class="close-x" ng-click="movilMenu=false">x</p>
               <p class="sub-white" ng-click="movilMenu=false" href="#who-we-are" offset="30" du-smooth-scroll du-scrollspy >WHO ARE WE?</p>
