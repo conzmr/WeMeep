@@ -10,6 +10,7 @@ angular.module("musementApp")
     $scope.showParagraph=false;
     $scope.experts = 0;
     $scope.mailRequestError="";
+    $scope.footerRequestError="";
     $scope.thanks = false
     $scope.error=false;
 

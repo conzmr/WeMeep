@@ -21,73 +21,20 @@
           </div>
         <div class="flex-cont" id="who-we-are" ng-style="{'height':h+'px'}" >
             <div class="sub-cont " >
-                <p class="title">The platform where ideas become reality.</p>
-                <p class="sub-paragraph changeVisibility" ng-class="{'fadeIn fast':  visibility}" ng-style="visibility && {'visibility':'visible'}">Discover the potential of your creative ideas and support others in their process.</p>
+                <p class="title">Discover the potential of your ideas & develop them into a great startup.</p>
+                <p class="sub-paragraph changeVisibility" ng-class="{'fadeIn fast':  visibility}" ng-style="visibility && {'visibility':'visible'}">It doesn't matter if you’re an entrepreneur, a professional or just someone with an idea. Wetopia is for everyone.</p>
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
 
                   <div class="form-input flex-cont email">
-                      <p class="sub-paragraph fadeIn fast">We're launching soon.</p>
+                      <p class="sub-paragraph fadeIn fast">We're launching soon, be part of Wetopia!</p>
                       <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
-                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join</a>
+                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join now</a>
                   </div>
 
             </div>
             </div>
             </div>
-            <div class="section-cont">
-            <div class="flex-cont" id="our-community" ng-style="visibility && {'visibility':'visible'}">
-              <p class="sub-gray">OUR COMMUNITY</p>
-              <div class="flex-cont relative">
-              <div class="simple-cont experts-cont animate-slow ng-animate ng-hide-animate ng-hide-add" ng-show="experts==0">
-                <img src="/static/img/IMG_COMMUNITY_PEDRO.png">
-                <div class="simple-cont">
-                <p class="quote">“This is the place where ideas become reality:
-                  pivot your idea, create a project, get answers and find the
-                  correct team, while helping others in their process."</p>
-                  <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
-                  </div>
-              </div>
-              <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==1">
-                <img src="/static/img/IMG_COMMUNITY_LUIS.png">
-                <div class="simple-cont">
-                <p class="quote">“For entrepreneurs, it’s essential to receive
-                  feedback during the process of a business idea, this helps
-                  ensure correct decisions along the way. Wetopia is the
-                  community that helps you in that & more.”</p>
-                  <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder of Oh My!</p>
-                  </div>
-              </div>
-              <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==2">
-                <img src="/static/img/RubenV_IMG.png">
-                <div class="simple-cont">
-                <p class="quote">“Wetopia has the potential to accelerate the
-                  process of idea validation and thus reduce the rate of
-                  business failure.”</p>
-                  <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
-                </div>
-                </div>
-                <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==3">
-                  <img src="/static/img/AxelG_IMG.png">
-                  <div class="simple-cont">
-                  <p class="quote">“For me, it made all the diference to receive feedback during the early stage &
-                    development of my proyect. It's essential to make the correct decisions since the beginning,
-                    to have a higher chance of success.”</p>
-                    <p class="quote-sign">-Axel Gaxiola, Founder of Feeder</p>
-                  </div>
-                  </div>
-              </div>
-              <div class="flex-wrap">
-                <img src="/static/img/LOGOS/Feeder.png">
-                <img id="kraken" src="/static/img/LOGOS/Kraken_LOGO.png">
-                <img src="/static/img/LOGOS/OhMy_LOGO.png">
-                <img src="/static/img/LOGOS/GroundEarthSystem_LOGO.png">
-                <img id="maxAnders" src="/static/img/LOGOS/MaxAnders.png">
-                <img id="gameTrady" src="/static/img/LOGOS/GameTrady_LOGO.png">
-                <img id="cleareMad" src="/static/img/LOGOS/CleareMaddicen_LOGO.png">
-              </div>
-        </div>
-</div>
 <div class="section-cont">
   <div class="flex-cont" id="how-it-works">
     <p class="sub-gray">HOW IT WORKS</p>
@@ -105,10 +52,10 @@
   </div>
 <div class="flex-cont" id="infographic" >
   <div class="simple-cont">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>1200" src="/static/img/infographic1_n.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>1600" src="/static/img/infographic_2.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>2100" src="/static/img/infographic_3.png">
-    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>2550" src="/static/img/infographic_4.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-1" ng-show="scrolled>500" src="/static/img/infographic1_n.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-2" ng-show="scrolled>800" src="/static/img/infographic_2.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-3" ng-show="scrolled>1250" src="/static/img/infographic_3.png">
+    <img class="infographic animate-show ng-animate ng-hide-animate ng-hide-add" id="info-4" ng-show="scrolled>1550" src="/static/img/infographic_4.png">
     <div class="simple-cont movil">
       <img class="infographic" src="/static/img/infographic1_n.png">
       <img class="infographic" src="/static/img/infographic_2.png">
@@ -128,7 +75,7 @@
     <p class="sub-paragraph fadeIn fast center-advice">We're launching soon.</p>
     <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="userEmail" name="request-email" placeholder="Email" required="true">
     <p class="red-text error" ng-bind="footerRequestError" ng-show="error"></p>
-    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join</a>
+    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join now</a>
 </div>
 <div class="footer flex-cont">
     <!--
