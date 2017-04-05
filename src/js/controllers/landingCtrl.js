@@ -12,7 +12,8 @@ angular.module("musementApp")
     $scope.mailRequestError="";
     $scope.footerRequestError="";
     $scope.thanks = false
-    $scope.error=false;
+    $scope.errorHeader=false;
+    $scope.errorFooter=false;
 
     $interval( function(){
       $scope.experts=($scope.experts+1)%4;
@@ -47,7 +48,8 @@ $scope.visibility=true;
     });
 
   $scope.clearRequest = function(){
-      $scope.error = false;
+      $scope.errorFooter=false;
+      $scope.errorHeader=false;
       $scope.userEmail = "";
       $scope.guestEmail = "";
       $scope.mailRequestError="";
@@ -56,13 +58,13 @@ $scope.visibility=true;
 
 
     $scope.submit = function(email, position) {
+      $scope.clearRequest();
     if (email != null) {
         let invitationInfo = {};
         invitationInfo.email = email;
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){
-              $scope.error = false;
               $scope.message = $translate.instant('VALID_EMAIL');
               $scope.clearRequest();
               $scope.thanks = true;
@@ -73,11 +75,12 @@ $scope.visibility=true;
       },function(res) { //error callback
         switch (res.status) {
           case 400:
-          $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
           if(position=='footer'){
+            $scope.errorFooter=true;
             $scope.footerRequestError = "Email already registered.  ";
           }else{
+            $scope.errorHeader=true;
               $scope.mailRequestError="Email already registered.  ";
           }
             analytics.track('Invitation:', {
@@ -89,21 +92,25 @@ $scope.visibility=true;
           break;
 
           case 500:
-          $scope.error=true;
           $scope.message = $translate.instant('INVALID_EMAIL');
           if(position=='footer'){
+            $scope.errorFooter=true;
             $scope.footerRequestError = "Please enter a valid email address. ";
           }else{
+            $scope.errorHeader=true;
               $scope.mailRequestError="Please enter a valid email address. ";
           }
         }
       }
     );
     } else{
-      $scope.error=true;
-    $scope.mailRequestError="Please enter a valid email address.";
-    $scope.message = $translate.instant('INVALID_EMAIL');
-
+      if(position=='footer'){
+        $scope.errorFooter=true;
+        $scope.footerRequestError = "Please enter a valid email address. ";
+      }else{
+          $scope.errorHeader=true;
+          $scope.mailRequestError="Please enter a valid email address. ";
+      }
   }
 }
 
