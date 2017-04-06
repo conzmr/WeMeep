@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="1024px" height="983px" viewBox="0 0 1024 983" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>Combined Shape</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <linearGradient x1="50%" y1="58.8534963%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#FFFFFF" offset="0%"></stop>
-            <stop stop-color="#F3F2F2" offset="100%"></stop>
-        </linearGradient>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="LANDING-W/MENU" fill="url(#linearGradient-1)">
-            <path d="M1024,778 L1024,983 L0,983 L0,668 L0,-14 L1030,-14 L1030,778 L1024,778 Z" id="Combined-Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg width="1024" height="983" viewBox="0 0 1024 983" xmlns="http://www.w3.org/2000/svg"><title>Combined Shape</title><defs><linearGradient x1="50%" y1="58.853%" x2="50%" y2="100%" id="a"><stop stop-color="#FFF" offset="0%"/><stop stop-color="#F3F2F2" offset="100%"/></linearGradient></defs><path d="M1024 778v205H0V-14h1030v792h-6z" fill="url(#a)" fill-rule="evenodd"/></svg>
