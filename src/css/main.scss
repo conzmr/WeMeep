@@ -958,17 +958,19 @@ nav {
     width: 210px;
     text-align: right;
     position: relative;
+    display: flex;
 
-    @media screen and (max-width: 765px){
+   @media screen and (max-width: 730px){
       order: 4;
+      flex: 1 100%;
+      text-align: center;
       margin: auto;
     }
 
     &:hover {
 
         input {
-            border: 1px solid $pt-gray;
-            width: 210px;
+            border: 1px solid $gray-lighter;
         }
     }
 
@@ -977,17 +979,15 @@ nav {
             color: $wetopia-blue;
             cursor: pointer;
             z-index: 4;
-            position: absolute;
-            top: 14px;
-            right: 15px;
             font-size: 20px;
+            margin: auto auto auto -25px;
         }
     }
 
     input {
         border-radius: 3px;
         z-index: 3;
-        margin: 0;
+        margin: auto 0 auto auto;
         font-size: 15px;
         padding: 0;
         height: 28px;
@@ -1394,6 +1394,7 @@ width: 23px !important;
 
 .idea-info {
     width: 100%;
+    //background: 
     height: auto;
     text-align: center;
     margin-top: 120px;
@@ -2237,11 +2238,15 @@ width: 100%;
 }
 
 .content {
-    margin-top: 90px;
-    padding: 10px 60px;
+  background-color: whitesmoke;
+    margin-top: 0px;
+    padding: 100px 60px 30px;
     max-width: 1500px;
+    @media screen and (max-width: 730px){
+      padding-top: 150px;
+    }
     @media screen and (max-width: 500px) {
-        padding: 10 20px;
+        padding: 150px 10px 10px 10px;
     }
 }
 
@@ -2307,7 +2312,7 @@ width: 100%;
 
 .card {
     width: 210px;
-    margin: auto 15px;
+    margin: 20px ;
     display: inline-block;
     cursor: pointer;
     border-radius: 10px;
@@ -2368,7 +2373,7 @@ width: 100%;
 .card-info {
     border: 1px solid $gray-lighter;
     border-top: none;
-    background: transparent;
+    background: white;
     width: auto;
     border-radius: 0 0 10px 10px;
     margin-bottom: 5px;
@@ -2879,10 +2884,13 @@ width: 100%;
       display: flex;
       flex-direction: row;
 
-      .wrapper{
-        margin: auto;
-      }
+@media screen and (max-width: 730px){
+  padding-left: 70px;
+}
 
+@media screen and (max-width: 500px){
+  padding: 0;
+}
 
     }
 
@@ -2907,7 +2915,7 @@ width: 100%;
 
 
 
-.createIdea{
+.center-action{
   margin: auto;
   display: -webkit-flex;
   display: flex;
@@ -2934,7 +2942,7 @@ width: 100%;
 
 &.static{
   .logo{
-    margin-right: 0;
+
     @media screen and (max-width: 765px){
     padding-right: 20px;
     }
@@ -2986,10 +2994,13 @@ width: 100%;
         }
 
         &.nav-general{
-          padding-right: 110px;
-          margin-right: 150px;
-          @media screen and (max-width: 765px){
-           margin-right: auto;
+          padding-right: 170px;
+          @media screen and (max-width: 730px){
+            padding: 0;
+            margin: auto 0;
+          }
+          @media screen and (max-width: 500px){
+            margin-right: auto;
           }
         }
     }
@@ -3178,6 +3189,8 @@ width: 100%;
 
     &.sub-nav{
       margin-top: 30px;
+      flex-wrap: wrap;
+      padding: 20px 20px 0 20px;
 
       &.no-margin-bot{
         height: 30px;
@@ -3187,7 +3200,7 @@ width: 100%;
       .sub-gray{
         cursor: pointer;
         font-size: 25px;
-        padding-bottom: 10px;
+        padding:0 20px;
 
         &.active{
           &:not(.not-hov){
@@ -3876,9 +3889,7 @@ max-width: 300px;
 .right{
   margin: auto 0 auto auto;
   text-align: left;
-  @media screen and (max-width: 765px){
-  padding-left: 100px;
-  }
+
   @media screen and (max-width: 630px){
   padding-left: 80px;
   }
