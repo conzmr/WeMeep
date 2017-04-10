@@ -122,26 +122,38 @@
 </svg>
 
     <div class="idea-info">
-        <div class="mid-page">
+      <div class="flex-cont row wrap">
+        <div class="flex-cont mid-page">
             <div class="idea-header">
                 <p class="idea-title">Idea Title
-                    <span class="edit">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Editar</span>
                 </p>
                 <div class="idea-header-info">
-                    <p>Creado por </p>
+                    <p>Created by </p>
                     <div class="select-team">
                         <div class="tooltip">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p class="tooltiptext">UserName</p>
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                </div>
+                            </div>
+                            <p class="tooltiptext">Team Member</p>
                         </div>
                         <div class="tooltip">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p class="tooltiptext">UserName</p>
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                </div>
+                            </div>
+                            <p class="tooltiptext">Team Member</p>
                         </div>
-                        <img id="add-members" src="/static/img/Create Idea_addPeople.svg">
+                        <div class="tooltip">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                </div>
+                            </div>
+                            <p class="tooltiptext">Team Member</p>
+                        </div>
+                      <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
                     </div>
-                    <p> y ubicada en </p>
+                    <p> and located in </p>
                     <span class="blue-text"> <img src="/static/img/location_Idea.svg">
 
               <select>
@@ -153,174 +165,135 @@
 
         </span>
                 </div>
-                <p class="pivote-t act">6</p>
+
+                <div class="inner-nav selector">
+                    <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" value="pivots[0]">
+                    <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
+                      <div class="flex-cont user-menu">
+                        <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
+                        <p class="dark" id="new-pivot" ng-click="createPivot()">+ New Pivot</p>
+                      </div>
+                    </ul>
+                </div>
             </div>
+
+
+
             <div class="form-description movil-p">
-                <img src="/static/img/Create Idea_idea.svg">
-                <p> <span class="aqua-text">Idea</span>
-                    <span class="edit">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Editar</span>
+                <img class="big-img" src="/static/img/Create Idea_idea.svg">
+                 <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                 </p>
                 <p class="tab-paragraph">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
                 </p>
 
-                <img src="/static/img/Create Idea_problem.svg">
-                <p> <span class="red-text">Problema</span>
-                    <span class="edit">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Editar</span>
+                <img class="big-img" src="/static/img/Create Idea_problem.svg">
+                <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                 </p>
                 <p class="tab-paragraph">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
                 </p>
             </div>
         </div>
-        <div class="mid-page">
-            <div class="idea-img">
+        <div class="mid-page flex-cont">
+            <div class="idea-img" ng-style="{'background-image': 'url(static/img/Image_default.svg)'}">
             </div>
         </div>
-        <div class="mid-page left-align pad-left min-w-350">
-            <p class="pt-h">Retroalimentación del Pivote Actual</p>
-            <div class="comments">
-                <div class="filter" id="top-filter">
-                    <p>Ordenar por: </p>
-                    <img src="/static/img/order.svg">
-                    <img src="/static/img/timeline.svg">
-                    <img src="/static/img/starActive_Idea.svg">
-                    <img src="/static/img/replyDis_Idea.svg">
-                    <img src="/static/img/saveDis_Idea.svg">
+          </div>
+            <div class="flex-cont row wrap">
+        <div class="flex-cont mid-page left-align pad-left">
+            <p class="black-medium">Current Pivot Feedback</p>
+            <div class="comments flex-cont">
+              <div class="comment flex-box">
+                <div class="flex-cont comment-top">
+                  <div class="polygon-each-img-wrap">
+                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                      </div>
+                  </div>
+                  <p class="name">FirstName</p>
+                  <p class="username">UserName</p>
+                  <p class="star"><img src="/static/img/starActive_Idea.svg"> 12</p>
                 </div>
-                <div class="comment">
-                    <div class="user">
-                        <div class="left">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p>FirstName</p>
-                            <p>UserName</p>
-                        </div>
-                        <div class="right filter pad-right">
-                            <p><img src="/static/img/starActive_Idea.svg"> 12</p>
-                            <img src="/static/img/replyDis_Idea.svg">
-                            <img src="/static/img/saveActive_Idea.svg">
-                        </div>
-                    </div>
-                    <p class="tab-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
-                    </p>
+                <div class="tab-paragraph">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
+              </p>
                 </div>
-                <div class="comment">
-                    <div class="user">
-                        <div class="left">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p>FirstName</p>
-                            <p>UserName</p>
-                        </div>
-                        <div class="right filter pad-right">
-                            <p><img src="/static/img/starActive_Idea.svg"> 12</p>
-                            <img src="/static/img/replyDis_Idea.svg">
-                            <img src="/static/img/saveActive_Idea.svg">
-                        </div>
-                    </div>
-                    <p class="tab-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
-                    </p>
-                </div>
-                <div class="comment">
-                    <div class="user">
-                        <div class="left">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p>FirstName</p>
-                            <p>UserName</p>
-                        </div>
-                        <div class="right filter pad-right">
-                            <p><img src="/static/img/starDis_Idea.svg"> 0</p>
-                            <img src="/static/img/replyActive_Idea.svg">
-                            <img src="/static/img/saveActive_Idea.svg">
-                        </div>
-                    </div>
-                    <p class="tab-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
-                    </p>
-                    <div class="replies">
-                        <div class="comment">
-                            <div class="user">
-                                <div class="left">
-                                    <img src="/static/img/Create Idea_profilePhoto.svg">
-                                    <p>FirstName</p>
-                                    <p>userName</p>
-                                </div>
-                            </div>
-                            <p class="tab-paragraph">
-                                <span class="username-tag">@UserName</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
-                            </p>
-                        </div>
+            </div>
+
+            <div class="comment flex-box">
+              <div class="flex-cont comment-top">
+                <div class="polygon-each-img-wrap">
+                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
                     </div>
                 </div>
-                <div class="comment">
-                    <div class="user">
-                        <div class="left">
-                            <img src="/static/img/Create Idea_profilePhoto.svg">
-                            <p>FirstName</p>
-                            <p>UserName</p>
-                        </div>
-                        <div class="right filter pad-right">
-                            <p><img src="/static/img/starDis_Idea.svg"> 0</p>
-                            <img src="/static/img/replyDis_Idea.svg">
-                            <img src="/static/img/saveDis_Idea.svg">
-                        </div>
-                    </div>
-                    <p class="tab-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
-                    </p>
-                </div>
+                <p class="name">FirstName</p>
+                <p class="username">UserName</p>
+                <p class="star"><img src="/static/img/starActive_Idea.svg"> 12</p>
+              </div>
+              <div class="tab-paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
+            </p>
+              </div>
+          </div>
+
+          <div class="comment flex-box">
+            <div class="flex-cont comment-top">
+              <div class="polygon-each-img-wrap">
+                  <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                  </div>
+              </div>
+              <p class="name">FirstName</p>
+              <p class="username">UserName</p>
+              <p class="star"><img src="/static/img/starDis_Idea.svg"> 12</p>
+            </div>
+            <div class="tab-paragraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac.
+          </p>
             </div>
         </div>
-        <div class="mid-page left-align">
-            <p class="pt-h">Ver Pivotes Anteriores</p>
-            <div class="left-center-align counter">
-                <p class="prev-pivote"></p>
-                <p class="prev-pivote"></p>
-                <p class="prev-pivote"></p>
-                <p class="prev-pivote"></p>
-                <p class="prev-pivote"></p>
-                <p class="act-pivote"></p>
-                <input class="blue-button" type="button" name="pivotear" ng-click="pivotear=true" id="openPivModal" value="Pivotear">
             </div>
+        </div>
+
+
+        <div class="flex-cont mid-page left-align pad-left">
+            <p class="black-medium dark">This is what people think of your idea</p>
             <div id="res-statistics" class="left-align">
-                <p class="pt-h">¿Interesante?</p>
                 <table class="right-num">
                     <tr>
-                        <td><img src="/static/img/like 4_Idea.svg"></td>
-                        <td class="number">11</td>
-                        <td>¡Me encanta, lo necesito ya!</td>
-                    </tr>
-                    <tr class="highlighted">
-                        <td><img src="/static/img/like 3_Idea.svg"></td>
-                        <td class="number">25</td>
-                        <td>¡Me encanta!, mas no es lo mío.</td>
+                        <td><img src="/static/img/like 4_Hover.svg"></td>
+                        <td class="number">17</td>
+                        <td>would buy it</td>
                     </tr>
                     <tr>
-                        <td><img src="/static/img/like 2_Idea.svg"></td>
-                        <td class="number">7</td>
-                        <td>Me gusta, pero aún le falta algo.</td>
+                        <td><img src="/static/img/like 3_Hover.svg"></td>
+                        <td class="number">56</td>
+                        <td>love it</td>
                     </tr>
                     <tr>
-                        <td><img src="/static/img/like 1_Idea.svg"></td>
-                        <td class="number">5</td>
-                        <td>No me agrada.</td>
+                        <td><img src="/static/img/like 2_Hover.svg"></td>
+                        <td class="number">22</td>
+                        <td>think it's not bad</td>
+                    </tr>
+                    <tr>
+                        <td><img src="/static/img/like 1_Hover.svg"></td>
+                        <td class="number">10</td>
+                        <td>don't like it</td>
                     </tr>
                 </table>
-                <p class="blue-text" id="stats-link"><img src="/static/img/stats_Idea.svg">Ver Estadísticas Detalladas
-                    <img src="/static/img/arrowDown.svg" id="right-blue-arrow" class="rot-270-right"></p>
+
             </div>
-            <div class="left-align" id="idea-to-project">
-                <p class="pt-h">Convertir esta idea en<span class="red-text top-span">Proyecto</span></p>
-                <input class="red-button" type="button" name="to-project" value="Proyecto">
-            </div>
+              <a class="color-button right blue myIdea" href="" >See detailed stats</a>
+              <a class="color-button right blue myIdea" href="" >Turn it into a project</a>
+              <a class="color-button right red myIdea" href=""> Discard this idea</a>
+          </div>
+
         </div>
     </div>
+    </div>
 
-    <div ng-show="pivotear" class="modal" id="Pivotear-modal">
-        <div class="center-div-f">
+
+    <div ng-show="pivoting" class="modal" id="Pivotear-modal" >
+        <div class="center-div-f" click-outside="pivoting=false" outside-if-not="new-pivot">
             <pth>Pivotear Idea</pth>
             <div class="left-align" id="piv-m">
                 <p class="pt-h">Ver Pivotes Anteriores</p>
@@ -376,8 +349,8 @@
                     <p class="textarea-length">300</p>
                 </div>
             </div>
-            <input class="blue-button" type="button" name="new-pivote" ng-click="pivotear=false" id="new-piv-btn" value="Pivotear">
-            <p id="piv-modal-cancel" ng-click="pivotear=false" class="form-cancel">Cancelar</p>
+            <input class="blue-button" type="button" name="new-pivote" ng-click="pivoting=false" id="new-piv-btn" value="Pivotear">
+            <p id="piv-modal-cancel" ng-click="pivoting=false" class="form-cancel">Cancelar</p>
         </div>
     </div>
 

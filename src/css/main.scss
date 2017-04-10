@@ -423,22 +423,22 @@ a {
   justify-content: flex-start;
   flex-wrap: wrap;
     width: 80%;
-    margin: auto;
+    margin: auto ;
     text-align: left;
-    margin-top: 0px;
 
     .tooltip{
-      height: 40px;
+      height: 30px;
       position: relative;
       width: 28px;
-      margin: auto 5px;
+      margin: auto 2px;
 
       .tooltiptext{
         height: auto;
         padding: 2px;
         position: absolute;
         width: 100px;
-        left: 40%;
+        left: 8px;
+        top: 120%;
       }
     }
 
@@ -503,6 +503,18 @@ a {
     text-align: left;
     margin: auto;
 
+    .form-subtitle{
+      &.color{
+        margin-bottom: 0px;
+        padding: 0px;
+      }
+    }
+
+    .tab-paragraph{
+      margin: -15px auto auto 55px !important;
+      font-size: 16px !important;
+    }
+
     &.make-comment {
         width: 100%;
 
@@ -552,6 +564,15 @@ a {
             vertical-align: text-bottom;
             cursor: pointer;
         }
+    }
+
+    .big-txt{
+      font-size: 20px !important;
+      line-height: 28px;
+    }
+
+    .big-img{
+      height: 55px;
     }
 
     textarea {
@@ -1222,6 +1243,28 @@ width: 23px !important;
     display: inline-block;
     margin: auto auto auto 10px;
 
+    &.selector{
+      margin: auto auto auto 0px;
+
+      li{
+        text-align: left;
+        color: $gray-lighter;
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .dark{
+        text-align: center;
+        color: $gray-dark;
+        border-top: 1px solid $gray-lighter;
+        padding-top: 10px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    }
+
     #profile-picture{
       cursor: pointer;
     }
@@ -1246,6 +1289,12 @@ width: 23px !important;
         @extend %white-tooltip;
         border-radius: 1px;
         box-shadow: 0px 1px 1px 1px #9B9B9B;
+
+        &.selectorType{
+          width: 120px;
+          top: 100%;
+          padding: 5px 10px;
+        }
 
         p{
           font-size: 14px;
@@ -1394,12 +1443,17 @@ width: 23px !important;
 
 .idea-info {
     width: 100%;
-    //background: 
+    background: $gray-bg;
     height: auto;
     text-align: center;
-    margin-top: 120px;
     padding: 10px;
+    padding-top: 120px;
+    padding-bottom: 80px;
     box-sizing: border-box;
+
+    @media screen and (max-width: 730px){
+      padding-top: 170px;
+    }
 
     .form-description {
         padding: 20px;
@@ -1407,10 +1461,12 @@ width: 23px !important;
 }
 
 .idea-img {
-    background: url("#{$path}/img/ex2.jpg") no-repeat center;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
     background-size: cover;
-    height: 400px;
-    width: 90%;
+    height: 300px;
+    width: 400px;
     border-radius: 8px;
     display: inline-block;
     vertical-align: middle;
@@ -1476,11 +1532,11 @@ width: 23px !important;
 
 .mid-page {
     height: auto;
-    width: 49%;
+    max-width: 500px;
+    min-width: 300px;
     display: inline-block;
     position: relative;
     vertical-align: top;
-    padding: 10px;
     box-sizing: border-box;
     text-align: center;
     margin: auto;
@@ -1489,15 +1545,15 @@ width: 23px !important;
         text-align: left;
 
         &.pad-left {
+          margin-top: 30px;
             @media screen and (min-width: 900px) {
                 padding-left: 40px;
 
-                &.min-w-350 {
-                    @media screen and (max-width: 600px) {
-                        min-width: 350px;
-                    }
-                }
             }
+            @media screen and (max-width: 500px) {
+                padding: 20px;
+            }
+
         }
     }
     @media screen and (max-width: 750px) {
@@ -1528,16 +1584,6 @@ width: 23px !important;
     }
 
     p {
-        &.tab-paragraph {
-            margin-bottom: 10px;
-            margin-right: 15px;
-            @media screen and (max-width: 600px) {
-                margin: {
-                    right: 0;
-                    left: 0;
-                }
-            }
-        }
         margin-bottom: 0;
 
         .edit {
@@ -1595,7 +1641,7 @@ width: 23px !important;
 .idea-title {
     font: {
         size: 40px;
-        weight: bold;
+        family: 'Museo_700';
     }
 }
 
@@ -1603,6 +1649,7 @@ width: 23px !important;
     text-align: left;
     padding: 0 0 0 20px;
     height: auto;
+    margin: auto;
 
     .pivote-t {
         margin: {
@@ -1627,6 +1674,19 @@ width: 23px !important;
     }
 
     .idea-header-info {
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+      .polygon-clip-hexagon{
+        height: 30px;
+        width: 27px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .tooltiptext{
+        font-size: 14px;
+      }
         select {
             font-size: 15px;
             display: inline-block;
@@ -1638,7 +1698,7 @@ width: 23px !important;
             outline: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background: white url("/static/img/arrowDown.svg") no-repeat right center;
+            background: $gray-bg url("/static/img/arrowDown.svg") no-repeat right center;
             background-size: 13px 20px;
         }
 
@@ -1647,7 +1707,8 @@ width: 23px !important;
         }
 
         p {
-            font-size: 14px;
+            font-size: 16px;
+            font-family: 'Museo';
             display: inline-block;
             vertical-align: -webkit-baseline-middle;
         }
@@ -1659,16 +1720,18 @@ width: 23px !important;
 
     .blue-text {
         display: inline-block;
-        margin-left: 4px;
+        margin-left: 5px;
+        vertical-align: -webkit-baseline-middle;
     }
 
     .select-team {
         display: inline-block;
-        margin: 0 10px 0 0;
+        margin: auto 5px;
         width: auto;
+        vertical-align: middle;
 
         img {
-            height: 30px;
+            height: 42px;
             vertical-align: middle;
         }
     }
@@ -1717,10 +1780,13 @@ width: 23px !important;
     }
 
     p {
+      color: $gray-dark;
+      font-family: 'Museo';
+      font-size: 18px;
         display: inline-block;
 
         &:nth-child(3) {
-            color: $pt-gray;
+            color: $gray-lighter;
             margin-left: 5px;
         }
     }
@@ -1754,7 +1820,6 @@ width: 23px !important;
 
     p {
         clear: both;
-        font-size: 14px;
     }
 }
 
@@ -1864,7 +1929,7 @@ width: 23px !important;
         width: auto;
 
         td {
-            font-size: 14px;
+            padding: 5px 15px 5px 0 ;
         }
 
         .number {
@@ -1883,26 +1948,23 @@ width: 23px !important;
 }
 
 #res-statistics {
-    margin-top: 70px;
-
-    table {
-        margin-top: 10px;
-    }
+    margin-top: 20px;
+    padding: 0;
 
     tr {
-        &.highlighted {
-            td {
-                color: $text-gray;
-            }
-        }
 
         td {
-            color: $pt-gray;
+            color: $gray-lighter;
+            font-size: 17px;
         }
 
         img {
-            height: 25px;
+            height: 50px;
             vertical-align: middle;
+        }
+
+        .number{
+          font-size: 24px;
         }
     }
 }
@@ -1990,7 +2052,7 @@ width: 100%;
 
 }
 
-.tooltip {
+.tooltip{
     position: relative;
     display: inline-block;
 
@@ -3221,6 +3283,10 @@ width: 100%;
 
     &.row{
       flex-direction: row;
+
+      &.wrap{
+        flex-wrap: wrap;
+      }
     }
 
     &.relative{
@@ -4539,6 +4605,7 @@ color: $gray-medium;
   .form-description{
     padding: 0;
     margin: 5px auto;
+
     .onoffswitch{
       .onoffswitch-inner{
         &::before{
@@ -4579,5 +4646,128 @@ color: $gray-medium;
     img{
       margin-left: -6px;
     }
+  }
+}
+
+.black-medium{
+  font-size: 20px;
+  font-family: 'Museo';
+  &.dark{
+    font-family: 'Museo_D';
+  }
+}
+
+.comment-top{
+  flex-direction: row;
+  max-width: 500px;
+
+  .polygon-clip-hexagon{
+    height: 30px;
+    width: 27px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto 5px auto 0;
+  }
+
+  img{
+    height: 35px;
+    margin: auto 5px auto 0;
+  }
+  p{
+    font-family: 'Museo';
+    font-size: 17px;
+    margin: auto 5px auto 0;
+    &.username{
+      color: $gray-lighter;
+    }
+    &.name{
+      color: $gray-dark;
+    }
+
+    &.star{
+      color: $gray-lighter;
+      img{
+        height: 20px;
+        margin: 0;
+        vertical-align: top;
+      }
+      margin: auto 0px auto auto;
+    }
+  }
+}
+
+.comments{
+  margin: 15px auto auto 0px;
+  max-width: 500px;
+}
+
+.comment{
+  margin: 5px auto;
+}
+
+.tab-paragraph {
+    margin: 0px auto auto 40px;
+    font-size: 16px;
+    @media screen and (max-width: 600px) {
+        margin: {
+            left: 0;
+        }
+    }
+}
+
+.color-button{
+  margin: auto;
+  text-align: center;
+  font-size: 17px;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Museo_D';
+    padding: 8px 10px;
+
+  &.right{
+    margin: auto 0px auto auto;
+  }
+
+  &.left{
+    margin: auto auto auto 0px;
+  }
+
+  &.blue{
+    background: $link-blue-color;
+
+    &:active{
+    background: $aqua-active;
+    }
+  }
+
+  &:active{
+    transform: none;
+  }
+
+  &:hover{
+    box-shadow: 0px 2px 2px 0px $text-gray;
+  }
+
+  &.red{
+    background-color: $wetopia-red;
+  }
+
+  &.myIdea{
+    width: 190px;
+    padding: 8px 0px;
+    margin: {
+    top: 10px;
+    bottom: 10px;}
+  }
+
+  &.selector{
+        background: $wetopia-blue url("/static/img/arrow.svg") no-repeat right center;
+        background-size: 20px 20px;
+        padding: 5px 10px;
+        width: 120px;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        text-align: left;
   }
 }
