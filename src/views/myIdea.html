@@ -207,12 +207,12 @@
               <div class="comment flex-box" ng-repeat="comment in feedback">
                 <div class="flex-cont comment-top">
                   <div class="polygon-each-img-wrap">
-                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(' +comment.img+ ')'}"> <!--modify as create idea 3-->
+                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(' +comment.img+ ')'}">
                       </div>
                   </div>
                   <p class="name" ng-bind="comment.firstname"></p>
                   <p class="username" ng-bind="comment.username"></p>
-                  <img class="star-img" src="/static/img/starActive_Idea.svg">
+                  <img class="star-img" ng-src="{{comment.stars > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" >
                   <p class="star" ng-bind="comment.stars"></p>
                 </div>
                 <div class="tab-paragraph" ng-bind="comment.comment">
