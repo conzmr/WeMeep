@@ -130,6 +130,10 @@
               <p class="sub-gray" ng-click="Recommmended()" ng-class="{'active': recommended}">RECOMMENDED</p>
             </div>
             <div class="flex-cont row sub-nav" ng-show="selectedCategory!=''">
+              <div class="flex-cont row go-back-btn" ng-click="selectedCategory=''">
+                <img class="to-left-arrow" src="/static/img/arrowDown.svg">
+                <blue>BACK</blue>
+              </div>
               <p class="sub-gray not-hov">{{selectedCategory}}</p>
             </div>
             <div class="cards-cont">
