@@ -42,7 +42,14 @@ input[type=url] {
     outline: none;
 }
 
-.fixed-background {
+.fixed-background{
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.flex-background {
     position: absolute;
     z-index: 0;
     width: 100%;
@@ -416,6 +423,8 @@ a {
     }
 }
 
+
+
 .select-team {
   display: -webkit-flex;
   display: flex;
@@ -427,7 +436,7 @@ a {
     text-align: left;
 
     .tooltip{
-      height: 30px;
+      height: 32px;
       position: relative;
       width: 28px;
       margin: auto 2px;
@@ -442,6 +451,13 @@ a {
       }
     }
 
+    .polygon-clip-hexagon{
+      height: 32px;
+      width: 28px;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
 
     img {
         height: 50px;
@@ -450,8 +466,8 @@ a {
 
     #add-members {
         cursor: pointer;
-        height: 33px;
-        margin-left: 8px !important;
+        height: 32px;
+        margin-left: 2px !important;
     }
 }
 
@@ -1732,9 +1748,9 @@ width: 23px !important;
     }
 
     .select-team {
-        display: inline-block;
         margin: auto 5px;
         width: auto;
+        display: inline-flex;
         vertical-align: middle;
 
         img {
@@ -4906,4 +4922,8 @@ color: $gray-medium;
 
 .to-left-arrow{
   transform: rotate(90deg);
+}
+
+#location-img{
+  margin-right: 5px;
 }
