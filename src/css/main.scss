@@ -466,7 +466,7 @@ a {
 
     #add-members {
         cursor: pointer;
-        height: 32px;
+        height: 31px;
         margin-left: 2px !important;
     }
 }
@@ -610,6 +610,12 @@ a {
         border: {
             radius: 4px;
             color: transparent;
+        }
+        &.feedback{
+          margin: auto;
+          font-size: 15px;
+          background: $medium-gray-textfield;
+          width: 100%;
         }
     }
 
@@ -1178,7 +1184,7 @@ width: 23px !important;
                     }
                     height: 13px;
                     display: inline-block;
-                    width: 13px;
+                    width: 11px;
                     content: " ";
                 }
             }
@@ -1189,7 +1195,7 @@ width: 23px !important;
                 }
 
                 &:after {
-                    background-image: url("/static/img/like 4_Active.svg");
+                    background-image: url("/static/img/Likes/noti_like 4.svg");
                 }
             }
 
@@ -1199,7 +1205,7 @@ width: 23px !important;
                 }
 
                 &:after {
-                    background-image: url("/static/img/like 3_Active.svg");
+                    background-image: url("/static/img/Likes/noti_like 3.svg");
                 }
             }
 
@@ -1209,7 +1215,7 @@ width: 23px !important;
                 }
 
                 &:after {
-                    background-image: url("/static/img/like 2_Active.svg");
+                    background-image: url("/static/img/Likes/noti_like 2.svg");
                 }
             }
 
@@ -1219,7 +1225,7 @@ width: 23px !important;
                 }
 
                 &:after {
-                    background-image: url("/static/img/like 1_Active.svg");
+                    background-image: url("/static/img/Likes/noti_like 1.svg");
                 }
             }
         }
@@ -1481,6 +1487,10 @@ width: 23px !important;
 
     .form-description {
         padding: 20px;
+
+        &.no-padding{
+          padding: 0;
+        }
     }
 }
 
@@ -1971,8 +1981,32 @@ width: 23px !important;
 }
 
 #res-statistics {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 0;
+
+    .form-input{
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+
+      input{
+        width: 100%;
+        background: $medium-gray-textfield;
+        border-radius: 2px;
+        font-size: 17px;
+        height: 25px;
+        margin: auto;
+        &::-webkit-input-placeholder {
+            color: $gray-lighter;
+            font-size: 17px;
+        }
+
+        &::-moz-placeholder {
+            color: $gray-lighter;
+            font-size: 17px;
+        }
+      }
+    }
 
     tr {
 
@@ -1984,6 +2018,7 @@ width: 23px !important;
         img {
             height: 50px;
             vertical-align: middle;
+            cursor: pointer;
         }
 
         .number{
@@ -2166,19 +2201,19 @@ width: 100%;
         margin-top: 15px;
 
         #like-4 {
-            background: url("#{$path}/img/like 4_Idea.svg") center center no-repeat;
+            background: url("/static/img/Likes/noti_like 4.svg") center center no-repeat;
         }
 
         #like-3 {
-            background: url("#{$path}/img/like 3_Idea.svg") center center no-repeat;
+            background: url("/static/img/Likes/noti_like 3.svg") center center no-repeat;
         }
 
         #like-2 {
-            background: url("#{$path}/img/like 2_Idea.svg") center center no-repeat;
+            background: url("/static/img/Likes/noti_like 2.svg") center center no-repeat;
         }
 
         #like-1 {
-            background: url("#{$path}/img/like 1_Idea.svg") center center no-repeat;
+            background: url("/static/img/Likes/noti_like 1.svg") center center no-repeat;
         }
 
         &:hover {
@@ -2187,19 +2222,19 @@ width: 100%;
             }
 
             #like-4 {
-                background: url("#{$path}/img/like 4_Active.svg");
+                background: url("#{$path}/img/Likes/like 4_Active.svg");
             }
 
             #like-3 {
-                background: url("#{$path}/img/like 3_Active.svg");
+                background: url("#{$path}/img/Likes/like 3_Active.svg");
             }
 
             #like-2 {
-                background: url("#{$path}/img/like 2_Active.svg");
+                background: url("#{$path}/img/Likes/like 2_Active.svg");
             }
 
             #like-1 {
-                background: url("#{$path}/img/like 1_Active.svg");
+                background: url("#{$path}/img/Likes/like 1_Active.svg");
             }
 
             span {
@@ -3081,7 +3116,7 @@ width: 100%;
         }
 
         &.nav-general{
-          padding-right: 170px;
+          padding-right: 145px;
           @media screen and (max-width: 730px){
             padding: 0;
             margin: auto 0;
@@ -4934,4 +4969,13 @@ color: $gray-medium;
 
 #location-img{
   margin-right: 5px;
+}
+
+.send-feedback-btn{
+  margin-top: 10px !important;
+  margin-bottom: 50px !important;
+  border-radius: 6px;
+  padding: 8px;
+  width: 100px;
+  font-size: 17px;
 }
