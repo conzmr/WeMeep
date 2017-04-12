@@ -513,6 +513,10 @@ a {
     .tab-paragraph{
       margin: -15px auto auto 55px !important;
       font-size: 16px !important;
+
+      @media screen and (max-width: 500px){
+        margin: auto !important;
+      }
     }
 
     &.make-comment {
@@ -560,8 +564,8 @@ a {
         position: relative;
 
         &.duplicate-idea-img {
-            height: 11px;
-            vertical-align: text-bottom;
+            height: 15px;
+            vertical-align: middle;
             cursor: pointer;
         }
     }
@@ -598,9 +602,9 @@ a {
         box-sizing: border-box;
         text-align: right;
         margin-left: 18px;
-        color: $pt-gray;
+        color: $gray-lighter !important;
         font-size: 12px;
-        margin-top: 0;
+        margin-top: 0 !important;
     }
 
     .form-button {
@@ -636,9 +640,7 @@ a {
         }
     }
 
-    span {
-        font-weight: bolder;
-    }
+
 }
 
 #input-team-members {
@@ -1244,24 +1246,24 @@ width: 23px !important;
     margin: auto auto auto 10px;
 
     &.selector{
-      margin: auto auto auto 0px;
+      margin: auto auto auto 0px !important;
 
       li{
         text-align: left;
         color: $gray-lighter;
         margin: 5px;
-        font-size: 16px;
+        font-size: 16px !important;
         cursor: pointer;
       }
 
       .dark{
-        text-align: center;
+        text-align: left;
         color: $gray-dark;
         border-top: 1px solid $gray-lighter;
         padding-top: 10px;
         width: 100%;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 17px;
       }
     }
 
@@ -1291,9 +1293,15 @@ width: 23px !important;
         box-shadow: 0px 1px 1px 1px #9B9B9B;
 
         &.selectorType{
-          width: 120px;
-          top: 100%;
-          padding: 5px 10px;
+          width: 120px !important;
+          padding: 5px 10px !important;
+          top: 50%;
+          border-radius: 6px !important;
+
+          &::before, &::after{
+            opacity: 0;
+            bottom: 0;
+          }
         }
 
         p{
@@ -1594,7 +1602,7 @@ width: 23px !important;
 
 .act-pivote,
 .prev-pivote {
-    height: 40px;
+    height: 55px;
     width: 40px;
     text-align: center;
     display: inline-block;
@@ -1647,7 +1655,6 @@ width: 23px !important;
 
 .idea-header {
     text-align: left;
-    padding: 0 0 0 20px;
     height: auto;
     margin: auto;
 
@@ -3611,11 +3618,93 @@ max-width: 300px;
 }
 }
 
+.normal-paragraph{
+  font-size: 16px;
+  line-height: 16px;
+  font-family: 'Museo';
+  margin: 0;
+}
+
 .modal-form {
         box-shadow: 0 0 15px 4px #CCC;
     padding: 0;
     text-align: center;
     width: 335px;
+
+    &.complete{
+      width: auto;
+      padding: 25px 40px;
+
+      .normal-paragraph{
+        margin: 0 15px;
+      }
+
+      @media screen and (max-width: 500px){
+        padding: 25px 20px;
+      }
+
+      .act-pivote{
+        margin: auto 0;
+        line-height: 55px;
+        font-size: 20px;
+      }
+      .text-left{
+        margin: auto auto auto 5px;
+        font-family: 'Museo';
+        font-size: 20px;
+      }
+
+      .flex-cont{
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0px;
+        &.row{
+          padding: 15px 0;
+          &.left-align{
+            padding: 5px 0 0;
+          }
+        }
+      }
+
+      .user-menu{
+        padding: 0;
+      }
+
+      .selector{
+        input[type=text]{
+          margin: auto auto auto 0;
+        }
+      }
+
+      .lighter-gray{
+        font-size: 18px;
+        font-family: 'Museo';
+        text-align: left;
+      }
+
+      .form-description{
+        max-width: 450px;
+        min-width: 200px;
+        padding: 0 20px;
+        margin:  auto;
+        @media screen and (max-width: 500px){
+          padding: 0;
+        }
+      }
+
+      textarea{
+        font-size: 14px;
+        padding-top: 10px;
+      }
+
+      .textarea{
+        padding-top: 0 !important;
+      }
+
+      .blue-button{
+        margin-top: 0;
+      }
+    }
 
     .form-input{
       display: -webkit-flex;
@@ -3634,14 +3723,15 @@ max-width: 300px;
         margin-top: 10px;
       }
       input{
+        &:not(.selector){ &:not(.form-button){
         height: 18px;
         margin: auto auto auto -8px;
         font-size: 15px;
         text-indent: 15px;
         @include font('Museo', 300) ;
         width: 225px;
-
-
+        }
+      }
       }
       .form-button{
         margin: 25px auto 30px auto;
@@ -4669,10 +4759,12 @@ color: $gray-medium;
     margin: auto 5px auto 0;
   }
 
-  img{
-    height: 35px;
-    margin: auto 5px auto 0;
+  .star-img{
+    height: 20px;
+    margin: auto 5px auto auto;
+    vertical-align: top;
   }
+
   p{
     font-family: 'Museo';
     font-size: 17px;
@@ -4686,12 +4778,7 @@ color: $gray-medium;
 
     &.star{
       color: $gray-lighter;
-      img{
-        height: 20px;
-        margin: 0;
-        vertical-align: top;
-      }
-      margin: auto 0px auto auto;
+      margin: auto 0px;
     }
   }
 }
@@ -4750,6 +4837,9 @@ color: $gray-medium;
 
   &.red{
     background-color: $wetopia-red;
+    &:active{
+    background: $lighter-red;
+    }
   }
 
   &.myIdea{
@@ -4760,14 +4850,30 @@ color: $gray-medium;
     bottom: 10px;}
   }
 
+  &.complete-form{
+    width: 110px;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 6px;
+  }
+
   &.selector{
-        background: $wetopia-blue url("/static/img/arrow.svg") no-repeat right center;
+        background: $wetopia-blue url("/static/img/Dropdown_arrow_white.svg") no-repeat 110px center;
         background-size: 20px 20px;
+        display: block !important;
         padding: 5px 10px;
-        width: 120px;
+        width: 120px !important;
         border-radius: 8px;
         color: white;
         cursor: pointer;
         text-align: left;
+        &:active{
+        background:  $aqua-active url("/static/img/Dropdown_arrow_white.svg") no-repeat 110px center;
+        background-size: 20px 20px;
+        }
   }
+}
+
+.lighter-gray{
+  color: $gray-lighter;
 }

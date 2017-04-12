@@ -5,8 +5,9 @@ angular.module('musementApp')
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
         $scope.showPivots = false;
-        $scope.pivots = ['1th Pivot', '2nd Pivot', '3th Pivot'];
+        $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
         $scope.pivotSelected = $scope.pivots[0];
+        $scope.newPivot=$scope.pivots.length+1;
 
         $scope.createPivot = function(){
           $scope.pivoting = true;
@@ -30,5 +31,42 @@ angular.module('musementApp')
         $scope.changeShowPivots = function(){
           $scope.showPivots = !$scope.showPivots;
         }
+
+        $scope.feedback = [{
+          firstname : "FirstName",
+          username : "Username",
+          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
+          stars: 12,
+          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        },
+        {
+          firstname : "FirstName",
+          username : "Username",
+          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
+          stars: 7,
+          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        },
+        {
+          firstname : "FirstName",
+          username : "Username",
+          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
+          stars: 2,
+          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        },
+        {
+          firstname : "FirstName",
+          username : "Username",
+          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
+          stars: 0,
+          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        },
+        {
+          firstname : "FirstName",
+          username : "Username",
+          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
+          stars: 8,
+          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        }
+      ]
 
     })
