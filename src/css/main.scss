@@ -2040,8 +2040,10 @@ width: 100%;
 #cat-select{
   position: relative;
 
-  #category-selected{
+  #category-selector{
     cursor: pointer;
+    background: $textfield-gray url("/static/img/Dropdown_arrow.svg") no-repeat 95% center;
+    background-size: 20px 20px;
   }
 
   .list-cont{
@@ -3751,7 +3753,13 @@ max-width: 300px;
         font-size: 15px;
         text-indent: 15px;
         @include font('Museo', 300) ;
-        width: 225px;
+        width: 243px;
+
+        &.others{
+          margin: auto auto auto 11px;
+          width: 255px;
+          border-radius: 2px;
+          }
         }
       }
       }
