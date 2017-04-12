@@ -536,7 +536,7 @@ router.route('/users/:user_id/ideas')
 
 })
 
-/* GET the information for an idea */
+/* GET the information for an IDEA */
 router.route('/ideas/:idea_id')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id)
@@ -655,6 +655,32 @@ router.route('/users/:user_id/inbox/moments')
       res.status(500).json({'error': err });
     else
       res.status(200).json({'moments': moments});
+  })
+})
+
+/* Get stats for my IDEA */
+//This function returns an array with the results only. This is the order: money, loves, likes, dislikes, 
+router.route('/ideas/:idea_id/stats')
+.get(function (req, res) {
+  Idea.findById(req.params.idea_id, 'members')
+  .exec(function (err, idea) {
+    if (err)
+      return res.status(500).json({'error': err})
+   if (idea.members.indexOf(req.U_ID) <= -1)
+      return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here >:| "}})
+    else{
+      var promises = [
+        Idea.find({"_id":req.params.idea_id, "interest.type":"money"}, 'interest').count().exec(),
+        Idea.find({"_id":req.params.idea_id, "interest.type":"love"}, 'interest').count().exec(),
+        Idea.find({"_id":req.params.idea_id, "interest.type":"like"}, 'interest').count().exec(),
+        Idea.find({"_id":req.params.idea_id, "interest.type":"dislike"}, 'interest').count().exec()
+      ]
+      Promise.all(promises).then(function(results) {
+          res.status(200).json(results);
+      }).catch(function(err){
+          res.status(500).json(err);
+      });
+    }
   })
 })
 

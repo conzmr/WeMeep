@@ -26,6 +26,7 @@ var ideaSchema = new mongoose.Schema({
         required: true,
         unique: true
       },
+      /* This type could be: money, love, like, dislike */
       type: {
         type: String,
         required: true
