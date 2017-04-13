@@ -26,6 +26,7 @@ var ideaSchema = new mongoose.Schema({
         required: true,
         unique: true
       },
+      /* This type could be: money, love, like, dislike */
       type: {
         type: String,
         required: true
@@ -45,6 +46,11 @@ var ideaSchema = new mongoose.Schema({
     required: true
   },
   problem: String,
+  views: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    unique: true
+  }],
 });
 
 module.exports = mongoose.model('Idea', ideaSchema);
