@@ -8,8 +8,8 @@
               <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>How it works</a>
             <a href="#our-community" offset="30" du-smooth-scroll du-scrollspy>Our Community</a>
             <div class="simple-cont">
-              <!--<p class="login-btn" ng-click="login=true">Log In</p>
-              <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>-->
+              <p class="login-btn" ng-click="login=true">Log In</p>
+              <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>
               <!--<span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
 
@@ -126,14 +126,14 @@
     <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join now</a>
 </div>
 <div class="footer flex-cont">
-    <!--
+
   <div class="left">
-    <p class="small">Home</p>
-    <p class="small">My Profile</p>
-    <p class="small">Create Idea</p>
-    <p class="small">My Idea</p>
+    <a  href="/home"  class="small">Home</a>
+    <a href="/myProfile" class="small">My Profile</a>
+    <a  href="/createIdea/first" class="small">Create Idea</a>
+    <a href="/myIdea" class="small">My Idea</a>
   </div>
-  -->
+
   <div class="icons">
     <img src="/static/img/wetopia_dark-min.png">
     <div class="simple-cont">
@@ -144,14 +144,14 @@
     </div>
 
   </div>
-  <!--
+
   <div class="right">
     <p class="medium-bold">Wetopia (c) 2017</p>
     <p class="small">Terms & Conditions</p>
     <p class="small">Privacy Policy</p>
     <p class="small">Ethics Code</p>
   </div>
--->
+
 </div>
 </div>
 </div>
@@ -170,12 +170,14 @@
                   <input type="text" name="signup-lastname" placeholder="Last Name" required="true">
               </div>
               <div class="form-input">
-                  <img src="/static/img/Login_mail.svg">
-                  <input type="text" name="signup-email" placeholder="Email" required="true">
+                  <img ng-src="{{emailError?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" >
+                  <input type="text" ng-click="clearErrors()" ng-style="emailError && {'color':'#F26649'}" name="signup-email" placeholder="Email" required="true">
+                  <p class="red-text error" ng-bind="emailMessageError" ng-show="emailError"></p>
               </div>
               <div class="form-input">
-                  <img src="/static/img/Login_pass.svg">
-                  <input type="password" name="signup-password" placeholder="Password" required="true">
+                  <img ng-src="{{passwordError?'/static/img/Login_pass_red.svg':'/static/img/Login_pass.svg'}}" src="/static/img/Login_pass.svg">
+                  <input type="password" ng-click="clearErrors()" ng-style="passwordError && {'color':'#F26649'}"  name="signup-password" placeholder="Password" required="true">
+                  <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
               <input type="button" value="Join" class="form-button " name="join" ng-click="join=false">
               <p class="terms">By joining you are accepting our <span class="bluelink">Terms and Conditions,
@@ -192,12 +194,14 @@
               <p class="close-x" ng-click="login=false">x</p>
               <p class="sub-gray">LOG IN</p>
               <div class="form-input">
-                  <img src="/static/img/Login_mail.svg">
-                  <input type="text" name="login-email" placeholder="Email" required="true">
+                  <img ng-src="{{emailError?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" >
+                  <input type="text" ng-click="clearErrors()" ng-style="emailError && {'color':'#F26649'}" name="login-email" placeholder="Email" required="true">
+                  <p class="red-text error" ng-bind="emailMessageError" ng-show="emailError"></p>
               </div>
               <div class="form-input">
-                  <img src="/static/img/Login_pass.svg">
-                  <input type="password" name="login-password" placeholder="Password" required="true">
+                  <img ng-src="{{passwordError?'/static/img/Login_pass_red.svg':'/static/img/Login_pass.svg'}}" src="/static/img/Login_pass.svg">
+                  <input type="password" ng-click="clearErrors()" ng-style="passwordError && {'color':'#F26649'}"  name="login-password" placeholder="Password" required="true">
+                  <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
               <p class="terms">Forgot your password?</p>
               <input type="button" value="Join" class="form-button " name="login" ng-click="login=false">

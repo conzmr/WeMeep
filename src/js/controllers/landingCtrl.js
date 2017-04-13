@@ -14,6 +14,18 @@ angular.module("musementApp")
     $scope.thanks = false
     $scope.errorHeader=false;
     $scope.errorFooter=false;
+    $scope.emailError=false;
+    $scope.emailMessageError="";
+    $scope.passwordError=false;
+    $scope.passwordMessageError="";
+
+    $scope.clearErrors = function(){
+      $scope.emailError=false;
+      $scope.mailMessageError="";
+      $scope.passwordError=false;
+      $scope.passwordMessageError="";
+    }
+
 
     $interval( function(){
       $scope.experts=($scope.experts+1)%4;
