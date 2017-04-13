@@ -8,6 +8,25 @@ angular.module('musementApp')
         $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
         $scope.pivotSelected = $scope.pivots[0];
         $scope.newPivot=$scope.pivots.length+1;
+        $scope.wantToDiscard = false;
+        $scope.whyDiscard = false;
+        $scope.discarded = false;
+        $scope.saved = false;
+
+        $scope.discardIdea = function(){
+          $scope.wantToDiscard = false;
+          $scope.whyDiscard = true;
+        }
+
+        $scope.saveIdea = function(){
+          $scope.wantToDiscard=false;
+          $scope.saved=true;
+        }
+
+        $scope.discardMessage = function(){
+          $scope.whyDiscard = false;
+          $scope.discarded = true;
+        }
 
         $scope.createPivot = function(){
           $scope.pivoting = true;
