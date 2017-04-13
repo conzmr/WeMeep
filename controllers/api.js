@@ -5,7 +5,8 @@ let express = require('express'),
     multer = require('multer'),
     path = require('path'),
     bcrypt = require('bcrypt-nodejs'),
-    router = express.Router()
+    router = express.Router(),
+    mongoose = require('mongoose')
 
 //Models
 let User = require("../models/user.js"),
@@ -377,7 +378,8 @@ router.route('/ideas/:idea_id/feedback')
   /* COMMENT AN IDEA */
   let feedback = new Feedback({
     user: req.U_ID,
-    comment: req.body.text
+    comment: req.body.text,
+    idea: req.params.idea_id
   });
 
   feedback.save(function(err, feedback) {
@@ -677,18 +679,68 @@ router.route('/ideas/:idea_id/stats')
       return res.status(500).json({'error': err})
    if (idea.members.indexOf(req.U_ID) <= -1)
       return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here >:| "}})
-    else{
-      var promises = [
-        Idea.find({"_id":req.params.idea_id, "interest.type":"money"}, 'interest').count().exec(),
-        Idea.find({"_id":req.params.idea_id, "interest.type":"love"}, 'interest').count().exec(),
-        Idea.find({"_id":req.params.idea_id, "interest.type":"like"}, 'interest').count().exec(),
-        Idea.find({"_id":req.params.idea_id, "interest.type":"dislike"}, 'interest').count().exec()
+    else {
+      /* Interests */
+      const interestAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$interest" },
+        { $group: {
+                  _id: "$interest.type",
+                  count: { $sum: 1 }
+          }
+        }
       ]
-      Promise.all(promises).then(function(results) {
-          res.status(200).json(results);
-      }).catch(function(err){
-          res.status(500).json(err);
-      });
+      /* View Stats */
+      const viewAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$views" },
+        { $group: {
+                  _id: "Views",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+      /* Feedback Stats */
+      const feedbackAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$feedback" },
+        { $group: {
+                  _id: "Feedback",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+      /* Stars in Idea */
+      const starsAggregator = [
+        {
+          $match: { "idea" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$stars" },
+        { $group: {
+                  _id: "Starred Comments",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+
+      const promises = [
+        Idea.aggregate(interestAggregator).exec(),
+        Idea.aggregate(viewAggregator).exec(),
+        Idea.aggregate(feedbackAggregator).exec(),
+        Feedback.aggregate(starsAggregator).exec()
+      ]
+       Promise.all(promises).then(function(results) {
+         res.status(200).json(results);
+       }).catch(function(err){
+           res.status(500).json(err);
+       });
+
     }
   })
 })
