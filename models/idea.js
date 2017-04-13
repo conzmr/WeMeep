@@ -46,6 +46,11 @@ var ideaSchema = new mongoose.Schema({
     required: true
   },
   problem: String,
+  views: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    unique: true
+  }],
 });
 
 module.exports = mongoose.model('Idea', ideaSchema);

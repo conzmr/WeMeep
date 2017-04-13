@@ -559,6 +559,15 @@ router.route('/ideas/:idea_id')
     }
   })
 })
+.post(function (req, res) {
+  Idea.findByIdAndUpdate(req.params.idea_id, { $addToSet: {views: req.U_ID} })
+  .exec(function(err) {
+    if (err)
+      res.status(500).json({'error': err, 'success': false});
+    else
+      res.json({"message": "Successfully added a new view to the idea", "success": true})
+  })
+})
 .put(function (req, res) {
   //TODO: Update project info
   res.status(501).json({'message':'Not yet supported.'})
@@ -659,7 +668,7 @@ router.route('/users/:user_id/inbox/moments')
 })
 
 /* Get stats for my IDEA */
-//This function returns an array with the results only. This is the order: money, loves, likes, dislikes, 
+//This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
 router.route('/ideas/:idea_id/stats')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id, 'members')
