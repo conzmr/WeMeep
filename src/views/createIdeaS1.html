@@ -6,12 +6,15 @@
 </div>
 <div class="form-input" id="cat-select">
     <img src="/static/img/Create Idea_tag.svg">
-      <input type="text" id="category-selected" ng-click="changeShowCategories()" name="category-selector" ng-model="categorySelected" readonly="readonly" placeholder="Category">
+      <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected" readonly="readonly" placeholder="Category">
       <div class="list-cont" ng-show="showCategories" >
         <ul class="tooltip-selector" >
          <li ng-repeat="category in categories" ng-click="selectCategory(category)" ng-bind="category"></li>
         </ul>
       </div>
+</div>
+<div class="form-input" ng-show="categorySelected=='Others'">
+  <input class="others" type="text" name="other-category" placeholder="What's your project about?">
 </div>
 <div class="form-description">
     <img src="/static/img/Create Idea_idea.svg">

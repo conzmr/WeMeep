@@ -5,7 +5,8 @@ let express = require('express'),
     multer = require('multer'),
     path = require('path'),
     bcrypt = require('bcrypt-nodejs'),
-    router = express.Router()
+    router = express.Router(),
+    mongoose = require('mongoose')
 
 //Models
 let User = require("../models/user.js"),
@@ -377,7 +378,8 @@ router.route('/ideas/:idea_id/feedback')
   /* COMMENT AN IDEA */
   let feedback = new Feedback({
     user: req.U_ID,
-    comment: req.body.text
+    comment: req.body.text,
+    idea: req.params.idea_id
   });
 
   feedback.save(function(err, feedback) {
@@ -536,7 +538,7 @@ router.route('/users/:user_id/ideas')
 
 })
 
-/* GET the information for an idea */
+/* GET the information for an IDEA */
 router.route('/ideas/:idea_id')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id)
@@ -557,6 +559,15 @@ router.route('/ideas/:idea_id')
     } else {
       res.json(project);
     }
+  })
+})
+.post(function (req, res) {
+  Idea.findByIdAndUpdate(req.params.idea_id, { $addToSet: {views: req.U_ID} })
+  .exec(function(err) {
+    if (err)
+      res.status(500).json({'error': err, 'success': false});
+    else
+      res.json({"message": "Successfully added a new view to the idea", "success": true})
   })
 })
 .put(function (req, res) {
@@ -655,6 +666,82 @@ router.route('/users/:user_id/inbox/moments')
       res.status(500).json({'error': err });
     else
       res.status(200).json({'moments': moments});
+  })
+})
+
+/* Get stats for my IDEA */
+//This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
+router.route('/ideas/:idea_id/stats')
+.get(function (req, res) {
+  Idea.findById(req.params.idea_id, 'members')
+  .exec(function (err, idea) {
+    if (err)
+      return res.status(500).json({'error': err})
+   if (idea.members.indexOf(req.U_ID) <= -1)
+      return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here >:| "}})
+    else {
+      /* Interests */
+      const interestAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$interest" },
+        { $group: {
+                  _id: "$interest.type",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+      /* View Stats */
+      const viewAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$views" },
+        { $group: {
+                  _id: "Views",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+      /* Feedback Stats */
+      const feedbackAggregator = [
+        {
+          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$feedback" },
+        { $group: {
+                  _id: "Feedback",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+      /* Stars in Idea */
+      const starsAggregator = [
+        {
+          $match: { "idea" : new mongoose.Types.ObjectId(req.params.idea_id)}
+        },
+        { $unwind: "$stars" },
+        { $group: {
+                  _id: "Starred Comments",
+                  count: { $sum: 1 }
+          }
+        }
+      ]
+
+      const promises = [
+        Idea.aggregate(interestAggregator).exec(),
+        Idea.aggregate(viewAggregator).exec(),
+        Idea.aggregate(feedbackAggregator).exec(),
+        Feedback.aggregate(starsAggregator).exec()
+      ]
+       Promise.all(promises).then(function(results) {
+         res.status(200).json(results);
+       }).catch(function(err){
+           res.status(500).json(err);
+       });
+
+    }
   })
 })
 

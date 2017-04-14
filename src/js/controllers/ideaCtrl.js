@@ -1,38 +1,24 @@
 angular.module('musementApp')
-    .controller('myIdeaCtrl', function($scope) {
-        $scope.pivoting = false;
+    .controller('ideaCtrl', function($scope) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
         $scope.showPivots = false;
         $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
         $scope.pivotSelected = $scope.pivots[0];
-        $scope.newPivot=$scope.pivots.length+1;
-        $scope.wantToDiscard = false;
-        $scope.whyDiscard = false;
-        $scope.discarded = false;
-        $scope.saved = false;
+        $scope.like = "";
+        $scope.likeFeedback = false;
 
-        $scope.discardIdea = function(){
-          $scope.wantToDiscard = false;
-          $scope.whyDiscard = true;
+        $scope.changeLike = function(like){
+          if($scope.like==like){
+            $scope.like = "";
+            $scope.likeFeedback = false;
+          }
+          else{
+            $scope.like = like;
+            $scope.likeFeedback = true;
+          }
         }
-
-        $scope.saveIdea = function(){
-          $scope.wantToDiscard=false;
-          $scope.saved=true;
-        }
-
-        $scope.discardMessage = function(){
-          $scope.whyDiscard = false;
-          $scope.discarded = true;
-        }
-
-        $scope.createPivot = function(){
-          $scope.pivoting = true;
-          $scope.showPivots =false;
-        }
-
 
         $scope.changeShowNotifications = function(){
           $scope.showNotifications = !$scope.showNotifications;
