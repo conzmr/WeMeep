@@ -1475,7 +1475,7 @@ width: 23px !important;
     }
 }
 
-.idea-info {
+.idea-info, .max-cont {
     width: 100%;
     background: $gray-bg;
     height: auto;
@@ -2022,7 +2022,10 @@ width: 23px !important;
         img {
             height: 50px;
             vertical-align: middle;
-            cursor: pointer;
+        }
+
+        .pointer{
+          cursor: pointer;
         }
 
         .number{
@@ -2438,7 +2441,7 @@ width: 100%;
 
 .card {
     width: 210px;
-    margin: 20px ;
+    margin: 20px 30px;
     display: inline-block;
     cursor: pointer;
     border-radius: 10px;
@@ -3323,6 +3326,15 @@ width: 100%;
         margin-bottom: 20px;
       }
 
+      &.max-width{
+        max-width: 700px;
+        margin: auto;
+
+        @media screen and (max-width: 450px){
+          max-width: 200px;
+        }
+      }
+
       .sub-gray{
         font-size: 25px;
         line-height: 30px;
@@ -3334,12 +3346,23 @@ width: 100%;
         }
         }
 
+
         &.active{
           &:not(.not-hov){
           font-weight: bold;
           color: $wetopia-blue;
           padding-bottom: 5px;
           border-bottom: 5px solid $wetopia-blue;
+
+          &.red{
+            color: $wetopia-red;
+            border-bottom-color: $wetopia-red;
+          }
+
+          &.aqua{
+            color: $aqua-active;
+            border-bottom-color: $aqua-active;
+          }
         }
 
         &.not-hov{
@@ -3356,6 +3379,7 @@ width: 100%;
 
       &.wrap{
         flex-wrap: wrap;
+        height: auto;
       }
     }
 
@@ -3694,9 +3718,27 @@ max-width: 300px;
 
 .normal-paragraph{
   font-size: 16px;
-  line-height: 16px;
+  line-height: 16px !important;
   font-family: 'Museo';
   margin: 0;
+
+  &.medium{
+    font-size: 20px;
+    font-weight: normal;
+  }
+  &.margin-tb{
+    margin: 15px auto;
+  }
+  &.small-size{
+    @media screen and (max-width: 500px){
+      margin-bottom: 40px;
+    }
+  }
+  &.left{
+    text-align: left;
+    margin-left: 0;
+    width: auto;
+  }
 }
 
 
@@ -4132,9 +4174,6 @@ max-width: 300px;
 .left{
   margin: auto auto auto 0;
   width: 120px;
-  @media screen and (max-width: 500px){
-    display: none;
-  }
 }
 
 .right{
@@ -5046,4 +5085,102 @@ color: $gray-medium;
   background: $textfield-gray;
   border: none;
   height: 80px;
+}
+
+.title-dark{
+  color: $gray-medium;
+  font-family: 'Museo_700';
+  font-size: 30px;
+  width: auto;
+  &.left{
+    margin: auto auto auto 0;
+  }
+  &.subtitle{
+    font-size: 20px;
+  }
+}
+
+.medium-gray{
+  font-size: 17px;
+  font-family: 'Museo_700';
+  color: $gray-lighter;
+  width: auto;
+  margin: auto;
+  &.left{
+      margin: auto auto auto 0;
+  }
+}
+
+.profile-img{
+  margin: auto;
+  width: 130px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+#profile-cont{
+  margin: 0 50px auto 0px;
+  height: 200px;
+  width: 140px;
+  @media screen and (max-width: 500px){
+    margin: auto;
+  }
+  .medium-gray{
+    margin-top: 0;
+  }
+}
+
+#profile-info{
+  margin: 10px auto auto 10px;
+  height: auto;
+  width: auto;
+  .subtitle{
+    margin-bottom: 5px;
+  }
+}
+
+#upper-cont-profile{
+  margin: {
+    top: 15px;
+    bottom: 30px;
+  }
+}
+
+.margin-bottom{
+  margin-bottom: 80px;
+}
+
+.gray-bar{
+  background-color: $pt-gray;
+  max-width: 600px;
+  position: relative;
+}
+
+.color-bar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  background: red;
+
+}
+
+.gray-bar, .color-bar{
+  height: 15px;
+  border-radius: 0 8px 8px 0;
+
+}
+
+.bar-graph{
+  height: auto;
+  margin:{
+    bottom: 15px;
+  }
+}
+
+.simple-margin-top{
+  margin: auto;
+  padding: 50px;
 }

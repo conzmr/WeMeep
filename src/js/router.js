@@ -73,9 +73,10 @@ angular.module('musementApp')
                 templateUrl: "/static/views/statistics.html",
                 authenticate: false
             })
-            .state("test", {
-                url: "/test",
-                templateUrl: "/static/views/test.html",
+            .state("myProfile", {
+                url: "/myProfile",
+                controller: "myProfileCtrl",
+                templateUrl: "/static/views/myProfile.html",
                 authenticate: false
             })
 
