@@ -123,35 +123,90 @@
 
     <div class="max-cont">
       <div class="flex-cont row wrap margin-bottom">
-        <div class="flex-cont mid-page">
+        <div ng-show="!editProfile" class="flex-cont mid-page">
+          <img class="close-x down" ng-show="myProfile" src="/static/img/Edit_ICON.svg" ng-click="editProfile=true">
           <div class="flex-cont row wrap" id="upper-cont-profile">
             <div class="flex-cont" id="profile-cont">
             <div class="polygon-each-img-wrap">
-                <div class="polygon-clip-hexagon profile-img" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'"> <!--modify as create idea 3-->
                 </div>
             </div>
-            <p  class="medium-gray">@username</p>
+            <p  class="medium-gray">@{{user.username}}</p>
             </div>
             <div class="flex-cont" id="profile-info">
-              <p  class="title-dark left">Name</p>
-              <p class="title-dark left subtitle">Last Name</p>
-              <p class="medium-gray left">Profession</p>
-              <p  class="medium-gray left">Age</p>
-              <p  class="medium-gray left">Gender</p>
-              <p  class="medium-gray left">México</p>
+              <p  class="title-dark left">{{user.name}}</p>
+              <p class="title-dark left subtitle">{{user.lastname}}</p>
+              <p class="medium-gray left">{{user.profession}}</p>
+              <p  class="medium-gray left">{{user.age}}</p>
+              <p  class="medium-gray left">{{user.birthdate}}</p>
+              <p  class="medium-gray left">{{user.gender}}</p>
+              <p  class="medium-gray left"><img src="/static/img/Location_Icon.svg">{{user.location}}</p>
             </div>
           </div>
           <div class="flex-cont">
-            <p class="title-dark left">About Name:</p>
+            <p class="title-dark left">About {{user.name}}:</p>
             <p class="normal-paragraph margin-tb left small-size">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+              {{user.about}}
             </p>
           </div>
         </div>
 
+        <div ng-show="editProfile" class="flex-cont mid-page">
+          <div class="flex-cont row wrap" id="upper-cont-profile">
+            <div class="flex-cont" id="profile-cont">
+              <input id="profile-picture-input" type="file" ngf-select name="file" ng-model="user.profilePicture" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+              <label for="profile-picture-input" id="select-profile-pic-label">
+                <div ng-show="user.profilePicture== defaultPicture" class="flex-cont absolute">
+                <!--  <p class="normal-paragraph small bold">Add a profile picture</p>-->
+                </div>
+                <div class="polygon-each-img-wrap">
+              <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Add_IMG.svg'">
+              </div>
+          </div>
+          </label>
+          <div class="input-box">
+            <input type="text" name="edit-username-input" class="simple-input medium-gray total-width centered-text" maxlength="15" ng-style="usernameError && {'border': '2px solid #f48465'}" placeholder="username" ng-model="user.username" >
+            <span class="input-label medium-gray">@</span>
+            <img class="username-status-img" ng-show="usernameError||user.username!=''"  ng-src="{{usernameError?'/static/img/WRONG_UN_ICON.svg':'/static/img/RIGHT_UN_ICON.svg'}}">
+            <p class="red-text error center" ng-show="usernameError">Username taken!</p>
+              </div>
+            </div>
+            <div class="flex-cont" id="profile-edit-info">
+              <input type="text" name="edit-name-input" class="simple-input title-dark" placeholder="Name" ng-model="user.name">
+              <input type="text" name="edit-lastname-input" class="simple-input title-dark subtitle" placeholder="Last name" ng-model="user.lastname">
+              <input type="text" name="edit-profession-input" class="simple-input medium-gray" placeholder="Profession" ng-model="user.profession">
+              <input type="date" name="edit-birthday-input" class="simple-input medium-gray" placeholder="Birthday" ng-model="user.birthday">
+              <div class="flex-cont relative">
+              <input type="text" name="edit-gender-input" ng-click="changeShowSelectGender()" id="select-gender" readonly="readonly" class="simple-input medium-gray" placeholder="Gender" ng-model="user.gender">
+              <div class="list-cont total-width"  ng-show="showSelectGender" click-outside="showSelectGender=false" outside-if-not="select-gender">
+                <ul class="tooltip-selector auto" >
+                 <li ng-click="selectGender('Female')" ng-class="{'selected':  user.gender=='Female'}">Female</li>
+                 <li ng-click="selectGender('Male')" ng-class="{'selected':  user.gender=='Male'}">Male</li>
+                 <li ng-click="selectGender('Other')" ng-class="{'selected':  user.gender=='Other'}">Other</li>
+                </ul>
+              </div>
+              </div>
+              <input type="text" name="edit-location-input" class="simple-input medium-gray" placeholder="Location" ng-model="user.location">
+            </div>
+          </div>
+          <div class="flex-cont">
+            <p class="title-dark left">About Name:</p>
+            <div class="form-description movil-p no-padding">
+                <textarea name="about-textarea" class="feedback no-outline" maxlength="140" placeholder="About yourself" ng-model="user.about"></textarea>
+                <div class="flex-cont absolute auto">
+                    <p class="normal-paragraph right" id="edit-textarea-length">140</p>
+                </div>
+                <a class="color-button blue left discard no-bottom border-radius-6"  ng-click="editProfile=false" href="">Done editing</a>
+            </div>
+          </div>
+        </div>
+
         <div class="mid-page flex-cont">
-          <canvas id="radar" class="chart chart-radar"
-  chart-data="data" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
+          <div ng-show="!user.testDone" class="flex-cont absolute">
+            <a class="color-button blue complete-form discard no-bottom" href="" >Take the Test</a>
+          </div>
+          <canvas id="radar" class="chart chart-radar flex-cont"
+  chart-data="user.testResults" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
 </canvas>
 
         </div>
@@ -298,7 +353,7 @@
     <div class="footer flex-cont">
       <div class="left">
         <a href="/home" class="small">Home</a>
-        <a class="small">My Profile</a>
+        <a href="/myProfile" class="small">My Profile</a>
         <a href="/createIdea/first" class="small">Create Idea</a>
         <a href="/myIdea" class="small">My Idea</a>
       </div>

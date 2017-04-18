@@ -6,6 +6,38 @@ angular.module('musementApp')
         $scope.ideas = true;
         $scope.projects = false;
         $scope.following = false;
+        $scope.myProfile = false;
+        $scope.editProfile = false;
+        $scope.defaultPicture = '/static/img/Default_Profile_IMG.svg';
+        $scope.showSelectGender = false;
+        $scope.usernameError=false;
+        $scope.profilePicture = null;
+
+
+        $scope.user = {
+          name : "Name",
+          lastname : "Last Name",
+          username : "username",
+          testDone : false,
+          testResults : [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
+          //  [[65, 59, 90, 81, 56, 55, 40, 30, 12]],
+          profilePicture : null,
+          profession : "Profession",
+          birthdate : "06 / 06 / 1996",
+          gender : "Gender",
+          location : "Location",
+          about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque."
+
+        }
+
+        $scope.selectGender = function(gender){
+          $scope.user.gender = gender;
+          $scope.showSelectGender = false;
+        }
+
+        $scope.changeShowSelectGender = function(){
+          $scope.showSelectGender = !$scope.showSelectGender;
+        }
 
         $scope.showIdeas = function(){
           $scope.ideas = true;
@@ -76,8 +108,8 @@ angular.module('musementApp')
         $scope.labels =["Specialist", "Creative", "Coordinator", "Manager", "Networker", "Researcher", "Support", "Analyzer", "Perfectionist"];
 
 $scope.data = [
-  //[0, 0, 0, 0, 0, 0, 0, 0, 0]
-  [65, 59, 90, 81, 56, 55, 40, 30, 12]
+  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  //[65, 59, 90, 81, 56, 55, 40, 30, 12]
 ];
 
 $scope.scoreCategories = [{ //colors needed

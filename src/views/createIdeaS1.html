@@ -9,7 +9,7 @@
       <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected" readonly="readonly" placeholder="Category">
       <div class="list-cont" ng-show="showCategories" >
         <ul class="tooltip-selector" >
-         <li ng-repeat="category in categories" ng-click="selectCategory(category)" ng-bind="category"></li>
+         <li ng-repeat="category in categories" ng-class="{'selected':  categorySelected==category}"ng-click="selectCategory(category)" ng-bind="category"></li>
         </ul>
       </div>
 </div>

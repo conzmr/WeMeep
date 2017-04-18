@@ -621,6 +621,10 @@ a {
           background: $medium-gray-textfield;
           width: 100%;
         }
+        &.no-outline{
+          outline: none;
+          margin-top: 15px;
+        }
     }
 
     .textarea-length {
@@ -1425,10 +1429,16 @@ width: 23px !important;
 .red-text {
     color: $wetopia-red;
     &.error{
-      font-size: 11px;
+      font-size: 11px !important;
       position: absolute;
       bottom: -25px;
       left: 33px;
+    }
+
+    &.center{
+      text-align: center;
+      width: 100%;
+      left: 0;
     }
 }
 
@@ -2055,13 +2065,17 @@ width: 23px !important;
 width: 100%;
   list-style-type: none;
   box-sizing: border-box;
-  padding: 0px 5px;
+  padding: 0px;
   text-align: center;
   display: block;
   height: 120px;
   z-index: 100;
   overflow: auto;
   margin: 5px auto;
+
+  &.auto{
+    height: auto;
+  }
 
   @include scrollbar(4.5px, $pt-gray) ;
   li{
@@ -2072,10 +2086,15 @@ width: 100%;
     cursor: pointer;
     margin: 5px auto;
 
-    &.selected, &:hover{
+    &.selected{
       color: $link-blue-color;
-
     }
+
+    &:hover{
+      background: $medium-gray-textfield;
+    }
+
+
   }
 }
 
@@ -2088,33 +2107,37 @@ width: 100%;
     background-size: 20px 20px;
   }
 
-  .list-cont{
-    visibility: visible;
-    width: 90%;
-    padding: 0px 5px;
-    position: absolute;
-    z-index: 100;
-    right: 0;
-    top: 40px;
-    background: $textfield-gray;
-    border-radius: 5px;
-    margin-top: 0;
-    box-sizing: border-box;
-    text-align: center;
-    display: block;
-    box-shadow: 0 4px 3px 2px #CCC;
-    @extend %gray-tooltip;
+}
+
+.list-cont{
+  visibility: visible;
+  width: 90%;
+  padding: 0px 1px;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 40px;
+  background: $textfield-gray;
+  border-radius: 5px;
+  margin-top: 0;
+  box-sizing: border-box;
+  text-align: center;
+  display: block;
+  box-shadow: 0 4px 3px 2px #CCC;
+  @extend %gray-tooltip;
+
+  &.total-width{
+    width: 100%;
+  }
 
 &::after,
-    &::before {
-        bottom: 100%;
-        left: 50%;
-    }
+  &::before {
+      bottom: 100%;
+      left: 50%;
+  }
 
-    &::before{
-       border-bottom-color: $textfield-gray;
-    }
-
+  &::before{
+     border-bottom-color: $textfield-gray;
   }
 
 }
@@ -3388,6 +3411,16 @@ width: 100%;
       margin: auto;
     }
 
+    &.absolute{
+      position: absolute;
+      height: 100%;
+      z-index: 100;
+      &.auto{
+        height: auto;
+        z-index: 0;
+      }
+    }
+
     &.relative{
       position: relative;
       margin: auto;
@@ -3739,6 +3772,35 @@ max-width: 300px;
     margin-left: 0;
     width: auto;
   }
+  &.right{
+    text-align: right;
+    margin-right: 0;
+    width: auto;
+  }
+  &#edit-textarea-length{
+    margin-top: 0 !important;
+    margin-bottom: 0;
+    padding: 0;
+  }
+}
+
+.close-x{
+  color: $pt-gray;
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  z-index: 1000;
+  font-size: 20px;
+  cursor: pointer;
+
+  &.upper{
+    right: 0px;
+    top: -15px;
+  }
+
+  &.down{
+    top: 25px;
+  }
 }
 
 
@@ -3908,20 +3970,6 @@ max-width: 300px;
         margin-top: -7px;
         font-weight: bold;
         cursor: pointer;
-      }
-    }
-
-    .close-x{
-      color: $pt-gray;
-      position: absolute;
-      top: 0px;
-      right: 15px;
-      font-size: 20px;
-      cursor: pointer;
-
-      &.upper{
-        right: 0px;
-        top: -15px;
       }
     }
 
@@ -4120,6 +4168,9 @@ max-width: 300px;
   @media screen and (max-width: 600px){
     font-size: 12px;
     margin: 3px auto;
+  }
+  &.bold{
+    font-weight: bold;
   }
 }
 
@@ -4356,6 +4407,10 @@ max-width: 300px;
   height: auto;
   width: auto;
   display: inline-block;
+
+  &.relative{
+    position: relative;
+  }
 
   &.margin{
     margin: auto 60px 20px;
@@ -4616,6 +4671,19 @@ font-size: 23px;
     }
 }
 
+.polygon-clip-hexagon {
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    -webkit-clip-path: url("#polygon-clip-hexagon");
+    clip-path: url("#polygon-clip-hexagon");
+    height: 30px;
+    width: 30px;
+    background: {
+        size: cover;
+        position: center;
+    }
+}
+
 #team-members-tags {
     -moz-appearance: none;
     margin-top: 0;
@@ -4861,6 +4929,7 @@ color: $gray-medium;
       margin-left: 12px;
       border-radius: 2px;
       margin-top: -16px;
+
       &::-webkit-input-placeholder {
           color: $gray-lighter;
           font-size: 12px;
@@ -4945,6 +5014,7 @@ color: $gray-medium;
   margin: auto;
   text-align: center;
   font-size: 17px;
+  z-index: 100;
   border-radius: 8px;
   color: white;
   font-family: 'Museo_D';
@@ -5005,6 +5075,10 @@ color: $gray-medium;
     &.no-bottom{
       margin-bottom: 0;
     }
+  }
+
+  &.border-radius-6{
+    border-radius: 6px;
   }
 
   &.selector{
@@ -5113,8 +5187,8 @@ color: $gray-medium;
 
 .profile-img{
   margin: auto;
-  width: 130px;
-  height: 150px;
+  width: 170px;
+  height: 190px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -5122,18 +5196,31 @@ color: $gray-medium;
 
 #profile-cont{
   margin: 0 50px auto 0px;
-  height: 200px;
-  width: 140px;
+  height: 230px;
+  width: 170px;
   @media screen and (max-width: 500px){
     margin: auto;
   }
   .medium-gray{
-    margin-top: 0;
+    margin-top: 5px;
   }
 }
 
 #profile-info{
   margin: 10px auto auto 10px;
+  height: auto;
+  width: auto;
+  .subtitle{
+    margin-bottom: 5px;
+  }
+  img{
+    height: 15px;
+    margin-right: 5px;
+  }
+}
+
+#profile-edit-info{
+  margin: 0px auto auto 10px;
   height: auto;
   width: auto;
   .subtitle{
@@ -5183,4 +5270,70 @@ color: $gray-medium;
 .simple-margin-top{
   margin: auto;
   padding: 50px;
+}
+
+#select-profile-pic-label{
+  cursor: pointer;
+  position: relative;
+}
+
+#profile-picture-input{
+  display: none;
+}
+
+.simple-input{
+  width: 200px;
+  border-radius: 1px !important;
+  height: 20px;
+  background: $medium-gray-textfield;
+  margin: 5px 0;
+  position: relative;
+
+  &#select-gender{
+    cursor: pointer;
+    background: url(/static/img/Dropdown_arrow.svg) 95% center no-repeat  $medium-gray-textfield;
+    background-size: 20px 20px;
+  }
+  &[type=date]{
+    text-indent: 3px;
+  }
+  &.title-dark {
+    height: 25px;
+  }
+  &.subtitle{
+    height: 20px;
+  }
+}
+
+.total-width{
+  width: 100%;
+}
+
+.centered-text{
+  text-align: center;
+}
+
+.input-label{
+  position: absolute;
+  display: block;
+  left: 0px;
+  top: 0px;
+  z-index: 9;
+  width: 25px;
+  background: $medium-gray-textfield;
+}
+
+.input-box{
+  position: relative;
+  input{
+    &[name="edit-username-input"]{
+
+    }
+  }
+}
+
+.username-status-img{
+  position: absolute;
+  left: 105%;
+  top: 5px;
 }
