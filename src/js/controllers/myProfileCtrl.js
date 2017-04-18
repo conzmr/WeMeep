@@ -6,13 +6,9 @@ angular.module('musementApp')
         $scope.ideas = true;
         $scope.projects = false;
         $scope.following = false;
-        $scope.myProfile = false;
         $scope.editProfile = false;
-        $scope.defaultPicture = '/static/img/Default_Profile_IMG.svg';
         $scope.showSelectGender = false;
         $scope.usernameError=false;
-        $scope.profilePicture = null;
-
 
         $scope.user = {
           name : "Name",
