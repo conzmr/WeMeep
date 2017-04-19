@@ -12,9 +12,6 @@
                     <path d="M0,31 L61,31" id="Line"></path>
                     <path d="M31,0 L31,61" id="Line-Copy"></path>
                 </g>
-                <text id="Add-a-profile-pictur" font-family="MuseoSans-500, Museo Sans" font-size="14" font-weight="normal" fill="#4A4A4A">
-                    <tspan x="15.158" y="92">Add a profile picture</tspan>
-                </text>
             </g>
         </g>
     </g>

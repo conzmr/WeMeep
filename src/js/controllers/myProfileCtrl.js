@@ -108,62 +108,62 @@ $scope.data = [
   //[65, 59, 90, 81, 56, 55, 40, 30, 12]
 ];
 
-$scope.scoreCategories = [{ //colors needed
-  name: 'Art',
-  color: '#F26649',
-  percentage:'80%'
+$scope.scoreCategories = [{
+name: 'Art',
+color: '#009EBF',
+percentage:'80%'
 },{
-  name: 'Design',
-  color: '#E6BA83',
-  percentage:'37%'
+name: 'Design',
+color: '#00ABBE',
+percentage:'37%'
 },{
-  name: 'Ecological',
-  color: ' #00A9CD',
-  percentage:'54%'
+name: 'Ecological',
+color: ' #64BEBD ',
+percentage:'54%'
 },{
-  name: 'Education',
-  color: '#03A9CD',
-  percentage:'60%'
+name: 'Education',
+color: '#E1B782 ',
+percentage:'60%'
 },{
-  name: 'Fashion',
-  color: '#b8e986',
-  percentage:'12%'
+name: 'Fashion',
+color: '#CE985E',
+percentage:'12%'
 },{
-  name: 'Film & Fotography',
-  color: '#FBC326',
-  percentage:'38%'
+name: 'Film & Fotography',
+color: '#EA8164',
+percentage:'38%'
 },{
-  name: 'Finances',
-  color: '#EF4136',
-  percentage:'74%'
+name: 'Finances',
+color: '#E66449',
+percentage:'74%'
 },{
-  name: 'Food',
-  color: '#00A8CB',
-  percentage:'39%'
+name: 'Food',
+color: '#009EBF',
+percentage:'39%'
 },{
-  name: 'Games',
-  color: '#8DC63F',
-  percentage:'10%'
+name: 'Games',
+color: '#00ABBE',
+percentage:'10%'
 },{
-  name: 'Hand Craft',
-  color: '#00B1B0',
-  percentage:'94%'
+name: 'Hand Craft',
+color: '#64BEBD',
+percentage:'94%'
 },{
-  name: 'Health',
-  color: '#f48465',
-  percentage:'50%'
+name: 'Health',
+color: '#E1B782',
+percentage:'50%'
 },{
-  name: 'Social',
-  color: '#E6BA83',
-  percentage:'31%'
+name: 'Social',
+color: '#CE985E',
+percentage:'31%'
 },{
-  name: 'Technological',
-  color: '#f48465',
-  percentage:'13%'
+name: 'Technological',
+color: '#EA8164',
+percentage:'13%'
 },{
-  name: 'Others',
-  color: ' #00A9CD',
-  percentage:'85%'
+name: 'Others',
+color: ' #E66449',
+percentage:'85%'
 }
 ];
 

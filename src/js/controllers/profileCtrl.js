@@ -93,61 +93,61 @@ Chart.defaults.global.defaultFontSize="16";
   $scope.labels =["Specialist", "Creative", "Coordinator", "Manager", "Networker", "Researcher", "Support", "Analyzer", "Perfectionist"];
 
 
-$scope.scoreCategories = [{ //colors needed
+$scope.scoreCategories = [{
 name: 'Art',
-color: '#F26649',
+color: '#009EBF',
 percentage:'80%'
 },{
 name: 'Design',
-color: '#E6BA83',
+color: '#00ABBE',
 percentage:'37%'
 },{
 name: 'Ecological',
-color: ' #00A9CD',
+color: ' #64BEBD ',
 percentage:'54%'
 },{
 name: 'Education',
-color: '#03A9CD',
+color: '#E1B782 ',
 percentage:'60%'
 },{
 name: 'Fashion',
-color: '#b8e986',
+color: '#CE985E',
 percentage:'12%'
 },{
 name: 'Film & Fotography',
-color: '#FBC326',
+color: '#EA8164',
 percentage:'38%'
 },{
 name: 'Finances',
-color: '#EF4136',
+color: '#E66449',
 percentage:'74%'
 },{
 name: 'Food',
-color: '#00A8CB',
+color: '#009EBF',
 percentage:'39%'
 },{
 name: 'Games',
-color: '#8DC63F',
+color: '#00ABBE',
 percentage:'10%'
 },{
 name: 'Hand Craft',
-color: '#00B1B0',
+color: '#64BEBD',
 percentage:'94%'
 },{
 name: 'Health',
-color: '#f48465',
+color: '#E1B782',
 percentage:'50%'
 },{
 name: 'Social',
-color: '#E6BA83',
+color: '#CE985E',
 percentage:'31%'
 },{
 name: 'Technological',
-color: '#f48465',
+color: '#EA8164',
 percentage:'13%'
 },{
 name: 'Others',
-color: ' #00A9CD',
+color: ' #E66449',
 percentage:'85%'
 }
 ];

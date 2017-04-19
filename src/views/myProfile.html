@@ -139,7 +139,7 @@
               <p class="medium-gray left">{{user.profession}}</p>
               <p  class="medium-gray left">{{user.age}}</p>
               <p  class="medium-gray left">{{user.birthdate}}</p>
-              <p  class="medium-gray left">{{user.gender}}</p>
+              <p  class="medium-gray left"><img src="/static/img/Gender_Icon.svg">{{user.gender}}</p>
               <p  class="medium-gray left"><img src="/static/img/Location_Icon.svg">{{user.location}}</p>
             </div>
           </div>
@@ -157,10 +157,10 @@
               <input id="profile-picture-input" type="file" ngf-select name="file" ng-model="user.profilePicture" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
               <label for="profile-picture-input" id="select-profile-pic-label">
                 <div ng-show="user.profilePicture== defaultPicture" class="flex-cont absolute">
-                <!--  <p class="normal-paragraph small bold">Add a profile picture</p>-->
+                <p class="normal-paragraph small bold">Add a profile picture</p>
                 </div>
                 <div class="polygon-each-img-wrap">
-              <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Add_IMG.svg'">
+              <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/AddProfile_IMG.svg'">
               </div>
           </div>
           </label>
