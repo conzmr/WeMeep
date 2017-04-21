@@ -85,6 +85,12 @@ angular.module('musementApp')
                 templateUrl: "/static/views/profile.html",
                 authenticate: false
             })
+            .state("test", {
+                url: "/test",
+                controller: "testCtrl",
+                templateUrl: "/static/views/test.html",
+                authenticate: false
+            })
 
 
         // Send to landingpage if the URL was not found

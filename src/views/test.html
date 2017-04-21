@@ -1,0 +1,201 @@
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <nav class="transparent-nav scroll-white static" >
+        <a class=" logo "  href="/home"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
+        <div class="center-action">
+          <p class="blue-text">CREATE</p>
+          <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
+          <p class="blue-text">IDEA</p>
+        </div>
+        <div class="wrapper">
+            <input id="nav-search" type="search" name="navsearch" />
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="right">
+          <div class="display-inner">
+              <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
+              <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
+                  <p class="sub-gray">NOTIFICATIONS</p>
+                  <div class="scroll-list">
+                      <li class="not-block says new">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Mary</span>
+                              <span class="like-4"></span>
+                              <span class="on">Idea Name</span>
+
+                          </p>
+                      </li>
+                      <li class="not-block commented new">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Mary</span>
+                              <span class="act-pivot"></span>
+                              <span class="on">Idea Name</span>
+
+                          </p>
+                      </li>
+                      <li class="not-block says">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Kevin</span>
+                              <span class="like-3"></span>
+                              <span class="on">Idea Name</span>
+
+                          </p>
+                      </li>
+                      <li class="not-block says">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Erick</span>
+                              <span class="like-2"></span>
+                              <span class="on">Idea Name</span>
+                          <!--    <span class=time-ago>2 days</span>-->
+                          </p>
+                      </li>
+                      <li class="not-block commented">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Josh</span>
+                              <span class="prev-pivot">3</span>
+                              <span class="on">Idea Name</span>
+
+                          </p>
+                      </li>
+                      <li class="not-block says">
+                        <div class="polygon-each-img-wrap">
+                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </div>
+                        </div>
+                          <p>
+                              <span class="name">Pancho</span>
+                              <span class="like-1"></span>
+                              <span class="on">Idea Name</span>
+
+                          </p>
+                      </li>
+
+                  </div>
+              </ul>
+          </div>
+          <div class="inner-nav">
+              <div class="polygon-each-img-wrap">
+                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                  </div>
+              </div>
+              <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
+                <div class="flex-cont user-menu">
+                  <div class="sup-cont">
+                    <p class="gray-dark">UserName</p>
+                    <p class="gray-lighter small">mail@mail.com</p>
+                  </div>
+                  <p>My Profile</p>
+                  <p>My Ideas</p>
+                  <p>Settings</p>
+                  <p class="gray-lighter">Log Out</p>
+                </div>
+              </ul>
+          </div>
+        </div>
+    </nav>
+    <svg class="clip-svg">
+  <defs>
+    <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+      <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+    </clipPath>
+
+    <clipPath id="polygon-clip-half-hexagon" clipPathUnits="objectBoundingBox">
+      <polygon points="0 0.95, 0.95 1, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+    </clipPath>
+  </defs>
+</svg>
+
+<div class="max-cont">
+  <div ng-show="!hasTestStarted" class="flex-cont" id="start-test">
+    <div class="flex-cont">
+    <p class="giant dark">YOUR BEST TEAM IS ONLY A FEW QUESTIONS AWAY</p>
+    <p class="giant lighter-gray">Only takes _ minutes!</p>
+    <a class="color-button blue no-bottom border-radius-6"  ng-click="hasTestStarted=true" href="">Start</a>
+    <a href="#" class="cancel">Cancel</a>
+    </div>
+  </div>
+
+  <div class="flex-cont" ng-show="hasTestStarted" >
+    <div class="flex-cont" id="test-questions">
+    <p class="medium-dark">I like to think in new and original solutions or ideas</p>
+    <div class="flex-cont row" id="scale-row">
+      <p class="medium-light">Strongly Disagree</p>
+      <div class="flex-cont row" id="hexagons-row">
+        <div class="polygon-each-img-wrap">
+            <div class="polygon-clip-hexagon red" ng-click="answerQuestion()">
+            </div>
+        </div>
+        <div class="polygon-each-img-wrap">
+            <div class="polygon-clip-hexagon lighter-red" ng-click="answerQuestion()">
+            </div>
+        </div>
+        <div class="polygon-each-img-wrap">
+            <div class="polygon-clip-hexagon lighter-gray" ng-click="answerQuestion()">
+            </div>
+        </div>
+        <div class="polygon-each-img-wrap">
+            <div class="polygon-clip-hexagon lighter-aqua" ng-click="answerQuestion()">
+            </div>
+        </div>
+        <div class="polygon-each-img-wrap">
+            <div class="polygon-clip-hexagon aqua" ng-click="answerQuestion()">
+            </div>
+        </div>
+      </div>
+      <p class="medium-light">Strongly Agree</p>
+    </div>
+    <div class="flex-cont row" id="scale-line">
+        <a class="color-button gray-dark arrow"  href="">Previous</a>
+        <div class="scale">
+        </div>
+        <a class="color-button gray-dark"  href="">Save</a>
+    </div>
+    </div>
+  </div>
+
+</div>
+    <div class="footer flex-cont">
+      <div class="left">
+        <a href="/home" class="small">Home</a>
+        <a href="/myProfile" class="small">My Profile</a>
+        <a href="/createIdea/first" class="small">Create Idea</a>
+        <a href="/myIdea" class="small">My Idea</a>
+      </div>
+      <div class="icons">
+        <img src="/static/img/wetopia_dark.png">
+        <div class="simple-cont">
+          <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
+          <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
+          <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
+          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+        </div>
+
+      </div>
+      <div class="right">
+        <p class="medium-bold">Wetopia (c) 2017</p>
+        <p class="small">Terms & Conditions</p>
+        <p class="small">Privacy Policy</p>
+        <p class="small">Ethics Code</p>
+      </div>
+    </div>
+</body>

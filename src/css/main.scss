@@ -5028,6 +5028,17 @@ color: $gray-medium;
     margin: auto auto auto 0px;
   }
 
+  &.gray-dark{
+    background: $gray-dark;
+    color: white;
+
+    &.arrow{
+      background: $gray-dark url("/static/img/Dropdown_arrow_white.svg") no-repeat 10px center;
+      padding-left: 25px;
+      background-size: 25px;
+    }
+  }
+
   &.blue{
     background: $link-blue-color;
 
@@ -5336,4 +5347,166 @@ color: $gray-medium;
   position: absolute;
   left: 105%;
   top: 5px;
+}
+
+#start-test {
+    background: url('/static/img/BG_HEXTEST.svg') no-repeat center;
+    background-size: cover;
+    z-index: 0;
+    width: 100%;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-top: -100px;
+    margin-bottom: -100px;
+    min-height: 700px;
+    height: 100%;
+
+    .color-button{
+      width: 100px;
+    }
+
+    .flex-cont{
+      margin: auto;
+    }
+
+    .giant{
+      line-height: 45px;
+    }
+
+    .dark{
+      margin: 0px auto;
+      max-width: 530px;
+    }
+
+    .lighter-gray{
+      margin: 20px auto 30px;
+    }
+
+}
+
+.giant{
+  color: $gray-dark;
+  font-size: 40px;
+  font-family: 'Museo_900';
+  &.dark{
+    color: $gray-dark;
+  }
+  &.lighter-gray{
+    color: $gray-lighter;
+  }
+}
+
+.cancel{
+  font-size: 14px;
+  margin: 10px auto;
+  color: $gray-lighter;
+  font-family: 'Museo_D';
+  cursor: pointer;
+}
+
+.medium-dark{
+  color: $text-gray;
+  font-family: 'Museo_700';
+  font-size: 20px;
+}
+
+.medium-light{
+  color: $text-gray;
+  font-family: 'Museo';
+  font-size: 20px;
+}
+
+#test-questions{
+  .medium-light{
+    width: 100px;
+  }
+}
+
+#scale-row{
+  max-width: 800px;
+  margin: 70px auto;
+  counter-reset: scale;
+
+  .medium-light{
+    margin: auto;
+  }
+}
+
+#hexagons-row{
+  width: auto;
+  width: 400px;
+  margin: auto 50px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media screen and (max-width: 500px){
+    margin: auto 10px;
+    justify-content: center;
+  }
+  .polygon-clip-hexagon{
+    height: 50px;
+    width: 45px;
+    background: $pt-gray;
+    color: white;
+    font-size: 30px;
+    line-height: 50px;
+    font-family: 'Museo_700';
+    cursor: pointer;
+
+    &::before{
+      counter-increment: scale;
+      content: counter(scale);
+    }
+
+    &.lighter-gray{
+      &:active{
+        background: $gray-lighter;
+      }
+    }
+
+    &.lighter-red{
+      &:active{
+        background: $lighter-red;
+      }
+    }
+
+    &.red{
+      &:active{
+        background: $wetopia-red;
+      }
+    }
+
+    &.aqua{
+      &:active{
+        background: $aqua-active;
+      }
+    }
+
+    &.lighter-aqua{
+      &:active{
+        background: $lighter-aqua;
+      }
+    }
+  }
+  .polygon-each-img-wrap{
+    height: 50px;
+    margin: auto 5px;
+  }
+}
+
+#scale-line{
+  .color-button{
+    &.gray-dark{
+      width: 90px;
+      padding: 5px;
+      border-radius: 5px;
+      margin: auto 0px;
+    }
+  }
+}
+
+.scale{
+  background: $pt-gray;
+  width: 600px;
+  height: 30px;
+  margin: auto 50px;
 }
