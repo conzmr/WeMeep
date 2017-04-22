@@ -65,33 +65,28 @@ router.post('/invitation', function(req, res) {
 
 //register NEW USER
 router.post('/signup', function(req, res){
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ]}, 'email username')
+  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }]}, 'email')
   .exec(function (err, user) { // if there are any errors, return the error
     if (err) {
-      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
+      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that email."}); // return shit if a server error occurs
     } else {
       if (user) { //TODO: it would be better to validate all this with mongoose
-        if (user.username == req.body.username && user.email == req.body.email)
-          res.status(400).json({'message': "That email and username are already registered. Try with another ones."})
-        else if (user.email == req.body.email)
+        if (user.email == req.body.email)
           res.status(400).json({'message': "That email is already registered. Try with another one."})
-        else if (user.username == req.body.username)
-          res.status(400).json({'message': "That username is already registered. Try with another one."})
       } else {
         new User({
           email: req.body.email,
-          lastname: req.body.lastname,
           name: req.body.name,
           username: req.body.username,
+          surname: req.body.surname,
           password: bcrypt.hashSync(req.body.password),
-          image: req.body.image || null
         })
         .save(function (err, user) { // Save the user
           if (err)
             res.status(500).json({'error': err, 'message': "Could not save user."});
           else { // Create a token and --- sign with the user information --- and secret password
             var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) //Expires in 60 hours
-            res.status(200).json({ '_id': user._id, 'username': user.username, 'token': token }) // Return the information including token as JSON
+            res.status(200).json({ '_id': user._id, 'username': user.username, 'token': token })
           }
         })
       }
@@ -101,9 +96,9 @@ router.post('/signup', function(req, res){
 //AUTHENTICATE TO GIVE NEW TOKEN
 router.post('/authenticate', function(req, res) {
   console.log(req.body);
-  if (!req.body || !(req.body.email || req.body.username))
+  if (!req.body || !req.body.email)
     return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ] })
+  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})

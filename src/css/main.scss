@@ -3734,6 +3734,12 @@ max-width: 300px;
   margin-right: 10px;
   margin-bottom: 0;
   text-align: right;
+  &.right{
+    margin-right: 0px;
+  }
+  &.margin-top{
+    margin-top: 10px;
+  }
 }
 
 .form-button{
