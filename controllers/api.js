@@ -78,8 +78,9 @@ router.post('/signup', function(req, res){
           email: req.body.email,
           name: req.body.name,
           username: req.body.username,
-          surname: req.body.surname,
+          lastname: req.body.lastname,
           password: bcrypt.hashSync(req.body.password),
+          image: req.body.image || null//?
         })
         .save(function (err, user) { // Save the user
           if (err)
@@ -132,14 +133,14 @@ router.get('/tags', function(req, res){
 
 // Members consulting
 router.get('/members', function(req, res) {
-  User.find({}, 'name surname username image', function(err, users){
+  User.find({}, 'name lastname username image', function(err, users){
     res.json(users);
   })
 })
 
 router.route('/members/:user_id')
 .get(function(req, res) {
-  User.find({}, 'name surname username image')
+  User.find({}, 'name lastname username image')
   .where('_id')
   .nin([req.params.user_id])
   .exec(function(err, users){

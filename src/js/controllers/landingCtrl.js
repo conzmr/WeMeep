@@ -180,7 +180,7 @@ $scope.signUp = function (invalidEmail) {
   if($scope.user.name&&$scope.user.lastname&&$scope.user.newEmail&&$scope.user.newPassword){
   let userData = {}
   userData.name = $scope.user.name;
-  userData.surname = $scope.user.lastname;
+  userData.lastname = $scope.user.lastname;
   userData.email = $scope.user.newEmail.toLowerCase(); //IMPORTANT
   userData.password = $scope.user.newPassword;
   userData.username = $scope.user.newEmail;
