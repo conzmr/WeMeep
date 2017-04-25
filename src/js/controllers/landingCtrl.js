@@ -165,7 +165,7 @@ $timeout(function(){
           else{
             $scope.errorHeader=true;
           }
-            analytics.track('Invitation:', {
+            analytics.track('Invitation:failed', {
             location: 'header',
             status: 'already-registered',
             type: 'button'
