@@ -23,7 +23,40 @@ angular.module("musementApp")
     $scope.lastnameMessageError="";
     $scope.lastnameError=false;
     $scope.user={};
+    $scope.graphImg={
+      Mario : '/static/img/Mario.png',
+      Constanza : '/static/img/Conz.png',
+      Luis : '/static/img/Luis.png',
+      Ele : '/static/img/Ele.png',
+      Pedro : '/static/img/Pedro.png',
+      All: '/static/img/COMPLETA.png'
+    }
+    $scope.graph=$scope.graphImg['All'];
 
+    $scope.changeGraph = function(name){
+      $scope.graph = $scope.graphImg[name];
+    }
+
+    $scope.titleWords=['create', 'join', 'help'];
+    $scope.subtitles=[['To change the world.','To be influential.',
+    'To have a positive impact.','To become a millionaire.',
+    'To challenge myself.','To build somenthing from zero.','To shape my future.'],
+    ['To get experience.','To be part of something.',
+    'For personal & professional growth.','To have more flexibility.',
+  'To challenge myself.',"I don't want a common job.",'To help create something from zero.'],
+    ['To expand my network.', 'To help build something.', ,'To become an expert.',
+    "It's my passion.",'To keep updated.','To be part of something.']];
+
+    var counter = 0;
+    var titlesCounter = 0;
+    $scope.wordTitle=$scope.titleWords[counter];
+    $scope.sentenceSubtitle=$scope.subtitles[titlesCounter][counter];
+    $interval(function(){
+      $scope.wordTitle=$scope.titleWords[titlesCounter];
+      $scope.sentenceSubtitle=$scope.subtitles[titlesCounter][counter%$scope.subtitles[titlesCounter].length];
+      titlesCounter=(titlesCounter+1)%$scope.titleWords.length;
+      counter++;
+    }, 10000);
 
 
     $scope.clearErrors = function(){
@@ -91,10 +124,16 @@ $timeout(function(){
   $scope.clearRequest = function(){
       $scope.errorFooter=false;
       $scope.errorHeader=false;
+      $scope.error=false;
       $scope.userEmail = "";
       $scope.guestEmail = "";
       $scope.mailRequestError="";
       $scope.footerRequestError="";
+    }
+
+    $scope.closeRequestModal = function(){
+      $scope.request=false;
+      $scope.clearRequest();
     }
 
 
@@ -117,12 +156,14 @@ $timeout(function(){
         switch (res.status) {
           case 400:
           $scope.message = $translate.instant('INVALID_EMAIL');
+          $scope.mailRequestError="Email already registered.  ";
           if(position=='footer'){
             $scope.errorFooter=true;
-            $scope.footerRequestError = "Email already registered.  ";
-          }else{
+          }else if (position =='modal'){
+            $scope.error=true;
+          }
+          else{
             $scope.errorHeader=true;
-              $scope.mailRequestError="Email already registered.  ";
           }
             analytics.track('Invitation:', {
             location: 'header',
@@ -134,23 +175,25 @@ $timeout(function(){
 
           case 500:
           $scope.message = $translate.instant('INVALID_EMAIL');
+          $scope.mailRequestError="Please enter a valid email address. ";
           if(position=='footer'){
             $scope.errorFooter=true;
-            $scope.footerRequestError = "Please enter a valid email address. ";
+          }else if(position=='modal'){
+            $scope.error=true;
           }else{
             $scope.errorHeader=true;
-              $scope.mailRequestError="Please enter a valid email address. ";
           }
         }
       }
     );
     } else{
+      $scope.mailRequestError="Please enter a valid email address. ";
       if(position=='footer'){
         $scope.errorFooter=true;
-        $scope.footerRequestError = "Please enter a valid email address. ";
+      }else if(position=='modal'){
+        $scope.error=true;
       }else{
-          $scope.errorHeader=true;
-          $scope.mailRequestError="Please enter a valid email address. ";
+        $scope.errorHeader=true;
       }
   }
 }
@@ -254,5 +297,11 @@ $scope.signIn = function(invalidEmail) {
   })
 }
 }
+
+$scope.animateHowItWorks = function($element) {
+		$element.addClass('visible');
+	};
+
+
 
 })

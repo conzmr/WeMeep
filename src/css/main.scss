@@ -189,16 +189,22 @@ input {
       -webkit-justify-content: center;
       justify-content: center;
       margin-bottom: 15px;
+      text-align: center;
 
       .error{
         bottom: -30px;
         left: 15px;
       }
 
+      .simple-paragraph{
+        margin-top: 15px;
+      }
+
       .sub-paragraph{
         color: $gray-lighter;
         font-size: 16px;
         margin-bottom: 5px;
+        margin-top: 5px;
 
         &.center-advice{
           text-align: center;
@@ -240,7 +246,7 @@ input {
         margin-right: auto;
         border-radius: 0 8px  8px 0;
         text-align: center;
-        padding: 7px 15px 9px;
+        padding: 7px 25px 9px;
         border: 1px solid $wetopia-blue;
         border-color: $wetopia-blue;
       }
@@ -1076,7 +1082,7 @@ width: 23px !important;
   .sub-gray{
     color: $gray-lighter;
     font-size: 18px;
-    margin: 10px auto 0 auto;
+    margin: 10px auto;
     @include font('Museo', 300);
   }
 
@@ -3166,6 +3172,15 @@ width: 100%;
    text-align: right;
    padding-left: 10px;
 
+   &.white{
+     a{
+       color: white;
+       &:hover{
+         color: $textfield-gray;
+       }
+     }
+   }
+
    @media screen and (max-width: 500px){
      display: none;
    }
@@ -3184,6 +3199,14 @@ width: 100%;
     padding: 0 7px;
     &.bluelink{
       border-left: 2px solid $text-gray;
+        &.button{
+          border: 2px solid $link-blue-color;
+          padding: 3px 20px;
+          border-radius: 5px;
+          &:hover{
+            border: 2px solid $aqua-active;
+          }
+        }
       &:active, &:hover{
         color: $aqua-active;
         font-weight: bold;
@@ -3301,6 +3324,8 @@ width: 100%;
   font-family: 'Museo_700';
   font-weight: bold;
   line-height: 60px;
+  color: $text-gray;
+  margin: auto;
   @media screen and (max-width:500px){
     text-align: center;
     margin: {
@@ -3424,7 +3449,14 @@ width: 100%;
     &.relative{
       position: relative;
       margin: auto;
-      max-width: 500px;
+
+      &.experts{
+        width: auto;
+        margin: auto;
+        .simple-cont{
+          max-width: 330px;
+        }
+      }
     }
 
     .experts-cont{
@@ -3434,6 +3466,7 @@ width: 100%;
       display: -webkit-flex;
       display: flex;
       flex-direction: row;
+      justify-content: center;
 
       &.absolute{
         position: absolute;
@@ -3471,8 +3504,16 @@ width: 100%;
 
 
       img{
-        height: 115px;
-        margin: auto 30px auto 0;
+        width: 100px;
+      }
+
+      .exp-photo{
+        margin: auto 30px auto 0px;
+        height: auto;
+      }
+
+      .exp-logo{
+        margin: auto 0px auto 30px;
       }
 
 
@@ -3494,10 +3535,32 @@ width: 100%;
           margin: 5px auto 0 auto;
         }
       }
+
+      @media screen and (max-width: 620px){
+        flex-direction: column;
+        .exp-photo, .exp-logo{
+          margin: 20px auto;
+        }
+        #chocolatux{
+          margin-top: 130px;
+        }
+        #wetopia {
+          margin-top: 20px;
+        }
+        #feeder{
+          margin-top: 160px;
+        }
+        #ohmy{
+          margin-top: 150px;
+        }
+      }
     }
 
     .sub-gray{
-      margin: 0 auto 30px auto;
+      margin: 0 auto 50px auto;
+      @media screen and (max-width: 500px){
+        margin-bottom: 0px;
+      }
     }
 
     &.ng-show {
@@ -3593,11 +3656,10 @@ max-width: 300px;
 
 }
 
-#our-community{
-
-    background: url('/static/img/BG_COMMUNITY.svg') no-repeat center;
+#the-community{
+    background: url('/static/img/LANDING 2.0/Elements/Community_BG.svg') no-repeat center;
     background-size: cover;
-      padding: 0 20px 30px;
+    padding: 0 20px 100px;
       padding-top: 100px;
       visibility: hidden;
 
@@ -3609,6 +3671,13 @@ max-width: 300px;
         @media screen and (max-width: 500px){
           margin-top: 50px;
         }
+      }
+      .darker{
+        font-size: 14px;
+        font-family: 'Museo_700';
+        color: $text-gray;
+        text-align: right;
+        margin-top: 0;
       }
 }
 
@@ -3622,6 +3691,8 @@ max-width: 300px;
   font-size: 14px;
   font-style: italic;
 }
+
+
 
 .join-button {
     margin: auto 0 auto auto;
@@ -4059,7 +4130,7 @@ max-width: 300px;
 }
 
 #how-it-works{
-  background: $gray-dark-medium;
+  background: transparent;
   padding: 85px 20px 60px;
 
 
@@ -4105,6 +4176,56 @@ max-width: 300px;
       margin: 20px auto auto auto;
     }
   }
+}
+
+#process-block{
+  .process-cont{
+    opacity: 0;
+    -webkit-transition-property: opacity; /* Safari */
+    -webkit-transition-duration: 1s; /* Safari */
+    transition-property: opacity;
+    transition-duration: 1s;
+
+    &:nth-child(2){
+      -webkit-transition-delay: .2s; /* Safari */
+        transition-delay: .2s;
+    }
+    &:nth-child(3){
+        transition-delay: .4s;
+        -webkit-transition-delay: .4s;
+    }
+    &:nth-child(4){
+        transition-delay: .6s;
+        -webkit-transition-delay: .6s;
+    }
+    &:nth-child(5){
+        transition-delay: .8s;
+        -webkit-transition-delay: .8s;
+    }
+    &:nth-child(6){
+        transition-delay: 1s;
+        -webkit-transition-delay: 1s;
+    }
+    &:nth-child(7){
+        transition-delay: 1.2s;
+        -webkit-transition-delay: 1.2s;
+    }
+    &:nth-child(8){
+        transition-delay: 1.4s;
+        -webkit-transition-delay: 1.4s;
+        img{
+        @media screen and (max-width: 1159px) and (min-width: 1019px){
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+  &.visible{
+    .process-cont{
+      opacity:1;
+    }
+  }
+
 }
 
 
@@ -4154,8 +4275,11 @@ max-width: 300px;
   color: $link-blue-color;
 }
 
+
+
 .footer{
   width: 100%;
+  margin-top: -10px;
   background: $pt-gray;
   padding: 30px 50px;
   flex-direction: row;
@@ -4248,11 +4372,33 @@ max-width: 300px;
   }
 }
 
+.simple-paragraph{
+  font-size: 17px;
+  font-family: 'Museo_D';
+  margin: auto;
+  width: auto;
+  text-align: center;
+  color: $text-gray;
+}
 
+.center-paragraph{
+  font-size: 27px;
+  font-family: 'Museo_700';
+  max-width: 420px;
+  line-height: 30px !important;
+  text-align: center;
+  margin: auto !important;
+  color: $gray-medium;
+}
 
 #bottom-land-bg{
+  padding-top: 100px;
   background: url('/static/img/bottom_bg.svg') no-repeat center;
   background-size: cover;
+
+  .simple-paragraph{
+    margin-top: 20px;
+  }
 
 
   bluelink{
@@ -4267,19 +4413,14 @@ max-width: 300px;
   }
 
   .center-paragraph{
-    font-size: 24px;
-    font-weight: bold;
-    max-width: 350px;
     text-align: center;
     margin: auto;
-    color: $gray-medium;
     @media screen and (max-width: 500px){
       padding: 0 20px;
     }
   }
 
   .blue-button{
-    margin: auto;
     max-width: 255px;
     background: $link-blue-color;
     &:active{
@@ -4391,21 +4532,45 @@ max-width: 300px;
   width: 100%;
   display: inline-block;
   position: relative;
+  overflow: hidden;
 }
 
-#who-we-are {
-    background: url('/static/img/BG_HEXAG.svg') no-repeat right -200px;
+#why-a-startup {
+    background: url('/static/img/LANDING 2.0/Elements/Hex_BG.svg') no-repeat center 120px;
     background-size: cover;
     z-index: 0;
     width: 100%;
-    min-height: 700px;
+    height: 1000px;
     top: 0;
     -webkit-justify-content: center;
     justify-content: center;
 
 
     @media screen and (max-width: 800px){
-      background-position: center ;
+      background-position: center 180px;
+    }
+
+
+
+    .title{
+      margin-top: 130px;
+      margin-bottom: 0;
+      color: white;
+    }
+
+    .subtitle{
+      font-size: 32px;
+      font-family: 'Museo_D';
+      margin: auto;
+      margin-top: 15px;
+      font-style: italic;
+      text-align: center;
+      color: white;
+      padding-bottom: 5px;
+      border-bottom: 3px solid white;
+      @media screen and (max-width: 500px){
+        border-bottom: 0px;
+      }
     }
 }
 
@@ -5223,6 +5388,7 @@ color: $gray-medium;
   }
 }
 
+
 #profile-info{
   margin: 10px auto auto 10px;
   height: auto;
@@ -5515,4 +5681,228 @@ color: $gray-medium;
   width: 600px;
   height: 30px;
   margin: auto 50px;
+}
+
+
+video#bgvid {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+    background: url('/static/img/Mock-up/Snapshot/Mock-up.jpg') no-repeat;
+    background-size: cover;
+}
+
+.black{
+  background-color: rgba(0,0,0,0.25);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -99;
+}
+
+#gradient-bg{
+  height: auto;
+  margin-top: -10px;
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(rwhite, $gray-gradient); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white,$gray-gradient); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, $gray-gradient); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, $gray-gradient); /* Standard syntax (must be last) */
+}
+
+.process-cont{
+  width: 140px;
+  justify-content: flex-start;
+
+  p{
+    width: 120px;
+  }
+  img{
+    width: 130px;
+  }
+  &.up{
+    p{
+      margin: 0px auto auto auto;
+    }
+    img{
+      margin: 5px auto 130px auto;
+    }
+  }
+  &.down{
+    p{
+        margin: 5px auto 0px auto;
+    }
+    img{
+      margin: 130px auto 0px auto;
+    }
+  }
+
+}
+
+.tools-cont{
+  width: auto;
+  padding: 20px 50px;
+
+  img{
+    margin: 0px auto;
+  }
+
+  .simple-paragraph{
+    margin: 10px auto 0px auto;
+  }
+
+  .medium-txt{
+    font-size: 14px;
+    color: $text-gray;
+    width: 150px;
+    text-align: center;
+    line-height: 15px;
+    margin: 10px auto auto auto;
+    font-family: 'Museo';
+
+  }
+}
+
+#the-tools{
+  margin: 100px auto;
+  .sub-gray{
+    margin-bottom: 100px;
+  }
+}
+
+#our-team{
+  padding: 100px 0;
+  @media screen and (max-width: 900px){
+    .team-cont{
+      height: 120px;
+    }
+  }
+}
+
+.team-cont{
+  margin-left: 0px;
+  height: auto;
+  width: auto;
+
+  .simple-cont{
+    text-align: left;
+    margin: auto auto auto 15px;
+    width: auto;
+    height: 60px;
+  }
+  img{
+    width: 80px;
+    margin: auto 0px auto auto;
+    cursor: pointer;
+  }
+  .simple-paragraph{
+    line-height: 17px;
+    margin-bottom: 0px;
+    text-align: left;
+  }
+
+  .small-italic{
+    margin-top: 3px;
+    font-weight: lighter;
+    text-align: left;
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 900px){
+    flex-direction: column !important;
+    img{
+      margin: auto auto 0px auto !important;
+    }
+    .simple-cont{
+      margin: 5px auto auto auto !important;
+    }
+  }
+
+}
+
+.small-italic{
+  font-family: 'Museo';
+  font-style: italic;
+  font-size: 13px;
+  line-height: 14px !important;
+}
+
+#team-graph{
+  width: 100%;
+}
+
+.team-side{
+  height: 350px;
+  width: auto;
+  justify-content: flex-start;
+  margin: auto;
+  margin-top: 80px;
+  @media screen and (max-width: 900px){
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;
+    margin: auto;
+    justify-content:flex-start;
+    width: 70%;
+
+    .team-cont{
+      margin: auto;
+      height: 120px;
+      margin-left: 50px;
+    }
+
+  }
+  @media screen and (max-width: 837px){
+    flex-direction: column;
+    margin-left: 30%;
+  }
+  @media screen and (max-width: 400px){
+    margin-left: 20%;
+  }
+  @media screen and (max-width: 610px){
+    flex-direction: column;
+    .team-cont{
+      margin-left: 0px;
+    }
+    .team-side{
+      margin-left: 100px;
+    }
+  }
+}
+
+#team-center{
+  max-width: 600px;
+  height: auto;
+  @media screen and (max-width: 900px){
+    order: -1;
+  }
+  .team-cont{
+    @media screen and (max-width: 837px){
+      margin-left: 30%;
+      img{
+        margin-left: 0px;
+      }
+    }
+    @media screen and (max-width: 800px) and (min-width: 750px){
+      img{
+        margin-left: 3%;
+      }
+    }
+    @media screen and (max-width: 750px) and (min-width: 600px){
+      img{
+        margin-left: 7%;
+      }
+    }
+    @media screen and (max-width: 400px){
+      margin-left: 20%;
+    }
+  }
 }

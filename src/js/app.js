@@ -12,13 +12,14 @@ require('angular-click-outside')
 require('angular-scroll')
 require('angulartics')
 require('angulartics-segment')
+require('angular-scroll-animate')
 
 //Change in production
 //to http://musement.co and in development to http://localhost:8080
 window.HOST = 'http://localhost:8080'
 
 angular.module('musementApp', ['ui.router', 'LocalStorageModule',
-        'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js', 'angular-click-outside', 'duScroll','angulartics', 'angulartics.segment'
+        'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js', 'angular-click-outside', 'duScroll','angulartics', 'angulartics.segment','angular-scroll-animate'
     ]) //, 'ngFileUpload'
     .factory('httpRequestInterceptor', function(localStorageService) {
         return {

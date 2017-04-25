@@ -1,14 +1,15 @@
 <body>
     <div ng-class="{'blur': join || login || request||movilMenu }" ng-mousemove="landingCtrl.onMove($event)">
-        <nav class="transparent-nav fadeIn " ng-class="{ 'scroll-white' : (scrolled > 1) }">
+        <nav class="transparent-nav fadeIn fast" ng-class="{ 'scroll-white' : (scrolled > 1) }">
             <img class=" logo " src="/static/img/logo_t.svg ">
             <img class="hamburguer-menu " src="/static/img/hamburguermenu-min.png " ng-click="movilMenu=true">
-              <div class="menu">
-              <a href="#who-we-are" offset="30" du-smooth-scroll du-scrollspy >Who are we?</a>
+              <div class="menu " ng-class="{ 'white' : (scrolled < 1) }">
+              <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >Why a startup?</a>
               <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>How it works</a>
-            <a href="#our-community" offset="30" du-smooth-scroll du-scrollspy>Our Community</a>
+            <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>Our Team</a>
             <div class="simple-cont">
-            <p class="login-btn" ng-click="login=true">Log In</p>
+              <p class="bluelink signup-nav button" ng-click="request=true">Join</p>
+            <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>
               <!--<span class='scroll-debug'>{{scrolled}}</span>-->
             </div>
@@ -16,113 +17,264 @@
             </div>
         </nav>
         <div class="section-cont">
-          <div id="team-img">
+          <video playsinline autoplay muted loop poster="/static/img/Mock-up/Snapshot/Mock-up.jpg" id="bgvid">
+              <source src="/static/img/Mock-up/Ogv/Mock-up.ogv" type="video/webm">
+              <source src="/static/img/Mock-up/Mp4/Mock-up.mp4" type="video/mp4">
+        </video>
+        <div class="black">
 
-          </div>
-        <div class="flex-cont" id="who-we-are" ng-style="h>700&&{'height':h+'px'}" >
+        </div>
+
+        <div class="flex-cont" id="why-a-startup" >
+          <h1 class="title">Why <span class="title" ng-bind='wordTitle'></span> a startup?</h1>
+          <h2 class="subtitle cursive" ng-bind="sentenceSubtitle"><span class="subtitle cursive"  ng-bind="sentenceSubtitle"></span></h2>
             <div class="sub-cont " >
-                <p class="title">Discover the potential of your idea & develop it into a great startup.</p>
-                <p class="sub-paragraph changeVisibility" ng-class="{'fadeIn fast':  visibility}" ng-style="visibility && {'visibility':'visible'}">It doesn’t matter if you’re an entrepreneur, a professional or a student. Wetopia is for everyone.</p>
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
                   <div class="form-input flex-cont email">
+                    <p class="center-paragraph ">There are many reasons to do it.</p>
+                    <p class="simple-paragraph">The important thing is to start.</p>
                       <p class="sub-paragraph fadeIn fast">We're launching soon, be part of Wetopia!</p>
-                      <input type="email" ng-style="errorHeader && {'color':'#F26649'}"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
+                      <input type="email" ng-style="errorHeader && {'color':'#F26649'}" ng-click="clearRequest()"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="errorHeader"></p>
-                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join now</a>
+                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join</a>
                   </div>
 
             </div>
             </div>
             </div>
 
-<div class="section-cont">
+<div class="section-cont" id="gradient-bg">
   <div class="flex-cont" id="how-it-works">
     <p class="sub-gray">HOW IT WORKS</p>
-    <div class="flex-cont">
-
-
-    <img id="gifMac" src="/static/img/MacMockup.gif">
-    <div class="simple-cont">
-      <p class="right-p">Share your idea & receive feedback.</p>
-      <p class="right-p">Turn your idea into a project & start developing it.</p>
-      <p class="right-p">Solve doubts & make better decisions.</p>
-      <p class="right-p">Find a team to create your MVP.</p>
-      <p class="right-p">Help others with their ideas by providing feedback.</p>
-    </div>
-    </div>
-  </div>
-<div class="flex-cont" id="infographic" >
-  <div class="simple-cont">
-    <img class="desktop infographic animate-show ng-animate ng-hide-animate ng-hide-add"  ng-show="scrolled>500" src="/static/img/infographic-min.png">
-      <img class="infographic movil" src="/static/img/fullB-min.png">
-  </div>
-</div>
-</div>
-
-<div class="section-cont">
-<div class="flex-cont" id="our-community" ng-style="visibility && {'visibility':'visible'}">
-  <p class="sub-gray">OUR COMMUNITY</p>
-  <div class="flex-cont relative">
-  <div class="simple-cont experts-cont animate-slow ng-animate ng-hide-animate ng-hide-add" ng-show="experts==0">
-    <img src="/static/img/IMG_COMMUNITY_PEDRO-min.png">
-    <div class="simple-cont">
-    <p class="quote">“This is the place where ideas become reality:
-      pivot your idea, create a project, get answers and find the
-      correct team, while helping others in their process."</p>
-      <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
+    <div class="flex-cont row wrap" id="process-block" when-visible="animateHowItWorks">
+      <div class="flex-cont process-cont up">
+        <p class="simple-paragraph">Create your idea</p>
+        <img src="/static/img/HOW/IDEA.svg" alt="Create your idea">
       </div>
-  </div>
-  <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==1">
-    <img src="/static/img/IMG_COMMUNITY_LUIS-min.png">
-    <div class="simple-cont">
-    <p class="quote">“For entrepreneurs, it’s essential to receive
-      feedback during the process of a business idea, this helps
-      ensure correct decisions along the way. Wetopia is the
-      community that helps you in that & more.”</p>
-      <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder of Oh My!</p>
+      <div class="flex-cont process-cont down">
+        <img src="/static/img/HOW/Feedback.svg" alt="Receive feedback">
+        <p class="simple-paragraph">Receive feedback</p>
       </div>
+      <div class="flex-cont process-cont up">
+        <p class="simple-paragraph">Mesure the potential</p>
+        <img src="/static/img/HOW/Potential.svg" alt="Mesure the potential">
+      </div>
+      <div class="flex-cont process-cont down">
+        <img src="/static/img/HOW/Startup.svg" alt="Build a startup">
+        <p class="simple-paragraph">Build a startup</p>
+      </div>
+      <div class="flex-cont process-cont up">
+        <p class="simple-paragraph">Find a team</p>
+        <img src="/static/img/HOW/Team.svg" alt="Find a team">
+      </div>
+      <div class="flex-cont process-cont down">
+        <img src="/static/img/HOW/Answers.svg" alt="Solve your doubts">
+        <p class="simple-paragraph">Solve your doubts</p>
+      </div>
+      <div class="flex-cont process-cont up">
+        <p class="simple-paragraph">Develop your product</p>
+        <img src="/static/img/HOW/MVP.svg" alt="Develop your product">
+      </div>
+      <div class="flex-cont process-cont down">
+        <img src="/static/img/HOW/Launch.svg" alt="Launch">
+        <p class="simple-paragraph">Launch!</p>
+      </div>
+    </div>
   </div>
-  <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==2">
-    <img src="/static/img/RubenV_IMG-min.png">
-    <div class="simple-cont">
-    <p class="quote">“Wetopia has the potential to accelerate the
-      process of idea validation and thus reduce the rate of
-      business failure.”</p>
-      <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
-    </div>
-    </div>
-    <div class="simple-cont experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==3">
-      <img src="/static/img/AxelG_IMG-min.png">
+
+  <div class="section-cont">
+  <div class="flex-cont" id="the-community" ng-style="visibility && {'visibility':'visible'}">
+    <div class="flex-cont relative experts">
+    <div class="flex-cont row experts-cont animate-slow ng-animate ng-hide-animate ng-hide-add" ng-show="experts==0">
+      <img class="exp-photo" src="/static/img/IMG_COMMUNITY_PEDRO-min.png">
       <div class="simple-cont">
-      <p class="quote">“For me, it made all the diference to receive feedback during the early stage &
-        development of my project. It's essential to make the correct decisions since the beginning,
-        to have a higher chance of success.”</p>
-        <p class="quote-sign">-Axel Gaxiola, Founder of Feeder</p>
+      <p class="quote">“This is the place where ideas become reality:
+        pivot your idea, create a project, get answers and find the
+        correct team, while helping others in their process."</p>
+        <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
+        <p class="darker">ENTREPRENEUR</p>
+        </div>
+        <img class="exp-logo" id="wetopia" src="/static/img/Wetopia_LogoBK.svg">
+    </div>
+    <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==1">
+      <img class="exp-photo" src="/static/img/IMG_COMMUNITY_LUIS-min.png">
+      <div class="simple-cont">
+      <p class="quote">“For entrepreneurs, it’s essential to receive
+        feedback during the process of a business idea, this helps
+        ensure correct decisions along the way. Wetopia is the
+        community that helps you in that & more.”</p>
+        <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder of Oh My!</p>
+        <p class="darker">ENTREPRENEUR</p>
+        </div>
+        <img class="exp-logo" id="ohmy" src="/static/img/LOGOS/OhMy_LOGO-min.png">
+    </div>
+    <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==2">
+      <img class="exp-photo" src="/static/img/RubenV_IMG-min.png">
+      <div class="simple-cont">
+      <p class="quote">“Wetopia has the potential to accelerate the
+        process of idea validation and thus reduce the rate of
+        business failure.”</p>
+        <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
+        <p class="darker">EXPERT</p>
       </div>
+      <img class="exp-logo" id="chocolatux" src="/static/img/LOGOS/Logo ChocolatUX.png">
       </div>
+      <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==3">
+        <img class="exp-photo" src="/static/img/AxelG_IMG-min.png">
+        <div class="simple-cont">
+        <p class="quote">“For me, it made all the diference to receive feedback during the early stage &
+          development of my project. It's essential to make the correct decisions since the beginning,
+          to have a higher chance of success.”</p>
+          <p class="quote-sign">-Axel Gaxiola, Founder of Feeder</p>
+          <p class="darker">ENTREPRENEUR</p>
+        </div>
+        <img class="exp-logo" id="feeder" src="/static/img/LOGOS/Feeder.png">
+        </div>
+    </div>
   </div>
-  <div class="flex-wrap">
-    <img src="/static/img/LOGOS/Feeder.png">
-    <img id="kraken" src="/static/img/LOGOS/Kraken_LOGO-min.png">
-    <img src="/static/img/LOGOS/OhMy_LOGO-min.png">
-    <img src="/static/img/LOGOS/GroundEarthSystem_LOGO-min.png">
-    <img id="maxAnders" src="/static/img/LOGOS/MaxAnders-min.png">
-    <img id="gameTrady" src="/static/img/LOGOS/GameTrady_LOGO-min.png">
-    <img id="cleareMad" src="/static/img/LOGOS/CleareMaddicen_LOGO-min.png">
   </div>
-</div>
-</div>
+
+  <div class="flex-cont" id="the-tools">
+    <p class="sub-gray">FEATURES</p>
+    <div class="flex-cont row wrap">
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/PIVOT.svg" alt="Pivot">
+        <p class="simple-paragraph">PIVOT</p>
+        <p class="medium-txt">Change your idea and see
+        how it started and how it evolved.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/NETWORK.svg" alt="Network">
+        <p class="simple-paragraph">NETWORK</p>
+        <p class="medium-txt">Expand your network, connect with people,
+          see who follows you & your startup.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/FEEDBACK.svg" alt="Feedback">
+        <p class="simple-paragraph">FEEDBACK</p>
+        <p class="medium-txt">Save and take into account the key feedback
+          that you received.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/PROFILE.svg" alt="Profile">
+        <p class="simple-paragraph">PROFILE</p>
+        <p class="medium-txt">Find out wha
+          use them to complement the startup.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/TEAM.svg" alt="Dreamteam">
+        <p class="simple-paragraph">DREAMTEAM</p>
+        <p class="medium-txt">Find people that complement
+        your skills & your startup. Develop your MVP.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/QA.svg" alt="Q&A">
+        <p class="simple-paragraph">Q&A</p>
+        <p class="medium-txt">Ask questions and create polls in specific areas
+          where you need help, get answers from the community & the experts.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/PRIVACY.svg" alt="Privacy">
+        <p class="simple-paragraph">PRIVACY</p>
+        <p class="medium-txt">When developing the startup decide what
+        you're sharing & who you're targeting.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/STATUS.svg" alt="Status">
+        <p class="simple-paragraph">STATUS</p>
+        <p class="medium-txt">Help others build the startup,
+        share your knowledge & earn expert points.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/JOBLIST.svg" alt="Joblist">
+        <p class="simple-paragraph">JOBLIST</p>
+        <p class="medium-txt">Find a startup that needs your skills & become
+          part of it. Earn money or equity.</p>
+      </div>
+      <div class="flex-cont tools-cont">
+        <img src="/static/img/Tools/EARLYADOPTERS.svg" alt="Early adpoter">
+        <p class="simple-paragraph">EARLY ADOPTER</p>
+        <p class="medium-txt">Have a community that supports your startup when
+        launch & find who's interested in buying your producs/service.</p>
+      </div>
+
+
+    </div>
+  </div>
+
+    <div class="flex-cont" id="our-team" >
+      <p class="sub-gray">THE TEAM</p>
+      <div class="flex-cont row wrap">
+      <div class="flex-cont team-side">
+        <div class="flex-cont row team-cont ">
+          <img src="/static/img/Geppe_IMG.png" alt="Pedro Camarena"
+          id='pedro' ng-click="changeGraph('Pedro')"
+          click-outside="changeGraph('All')" outside-if-not="luis mario constanza ele">
+          <div class="simple-cont">
+            <p class="simple-paragraph">Pedro Camarena</p>
+            <p class="small-italic">Project Manager</p>
+          </div>
+        </div>
+        <div class="flex-cont row team-cont ">
+          <img src="/static/img/Luis_IMG.png" alt="Luis Mendoza"
+          id='luis'  ng-click="changeGraph('Luis')"
+          click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ele">
+          <div class="simple-cont">
+            <p class="simple-paragraph">Luis Mendoza</p>
+            <p class="small-italic">Brand Manager</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex-cont" id="team-center">
+        <img id="team-graph" ng-src="{{graph}}" alt="Wetopia team graph">
+        <div class="flex-cont row team-cont ">
+          <img src="/static/img/MARIO_IMG.png" alt="Mario García"
+          id="mario" ng-click="changeGraph('Mario')"
+         click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ele">
+          <div class="simple-cont">
+            <p class="simple-paragraph">Mario García</p>
+            <p class="small-italic">Back-end</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex-cont team-side">
+        <div class="flex-cont row team-cont ">
+          <img src="/static/img/Conz_IMG.png" alt="Constanza Madrigal"
+          id="constanza" ng-click="changeGraph('Constanza')"
+         click-outside="changeGraph('All')" outside-if-not="luis mario pedro ele">
+          <div class="simple-cont">
+            <p class="simple-paragraph">Constanza Madrigal</p>
+            <p class="small-italic">Front-end</p>
+          </div>
+        </div>
+        <div class="flex-cont row team-cont ">
+          <img src="/static/img/ELE_IMG.png" alt="Eleonora Paredes"
+          id="ele" ng-click="changeGraph('Ele')"
+          click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
+          <div class="simple-cont">
+            <p class="simple-paragraph">Eleonora Paredes</p>
+            <p class="small-italic">Designer</p>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
 
 <div class="section-cont">
 <div class="flex-cont" id="bottom-land-bg" >
-  <bluelink>Be part of Wetopia!</bluelink>
-  <p class="center-paragraph">Join Wetopia and develop your idea into a great Startup.</p>
+  <p class="center-paragraph">What are you waiting for?</p>
+  <p class="simple-paragraph">Join Wetopia today and start.</p>
 <!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
 <div class="form-input flex-cont email" id="form-input-footer">
     <p class="sub-paragraph fadeIn fast center-advice">We're launching soon, be part of Wetopia!</p>
-    <input type="email" ng-style="errorFooter && {'color':'#F26649'}"  ng-model="userEmail" name="request-email" placeholder="Email" required="true">
-    <p class="red-text error" ng-bind="footerRequestError" ng-show="errorFooter"></p>
-    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join now</a>
+    <input type="email" ng-style="errorFooter && {'color':'#F26649'}" ng-click="clearRequest()" ng-model="userEmail" name="request-email" placeholder="Email" required="true">
+    <p class="red-text error" ng-bind="mailRequestError" ng-show="errorFooter"></p>
+    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join</a>
+</div>
+</div>
+</div>
 </div>
 <div class="footer flex-cont">
 
@@ -152,8 +304,7 @@
   </div>
 
 </div>
-</div>
-</div>
+
       </div>
       <div class="flex-modal white " ng-show="join">
           <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
@@ -213,20 +364,16 @@
       </div>
 
       <div class="flex-modal white " id="request-land"  ng-show="request">
-          <div class="centered-form modal-form" click-outside="" outside-if-not="request-btn">
+          <div class="centered-form modal-form" click-outside="request=false" outside-if-not="request-btn signup-nav">
             <div class="flex-cont">
-              <p class="close-x" ng-click="clearRequest()">x</p>
+              <p class="close-x" ng-click="closeRequestModal()">x</p>
               <p class="sub-gray">REQUEST INVITATION</p>
               <div class="form-input">
-                  <img src="/static/img/Login_user.svg">
-                  <input type="text" ng-model="guest.name" name="request-name" placeholder="Name" required="true">
-              </div>
-              <div class="form-input">
                   <img ng-src="{{error?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" src="/static/img/Login_mail.svg">
-                  <input type="email" ng-style="error && {'color':'#F26649'}"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
+                  <input type="email" ng-style="error && {'color':'#F26649'}" ng-click="clearRequest()"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="error"></p>
               </div>
-              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guestEmail, 'footer')" >
+              <input type="button" value="Send" class="form-button " name="send-request" ng-click="submit(guestEmail, 'modal')" >
               </div>
           </div>
       </div>
@@ -256,8 +403,8 @@
       <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu" g>
         <img class=" logo " src="/static/img/logo_t.svg ">
               <p class="close-x" ng-click="movilMenu=false">x</p>
-              <p class="sub-white" ng-click="movilMenu=false" href="#who-we-are" offset="30" du-smooth-scroll du-scrollspy >WHO ARE WE?</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >WHY A STARTUP?</p>
               <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>HOW IT WORKS</p>
-              <p class="sub-white" ng-click="movilMenu=false" href="#our-community" offset="30" du-smooth-scroll du-scrollspy >OUR COMMUNITY</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#our-team" offset="30" du-smooth-scroll du-scrollspy >OUR TEAM</p>
       </div>
   </body>
