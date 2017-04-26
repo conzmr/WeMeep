@@ -6,6 +6,8 @@ angular.module("musementApp")
     $scope.request = false;
     $scope.movilMenu = false;
     $scope.scrolled = 0;
+    $scope.fadeInOn=true;
+    $scope.fadeOutOn=false;
     $scope.h = $window.innerHeight;
     $scope.showParagraph=false;
     $scope.experts = 0;
@@ -44,19 +46,34 @@ angular.module("musementApp")
     ['To get experience.','To be part of something.',
     'For personal & professional growth.','To have more flexibility.',
   'To challenge myself.',"I don't want a common job.",'To help create something from zero.'],
-    ['To expand my network.', 'To help build something.', ,'To become an expert.',
+    ['To expand my network.', 'To help build something.', 'To become an expert.',
     "It's my passion.",'To keep updated.','To be part of something.']];
 
+    $timeout(function() {
+        $scope.fadeOutOn=true;
+    }, 9500);
     var counter = 0;
     var titlesCounter = 0;
     $scope.wordTitle=$scope.titleWords[counter];
     $scope.sentenceSubtitle=$scope.subtitles[titlesCounter][counter];
+
     $interval(function(){
-      $scope.wordTitle=$scope.titleWords[titlesCounter];
-      $scope.sentenceSubtitle=$scope.subtitles[titlesCounter][counter%$scope.subtitles[titlesCounter].length];
+      $scope.fadeInOn=true;
+      $scope.fadeOutOn=false;
       titlesCounter=(titlesCounter+1)%$scope.titleWords.length;
       counter++;
+      $timeout(function() {
+          $scope.fadeInOn=false;
+      }, 600);
+
+      $timeout(function() {
+          $scope.fadeOutOn=true;
+      }, 9500);
+      $scope.wordTitle=$scope.titleWords[titlesCounter];
+      $scope.sentenceSubtitle=$scope.subtitles[titlesCounter][counter%$scope.subtitles[titlesCounter].length];
     }, 10000);
+
+
 
 
     $scope.clearErrors = function(){

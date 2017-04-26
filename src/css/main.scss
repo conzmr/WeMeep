@@ -3326,6 +3326,10 @@ width: 100%;
   line-height: 60px;
   color: $text-gray;
   margin: auto;
+
+  &.blue{
+    color: $title-blue-color !important;
+  }
   @media screen and (max-width:500px){
     text-align: center;
     margin: {
@@ -3461,7 +3465,7 @@ width: 100%;
 
     .experts-cont{
       width: auto;
-      padding: 10px 0;
+      padding: 10px 0 100px;
       margin: auto;
       display: -webkit-flex;
       display: flex;
@@ -3472,6 +3476,7 @@ width: 100%;
         position: absolute;
         visibility: hidden;
         top: 0;
+        height: auto;
         left: 0;
       }
 
@@ -3540,18 +3545,6 @@ width: 100%;
         flex-direction: column;
         .exp-photo, .exp-logo{
           margin: 20px auto;
-        }
-        #chocolatux{
-          margin-top: 130px;
-        }
-        #wetopia {
-          margin-top: 20px;
-        }
-        #feeder{
-          margin-top: 160px;
-        }
-        #ohmy{
-          margin-top: 150px;
         }
       }
     }
@@ -4637,7 +4630,7 @@ max-width: 300px;
     animation: fadeIn 1.5s linear 0s;
 
     &.fast{
-      animation-duration: .6s;
+      animation-duration: .5s;
     }
 
 }
@@ -4651,6 +4644,9 @@ max-width: 300px;
     -o-animation: fadeOut 0.3s linear 0s;
     animation: fadeOut 0.3s linear 0s;
     opacity: 0;
+    &.fast{
+      animation-duration: .5s;
+    }
 }
 
 .scroll-debug {
@@ -5702,7 +5698,7 @@ video#bgvid {
 }
 
 .black{
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0,0,0,0.4);
   height: 100%;
   width: 100%;
   position: fixed;
