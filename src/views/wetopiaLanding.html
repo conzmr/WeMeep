@@ -3,9 +3,10 @@
         <nav class="transparent-nav fadeIn fast" ng-class="{ 'scroll-white' : (scrolled > 1) }">
             <img class=" logo " src="/static/img/logo_t.svg ">
             <img class="hamburguer-menu " src="/static/img/hamburguermenu-min.png " ng-click="movilMenu=true">
-              <div class="menu " ng-class="{ 'white' : (scrolled < 1) }">
+              <div class="menu ">
               <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >Why a startup?</a>
               <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>How it works</a>
+              <a href="#features" offset="30" du-smooth-scroll du-scrollspy>Features</a>
             <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>Our Team</a>
             <div class="simple-cont">
               <p class="bluelink signup-nav button" ng-click="request=true">Join</p>
@@ -17,9 +18,9 @@
             </div>
         </nav>
         <div class="section-cont">
-          <video playsinline autoplay muted loop poster="/static/img/Mock-up/Snapshot/Mock-up.jpg" id="bgvid">
-              <source src="/static/img/Mock-up/Ogv/Mock-up.ogv" type="video/webm">
-              <source src="/static/img/Mock-up/Mp4/Mock-up.mp4" type="video/mp4">
+          <video playsinline autoplay muted loop poster="" id="bgvid">
+              <source src="" type="video/webm">
+              <source src="/static/img/NewVideo.mp4" type="video/mp4">
         </video>
         <div class="black">
 
@@ -27,7 +28,7 @@
 
         <div class="flex-cont" id="why-a-startup" >
           <h1 class="title">Why <span class="title blue" ng-bind='wordTitle' ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span> a startup?</h1>
-          <h2 class="subtitle cursive" ng-bind="sentenceSubtitle" ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></h2>
+          <h2 class="subtitle cursive"><span class="subtitle cursive span" ng-bind="sentenceSubtitle" ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span></h2>
             <div class="sub-cont " >
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
                   <div class="form-input flex-cont email">
@@ -84,57 +85,21 @@
 
   <div class="section-cont">
   <div class="flex-cont" id="the-community" ng-style="visibility && {'visibility':'visible'}">
-    <div class="flex-cont relative experts">
-    <div class="flex-cont row experts-cont animate-slow ng-animate ng-hide-animate ng-hide-add" ng-show="experts==0">
-      <img class="exp-photo" src="/static/img/IMG_COMMUNITY_PEDRO-min.png">
+    <div class="flex-cont experts"  ng-class="{ 'fadeIn fast' : fadeInExpert, 'fadeOut fast' : fadeOutExpert }">
+    <div class="flex-cont row experts-cont">
+      <img class="exp-photo" ng-src="{{expertsInfo[experts].photo}}">
       <div class="simple-cont">
-      <p class="quote">“This is the place where ideas become reality:
-        pivot your idea, create a project, get answers and find the
-        correct team, while helping others in their process."</p>
-        <p class="quote-sign">-Pedro Camarena, Co-Founder of Wetopia</p>
-        <p class="darker">ENTREPRENEUR</p>
+      <p class="quote" ng-bind="expertsInfo[experts].quote"></p>
+        <p class="quote-sign" ng-bind="expertsInfo[experts].sign"></p>
+        <p class="darker uppercase" ng-bind="expertsInfo[experts].qualitative"></p>
         </div>
-        <img class="exp-logo" id="wetopia" src="/static/img/Wetopia_LogoBK.svg">
+        <img class="exp-logo" ng-src="{{expertsInfo[experts].logo}}">
     </div>
-    <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==1">
-      <img class="exp-photo" src="/static/img/IMG_COMMUNITY_LUIS-min.png">
-      <div class="simple-cont">
-      <p class="quote">“For entrepreneurs, it’s essential to receive
-        feedback during the process of a business idea, this helps
-        ensure correct decisions along the way. Wetopia is the
-        community that helps you in that & more.”</p>
-        <p class="quote-sign">- Luis Daniel Nishizawa, Co-Founder of Oh My!</p>
-        <p class="darker">ENTREPRENEUR</p>
-        </div>
-        <img class="exp-logo" id="ohmy" src="/static/img/LOGOS/OhMy_LOGO-min.png">
-    </div>
-    <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==2">
-      <img class="exp-photo" src="/static/img/RubenV_IMG-min.png">
-      <div class="simple-cont">
-      <p class="quote">“Wetopia has the potential to accelerate the
-        process of idea validation and thus reduce the rate of
-        business failure.”</p>
-        <p class="quote-sign">-Rubén Valencia, Co-Founder of Chocolatux</p>
-        <p class="darker">EXPERT</p>
-      </div>
-      <img class="exp-logo" id="chocolatux" src="/static/img/LOGOS/Logo ChocolatUX.png">
-      </div>
-      <div class="flex-cont row experts-cont absolute animate-slow ng-animate ng-hide-animate ng-hide-add"  ng-style="visibility && {'visibility':'visible'}" ng-show="experts==3">
-        <img class="exp-photo" src="/static/img/AxelG_IMG-min.png">
-        <div class="simple-cont">
-        <p class="quote">“For me, it made all the diference to receive feedback during the early stage &
-          development of my project. It's essential to make the correct decisions since the beginning,
-          to have a higher chance of success.”</p>
-          <p class="quote-sign">-Axel Gaxiola, Founder of Feeder</p>
-          <p class="darker">ENTREPRENEUR</p>
-        </div>
-        <img class="exp-logo" id="feeder" src="/static/img/LOGOS/Feeder.png">
-        </div>
     </div>
   </div>
   </div>
 
-  <div class="flex-cont" id="the-tools">
+  <div class="flex-cont" id="features">
     <p class="sub-gray">FEATURES</p>
     <div class="flex-cont row wrap">
       <div class="flex-cont tools-cont">
@@ -204,7 +169,7 @@
 
     <div class="flex-cont" id="our-team" >
       <p class="sub-gray">THE TEAM</p>
-      <div class="flex-cont row wrap">
+      <div class="flex-cont row" id="all-team-container">
       <div class="flex-cont team-side">
         <div class="flex-cont row team-cont ">
           <img src="/static/img/Geppe_IMG.png" alt="Pedro Camarena"

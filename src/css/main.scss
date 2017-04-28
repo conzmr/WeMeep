@@ -3326,9 +3326,10 @@ width: 100%;
   line-height: 60px;
   color: $text-gray;
   margin: auto;
+  text-align: center;
 
   &.blue{
-    color: $title-blue-color !important;
+    color: $wetopia-blue;
   }
   @media screen and (max-width:500px){
     text-align: center;
@@ -3358,8 +3359,14 @@ width: 100%;
 }
 
 .flex-cont {
-    display: -webkit-flex;
-    display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -o-flex;
+  display: flex;
     -webkit-justify-content: center;
     justify-content: center;
     width: 100%;
@@ -3465,7 +3472,6 @@ width: 100%;
 
     .experts-cont{
       width: auto;
-      padding: 10px 0 100px;
       margin: auto;
       display: -webkit-flex;
       display: flex;
@@ -3525,7 +3531,7 @@ width: 100%;
       .simple-cont{
         position: relative;
         height: auto;
-        margin: auto;
+        margin: auto 20px;
         display: -webkit-flex;
         display: flex;
         flex-direction: column;
@@ -3652,8 +3658,6 @@ max-width: 300px;
 #the-community{
     background: url('/static/img/LANDING 2.0/Elements/Community_BG.svg') no-repeat center;
     background-size: cover;
-    padding: 0 20px 100px;
-      padding-top: 100px;
       visibility: hidden;
 
       @media screen and (max-width: 400px){
@@ -4529,7 +4533,7 @@ max-width: 300px;
 }
 
 #why-a-startup {
-    background: url('/static/img/LANDING 2.0/Elements/Hex_BG.svg') no-repeat center 120px;
+    background: url('/static/img/HEXAGONOS_BG.svg') no-repeat center 120px;
     background-size: cover;
     z-index: 0;
     width: 100%;
@@ -4546,9 +4550,8 @@ max-width: 300px;
 
 
     .title{
-      margin-top: 130px;
+      margin-top: 230px;
       margin-bottom: 0;
-      color: white;
     }
 
     .subtitle{
@@ -4558,9 +4561,10 @@ max-width: 300px;
       margin-top: 15px;
       font-style: italic;
       text-align: center;
-      color: white;
       padding-bottom: 5px;
-      border-bottom: 3px solid white;
+      &.span{
+        border-bottom: 3px solid $text-gray;
+      }
       @media screen and (max-width: 500px){
         border-bottom: 0px;
       }
@@ -5681,7 +5685,7 @@ color: $gray-medium;
 
 
 video#bgvid {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   min-width: 100%;
@@ -5693,12 +5697,12 @@ video#bgvid {
   -moz-transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-    background: url('/static/img/Mock-up/Snapshot/Mock-up.jpg') no-repeat;
+//    background: url('/static/img/Mock-up/Snapshot/Mock-up.jpg') no-repeat;
     background-size: cover;
 }
 
 .black{
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0);
   height: 100%;
   width: 100%;
   position: fixed;
@@ -5768,8 +5772,9 @@ video#bgvid {
   }
 }
 
-#the-tools{
-  margin: 100px auto;
+#features{
+  padding-top: 80px;
+  margin: 0px auto;
   .sub-gray{
     margin-bottom: 100px;
   }
@@ -5777,16 +5782,12 @@ video#bgvid {
 
 #our-team{
   padding: 100px 0;
-  @media screen and (max-width: 900px){
-    .team-cont{
-      height: 120px;
-    }
-  }
 }
 
 .team-cont{
   margin-left: 0px;
   height: auto;
+  padding: 0px 0px 20px;
   width: auto;
 
   .simple-cont{
@@ -5799,6 +5800,24 @@ video#bgvid {
     width: 80px;
     margin: auto 0px auto auto;
     cursor: pointer;
+    @media screen and (max-width: 800px){
+      margin-left: 200px;
+    }
+    @media screen and (max-width: 650px){
+      margin-left: 180px;
+    }
+    @media screen and (max-width: 500px){
+      margin-left: 150px;
+    }
+    @media screen and (max-width: 450px){
+      margin-left: 130px;
+    }
+    @media screen and (max-width: 400px){
+      margin-left: 100px;
+    }
+    @media screen and (max-width: 350px){
+      margin-left: 70px;
+    }
   }
   .simple-paragraph{
     line-height: 17px;
@@ -5833,6 +5852,9 @@ video#bgvid {
 
 #team-graph{
   width: 100%;
+  .simple-cont{
+    text-align: right;
+  }
 }
 
 .team-side{
@@ -5842,7 +5864,7 @@ video#bgvid {
   margin: auto;
   margin-top: 80px;
   @media screen and (max-width: 900px){
-    flex-direction: row;
+    //flex-direction: row;
     flex-wrap: wrap;
     height: auto;
     margin: auto;
@@ -5850,19 +5872,18 @@ video#bgvid {
     width: 70%;
 
     .team-cont{
-      margin: auto;
-      height: 120px;
-      margin-left: 50px;
+      margin: auto 20px;
     }
 
   }
-  @media screen and (max-width: 837px){
-    flex-direction: column;
-    margin-left: 30%;
+  @media screen and (max-width: 800px){
+    width: 83%;
   }
-  @media screen and (max-width: 400px){
-    margin-left: 20%;
+
+  @media screen and (max-width: 630px){
+    width: 100%;
   }
+
   @media screen and (max-width: 610px){
     flex-direction: column;
     .team-cont{
@@ -5877,28 +5898,20 @@ video#bgvid {
 #team-center{
   max-width: 600px;
   height: auto;
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 800px){
     order: -1;
   }
-  .team-cont{
-    @media screen and (max-width: 837px){
-      margin-left: 30%;
-      img{
-        margin-left: 0px;
-      }
-    }
-    @media screen and (max-width: 800px) and (min-width: 750px){
-      img{
-        margin-left: 3%;
-      }
-    }
-    @media screen and (max-width: 750px) and (min-width: 600px){
-      img{
-        margin-left: 7%;
-      }
-    }
-    @media screen and (max-width: 400px){
-      margin-left: 20%;
+}
+
+#all-team-container{
+  @media screen and (max-width: 800px){
+    flex-wrap: wrap;
+    .team-cont{
+      height: 110px;
     }
   }
+}
+
+.uppercase{
+  text-transform: uppercase;
 }
