@@ -3477,6 +3477,9 @@ width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: center;
+      max-height: 250px;
+
+
 
       &.absolute{
         position: absolute;
@@ -3521,10 +3524,17 @@ width: 100%;
       .exp-photo{
         margin: auto 30px auto 0px;
         height: auto;
+        @media screen and (max-width: 800px){
+          margin-right: 15px;
+        }
       }
 
       .exp-logo{
         margin: auto 0px auto 30px;
+        height: auto;
+        @media screen and (max-width: 800px){
+          margin-left: 15px;
+        }
       }
 
 
@@ -3539,16 +3549,19 @@ width: 100%;
         .quote-sign{
           margin: 15px 0 0 auto;
           line-height: 14px;
+          height: 15px;
         }
 
         .quote{
           line-height: 14px;
           margin: 5px auto 0 auto;
+          height: auto;
         }
       }
 
       @media screen and (max-width: 620px){
         flex-direction: column;
+        max-height: none;
         .exp-photo, .exp-logo{
           margin: 20px auto;
         }
@@ -3675,6 +3688,7 @@ max-width: 300px;
         color: $text-gray;
         text-align: right;
         margin-top: 0;
+        height: 20px;
       }
 }
 
@@ -4128,7 +4142,7 @@ max-width: 300px;
 
 #how-it-works{
   background: transparent;
-  padding: 85px 20px 60px;
+  padding: 80px 20px;
 
 
   .flex-cont{

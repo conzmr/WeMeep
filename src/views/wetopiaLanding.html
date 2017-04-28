@@ -83,10 +83,8 @@
     </div>
   </div>
 
-  <div class="section-cont">
   <div class="flex-cont" id="the-community" ng-style="visibility && {'visibility':'visible'}">
-    <div class="flex-cont experts"  ng-class="{ 'fadeIn fast' : fadeInExpert, 'fadeOut fast' : fadeOutExpert }">
-    <div class="flex-cont row experts-cont">
+    <div class="flex-cont row experts-cont" ng-class="{ 'fadeIn fast' : fadeInExpert, 'fadeOut fast' : fadeOutExpert }">
       <img class="exp-photo" ng-src="{{expertsInfo[experts].photo}}">
       <div class="simple-cont">
       <p class="quote" ng-bind="expertsInfo[experts].quote"></p>
@@ -95,8 +93,6 @@
         </div>
         <img class="exp-logo" ng-src="{{expertsInfo[experts].logo}}">
     </div>
-    </div>
-  </div>
   </div>
 
   <div class="flex-cont" id="features">
