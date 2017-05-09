@@ -1,0 +1,39 @@
+<div class="flex-cont" id="test-scale-questions">
+<p class="medium-dark">I like to think in new and original solutions or ideas</p>
+<div class="flex-cont row" id="scale-row">
+  <p class="medium-light">Strongly Disagree</p>
+  <div class="flex-cont row" id="hexagons-row">
+    <div class="polygon-each-img-wrap">
+        <div class="polygon-clip-hexagon red" ng-click="answerQuestion()">
+        </div>
+    </div>
+    <div class="polygon-each-img-wrap">
+        <div class="polygon-clip-hexagon lighter-red" ng-click="answerQuestion()">
+        </div>
+    </div>
+    <div class="polygon-each-img-wrap">
+        <div class="polygon-clip-hexagon lighter-gray" ng-click="answerQuestion()">
+        </div>
+    </div>
+    <div class="polygon-each-img-wrap">
+        <div class="polygon-clip-hexagon lighter-aqua" ng-click="answerQuestion()">
+        </div>
+    </div>
+    <div class="polygon-each-img-wrap">
+        <div class="polygon-clip-hexagon aqua" ng-click="answerQuestion()">
+        </div>
+    </div>
+  </div>
+  <p class="medium-light">Strongly Agree</p>
+</div>
+<div class="flex-cont row wrap" id="scale-line">
+    <a class="color-button gray-dark arrow"  href="" ng-show="questionNumber>1">Previous</a>
+    <div class="simple-cont relative">
+    <div class="scale" ng-style="{'margin-left': ''}">
+    </div>
+    <div class="polygon-scale" ng-bind="scalePercentage" ng-style="{'left': scalePercentage-5+ '%'}" ng-class="{0:'gray', 100:'aqua'}[scalePercentage]">
+    </div>
+  </div>
+    <a class="color-button gray-dark"  href="">Save</a>
+</div>
+</div>

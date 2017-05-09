@@ -5218,9 +5218,27 @@ color: $gray-medium;
     color: white;
 
     &.arrow{
-      background: $gray-dark url("/static/img/Dropdown_arrow_white.svg") no-repeat 10px center;
+      background: $gray-dark ;
       padding-left: 25px;
       background-size: 25px;
+      position: relative;
+
+      &::before{
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 15px;
+        top: 10px;
+        left: -10px;
+        z-index: -1;
+        background: url("/static/img/arrow-white.svg") center no-repeat;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+
+      }
     }
   }
 
@@ -5593,7 +5611,7 @@ color: $gray-medium;
 .medium-dark{
   color: $text-gray;
   font-family: 'Museo_700';
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .medium-light{
@@ -5602,7 +5620,8 @@ color: $gray-medium;
   font-size: 20px;
 }
 
-#test-questions{
+#test-scale-questions{
+  padding: 80px 0;
   .medium-light{
     width: 100px;
   }
@@ -5683,18 +5702,58 @@ color: $gray-medium;
   .color-button{
     &.gray-dark{
       width: 90px;
-      padding: 5px;
+      padding: 8px;
       border-radius: 5px;
-      margin: auto 0px;
+      margin: 30px 0px;
     }
+  }
+  .simple-cont{
+    margin: auto 35px;
+    height: 48px;
+    justify-content: center;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    max-width: 600px;
+    width: 600px;
   }
 }
 
 .scale{
   background: $pt-gray;
-  width: 600px;
-  height: 30px;
-  margin: auto 50px;
+  width: 100%;
+  margin: auto 0px;
+  height: 33px;
+  -webkit-clip-path: polygon(98.5% 0%, 100% 25%, 100% 75%, 98.5% 100%, 0% 75%, 0% 25%);
+  clip-path: polygon(98.5% 0%, 100% 25%, 100% 75%, 98.5% 100%, 0% 100%, 0% 0%);
+}
+
+.polygon-scale{
+  position: absolute;
+  height: 47px;
+  width: 55px;
+  background: $link-blue-color;
+  top: 0;
+  color: white;
+  font-size: 17px;
+  line-height: 46px;
+  text-align: center;
+  font-family: 'Museo_700';
+  -webkit-clip-path: polygon(98.5% 0%, 100% 25%, 100% 75%, 98.5% 100%, 0% 75%, 0% 25%);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  &::after{
+    content: "%";
+
+  }
+  &.gray{
+    background: $gray-lighter;
+  }
+  &.aqua{
+    background: $lighter-aqua;
+  }
 }
 
 

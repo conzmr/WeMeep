@@ -125,7 +125,7 @@
   </defs>
 </svg>
 
-<div class="max-cont">
+<div class="max-cont" >
   <div ng-show="!hasTestStarted" class="flex-cont" id="start-test">
     <div class="flex-cont">
     <p class="giant dark">YOUR BEST TEAM IS ONLY A FEW QUESTIONS AWAY</p>
@@ -136,7 +136,7 @@
   </div>
 
   <div class="flex-cont" ng-show="hasTestStarted" >
-    <div class="flex-cont" id="test-questions">
+    <div class="flex-cont" id="test-scale-questions">
     <p class="medium-dark">I like to think in new and original solutions or ideas</p>
     <div class="flex-cont row" id="scale-row">
       <p class="medium-light">Strongly Disagree</p>
@@ -164,10 +164,14 @@
       </div>
       <p class="medium-light">Strongly Agree</p>
     </div>
-    <div class="flex-cont row" id="scale-line">
-        <a class="color-button gray-dark arrow"  href="">Previous</a>
-        <div class="scale">
+    <div class="flex-cont row wrap" id="scale-line">
+        <a class="color-button gray-dark arrow"  href="" ng-show="questionNumber>1">Previous</a>
+        <div class="simple-cont relative">
+        <div class="scale" ng-style="{'margin-left': ''}">
         </div>
+        <div class="polygon-scale" ng-bind="scalePercentage" ng-style="{'left': scalePercentage-5+ '%'}" ng-class="{0:'gray', 100:'aqua'}[scalePercentage]">
+        </div>
+      </div>
         <a class="color-button gray-dark"  href="">Save</a>
     </div>
     </div>
