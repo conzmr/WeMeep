@@ -178,9 +178,7 @@
 
                     <div class="flex-cont" id="list-checkboxes">
                         <div class="flex-cont row" ng-repeat="answer in question.answers">
-
-                            <input type="checkbox" class="polygon-clip-hexagon" name="" value="">
-
+                            <input type="checkbox" class="polygon-clip-hexagon" ng-click="checkMultiple($index)" name="" value="">
                             <p class="light-dark">{{answer}}</p>
                         </div>
 
@@ -206,18 +204,18 @@
 
 
                 <div class="mid-page flex-cont">
-                    <canvas id="radar" class="chart chart-radar flex-cont" chart-data="data" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
+                    <canvas id="radar" class="chart chart-radar flex-cont" chart-data="testResults" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
 </canvas>
 
                 </div>
                 <div class="mid-page flex-cont" id="test-strengths">
                     <div class="flex-cont">
                         <p class="subtitle-gray">Main Strengths:</p>
-                        <p class="simple-paragraph"><span>Strength 1: </span>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. </p>
-                        <p class="simple-paragraph"><span>Strength 2: </span>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. </p>
-                        <p class="subtitle-gray">Main Strengths:</p>
-                        <p class="simple-paragraph"><span>Strength 1: </span>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. </p>
-                        <p class="simple-paragraph"><span>Strength 2: </span>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. </p>
+                        <p class="simple-paragraph"><span>{{labels[strenght1]}}: </span>{{descriptions[strenght1]}} </p>
+                        <p class="simple-paragraph"><span>{{labels[strenght2]}}: </span>{{descriptions[strenght2]}} </p>
+                        <p class="subtitle-gray">Main Oportunities:</p>
+                        <p class="simple-paragraph"><span>{{labels[oportunity1]}}: </span>{{descriptions[oportunity1]}} </p>
+                        <p class="simple-paragraph"><span>{{labels[oportunity2]}}: </span>{{descriptions[oportunity2]}} </p>
                         <a class="color-button blue right border-radius-6" href="/myProfile">My Profile</a>
 
                     </div>

@@ -6011,6 +6011,9 @@ video#bgvid {
     @media screen and (max-width: 1019px) {
         margin-top: 50px;
     }
+    @media screen and (max-width: 550px) {
+        padding: 0 20px;
+    }
 
     .color-button {
         margin-top: 30px;
