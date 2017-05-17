@@ -1,116 +1,123 @@
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <nav class="transparent-nav scroll-white static" >
-        <a class=" logo "  href="/home"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
+    <nav class="transparent-nav scroll-white static">
+        <a class=" logo " href="/home"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
         <div class="center-action">
-          <p class="blue-text">CREATE</p>
-          <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
-          <p class="blue-text">IDEA</p>
+            <p class="blue-text">CREATE</p>
+            <a href="/createIdea/first"><img src="/static/img/create.svg" /></a>
+            <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
             <input id="nav-search" type="search" name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
-          <div class="display-inner">
-              <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
-              <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
-                  <p class="sub-gray">NOTIFICATIONS</p>
-                  <div class="scroll-list">
-                      <li class="not-block says new">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+            <div class="display-inner">
+                <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}">
+                <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
+                    <p class="sub-gray">NOTIFICATIONS</p>
+                    <div class="scroll-list">
+                        <li class="not-block says new">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Mary</span>
-                              <span class="like-4"></span>
-                              <span class="on">Idea Name</span>
+                            <p>
+                                <span class="name">Mary</span>
+                                <span class="like-4"></span>
+                                <span class="on">Idea Name</span>
 
-                          </p>
-                      </li>
-                      <li class="not-block commented new">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </p>
+                        </li>
+                        <li class="not-block commented new">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Mary</span>
-                              <span class="act-pivot"></span>
-                              <span class="on">Idea Name</span>
+                            <p>
+                                <span class="name">Mary</span>
+                                <span class="act-pivot"></span>
+                                <span class="on">Idea Name</span>
 
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </p>
+                        </li>
+                        <li class="not-block says">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Kevin</span>
-                              <span class="like-3"></span>
-                              <span class="on">Idea Name</span>
+                            <p>
+                                <span class="name">Kevin</span>
+                                <span class="like-3"></span>
+                                <span class="on">Idea Name</span>
 
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </p>
+                        </li>
+                        <li class="not-block says">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Erick</span>
-                              <span class="like-2"></span>
-                              <span class="on">Idea Name</span>
-                          <!--    <span class=time-ago>2 days</span>-->
-                          </p>
-                      </li>
-                      <li class="not-block commented">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            <p>
+                                <span class="name">Erick</span>
+                                <span class="like-2"></span>
+                                <span class="on">Idea Name</span>
+                                <!--    <span class=time-ago>2 days</span>-->
+                            </p>
+                        </li>
+                        <li class="not-block commented">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Josh</span>
-                              <span class="prev-pivot">3</span>
-                              <span class="on">Idea Name</span>
+                            <p>
+                                <span class="name">Josh</span>
+                                <span class="prev-pivot">3</span>
+                                <span class="on">Idea Name</span>
 
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            </p>
+                        </li>
+                        <li class="not-block says">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                                    <!--modify as create idea 3-->
+                                </div>
                             </div>
-                        </div>
-                          <p>
-                              <span class="name">Pancho</span>
-                              <span class="like-1"></span>
-                              <span class="on">Idea Name</span>
+                            <p>
+                                <span class="name">Pancho</span>
+                                <span class="like-1"></span>
+                                <span class="on">Idea Name</span>
 
-                          </p>
-                      </li>
+                            </p>
+                        </li>
 
-                  </div>
-              </ul>
-          </div>
-          <div class="inner-nav">
-              <div class="polygon-each-img-wrap">
-                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                  </div>
-              </div>
-              <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
-                <div class="flex-cont user-menu">
-                  <div class="sup-cont">
-                    <p class="gray-dark">UserName</p>
-                    <p class="gray-lighter small">mail@mail.com</p>
-                  </div>
-                  <p>My Profile</p>
-                  <p>My Ideas</p>
-                  <p>Settings</p>
-                  <p class="gray-lighter">Log Out</p>
+                    </div>
+                </ul>
+            </div>
+            <div class="inner-nav">
+                <div class="polygon-each-img-wrap">
+                    <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}">
+                        <!--modify as create idea 3-->
+                    </div>
                 </div>
-              </ul>
-          </div>
+                <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
+                    <div class="flex-cont user-menu">
+                        <div class="sup-cont">
+                            <p class="gray-dark">UserName</p>
+                            <p class="gray-lighter small">mail@mail.com</p>
+                        </div>
+                        <p>My Profile</p>
+                        <p>My Ideas</p>
+                        <p>Settings</p>
+                        <p class="gray-lighter">Log Out</p>
+                    </div>
+                </ul>
+            </div>
         </div>
     </nav>
     <svg class="clip-svg">
@@ -122,281 +129,284 @@
 </svg>
 
     <div class="idea-info">
-      <div class="flex-cont row wrap">
-        <div class="flex-cont mid-page">
-            <div class="idea-header">
-                <p class="idea-title">Idea Title
-                </p>
-                <div class="idea-header-info">
-                    <p>Created by </p>
-                    <div class="select-team">
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+        <div class="flex-cont row wrap">
+            <div class="flex-cont mid-page">
+                <div class="idea-header">
+                    <p class="idea-title">Idea Title
+                    </p>
+                    <div class="idea-header-info">
+                        <p>Created by </p>
+                        <div class="select-team">
+                            <div class="tooltip">
+                                <div class="polygon-each-img-wrap">
+                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}">
+                                        <!--modify as create idea 3-->
+                                    </div>
                                 </div>
+                                <p class="tooltiptext">Team Member</p>
                             </div>
-                            <p class="tooltiptext">Team Member</p>
-                        </div>
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            <div class="tooltip">
+                                <div class="polygon-each-img-wrap">
+                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}">
+                                        <!--modify as create idea 3-->
+                                    </div>
                                 </div>
+                                <p class="tooltiptext">Team Member</p>
                             </div>
-                            <p class="tooltiptext">Team Member</p>
-                        </div>
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            <div class="tooltip">
+                                <div class="polygon-each-img-wrap">
+                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}">
+                                        <!--modify as create idea 3-->
+                                    </div>
                                 </div>
+                                <p class="tooltiptext">Team Member</p>
                             </div>
-                            <p class="tooltiptext">Team Member</p>
+                            <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
                         </div>
-                      <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
-                    </div>
-                    <p> and located in </p>
-                    <span class="blue-text"> <img id="location-img" src="/static/img/location_Idea.svg">México
+                        <p> and located in </p>
+                        <span class="blue-text"> <img id="location-img" src="/static/img/location_Idea.svg">México
         </span>
+                    </div>
+
+                    <div class="inner-nav selector">
+                        <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly">
+                        <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
+                            <div class="flex-cont user-menu">
+                                <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
+                                <p class="dark" id="new-pivot" ng-click="createPivot()">+ New Pivot</p>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="inner-nav selector">
-                    <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
-                    <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
-                      <div class="flex-cont user-menu">
-                        <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
-                        <p class="dark" id="new-pivot" ng-click="createPivot()">+ New Pivot</p>
-                      </div>
-                    </ul>
+
+
+                <div class="form-description movil-p">
+                    <img class="big-img" src="/static/img/Create Idea_idea.svg">
+                    <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
+                    </p>
+                    <p class="tab-paragraph">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                    </p>
+
+                    <img class="big-img" src="/static/img/Create Idea_problem.svg">
+                    <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
+                    </p>
+                    <p class="tab-paragraph">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                    </p>
                 </div>
             </div>
-
-
-
-            <div class="form-description movil-p">
-                <img class="big-img" src="/static/img/Create Idea_idea.svg">
-                 <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
-                </p>
-                <p class="tab-paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
-                </p>
-
-                <img class="big-img" src="/static/img/Create Idea_problem.svg">
-                <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
-                </p>
-                <p class="tab-paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
-                </p>
+            <div class="mid-page flex-cont">
+                <div class="idea-img" ng-style="{'background-image': 'url(static/img/Image_default.svg)'}">
+                </div>
             </div>
         </div>
-        <div class="mid-page flex-cont">
-            <div class="idea-img" ng-style="{'background-image': 'url(static/img/Image_default.svg)'}">
-            </div>
-        </div>
-          </div>
-            <div class="flex-cont row wrap">
-        <div class="flex-cont mid-page left-align pad-left">
-            <p class="black-medium">Current Pivot Feedback</p>
-            <div class="comments flex-cont">
-              <div class="comment flex-box" ng-repeat="comment in feedback">
-                <div class="flex-cont comment-top">
-                  <div class="polygon-each-img-wrap">
-                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(' +comment.img+ ')'}">
-                      </div>
-                  </div>
-                  <p class="name" ng-bind="comment.firstname"></p>
-                  <p class="username" ng-bind="comment.username"></p>
-                  <img class="star-img" ng-src="{{comment.stars > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" >
-                  <p class="star" ng-bind="comment.stars"></p>
-                </div>
-                <div class="tab-paragraph" ng-bind="comment.comment">
-              </p>
+        <div class="flex-cont row wrap">
+            <div class="flex-cont mid-page left-align pad-left">
+                <p class="black-medium">Current Pivot Feedback</p>
+                <div class="comments flex-cont">
+                    <div class="comment flex-box" ng-repeat="comment in feedback">
+                        <div class="flex-cont comment-top">
+                            <div class="polygon-each-img-wrap">
+                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(' +comment.img+ ')'}">
+                                </div>
+                            </div>
+                            <p class="name" ng-bind="comment.firstname"></p>
+                            <p class="username" ng-bind="comment.username"></p>
+                            <img class="star-img" ng-src="{{comment.stars > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}">
+                            <p class="star" ng-bind="comment.stars"></p>
+                        </div>
+                        <div class="tab-paragraph" ng-bind="comment.comment">
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+            <div class="flex-cont mid-page left-align pad-left">
+                <p class="black-medium dark">This is what people think of your idea</p>
+                <div id="res-statistics" class="left-align">
+                    <table class="right-num">
+                        <tr>
+                            <td><img src="/static/img/like 4_Hover.svg"></td>
+                            <td class="number">17</td>
+                            <td>would buy it</td>
+                        </tr>
+                        <tr>
+                            <td><img src="/static/img/like 3_Hover.svg"></td>
+                            <td class="number">56</td>
+                            <td>love it</td>
+                        </tr>
+                        <tr>
+                            <td><img src="/static/img/like 2_Hover.svg"></td>
+                            <td class="number">22</td>
+                            <td>think it's not bad</td>
+                        </tr>
+                        <tr>
+                            <td><img src="/static/img/like 1_Hover.svg"></td>
+                            <td class="number">10</td>
+                            <td>don't like it</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <a class="color-button right blue myIdea" href="">See detailed stats</a>
+                <a class="color-button right blue myIdea" href="">Turn it into a project</a>
+                <a class="color-button right red myIdea" id="discard-btn" ng-click="wantToDiscard=true" href=""> Discard this idea</a>
             </div>
-        </div>
-
-
-        <div class="flex-cont mid-page left-align pad-left">
-            <p class="black-medium dark">This is what people think of your idea</p>
-            <div id="res-statistics" class="left-align">
-                <table class="right-num">
-                    <tr>
-                        <td><img src="/static/img/like 4_Hover.svg"></td>
-                        <td class="number">17</td>
-                        <td>would buy it</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/static/img/like 3_Hover.svg"></td>
-                        <td class="number">56</td>
-                        <td>love it</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/static/img/like 2_Hover.svg"></td>
-                        <td class="number">22</td>
-                        <td>think it's not bad</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/static/img/like 1_Hover.svg"></td>
-                        <td class="number">10</td>
-                        <td>don't like it</td>
-                    </tr>
-                </table>
-
-            </div>
-              <a class="color-button right blue myIdea" href="" >See detailed stats</a>
-              <a class="color-button right blue myIdea" href="" >Turn it into a project</a>
-              <a class="color-button right red myIdea" id="discard-btn" ng-click="wantToDiscard=true" href=""> Discard this idea</a>
-          </div>
 
         </div>
     </div>
     </div>
 
 
-    <div ng-show="pivoting" class="flex-modal white " id="Pivotear-modal" >
+    <div ng-show="pivoting" class="flex-modal white " id="Pivotear-modal">
         <div class="centered-form modal-form complete" click-outside="pivoting=false" outside-if-not="new-pivot">
-          <div class="flex-cont">
-            <p class="close-x upper" ng-click="pivoting=false">x</p>
-            <p class="sub-gray">NEW PIVOT</p>
-            <div class="flex-cont left-align">
-            <p class="lighter-gray">Previous Pivots</p>
-            <div class="inner-nav selector">
-                <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" value="pivots[0]">
-                <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
-                  <div class="flex-cont user-menu">
-                    <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
-                  </div>
-                </ul>
-            </div>
-              </div>
-            <div class="flex-cont row">
-              <div class="form-description movil-p">
-                  <img class="big-img" src="/static/img/Create Idea_idea.svg">
-                   <p class="form-subtitle color"><span class="big-txt aqua-text">Idea
+            <div class="flex-cont">
+                <p class="close-x upper" ng-click="pivoting=false">x</p>
+                <p class="sub-gray">NEW PIVOT</p>
+                <div class="flex-cont left-align">
+                    <p class="lighter-gray">Previous Pivots</p>
+                    <div class="inner-nav selector">
+                        <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" value="pivots[0]">
+                        <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
+                            <div class="flex-cont user-menu">
+                                <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex-cont row">
+                    <div class="form-description movil-p">
+                        <img class="big-img" src="/static/img/Create Idea_idea.svg">
+                        <p class="form-subtitle color"><span class="big-txt aqua-text">Idea
                    <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg"></span>
-                  </p>
-                  <p class="normal-paragraph">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
-                  </p>
-                  </div>
-                  <div class="form-description movil-p">
-                  <img class="big-img" src="/static/img/Create Idea_problem.svg">
-                  <p class="form-subtitle color"> <span class="big-txt red-text">Problem
+                        </p>
+                        <p class="normal-paragraph">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                        </p>
+                    </div>
+                    <div class="form-description movil-p">
+                        <img class="big-img" src="/static/img/Create Idea_problem.svg">
+                        <p class="form-subtitle color"> <span class="big-txt red-text">Problem
                   <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg"></span>
-                  </p>
-                  <p class="normal-paragraph">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
-                  </p>
-              </div>
+                        </p>
+                        <p class="normal-paragraph">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-cont row left-align">
+                    <p class="act-pivote not simple" ng-bind="newPivot"></p>
+                    <blue class="text-left">New Pivot</blue>
+                </div>
+                <div class="flex-cont row textarea">
+                    <div class="form-description movil-p ">
+                        <img class="big-img" src="/static/img/Create Idea_idea.svg">
+                        <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
+                        </p>
+                        <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <p class="textarea-length">300</p>
+                    </div>
+                    <div class="form-description movil-p ">
+                        <img class="big-img" src="/static/img/Create Idea_problem.svg">
+                        <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
+                        </p>
+                        <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <p class="textarea-length">300</p>
+                    </div>
+                </div>
+                <a class="color-button blue complete-form" href="" ng-click="pivoting=false">Pivot</a>
             </div>
-            <div class="flex-cont row left-align">
-                  <p class="act-pivote not simple" ng-bind="newPivot"></p>
-                  <blue class="text-left">New Pivot</blue>
-            </div>
-            <div class="flex-cont row textarea">
-              <div class="form-description movil-p ">
-                <img class="big-img" src="/static/img/Create Idea_idea.svg">
-                 <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
-                </p>
-                  <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?" ></textarea>
-                  <p class="textarea-length">300</p>
-              </div>
-              <div class="form-description movil-p ">
-              <img class="big-img" src="/static/img/Create Idea_problem.svg">
-              <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
-              </p>
-              <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?" ></textarea>
-              <p class="textarea-length">300</p>
-          </div>
-            </div>
-            <a class="color-button blue complete-form"  href="" ng-click="pivoting=false">Pivot</a>
-        </div>
         </div>
     </div>
 
 
     <div class="footer flex-cont">
-      <div class="left">
-        <a href="/home" class="small">Home</a>
-        <a href="/myProfile" class="small">My Profile</a>
-        <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Idea</a>
-      </div>
-      <div class="icons">
-        <img src="/static/img/wetopia_dark.png">
-        <div class="simple-cont">
-          <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
-          <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
-          <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
-          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+        <div class="left">
+            <a href="/home" class="small">Home</a>
+            <a href="/myProfile" class="small">My Profile</a>
+            <a href="/createIdea/first" class="small">Create Idea</a>
+            <a href="/myIdea" class="small">My Idea</a>
         </div>
+        <div class="icons">
+            <img src="/static/img/wetopia_dark.png">
+            <div class="simple-cont">
+                <a href="https://www.facebook.com/wetopiaCo/" target="_blank"><img src="/static/img/fb_icon_dark.svg"></a>
+                <a href="https://twitter.com/wetopiaco" target="_blank"><img src="/static/img/twitter.svg"></a>
+                <a href="https://www.instagram.com/wetopia.co/" target="_blank"><img src="/static/img/instagram_dark.svg"></a>
+                <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+            </div>
 
-      </div>
-      <div class="right">
-        <p class="medium-bold">Wetopia (c) 2017</p>
-        <p class="small">Terms & Conditions</p>
-        <p class="small">Privacy Policy</p>
-        <p class="small">Ethics Code</p>
-      </div>
+        </div>
+        <div class="right">
+            <p class="medium-bold">Wetopia (c) 2017</p>
+            <p class="small">Terms & Conditions</p>
+            <p class="small">Privacy Policy</p>
+            <p class="small">Ethics Code</p>
+        </div>
     </div>
 
-    <div class="flex-modal white"  ng-show="wantToDiscard">
+    <div class="flex-modal white" ng-show="wantToDiscard">
         <div class="centered-form modal-form complete" click-outside="wantToDiscard=false" outside-if-not="discard-btn">
-          <div class="flex-cont">
-            <p class="close-x upper" ng-click="wantToDiscard=false">x</p>
-            <p class="sub-gray">DISCARD</p>
-            <p class="medium light no-margin">Are you sure you want to discard completely this idea?</p>
-            <p class="medium light no-margin">You can also save it to get back to it later.</p>
-        <div class="flex-cont row eighty">
-          <a class="color-button blue complete-form discard" id="yes-delete" href="" ng-click="discardIdea()">Yes, delete it</a>
-          <a class="color-button blue complete-form discard"  id="save-idea" href="" ng-click="saveIdea()">Save it</a>
-        </div>
-        <a href=""  class="medium-bold gray" ng-click="wantToDiscard=false">Cancel</a>
+            <div class="flex-cont">
+                <p class="close-x upper" ng-click="wantToDiscard=false">x</p>
+                <p class="sub-gray">DISCARD</p>
+                <p class="simple-paragraph">Are you sure you want to discard completely this idea?</p>
+                <p class="medium light no-margin">You can also save it to get back to it later.</p>
+                <div class="flex-cont row eighty">
+                    <a class="color-button blue complete-form discard" id="yes-delete" href="" ng-click="discardIdea()">Yes, delete it</a>
+                    <a class="color-button blue complete-form discard" id="save-idea" href="" ng-click="saveIdea()">Save it</a>
+                </div>
+                <a href="" class="medium-bold gray" ng-click="wantToDiscard=false">Cancel</a>
             </div>
         </div>
     </div>
 
-    <div class="flex-modal white"  ng-show="whyDiscard">
+    <div class="flex-modal white" ng-show="whyDiscard">
         <div class="centered-form modal-form complete" click-outside="whyDiscard=false" outside-if-not="yes-delete">
-          <div class="flex-cont">
-            <p class="close-x upper" ng-click="whyDiscard=false">x</p>
-            <p class="sub-gray">DISCARD</p>
-            <p class="medium light no-margin">We're sorry to see your idea go.</p>
-            <p class="medium light no-margin">Can you tell us more of why you chose</p>
-            <p class="medium light no-margin">to get rid of it?</p>
-            <textarea name="why-discard" class="justify-textarea" maxlength="300" placeholder="Tell us about your experience. " ></textarea>
-        <div class="flex-cont row">
-          <a class="color-button blue complete-form discard no-bottom" id="discard-btn" href="" ng-click="discardMessage()">Done</a>
-        </div>
+            <div class="flex-cont">
+                <p class="close-x upper" ng-click="whyDiscard=false">x</p>
+                <p class="sub-gray">DISCARD</p>
+                <p class="medium light no-margin">We're sorry to see your idea go.</p>
+                <p class="medium light no-margin">Can you tell us more of why you chose</p>
+                <p class="medium light no-margin">to get rid of it?</p>
+                <textarea name="why-discard" class="justify-textarea" maxlength="300" placeholder="Tell us about your experience. "></textarea>
+                <div class="flex-cont row">
+                    <a class="color-button blue complete-form discard no-bottom" id="discard-btn" href="" ng-click="discardMessage()">Done</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="flex-modal white"  ng-show="discarded">
+    <div class="flex-modal white" ng-show="discarded">
         <div class="centered-form modal-form complete" click-outside="discarded=false" outside-if-not="discard-btn">
-          <div class="flex-cont">
-            <p class="close-x upper" ng-click="discarded=false">x</p>
-            <p class="sub-gray">DISCARDED</p>
-            <div class="simple-cont margin">
-            <p class="medium light no-margin">Your idea has been deleted.</p>
-            <p class="medium light no-margin">We've received your comments and</p>
-            <p class="medium light no-margin">hope you have many more ideas to</p>
-            <p class="medium light no-margin">start developing in Wetopia.</p>
-            </div>
+            <div class="flex-cont">
+                <p class="close-x upper" ng-click="discarded=false">x</p>
+                <p class="sub-gray">DISCARDED</p>
+                <div class="simple-cont margin">
+                    <p class="medium light no-margin">Your idea has been deleted.</p>
+                    <p class="medium light no-margin">We've received your comments and</p>
+                    <p class="medium light no-margin">hope you have many more ideas to</p>
+                    <p class="medium light no-margin">start developing in Wetopia.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="flex-modal white"  ng-show="saved">
+    <div class="flex-modal white" ng-show="saved">
         <div class="centered-form modal-form complete" click-outside="saved=false" outside-if-not="save-idea">
-          <div class="flex-cont">
-            <p class="close-x upper" ng-click="saved=false">x</p>
-            <p class="sub-gray">SAVED</p>
-            <div class="simple-cont margin">
-            <p class="medium light no-margin">Your idea has been saved.</p>
-            <p class="medium light no-margin">It is now unactive within your ideas tab</p>
-            <p class="medium light no-margin">you can re-activate it later on to keep</p>
-            <p class="medium light no-margin">working on it.</p>
-            </div>
+            <div class="flex-cont">
+                <p class="close-x upper" ng-click="saved=false">x</p>
+                <p class="sub-gray">SAVED</p>
+                <div class="simple-cont margin">
+                    <p class="medium light no-margin">Your idea has been saved.</p>
+                    <p class="medium light no-margin">It is now unactive within your ideas tab</p>
+                    <p class="medium light no-margin">you can re-activate it later on to keep</p>
+                    <p class="medium light no-margin">working on it.</p>
+                </div>
             </div>
         </div>
     </div>
