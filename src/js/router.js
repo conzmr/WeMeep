@@ -65,7 +65,15 @@ angular.module('musementApp')
                 url: "/second",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
-                authenticate: false //mover
+                authenticate: false, //mover
+                data: {
+                    redirect: ['createIdeaDataService', function(createIdeaDataService) {
+                        // just check that firstName is in, if not return the state where this is filled
+                        if (!createIdeaDataService.idea.name) {
+                            return 'createIdea.first';
+                        }
+                    }]
+                }
             })
             .state("myIdeaStatistics", {
                 url: "/myIdeaStatistics",
@@ -127,11 +135,18 @@ angular.module('musementApp')
     })
 
 //Run service to check the token is valid
-.run(function($rootScope, $state, AuthService) {
+.run(function($rootScope, $state, AuthService, $injector) {
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
         if (toState.authenticate && !AuthService.isAuthenticated()) { // User isn’t authenticated
             $state.transitionTo("landing"); //If it's not valid redirect to login
             event.preventDefault();
+        }
+        if (toState.data && toState.data.redirect) {
+            var redirectTo = $injector.invoke(toState.data.redirect);
+            if (redirectTo) {
+                $state.go(redirectTo);
+                event.preventDefault();
+            }
         }
     });
 });

@@ -1,18 +1,9 @@
 angular.module('musementApp')
-    .filter('containsMember', function() {
-        return function(array, needle) {
-            for (var i = 0; i < array.length; i++) {
-                if (array[i]._id == needle)
-                    return true
-            }
-            return false
-        };
-    })
     .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
 
         let user_id = localStorageService.get('user_id');
 
-        $scope.idea = {};
+        $scope.idea = createIdeaDataService.idea;
         $scope.mySwitch = false;
         $scope.inputTeamMembers = false;
         $scope.tags = [];
@@ -20,14 +11,24 @@ angular.module('musementApp')
         $scope.categorySelected = "";
         $scope.showCategories = false;
         loadTags();
+        $scope.errorTitle = false;
+        $scope.errorTitleMessage = "";
+        $scope.errorCategory = false;
+        $scope.errorCategoryMessage = "";
+        $scope.errorDescription = false;
+        $scope.errorDescriptionMessage = "";
+        $scope.errorSolution = false;
+        $scope.errorSolutionMessage = "";
+        $scope.errorOtherCategory = false;
 
-        $scope.selectCategory = function(category){
-          $scope.categorySelected = category;
-          $scope.showCategories = false;
+        $scope.selectCategory = function(category) {
+            $scope.clearErrors();
+            $scope.categorySelected = category;
+            $scope.showCategories = false;
         }
 
-        $scope.changeShowCategories = function(){
-          $scope.showCategories = !$scope.showCategories;
+        $scope.changeShowCategories = function() {
+            $scope.showCategories = !$scope.showCategories;
         }
 
 
@@ -41,8 +42,9 @@ angular.module('musementApp')
                 cache: true
             }).then(function(response) {
                 var members = response.data;
+                console.log(members);
                 return members.filter(function(member) {
-                    return member.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+                    return members.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
                 });
             });
         }
@@ -52,10 +54,10 @@ angular.module('musementApp')
             return $http.get(HOST + '/api/tags', {
                 cache: true
             }).then(function(response) {
-                var tags= response.data;
+                var tags = response.data;
                 $scope.categories = [];
-                for(var i=0; i<tags.length; i++){
-                  $scope.categories[i] = tags[i].name;
+                for (var i = 0; i < tags.length; i++) {
+                    $scope.categories[i] = tags[i].name;
                 }
             })
         }
@@ -67,6 +69,41 @@ angular.module('musementApp')
                 $scope.upload(this.idea.banner)
             }
 
+        }
+
+        $scope.clearErrors = function() {
+            $scope.errorTitle = false;
+            $scope.errorTitleMessage = "";
+            $scope.errorCategory = false;
+            $scope.errorCategoryMessage = "";
+            $scope.errorDescription = false;
+            $scope.errorDescriptionMessage = "";
+            $scope.errorSolution = false;
+            $scope.errorOtherCategory = false;
+            $scope.errorSolutionMessage = "";
+        }
+
+        $scope.goNext = function() {
+            $scope.clearErrors();
+            if (!$scope.idea.name) {
+                $scope.errorTitleMessage = "Please enter a title for your idea. ";
+                $scope.errorTitle = true;
+            }
+            if (!$scope.idea.description) {
+                $scope.errorDescriptionMessage = "Please enter a description for your idea.";
+                $scope.errorDescription = true;
+            }
+            if (!$scope.categorySelected) {
+                $scope.errorCategoryMessage = "Please select a category for your idea. ";
+                $scope.errorCategory = true;
+            }
+            if ($scope.categorySelected == 'Others' && ($scope.otherCategory == "" || $scope.otherCategory == undefined)) {
+                $scope.errorCategoryMessage = "Please enter what's your project about.";
+                $scope.errorOtherCategory = true;
+            }
+            if ($scope.idea.name && $scope.idea.description && $scope.categorySelected && ($scope.categorySelected != 'Others' || $scope.otherCategory)) {
+                $state.go('createIdea.second');
+            }
         }
 
         $scope.upload = function(file) {
@@ -89,20 +126,21 @@ angular.module('musementApp')
 
         $scope.submitIdea = function(banner) {
             console.log("sumbitIdea Execute");
-            let ideaInfo = {};
-            ideaInfo.name = this.idea.name
-            ideaInfo.description = this.idea.description
-            ideaInfo.categories = this.idea.categories
-            ideaInfo.problem = this.idea.problem
-            ideaInfo.members = this.idea.members
-            ideaInfo.banner = banner
 
-            createIdeaDataService.setIdea(ideaInfo, user_id, function(res) {
+            if ($scope.categorySelected == 'Others') {
+                $scope.idea.categories = $scope.otherCategory;
+            } else {
+                $scope.idea.categories = $scope.categorySelected;
+            }
+            $scope.idea.banner = banner;
+
+            createIdeaDataService.setIdea(user_id, function(res) {
                 if (res.status == 201) {
                     // $scope.this_user.ideas.push(res.data.idea)
-                    $state.go('showIdea')
+                    $state.go('showIdea');
                 }
             });
+
         }
 
     })

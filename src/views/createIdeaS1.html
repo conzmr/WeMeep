@@ -1,39 +1,44 @@
 <div class="flex-cont create-cont">
-  <p class="sub-gray">CREATE IDEA</p>
-<div class="form-input">
-    <img src="/static/img/Create Idea_name.svg">
-    <input type="text" name="idea-name" placeholder="Idea Title" ng-model="idea.name">
-</div>
-<div class="form-input" id="cat-select">
-    <img src="/static/img/Create Idea_tag.svg">
-      <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected" readonly="readonly" placeholder="Category">
-      <div class="list-cont" ng-show="showCategories" >
-        <ul class="tooltip-selector" >
-         <li ng-repeat="category in categories" ng-class="{'selected':  categorySelected==category}"ng-click="selectCategory(category)" ng-bind="category"></li>
-        </ul>
-      </div>
-</div>
-<div class="form-input" ng-show="categorySelected=='Others'">
-  <input class="others" type="text" name="other-category" placeholder="What's your project about?">
-</div>
-<div class="form-description">
-    <img src="/static/img/Create Idea_idea.svg">
-    <p>Describe your idea</p>
-    <textarea name="description" class="" maxlength="300" placeholder="What do you have in mind? Give a short and clear description!" ng-model="idea.description"></textarea>
-</div>
-<div class="form-description">
-    <img src="/static/img/Create Idea_problem.svg">
-    <p id="describe-problem-p">Does your idea solve an issue?</p>
-    <div class="onoffswitch">
-        <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked ng-model="idea.solveProblem">
-        <label class="onoffswitch-label" for="myonoffswitch">
+    <p class="sub-gray">CREATE IDEA</p>
+    <div class="form-input">
+        <img src="/static/img/Create Idea_name.svg">
+        <input type="text" name="idea-name" placeholder="Idea Title" ng-click="clearErrors()" ng-model="idea.name">
+        <p class="red-text error less" ng-bind="errorTitleMessage" ng-show="errorTitle"></p>
+    </div>
+    <div class="form-input" id="cat-select">
+        <img src="/static/img/Create Idea_tag.svg">
+        <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected" readonly="readonly" placeholder="Category">
+        <p class="red-text error less" ng-bind="errorCategoryMessage" ng-show="errorCategory"></p>
+        <div class="list-cont" ng-show="showCategories">
+            <ul class="tooltip-selector">
+                <li ng-repeat="category in categories" ng-class="{'selected':  categorySelected==category}" ng-click="selectCategory(category)" ng-bind="category"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-input" ng-show="categorySelected=='Others'">
+        <input class="others" type="text" name="other-category" ng-model="otherCategory" placeholder="What's your project about?">
+        <p class="red-text error more" ng-bind="errorCategoryMessage" ng-show="errorOtherCategory"></p>
+    </div>
+    <div class="form-description">
+        <img src="/static/img/Create Idea_idea.svg">
+        <p>Describe your idea</p>
+        <textarea name="description" class="" maxlength="300" ng-click="clearErrors()" placeholder="What do you have in mind? Give a short and clear description!" ng-model="idea.description"></textarea>
+        <p class="red-text error less" ng-bind="errorDescriptionMessage" ng-show="errorDescription"></p>
+    </div>
+    <div class="form-description">
+        <img src="/static/img/Create Idea_problem.svg">
+        <p id="describe-problem-p">Does your idea solve an issue?</p>
+        <div class="onoffswitch">
+            <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked ng-model="idea.solveProblem">
+            <label class="onoffswitch-label" for="myonoffswitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
+        </div>
+        <div ng-show="mySwitch" id="show-problem">
+            <textarea class="" name="problem" maxlength="300" placeholder="What issue?" ng-model="idea.problem"></textarea>
+        </div>
     </div>
-    <div ng-show="mySwitch" id="show-problem">
-        <textarea class="" name="problem" maxlength="300" placeholder="What issue?" ng-model="idea.problem"></textarea>
-    </div>
+    <input class="blue-button form-button" type="button" name="createIdea-button" value="Next" ng-click="goNext()">
 </div>
-<input class="blue-button form-button" type="button" name="createIdea-button" value="Next" ui-sref="createIdea.second">
 </div>

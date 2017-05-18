@@ -1415,6 +1415,14 @@ nav {
         position: absolute;
         bottom: -25px;
         left: 33px;
+
+        &.more {
+            bottom: -30px;
+        }
+
+        &.less {
+            bottom: -20px;
+        }
     }
 
     &.center {
@@ -5017,6 +5025,11 @@ bluelink {
             line-height: 18px;
             padding: 0;
             @include font( 'Museo', 300);
+
+            &.red-text {
+                color: $wetopia-red !important;
+                font-family: 'Museo_D';
+            }
         }
 
         textarea {

@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
-    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/static/img/wetopia_w.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-startup-image" href="/static/img/launch-screen.png">
+    <link rel="apple-touch-startup-image" href="/static/img/wetopia_w.png">
     <link rel="stylesheet" href="/static/css/master.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="shortcut icon" type="image/png" href="/static/img/wetopia_w.png"/>
+    <link rel="shortcut icon" type="image/png" href="/static/img/wetopia_w.png" />
 
     <!-- SEO Stuff -->
     <title>Wetopia - Develop your idea into a great Startup</title>
@@ -32,18 +32,46 @@
     <meta property="og:site_name" content="Wetopia - Develop your idea into a great Startup">
 
     <script>
-      if (document.location.hostname.search("wetopia.co") !== -1) {
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
-        analytics.load("b5B0t4fpUY9cQ24lhCvkgfQgCnQ4GQAl");
-        analytics.page();
-        }}();
-      }
+        if (document.location.hostname.search("wetopia.co") !== -1) {
+            ! function() {
+                var analytics = window.analytics = window.analytics || [];
+                if (!analytics.initialize)
+                    if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice.");
+                    else {
+                        analytics.invoked = !0;
+                        analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"];
+                        analytics.factory = function(t) {
+                            return function() {
+                                var e = Array.prototype.slice.call(arguments);
+                                e.unshift(t);
+                                analytics.push(e);
+                                return analytics
+                            }
+                        };
+                        for (var t = 0; t < analytics.methods.length; t++) {
+                            var e = analytics.methods[t];
+                            analytics[e] = analytics.factory(e)
+                        }
+                        analytics.load = function(t) {
+                            var e = document.createElement("script");
+                            e.type = "text/javascript";
+                            e.async = !0;
+                            e.src = ("https:" === document.location.protocol ? "https://" : "http://") + "cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
+                            var n = document.getElementsByTagName("script")[0];
+                            n.parentNode.insertBefore(e, n)
+                        };
+                        analytics.SNIPPET_VERSION = "4.0.0";
+                        analytics.load("b5B0t4fpUY9cQ24lhCvkgfQgCnQ4GQAl");
+                        analytics.page();
+                    }
+            }();
+        }
     </script>
 
 </head>
 
 <body ng-app="musementApp" ng-class="{ app: app }" ui-view>
-  <script src="bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
+    <script src="bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
 
 </body>
 
