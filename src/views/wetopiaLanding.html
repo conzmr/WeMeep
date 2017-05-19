@@ -1,15 +1,15 @@
-<body>
+<body ng-app="musementApp" ui-view>
     <div ng-class="{'blur': join || login || request||movilMenu }" ng-mousemove="landingCtrl.onMove($event)">
         <nav class="transparent-nav fadeIn fast" ng-class="{ 'scroll-white' : (scrolled > 1) }">
             <img class=" logo " src="/static/img/logo_t.svg ">
             <img class="hamburguer-menu " src="/static/img/hamburguermenu-min.png " ng-click="movilMenu=true">
               <div class="menu ">
-              <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >Why a startup?</a>
-              <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>How it works</a>
-              <a href="#features" offset="30" du-smooth-scroll du-scrollspy>Features</a>
-            <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>Our Team</a>
+              <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{ 'WHY_STARTUP' | translate }}</a>
+              <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>{{'HOW' | translate }}</a>
+              <a href="#features" offset="30" du-smooth-scroll du-scrollspy>{{'FEATURES' | translate }}</a>
+            <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>{{'OUR' | translate }}</a>
             <div class="simple-cont">
-              <p class="bluelink signup-nav button" ng-click="request=true">Join</p>
+              <p class="bluelink signup-nav button" ng-click="request=true">{{'JOIN' | translate }}</p>
             <!--<p class="login-btn" ng-click="login=true">Log In</p>
               <p class="bluelink signup-nav" ng-click="join=true">Sign Up</p>
               <!--<span class='scroll-debug'>{{scrolled}}</span>-->
@@ -27,17 +27,17 @@
         </div>
 
         <div class="flex-cont" id="why-a-startup" ng-style="{'height':h }">
-          <h1 class="title">Why <span class="title blue" ng-bind='wordTitle' ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span> a startup?</h1>
+          <h1 class="title">{{'WHY' | translate }}<span class="title blue" ng-bind='wordTitle' ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span>{{'STARTUP' | translate }}</h1>
           <h2 class="subtitle cursive"><span class="subtitle cursive span" ng-bind="sentenceSubtitle" ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span></h2>
             <div class="sub-cont " >
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
                   <div class="form-input flex-cont email">
-                    <p class="center-paragraph ">There are many reasons to do it.</p>
-                    <p class="simple-paragraph">The important thing is to start.</p>
-                      <p class="sub-paragraph fadeIn fast">We're launching soon, be part of Wetopia!</p>
+                    <p class="center-paragraph ">{{'REASONS' | translate }}</p>
+                    <p class="simple-paragraph">{{'THING' | translate }}</p>
+                      <p class="sub-paragraph fadeIn fast">{{'SOON' | translate }}</p>
                       <input type="email" ng-style="errorHeader && {'color':'#F26649'}" ng-click="clearRequest()"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
                       <p class="red-text error" ng-bind="mailRequestError" ng-show="errorHeader"></p>
-                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">Join</a>
+                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">{{'EMAIL_JOIN' | translate }}</a>
                   </div>
 
             </div>
@@ -46,39 +46,39 @@
 
 <div class="section-cont" id="gradient-bg">
   <div class="flex-cont" id="how-it-works">
-    <p class="sub-gray">HOW IT WORKS</p>
+    <p class="sub-gray">{{'HOW_WORKS' | translate }}</p>
     <div class="flex-cont row wrap" id="process-block" when-visible="animateHowItWorks">
       <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">Create your idea</p>
+        <p class="simple-paragraph">{{'CREATE' | translate }}</p>
         <img src="/static/img/HOW/IDEA.svg" alt="Create your idea">
       </div>
       <div class="flex-cont process-cont down">
         <img src="/static/img/HOW/Feedback.svg" alt="Receive feedback">
-        <p class="simple-paragraph">Receive feedback</p>
+        <p class="simple-paragraph">{{'RECEIVE' | translate }}</p>
       </div>
       <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">Mesure the potential</p>
+        <p class="simple-paragraph">{{'MEASURE' | translate }}</p>
         <img src="/static/img/HOW/Potential.svg" alt="Mesure the potential">
       </div>
       <div class="flex-cont process-cont down">
         <img src="/static/img/HOW/Startup.svg" alt="Build a startup">
-        <p class="simple-paragraph">Build a startup</p>
+        <p class="simple-paragraph">{{'BUILD' | translate }}</p>
       </div>
       <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">Find a team</p>
+        <p class="simple-paragraph">{{'FIND' | translate }}</p>
         <img src="/static/img/HOW/Team.svg" alt="Find a team">
       </div>
       <div class="flex-cont process-cont down">
         <img src="/static/img/HOW/Answers.svg" alt="Solve your doubts">
-        <p class="simple-paragraph">Solve your doubts</p>
+        <p class="simple-paragraph">{{'SOLVE' | translate }}</p>
       </div>
       <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">Develop your product</p>
+        <p class="simple-paragraph">{{'DEVELOP' | translate }}</p>
         <img src="/static/img/HOW/MVP.svg" alt="Develop your product">
       </div>
       <div class="flex-cont process-cont down">
         <img src="/static/img/HOW/Launch.svg" alt="Launch">
-        <p class="simple-paragraph">Launch!</p>
+        <p class="simple-paragraph">{{'LAUNCH' | translate }}</p>
       </div>
     </div>
   </div>
@@ -96,67 +96,67 @@
   </div>
 
   <div class="flex-cont" id="features">
-    <p class="sub-gray">FEATURES</p>
+    <p class="sub-gray">{{'FEATURES' | translate }}</p>
     <div class="flex-cont row wrap">
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/PIVOT.svg" alt="Pivot">
-        <p class="simple-paragraph">PIVOT</p>
-        <p class="medium-txt">Change your idea and see
-        how it started and how it evolved.</p>
+        <p class="simple-paragraph">{{'PIVOT' | translate }}</p>
+        <p class="medium-txt">{{'CHANGE' | translate }}
+        {{'CHANGE2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/NETWORK.svg" alt="Network">
-        <p class="simple-paragraph">NETWORK</p>
-        <p class="medium-txt">Expand your network, connect with people,
-          see who follows you & your startup.</p>
+        <p class="simple-paragraph">{{'NETWORK' | translate }}</p>
+        <p class="medium-txt">{{'EXPAND' | translate }}
+          {{'EXPAND2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/FEEDBACK.svg" alt="Feedback">
-        <p class="simple-paragraph">FEEDBACK</p>
-        <p class="medium-txt">Save and take into account the key feedback
-          that you received.</p>
+        <p class="simple-paragraph">{{'FEEDBACK' | translate }}</p>
+        <p class="medium-txt">{{'SAVE' | translate }}
+          {{'SAVE2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/PROFILE.svg" alt="Profile">
-        <p class="simple-paragraph">PROFILE</p>
-        <p class="medium-txt">Find out what type of skills you have &
-          use them to complement the startup.</p>
+        <p class="simple-paragraph">{{'PROFILE' | translate }}</p>
+        <p class="medium-txt">{{'SKILLS' | translate }}
+          {{'SKILLS2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/TEAM.svg" alt="Dreamteam">
-        <p class="simple-paragraph">DREAMTEAM</p>
-        <p class="medium-txt">Find people that complement
-        your skills & your startup. Develop your MVP.</p>
+        <p class="simple-paragraph">{{'DREAMTEAM' | translate }}</p>
+        <p class="medium-txt">{{'MVP' | translate }}
+        {{'MVP2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/QA.svg" alt="Q&A">
-        <p class="simple-paragraph">Q&A</p>
-        <p class="medium-txt">Ask questions and create polls in specific areas
-          where you need help, get answers from the community & the experts.</p>
+        <p class="simple-paragraph">{{'QA' | translate }}</p>
+        <p class="medium-txt">{{'ASK' | translate }}
+          {{'ASK2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/PRIVACY.svg" alt="Privacy">
-        <p class="simple-paragraph">PRIVACY</p>
-        <p class="medium-txt">When developing the startup decide what
-        you're sharing & who you're targeting.</p>
+        <p class="simple-paragraph">{{'PRIVACY' | translate }}</p>
+        <p class="medium-txt">{{'DEVELOPING' | translate }}
+        {{'DEVELOPING2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/STATUS.svg" alt="Status">
-        <p class="simple-paragraph">STATUS</p>
-        <p class="medium-txt">Help others build the startup,
-        share your knowledge & earn expert points.</p>
+        <p class="simple-paragraph">{{'STATUS' | translate }}</p>
+        <p class="medium-txt">{{'HELP' | translate }}
+        {{'HELP2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/JOBLIST.svg" alt="Joblist">
-        <p class="simple-paragraph">JOBLIST</p>
-        <p class="medium-txt">Find a startup that needs your skills & become
-          part of it. Earn money or equity.</p>
+        <p class="simple-paragraph">{{'JOBLIST' | translate }}</p>
+        <p class="medium-txt">{{'MONEY' | translate }}
+          {{'MONEY2' | translate }}</p>
       </div>
       <div class="flex-cont tools-cont">
         <img src="/static/img/Tools/EARLYADOPTERS.svg" alt="Early adpoter">
-        <p class="simple-paragraph">EARLY ADOPTER</p>
-        <p class="medium-txt">Have a community that supports your startup when
-        launch & find who's interested in buying your producs/service.</p>
+        <p class="simple-paragraph">{{'EARLY' | translate }}</p>
+        <p class="medium-txt">{{'COMMUNITY' | translate }}
+        {{'COMMUNITY2' | translate }}</p>
       </div>
 
 
@@ -164,7 +164,7 @@
   </div>
 
     <div class="flex-cont" id="our-team" >
-      <p class="sub-gray">THE TEAM</p>
+      <p class="sub-gray">{{'TEAM' | translate }}</p>
       <div class="flex-cont row" id="all-team-container">
       <div class="flex-cont team-side">
         <div class="flex-cont row team-cont ">
@@ -172,8 +172,8 @@
           id='pedro' ng-click="changeGraph('Pedro')"
           click-outside="changeGraph('All')" outside-if-not="luis mario constanza ele">
           <div class="simple-cont">
-            <p class="simple-paragraph">Pedro Camarena</p>
-            <p class="small-italic">Project Manager</p>
+            <p class="simple-paragraph">{{'PEDRO' | translate }}</p>
+            <p class="small-italic">{{'MANAGER' | translate }}</p>
           </div>
         </div>
         <div class="flex-cont row team-cont ">
@@ -181,8 +181,8 @@
           id='luis'  ng-click="changeGraph('Luis')"
           click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ele">
           <div class="simple-cont">
-            <p class="simple-paragraph">Luis Mendoza</p>
-            <p class="small-italic">Brand Manager</p>
+            <p class="simple-paragraph">{{'LUIS' | translate }}</p>
+            <p class="small-italic">{{'BRAND' | translate }}</p>
           </div>
         </div>
       </div>
@@ -193,8 +193,8 @@
           id="mario" ng-click="changeGraph('Mario')"
          click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ele">
           <div class="simple-cont">
-            <p class="simple-paragraph">Mario García</p>
-            <p class="small-italic">Back-end</p>
+            <p class="simple-paragraph">{{'MARIO' | translate }}</p>
+            <p class="small-italic">{{'BACK' | translate }}</p>
           </div>
         </div>
       </div>
@@ -204,8 +204,8 @@
           id="constanza" ng-click="changeGraph('Constanza')"
          click-outside="changeGraph('All')" outside-if-not="luis mario pedro ele">
           <div class="simple-cont">
-            <p class="simple-paragraph">Constanza Madrigal</p>
-            <p class="small-italic">Front-end</p>
+            <p class="simple-paragraph">{{'CONZ' | translate }}</p>
+            <p class="small-italic">{{'FRONT' | translate }}</p>
           </div>
         </div>
         <div class="flex-cont row team-cont ">
@@ -213,8 +213,8 @@
           id="ele" ng-click="changeGraph('Ele')"
           click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
           <div class="simple-cont">
-            <p class="simple-paragraph">Eleonora Paredes</p>
-            <p class="small-italic">Designer</p>
+            <p class="simple-paragraph">{{'ELE' | translate }}</p>
+            <p class="small-italic">{{'DESIGN' | translate }}</p>
           </div>
         </div>
       </div>
@@ -225,14 +225,14 @@
 
 <div class="section-cont">
 <div class="flex-cont" id="bottom-land-bg" >
-  <p class="center-paragraph">What are you waiting for?</p>
-  <p class="simple-paragraph">Join Wetopia today and start.</p>
+  <p class="center-paragraph">{{'WAITING' | translate }}</p>
+  <p class="simple-paragraph">{{'TODAY' | translate }}.</p>
 <!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
 <div class="form-input flex-cont email" id="form-input-footer">
-    <p class="sub-paragraph fadeIn fast center-advice">We're launching soon, be part of Wetopia!</p>
+    <p class="sub-paragraph fadeIn fast center-advice">{{'LAUNCHING' | translate }}</p>
     <input type="email" ng-style="errorFooter && {'color':'#F26649'}" ng-click="clearRequest()" ng-model="userEmail" name="request-email" placeholder="Email" required="true">
     <p class="red-text error" ng-bind="mailRequestError" ng-show="errorFooter"></p>
-    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">Join</a>
+    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">{{'JOIN_FOOTER' | translate }}</a>
 </div>
 </div>
 </div>
@@ -272,7 +272,7 @@
           <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
             <div class="flex-cont">
               <p class="close-x" ng-click="join=false">x</p>
-              <p class="sub-gray">SIGN UP</p>
+              <p class="sub-gray">{{'SIGNUP' | translate }}</p>
               <div class="form-input">
                   <img  ng-src="{{nameError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}">
                   <input type="text" name="signup-name" ng-click="clearErrors()"  ng-model="user.name" placeholder="Name" required/>
@@ -294,10 +294,10 @@
                   <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
               <input type="button" value="Join" class="form-button " name="join" ng-click="signUp(signupForm.input.$error.email)">
-              <p class="terms">By joining you are accepting our <span class="bluelink">Terms and Conditions,
-              Privacy Poliy </span>along with Wetopia's <span class="bluelink">Ethics Code</span></p>
-              <p class="already">Already have an account?</p>
-              <p class="bluelink already login-btn" ng-click="openLogin()">Sign in</p>
+              <p class="terms">{{'ACCEPTING' | translate }}<span class="bluelink">{{'TERMS' | translate }}
+              {{'PRIVACY_POLICY' | translate }}</span>{{'ALONG' | translate }}<span class="bluelink">{{'ETHICS' | translate }}</span></p>
+              <p class="already">{{'ALREADY' | translate }}</p>
+              <p class="bluelink already login-btn" ng-click="openLogin()">{{'SIGNIN' | translate }}</p>
             </div>
           </div>
       </div>
@@ -306,7 +306,7 @@
           <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf">
             <div class="flex-cont">
               <p class="close-x" ng-click="login=false">x</p>
-              <p class="sub-gray">LOG IN</p>
+              <p class="sub-gray">{{'LOGIN' | translate }}</p>
               <form name="loginForm" class="form-input">
                   <img ng-src="{{emailError?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" >
                   <input type="text" ng-click="clearErrors()" ng-click="clearErrors()"  ng-model="user.email" ng-style="emailError && {'color':'#F26649'}" name="login-email" placeholder="Email" required="true">
@@ -317,10 +317,10 @@
                   <input type="password" ng-click="clearErrors()" ng-click="clearErrors()" ng-model="user.password" ng-style="passwordError && {'color':'#F26649'}"  name="login-password" placeholder="Password" required="true">
                   <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
-              <p class="terms right" ng-class="{'margin-top': passwordError}" >Forgot your password?</p>
+              <p class="terms right" ng-class="{'margin-top': passwordError}" >{{'FORGOT' | translate }}</p>
               <input type="button" value="Join" class="form-button " name="login" ng-click="signIn(loginForm.input.$error.email)">
-              <p class="already">Don't an account?</p>
-              <p class="bluelink already signup-nav" id="signup-nav" ng-click="openSignup()">Join Now!</p>
+              <p class="already">{{'DONT' | translate }}</p>
+              <p class="bluelink already signup-nav" id="signup-nav" ng-click="openSignup()">{{'JOIN_NOW' | translate }}</p>
               </div>
           </div>
       </div>
@@ -329,7 +329,7 @@
           <div class="centered-form modal-form" click-outside="request=false" outside-if-not="request-btn signup-nav">
             <div class="flex-cont">
               <p class="close-x" ng-click="closeRequestModal()">x</p>
-              <p class="sub-gray">REQUEST INVITATION</p>
+              <p class="sub-gray">{{'REQUEST' | translate }}</p>
               <div class="form-input">
                   <img ng-src="{{error?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" src="/static/img/Login_mail.svg">
                   <input type="email" ng-style="error && {'color':'#F26649'}" ng-click="clearRequest()"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
@@ -344,12 +344,12 @@
           <div class="centered-form modal-form" click-outside="thanks=false">
             <div class="flex-cont">
               <p class="close-x" ng-click="thanks=false">x</p>
-              <p class="sub-gray">THANK YOU!</p>
+              <p class="sub-gray">{{'THANKS' | translate }}</p>
               <img class="done-icon" src="/static/img/DONE_ICON.svg">
-              <p class="medium">You are now part of Wetopia!</p>
-              <p class="medium">Keep and eye on your inbox because you'll be
-                receiving news from us very soon!</p>
-            <p class="smaller">In the meantime follow us on:</p>
+              <p class="medium">{{'PART' | translate }}</p>
+              <p class="medium">{{'KEEP' | translate }}
+                {{'KEEP2' | translate }}</p>
+            <p class="smaller">{{'MEANTIME' | translate }}</p>
               <div class="icons">
                 <div class="simple-cont">
             <a href="https://www.facebook.com/wetopiaCo/"  target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
@@ -365,9 +365,9 @@
       <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu" g>
         <img class=" logo " src="/static/img/logo_t.svg ">
               <p class="close-x" ng-click="movilMenu=false">x</p>
-              <p class="sub-white" ng-click="movilMenu=false" href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >WHY A STARTUP?</p>
-              <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>HOW IT WORKS</p>
-              <p class="sub-white" ng-click="movilMenu=false" href="#features" offset="30" du-smooth-scroll du-scrollspy >FEATURES</p>
-              <p class="sub-white" ng-click="movilMenu=false" href="#our-team" offset="30" du-smooth-scroll du-scrollspy >OUR TEAM</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{'WHY_STARTUP' | translate }}</p>
+              <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>{{'HOW' | translate }}</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#features" offset="30" du-smooth-scroll du-scrollspy >{{'FEATURES' | translate }}</p>
+              <p class="sub-white" ng-click="movilMenu=false" href="#our-team" offset="30" du-smooth-scroll du-scrollspy >{{'OUR' | translate }}</p>
       </div>
   </body>

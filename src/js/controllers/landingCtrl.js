@@ -40,44 +40,44 @@ angular.module("musementApp")
         $scope.graph = $scope.graphImg['All'];
       }
       else{
-        $scope.graph = $scope.graphImg[name];  
+        $scope.graph = $scope.graphImg[name];
       }
     }
 
-    $scope.titleWords=['create', 'join', 'help'];
-    $scope.subtitles=[['To change the world.','To be influential.',
-    'To have a positive impact.','To become a millionaire.',
-    'To challenge myself.','To build somenthing from zero.','To shape my future.'],
-    ['To get experience.','To be part of something.',
-    'For personal & professional growth.','To have more flexibility.',
-  'To challenge myself.',"I don't want a common job.",'To help create something from zero.'],
-    ['To expand my network.', 'To help build something.', 'To become an expert.',
-    "It's my passion.",'To keep updated.','To be part of something.']];
+    $scope.titleWords=[$translate.instant('RANDCREATE'), $translate.instant('RANDJOIN'), $translate.instant('RANDHELP')];
+    $scope.subtitles=[[$translate.instant('WORLD'),$translate.instant('INFLUENTIAL'),
+    $translate.instant('IMPACT'),$translate.instant('MILLIONARE'),
+    $translate.instant('CHALLENGE'),$translate.instant('BUILD'),$translate.instant('SHAPE')],
+    [$translate.instant('EXPERIENCE'),$translate.instant('SOMETHING'),
+    $translate.instant('GROWTH'),$translate.instant('FLEXIBILITY'),
+  ,$translate.instant('COMMON'),$translate.instant('HELP_CREATE')],
+    [$translate.instant('EXPAND_NETWORK'), $translate.instant('HELP_BUILD'), $translate.instant('BECOME_EXPERT'),
+    $translate.instant('PASSION'),$translate.instant('UPDATED'),$translate.instant('SOMETHING')]];
 
     $scope.expertsInfo = [{
       photo:'/static/img/IMG_COMMUNITY_PEDRO-min.png',
-      quote: '“This is the place where ideas become reality: pivot your idea, create a project, get answers and find the correct team, while helping others in their process."',
-      sign: '-Pedro Camarena, Co-Founder of Wetopia',
-      qualitative: 'Entrepreneur',
+      quote: $translate.instant('QUOTE_GEPPE'),
+      sign: $translate.instant('SIGN_GEPPE'),
+      qualitative: $translate.instant('ENTREPRENEUR'),
       logo: '/static/img/Wetopia_LogoBK.svg'
     },
     {
       photo:'/static/img/IMG_COMMUNITY_LUIS-min.png',
-      quote: '“For entrepreneurs, it’s essential to receive feedback during the process of a business idea, this helps ensure correct decisions along the way. Wetopia is the community that helps you in that & more.”',
-      sign: '- Luis Daniel Nishizawa, Co-Founder of Oh My!',
-      qualitative: 'Entrepreneur',
+      quote: $translate.instant('QUOTE_NISHI'),
+      sign: $translate.instant('SIGN_NISHI'),
+      qualitative: $translate.instant('ENTREPRENEUR'),
       logo: '/static/img/LOGOS/OhMy_LOGO-min.png'
     },{
       photo:'/static/img/RubenV_IMG-min.png',
-      quote: '“Wetopia has the potential to accelerate the process of idea validation and thus reduce the rate of business failure.”',
-      sign: '-Rubén Valencia, Co-Founder of Chocolatux',
-      qualitative: 'Expert',
+      quote: $translate.instant('QUOTE_RUBEN'),
+      sign: $translate.instant('SIGN_RUBEN'),
+      qualitative: $translate.instant('EXPERT'),
       logo: '/static/img/LOGOS/Logo ChocolatUX.png'
     },{
       photo:'/static/img/AxelG_IMG-min.png',
-      quote: '“For me, it made all the diference to receive feedback during the early stage & development of my project. It\'s essential to make the correct decisions since the beginning, to have a higher chance of success.”',
-      sign: '-Axel Gaxiola, Founder of Feeder',
-      qualitative: 'Entrepreneur',
+      quote: $translate.instant('QUOTE_FOO'),
+      sign: $translate.instant('SIGN_FOO'),
+      qualitative: $translate.instant('ENTREPRENEUR'),
       logo: '/static/img/LOGOS/Feeder.png'
     }
   ]
