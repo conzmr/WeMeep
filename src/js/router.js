@@ -7,65 +7,42 @@ angular.module('musementApp')
                 templateUrl: "/static/views/wetopiaLanding.html",
                 authenticate: false //Doesn't requires authentication
             })
-            .state("login", {
-                url: "/login",
-                controller: 'loginCtrl',
-                templateUrl: "/static/views/login.html",
-                authenticate: false
-            })
             .state("home", {
                 url: "/home",
                 controller: "homeCtrl",
                 templateUrl: "/static/views/home.html",
-                authenticate: false
-            })
-            .state("signup", {
-                url: "/signup",
-                templateUrl: "/static/views/signup.html",
-                controller: "signupCtrl",
-                authenticate: false //Doesn't requires authentication
-            })
-            .state("signup.first", {
-                url: "/first",
-                // controller: "signupCtrl",
-                templateUrl: "/static/views/signup-first.html",
-                authenticate: false
-            })
-            .state("signup.second", {
-                url: "/second",
-                // controller: "signupCtrl",
-                templateUrl: "/static/views/signup-second.html",
-                authenticate: false
+                authenticate: true
             })
             .state("myIdea", {
                 url: "/myIdea",
                 controller: "myIdeaCtrl",
                 templateUrl: "/static/views/myIdea.html",
-                authenticate: false
+                authenticate: true
             })
             .state("idea", {
                 url: "/idea",
                 controller: "ideaCtrl",
                 templateUrl: "/static/views/idea.html",
-                authenticate: false
+                authenticate: true
             })
             .state("createIdea", {
                 url: "/createIdea",
                 controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdea.html",
-                authenticate: false //mover
+                authenticate: true //mover
             })
             .state("createIdea.first", {
                 url: "/first",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS1.html",
-                authenticate: false //mover
+                authenticate: true//mover
             })
             .state("createIdea.second", {
                 url: "/second",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
-                authenticate: false, //mover
+                authenticate: true, //mover
+
                 data: {
                     redirect: ['createIdeaDataService', function(createIdeaDataService) {
                         // just check that firstName is in, if not return the state where this is filled
@@ -75,29 +52,23 @@ angular.module('musementApp')
                     }]
                 }
             })
-            .state("myIdeaStatistics", {
-                url: "/myIdeaStatistics",
-                controller: "statisticsCtrl",
-                templateUrl: "/static/views/statistics.html",
-                authenticate: false
-            })
             .state("myProfile", {
                 url: "/myProfile",
                 controller: "myProfileCtrl",
                 templateUrl: "/static/views/myProfile.html",
-                authenticate: false
+                authenticate: true
             })
             .state("profile", {
                 url: "/profile",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
-                authenticate: false
+                authenticate: true
             })
             .state("test", {
                 url: "/test",
                 controller: "testCtrl",
                 templateUrl: "/static/views/test.html",
-                authenticate: false
+                authenticate: true
             })
 
 

@@ -497,7 +497,7 @@ router.route('/users/:user_id/ideas')
       return res.status(500).json({'err':err})
     }
     if (ideaFound)
-      return res.status(300).json({'err':{message: "Error, you already have an idea with this name"}})
+      return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
 
     let idea = new Idea({
       admin: req.U_ID,

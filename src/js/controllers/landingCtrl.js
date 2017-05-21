@@ -40,7 +40,7 @@ angular.module("musementApp")
         $scope.graph = $scope.graphImg['All'];
       }
       else{
-        $scope.graph = $scope.graphImg[name];  
+        $scope.graph = $scope.graphImg[name];
       }
     }
 
@@ -293,6 +293,12 @@ $scope.signUp = function (invalidEmail) {
       localStorageService.set('token', res.data.token);
       localStorageService.set('username', res.data.username)
       localStorageService.set('user_id', res.data._id);
+      window.localStorage.setItem("token", res.data.token);
+      window.localStorage.setItem("user_id",  res.data._id);
+      window.localStorage.setItem("username", res.data.username);
+      console.log("Token "+  window.localStorage.getItem('token'));
+      console.log("Id"+  window.localStorage.getItem('user_id'));
+      console.log("Username "+  window.localStorage.getItem('username'));
       $scope.join=false;
       $state.go("home");
     }
@@ -335,7 +341,13 @@ $scope.signIn = function(invalidEmail) {
     localStorageService.set('token', res.data.token) //Set the token for reuse in every request
     localStorageService.set('user_id', res.data._id) //Set the user_id in the localStorageService
     localStorageService.set('username', res.data.username) //Set the user_id in the localStorageService
+    window.localStorage.setItem("token", res.data.token);
+    window.localStorage.setItem("user_id",  res.data._id);
+    window.localStorage.setItem("username", res.data.username);
     $state.go('home')
+    console.log("Token "+  window.localStorage.getItem('token'));
+    console.log("Id"+  window.localStorage.getItem('user_id'));
+    console.log("Username "+  window.localStorage.getItem('username'));
   },
   function(res) { //error callback
     switch (res.status) {

@@ -2,13 +2,11 @@ angular.module('musementApp')
     .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
 
         let user_id = localStorageService.get('user_id');
-
         $scope.idea = createIdeaDataService.idea;
         $scope.mySwitch = false;
         $scope.inputTeamMembers = false;
         $scope.tags = [];
-        $scope.members = [];
-        $scope.categorySelected = "";
+        $scope.idea.members = [];
         $scope.showCategories = false;
         loadTags();
         $scope.errorTitle = false;
@@ -20,6 +18,10 @@ angular.module('musementApp')
         $scope.errorSolution = false;
         $scope.errorSolutionMessage = "";
         $scope.errorOtherCategory = false;
+        $scope.idea.categories = [];
+        $scope.categories = [];
+        $scope.categorySelected = {};
+
 
         $scope.selectCategory = function(category) {
             $scope.clearErrors();
@@ -42,9 +44,8 @@ angular.module('musementApp')
                 cache: true
             }).then(function(response) {
                 var members = response.data;
-                console.log(members);
                 return members.filter(function(member) {
-                    return members.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+                    return member.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
                 });
             });
         }
@@ -55,9 +56,11 @@ angular.module('musementApp')
                 cache: true
             }).then(function(response) {
                 var tags = response.data;
-                $scope.categories = [];
                 for (var i = 0; i < tags.length; i++) {
-                    $scope.categories[i] = tags[i].name;
+                    $scope.categories[i] = {
+                      name : tags[i].name,
+                      id : tags[i]._id
+                    }
                 }
             })
         }
@@ -82,6 +85,8 @@ angular.module('musementApp')
             $scope.errorOtherCategory = false;
             $scope.errorSolutionMessage = "";
         }
+
+
 
         $scope.goNext = function() {
             $scope.clearErrors();
@@ -126,18 +131,22 @@ angular.module('musementApp')
 
         $scope.submitIdea = function(banner) {
             console.log("sumbitIdea Execute");
+            // if ($scope.categorySelected == 'Others') {
+            //     $scope.idea.categories = $scope.otherCategory;
+            // }
 
-            if ($scope.categorySelected == 'Others') {
-                $scope.idea.categories = $scope.otherCategory;
-            } else {
-                $scope.idea.categories = $scope.categorySelected;
-            }
+            // getCategoryId($scope.categorySelected);
+            // console.log("categories"+$scope.idea.categories);
+            $scope.idea.categories[0] = $scope.categorySelected.id;
             $scope.idea.banner = banner;
 
             createIdeaDataService.setIdea(user_id, function(res) {
                 if (res.status == 201) {
                     // $scope.this_user.ideas.push(res.data.idea)
-                    $state.go('showIdea');
+                    $state.go('idea');
+                }
+                else {
+                  console.log('falle xq fui infiel');
                 }
             });
 
