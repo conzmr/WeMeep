@@ -44,6 +44,10 @@ angular.module("musementApp")
       }
     }
 
+    //mails id
+    $scope.enMail = '8e523446-ee22-43be-9d98-fe872989fc47'
+    $scope.esMail = '3284a8f2-977a-4b4c-a98b-77bfd62f7090'
+
 
       $scope.titleWords=[$translate.instant('RANDCREATE'), $translate.instant('RANDJOIN'), $translate.instant('RANDHELP')];
       $scope.subtitles=[[$translate.instant('WORLD'),$translate.instant('INFLUENTIAL'),
@@ -198,9 +202,11 @@ $timeout(function(){
 
     $scope.submit = function(email, position) {
       $scope.clearRequest();
-    if (email != null) {
-        let invitationInfo = {};
-        invitationInfo.email = email;
+      if (email != null) {
+        let invitationInfo = {}
+        invitationInfo.email = email
+        invitationInfo.lang = $translate.proposedLanguage() == 'es' ? $scope.esMail : $scope.enMail
+        console.log(invitationInfo.lang);
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){
