@@ -7,11 +7,11 @@
     </div>
     <div class="form-input" id="cat-select">
         <img src="/static/img/Create Idea_tag.svg">
-        <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected" readonly="readonly" placeholder="Category">
+        <input type="text" id="category-selector" ng-click="changeShowCategories()" name="selector-cat" ng-model="categorySelected.name" readonly="readonly" placeholder="Category">
         <p class="red-text error less" ng-bind="errorCategoryMessage" ng-show="errorCategory"></p>
         <div class="list-cont" ng-show="showCategories">
             <ul class="tooltip-selector">
-                <li ng-repeat="category in categories" ng-class="{'selected':  categorySelected==category}" ng-click="selectCategory(category)" ng-bind="category"></li>
+                <li ng-repeat="category in categories" ng-class="{'selected':  categorySelected==category}" ng-click="selectCategory(category)" ng-bind="category.name"></li>
             </ul>
         </div>
     </div>
