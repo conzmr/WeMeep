@@ -54,7 +54,7 @@ angular.module('musementApp', ['ui.router', 'LocalStorageModule',
 
     $translateProvider
         .useStaticFilesLoader(fileNameConvention) //Load json dedicated files
-        .useSanitizeValueStrategy('escape') // Not completely vulnerable to serious attacks
+        .useSanitizeValueStrategy('sce') // Not completely vulnerable to serious attacks
         .registerAvailableLanguageKeys(['en', 'es'], langMap)
         .determinePreferredLanguage()
         .fallbackLanguage(['en']);
