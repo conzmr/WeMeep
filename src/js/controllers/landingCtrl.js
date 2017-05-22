@@ -48,7 +48,7 @@ angular.module("musementApp")
       $scope.titleWords=[$translate.instant('RANDCREATE'), $translate.instant('RANDJOIN'), $translate.instant('RANDHELP')];
       $scope.subtitles=[[$translate.instant('WORLD'),$translate.instant('INFLUENTIAL'),
       $translate.instant('IMPACT'),$translate.instant('MILLIONARE'),
-      $translate.instant('CHALLENGE'),$translate.instant('BUILD'),$translate.instant('SHAPE')],
+      $translate.instant('CHALLENGE'),$translate.instant('BUILD_ZERO'),$translate.instant('SHAPE')],
       [$translate.instant('EXPERIENCE'),$translate.instant('SOMETHING'),
       $translate.instant('GROWTH'),$translate.instant('FLEXIBILITY'),
     ,$translate.instant('COMMON'),$translate.instant('HELP_CREATE')],
