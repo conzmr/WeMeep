@@ -1,6 +1,6 @@
 var Guest = require("../models/guest.js");
 var helper = require('sendgrid').mail;
-const sendgrid = require('sendgrid')('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');
+const sendgrid = require('sendgrid')('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');
 
 var insertInvite = function(req, callback) {
         // Create invite
