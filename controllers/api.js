@@ -77,7 +77,6 @@ router.post('/signup', function(req, res){
         new User({
           email: req.body.email,
           name: req.body.name,
-          username: req.body.username,
           lastname: req.body.lastname,
           password: bcrypt.hashSync(req.body.password),
           image: req.body.image || null//?
