@@ -33,7 +33,18 @@ var userSchema = new mongoose.Schema({
         required: true,
         default: undefined
     },
-    gender: String
+    gender: String,
+    testResults :[{
+      creative: {type: Number, defualt: 0},
+      coordinator: {type: Number, defualt: 0},
+      manager: {type: Number, defualt: 0},
+      networker: {type: Number, defualt: 0},
+      supporter: {type: Number, defualt: 0},
+      researcher: {type: Number, defualt: 0},
+      analyzer: {type: Number, defualt: 0},
+      perfectionist: {type: Number, defualt: 0},
+      specialist: {type: Number, defualt: 0}
+    }]
 })
 
 userSchema.methods.comparePassword = function (password) {

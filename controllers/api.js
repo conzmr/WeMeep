@@ -205,6 +205,25 @@ router.route('/users/:user_id/avatar')
   })
 })
 
+// GET PROFILE INFORMATION
+router.route('/users/:user_id') //just when the url has "id=" it will run, otherwise it will look for a username
+.get(function (req, res) {
+  User.findById(req.params.user_id, '-password') //Return all excepting password
+  .exec(function(err, user) {
+    if (err)
+      return res.status(500).json({'error': err})
+      console.log(user.projects);
+    res.status(200).json({'user': user})
+  })
+})
+.put(function (req, res) {
+  //TODO: Update user
+  res.status(501).json({'message':'Not yet supported.'})
+})
+.delete(function (req, res) {
+  //TODO: *Deactivate* user, validate user us deleting himself
+  res.status(501).json({'message':'Not yet supported.'})
+})
 
 /*************************************
 ***                                ***
