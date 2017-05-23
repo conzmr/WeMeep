@@ -15,7 +15,7 @@ require('angulartics-segment')
 require('angular-scroll-animate')
 
 //Change in production
-//to http://musement.co and in development to http://localhost:8080
+//to http://wetopia.co and in development to http://localhost:8080
 window.HOST = 'http://localhost:8080'
 
 angular.module('wetopiaApp', ['ui.router', 'LocalStorageModule',
