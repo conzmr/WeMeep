@@ -42,7 +42,6 @@ angular.module('wetopiaApp')
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
                 authenticate: true, //mover
-
                 data: {
                     redirect: ['createIdeaDataService', function(createIdeaDataService) {
                         // just check that firstName is in, if not return the state where this is filled
@@ -59,7 +58,7 @@ angular.module('wetopiaApp')
                 authenticate: true
             })
             .state("profile", {
-                url: "/profile",
+                url: "/profile/:user_id",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
                 authenticate: true

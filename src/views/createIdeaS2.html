@@ -6,7 +6,7 @@
         <div class="select-team">
             <div class="tooltip" ng-repeat="member in idea.members">
                 <div class="polygon-each-img-wrap">
-                    <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'" >
+                    <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg">
                     </div>
                 </div>
                 <p class="tooltiptext">{{member.name}} {{member.lastname}}</p>
@@ -15,19 +15,19 @@
         </div>
     </div>
     <div class="form-description">
-        <img src="/static/img/Create Idea_img.svg">
-        <p class="form-subtitle">Cover Picture</p>
-        <div class="select-image">
-            <div class="createIdea-cover">
-                <input id="cover-input" type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
-                <label for="cover-input">
-        <div class="label-input" id="idea-cover-img" ngf-background="idea.banner"/> </div>
-        </label>
-            </div>
-            <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
-        </div>
-    </div>
-    <input class="blue-button form-button lessmargin-button" type="button" name="selectTeam-button" value="Done" ng-click="createIdea()">
+         <img src="/static/img/Create Idea_img.svg">
+         <p class="form-subtitle">Cover Picture</p>
+         <div class="select-image">
+             <div class="createIdea-cover">
+                 <input id="cover-input" type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*"ngf-max-size="5MB"/>
+                 <label for="cover-input">
+         <div class="label-input" id="idea-cover-img" ngf-background="idea.banner || '/static/img/Image_default.svg'"/> </div>
+         </label>
+             </div>
+             <i ng-show="upload_form.file.$error.maxSize">File too large {{idea.cover.size / 1000000|number:1}}MB: max 5M</i><br>
+         </div>
+     </div>
+    <input class="blue-button form-button lessmargin-button" type="button" name="selectTeam-button" id="done-btn-create" value="Done" ng-click="createIdea()">
 </div>
 
 <div class="flex-modal white alert-modal" ng-show="inputTeamMembers">
