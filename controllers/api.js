@@ -12,7 +12,6 @@ const mongoose = require('mongoose')
 // models
 const User = require("../models/user.js")
 const Idea = require("../models/idea.js")
-const Moment = require("../models/moment.js")
 const Category = require("../models/category.js")
 const Feedback = require("../models/feedback.js")
 const Guest = require("../models/guest.js")
