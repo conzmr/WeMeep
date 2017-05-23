@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('signupDataService', function($http) {
 
   this.signup = function (signupInfo, callback, errorCallback) {

@@ -1,4 +1,4 @@
-angular.module("musementApp")
+angular.module("wetopiaApp")
 
 .controller("landingCtrl", function($scope, $document, $window, $state, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper) {
     $scope.join = false;

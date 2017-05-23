@@ -1,5 +1,5 @@
 'user strict';
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('signupCtrl', function($scope, signupDataService, localStorageService, $state, $window, Upload, momentDataService) {
 
   $scope.user = {};

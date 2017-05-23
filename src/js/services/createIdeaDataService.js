@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .service('createIdeaDataService', function($http) {
 
         this.idea = {};

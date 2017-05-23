@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
 
         let user_id = localStorageService.get('user_id');

@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .filter('containsMember', function() {
   return function (array, needle) {
     for (var i = 0; i < array.length; i++) {

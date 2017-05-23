@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('loginDataService', function($http) {
 
   this.authenticate = function(login_info, callback, errorCallback) {

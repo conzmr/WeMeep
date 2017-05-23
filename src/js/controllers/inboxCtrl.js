@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('inboxCtrl', function($scope, profileDataService, localStorageService) {
 
   let user_id = localStorageService.get('user_id')

@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('feedCtrl', function($scope, $rootScope, $state, $stateParams, loginDataService, localStorageService, profileDataService, feedDataService, $compile, $sce, $window, Upload, $http, momentDataService) {
 
   let user_id = localStorageService.get('user_id')

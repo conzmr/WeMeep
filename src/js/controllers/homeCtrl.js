@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('homeCtrl', function($scope) {
 
 $scope.notification = false;

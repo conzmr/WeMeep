@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('feedDataService', function($http) {
   //Creates a new moment to the user
   this.setMoment = function(moment, user_id, callback) {

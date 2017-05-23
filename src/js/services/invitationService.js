@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('invitationDataService', function($http) {
 
   this.invitation = function (invitationInfo, callback, errorCallback) {

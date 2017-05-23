@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('loginCtrl', function($scope, loginDataService, localStorageService, $state, jwtHelper) {
   $scope.next = true;
 

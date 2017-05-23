@@ -18,26 +18,22 @@ var ideaSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the Feedback */
     ref: 'Feedback'
   }],
-  /* interest: [
+   interest: [
     {
       userID: {
-        type: mongoose.Schema.Types.ObjectId, /* Object ID from User
-        ref: 'User', /* User Schema. Remember to define it as this in the export module
+        type: mongoose.Schema.Types.ObjectId, /* Object ID from User */
+        ref: 'User', /* User Schema. Remember to define it as this in the export module */
       },
-      /* This type could be: money, love, like, dislike 
+      /* This type could be: money, love, like, dislike */
       type: {
         type: String,
         required: true
       }
-  }],*/
+  }],
   ideaname:String, /* Codename for the project to reference it */
   members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }],
-  moments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Moment'
   }],
   name: {
     type: String,

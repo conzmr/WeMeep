@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .directive('contentItem', function($compile, TemplateService) {
         var getTemplate = function(contentType) {
             var template = '';

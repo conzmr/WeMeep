@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .controller('myIdeaCtrl', function($scope) {
         $scope.pivoting = false;
         $scope.notification = false;

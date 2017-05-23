@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('projectDataService', function($http) {
 
   this.setProject = function(project, user_id, callback, errCallback) {

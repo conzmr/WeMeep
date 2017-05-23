@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('momentCtrl', function($scope, $compile, momentDataService, $stateParams) {
 
   let moment_id = $stateParams.moment_id;

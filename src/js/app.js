@@ -18,7 +18,7 @@ require('angular-scroll-animate')
 //to http://musement.co and in development to http://localhost:8080
 window.HOST = 'http://localhost:8080'
 
-angular.module('musementApp', ['ui.router', 'LocalStorageModule',
+angular.module('wetopiaApp', ['ui.router', 'LocalStorageModule',
         'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js', 'angular-click-outside', 'duScroll','angulartics', 'angulartics.segment','angular-scroll-animate'
     ]) //, 'ngFileUpload'
     .factory('httpRequestInterceptor', function(localStorageService) {

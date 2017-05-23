@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state("landing", {

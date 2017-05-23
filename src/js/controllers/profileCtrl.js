@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window) {
   $scope.notification = false;
   $scope.showNotifications=false;

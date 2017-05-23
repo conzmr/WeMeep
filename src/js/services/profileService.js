@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
 .service('profileDataService', function($http) {
 
   this.getProfileInfo = function(user_id, callback) {

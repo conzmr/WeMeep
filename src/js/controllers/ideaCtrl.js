@@ -1,4 +1,4 @@
-angular.module('musementApp')
+angular.module('wetopiaApp')
     .controller('ideaCtrl', function($scope) {
         $scope.notification = false;
         $scope.showNotifications=false;
