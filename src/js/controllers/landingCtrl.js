@@ -55,7 +55,7 @@ angular.module("musementApp")
       $translate.instant('CHALLENGE'),$translate.instant('BUILD_ZERO'),$translate.instant('SHAPE')],
       [$translate.instant('EXPERIENCE'),$translate.instant('SOMETHING'),
       $translate.instant('GROWTH'),$translate.instant('FLEXIBILITY'),
-    ,$translate.instant('COMMON'),$translate.instant('HELP_CREATE')],
+     $translate.instant('COMMON'),$translate.instant('HELP_CREATE')],
       [$translate.instant('EXPAND_NETWORK'), $translate.instant('HELP_BUILD'), $translate.instant('BECOME_EXPERT'),
       $translate.instant('PASSION'),$translate.instant('UPDATED'),$translate.instant('SOMETHING')]];
 
@@ -366,9 +366,6 @@ $scope.signIn = function(invalidEmail) {
 $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
 	};
-
-
-
 
 
 })

@@ -58,7 +58,7 @@ angular.module('musementApp')
                 authenticate: true
             })
             .state("profile", {
-                url: "/profile/:username",
+                url: "/profile/:user_id",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
                 authenticate: true
