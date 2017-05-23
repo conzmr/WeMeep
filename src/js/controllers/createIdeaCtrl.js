@@ -1,5 +1,5 @@
 angular.module('musementApp')
-    .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state) {
+    .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state, $window) {
 
         let user_id = localStorageService.get('user_id');
         $scope.idea = createIdeaDataService.idea;
@@ -33,11 +33,6 @@ angular.module('musementApp')
             $scope.showCategories = !$scope.showCategories;
         }
 
-
-        if ($scope.idea.banner == undefined) {
-            $scope.idea.banner = "/static/img/Image_default.svg";
-        }
-
         // Load members when creating a project
         $scope.loadMembers = function($query) {
             return $http.get(HOST + '/api/members/' + user_id, {
@@ -65,14 +60,6 @@ angular.module('musementApp')
             })
         }
 
-        $scope.createIdea = function() {
-            if (this.idea.banner == undefined) {
-                $scope.sumbitIdea("/static/img/cover_Login.svg") //Modificar
-            } else if (this.idea.banner.type) {
-                $scope.upload(this.idea.banner)
-            }
-
-        }
 
         $scope.clearErrors = function() {
             $scope.errorTitle = false;
@@ -98,7 +85,7 @@ angular.module('musementApp')
                 $scope.errorDescriptionMessage = "Please enter a description for your idea.";
                 $scope.errorDescription = true;
             }
-            if (!$scope.categorySelected) {
+            if (!$scope.categorySelected.name) {
                 $scope.errorCategoryMessage = "Please select a category for your idea. ";
                 $scope.errorCategory = true;
             }
@@ -111,23 +98,27 @@ angular.module('musementApp')
             }
         }
 
-        $scope.upload = function(file) {
-            if (!file) { //If user doesnt want to upload a photo, set the gravatar one
-                $scope.submitIdea(); //Send no image
-            } else {
-                Upload.upload({
-                        url: window.HOST + '/api/upload',
-                        data: {
-                            file: file
-                        }
-                    })
-                    .then(function(res) { //upload function returns a promise
-                        $scope.submitIdea('/static/uploads/' + res.data.file_name);
-                    }, function(errRes) { //catch error
-                        $window.alert('Error status: ' + errRes.status);
-                    });
-            }
+        $scope.createIdea = function ( ){
+          if ($scope.idea.banner){
+            Upload.upload({
+                    url: window.HOST + '/api/upload',
+                    data: {
+                        file: $scope.idea.banner
+                    }
+                })
+                .then(function(res) { //upload function returns a promise
+                  console.log(res.data.file_name+" ghrej");
+                    $scope.submitIdea('/static/uploads/' + res.data.file_name);
+                }, function(errRes) { //catch error
+                    $window.alert('Error status: ' + errRes.status);
+                });
+          }
+          else{
+            $scope.submitIdea();
+          }
+
         }
+
 
         $scope.submitIdea = function(banner) {
             console.log("sumbitIdea Execute");

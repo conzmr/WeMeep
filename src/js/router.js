@@ -42,7 +42,6 @@ angular.module('musementApp')
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS2.html",
                 authenticate: true, //mover
-
                 data: {
                     redirect: ['createIdeaDataService', function(createIdeaDataService) {
                         // just check that firstName is in, if not return the state where this is filled
@@ -59,7 +58,7 @@ angular.module('musementApp')
                 authenticate: true
             })
             .state("profile", {
-                url: "/profile",
+                url: "/profile/:username",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
                 authenticate: true

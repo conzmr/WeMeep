@@ -153,12 +153,14 @@ percentage:'85%'
 ];
 
 
-  /*var username = $stateParams.username;
+ var username = $stateParams.username;
 
   profileDataService.getProfileInfo('u=' + username, function(response) {
     if (response.data.success) {
       $scope.user = response.data.user;
       var user_id = response.data.user._id;
+      console.log('user id: '+user_id);
+      console.log(response.data);
 
       profileDataService.getProfileMoments(user_id, function (res) {
         $scope.moments = res.data.moments;
@@ -166,7 +168,7 @@ percentage:'85%'
 
     } else {
       $scope.user = {};
-      $state.go('feed.not-found'); //Go to feed state :)
+      $state.go('landing'); //Go to feed state :)
     }
   });
 
@@ -179,6 +181,6 @@ percentage:'85%'
         }, function (errRes) { //catch error
             $window.alert('Error status: ' + errRes.status);
       });
-  }*/
+  }
 
 })
