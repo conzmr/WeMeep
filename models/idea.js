@@ -9,11 +9,11 @@ var ideaSchema = new mongoose.Schema({
   },
   banner: String,
   description: String,
-  categories: [{
+  category: {
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the category */
     ref: 'Category',
     required:true
-  }],
+  },
   feedback: [{
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the Feedback */
     ref: 'Feedback'

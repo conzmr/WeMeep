@@ -1,17 +1,62 @@
 db.categories.insert([
-  {"name":"Art"},
-  {"name":"Hand-Craft"},
-  {"name":"Design"},
-  {"name":"Fashion"},
-  {"name":"Film & Photography"},
-  {"name":"Food"},
-  {"name":"Games"},
-  {"name":"Music"},
-  {"name":"Economics"},
-  {"name":"Technology"},
-  {"name":"Health"},
-  {"name":"Education"},
-  {"name":"Social"},
-  {"name":"Ecological"},
-  {"name":"Others"}
+  {
+    "name":"art",
+    "description": "Art"
+  },
+  {
+    "name":"handcraft",
+    "description": "Hand-Craft"
+  },
+  {
+    "name":"design",
+    "description": "Design"
+  },
+  {
+    "name":"fashion",
+    "description": "Fashion"
+  },
+  {
+    "name":"film",
+    "description": "Film & Photography"
+  },
+  {
+    "name":"food",
+    "description": "Food"
+  },
+  {
+    "name":"games",
+    "description": "Games"
+  },
+  {
+    "name":"music",
+    "description": "Music"
+  },
+  {
+    "name":"economics",
+    "description": "Economics"
+  },
+  {
+    "name":"technology",
+    "description": "Technology"
+  },
+  {
+    "name":"health",
+    "description": "Health"
+  },
+  {
+    "name":"education",
+    "description": "Education"
+  },
+  {
+    "name":"social",
+    "description": "Social"
+  },
+  {
+    "name":"ecological",
+    "description": "Ecological"
+  },
+  {
+    "name":"others",
+    "description": "Others"
+  }
 ]);
