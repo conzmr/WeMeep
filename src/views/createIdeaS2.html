@@ -1,4 +1,5 @@
 <div class="flex-cont create-cont">
+    <p class="close-x" ng-click="goHome()">x</p>
     <p class="sub-gray">CREATE IDEA</p>
     <div class="form-description">
         <img src="/static/img/Create Idea_team.svg">
@@ -6,7 +7,7 @@
         <div class="select-team">
             <div class="tooltip" ng-repeat="member in idea.members">
                 <div class="polygon-each-img-wrap">
-                    <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg">
+                    <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'">
                     </div>
                 </div>
                 <p class="tooltiptext">{{member.name}} {{member.lastname}}</p>

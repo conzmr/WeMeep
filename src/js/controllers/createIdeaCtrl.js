@@ -45,6 +45,10 @@ angular.module('wetopiaApp')
             });
         }
 
+        $scope.goHome = function(){
+          $state.go('home');
+        }
+
         // Load categories when creating a moment
         function loadTags($query) {
             return $http.get(HOST + '/api/tags', {
@@ -121,7 +125,6 @@ angular.module('wetopiaApp')
 
 
         $scope.submitIdea = function(banner) {
-            console.log("sumbitIdea Execute");
             // if ($scope.categorySelected == 'Others') {
             //     $scope.idea.categories = $scope.otherCategory;
             // }
