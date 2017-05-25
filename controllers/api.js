@@ -88,7 +88,7 @@ router.post('/signup', function(req, res){
             res.status(500).json({'error': err, 'message': "Could not save user."});
           else { // Create a token and --- sign with the user information --- and secret password
             var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) //Expires in 60 hours
-            res.status(200).json({ '_id': user._id, 'username': user.username, 'token': token })
+            res.status(200).json({ '_id': user._id, 'name': user.name, 'email': user.email, 'token': token })
           }
         })
       }
@@ -115,7 +115,7 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'username': user.username, 'token': token })  // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'name': user.name, 'email': user.email, 'token': token }) // Return the information including token as JSON
       }
     }
   })

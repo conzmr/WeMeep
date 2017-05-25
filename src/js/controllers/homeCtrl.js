@@ -7,6 +7,10 @@ $scope.showUserMenu=false;
 $scope.trending = true;
 $scope.allIdeas = false;
 $scope.selectedCategory = "";
+$scope.currentUser = {};
+$scope.currentUser.email = localStorageService.get('email');
+$scope.currentUser.name = localStorageService.get('name');
+
 
 $scope.logOut = function(){
   localStorageService.clearAll();
