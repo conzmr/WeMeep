@@ -7,6 +7,7 @@ angular.module('wetopiaApp')
   $scope.projects = false;
   $scope.following = false;
   $scope.editProfile = false;
+  $scope.user = {};
 
   $scope.user = {
     name : "Name",
@@ -159,17 +160,11 @@ percentage:'85%'
     if (response.data) {
       $scope.user = response.data.user;
       var user_id = response.data.user._id;
-      console.log('user id: '+user_id);
-      console.log(response.data);
-
       // profileDataService.getProfileMoments(user_id, function (res) {
       //   $scope.moments = res.data.moments;
       // })
-
     } else {
-      console.log('Jejeje');
-      $scope.user = {};
-      $state.go('landing'); //Go to feed state :)
+      $state.go('home');
     }
   });
 

@@ -1,12 +1,17 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope) {
+.controller('homeCtrl', function($scope, localStorageService, $state) {
 
 $scope.notification = false;
 $scope.showNotifications=false;
 $scope.showUserMenu=false;
 $scope.trending = true;
-$scope.recommended = false;
+$scope.allIdeas = false;
 $scope.selectedCategory = "";
+
+$scope.logOut = function(){
+  localStorageService.clearAll();
+  $state.go('landing');
+}
 
 $scope.changeShowNotifications = function(){
   $scope.showNotifications = !$scope.showNotifications;
@@ -18,12 +23,17 @@ $scope.changeShowMenu = function(){
 
 $scope.Trending = function(){
   $scope.trending = true;
-  $scope.recommended = false;
+  $scope.allIdeas = false;
 }
 
-$scope.Recommmended = function(){
+// $scope.Recommmended = function(){
+//   $scope.trending = false;
+//   $scope.recommended = true;
+// }
+
+$scope.AllIdeas = function(){
   $scope.trending = false;
-  $scope.recommended = true;
+  $scope.allIdeas = true;
 }
 
 $scope.categories = [{

@@ -1347,6 +1347,10 @@ nav {
                 font-size: 12px;
                 margin-top: 0;
             }
+
+            &.bottom{
+              margin-bottom: 10px !important;
+            }
         }
 
         &::after,
@@ -3339,6 +3343,11 @@ nav {
             margin-bottom: 20px;
         }
 
+        &.for-scroll{
+          padding-top: 120px;
+          margin-top: 0;
+        }
+
         &.max-width {
             max-width: 700px;
             margin: auto;
@@ -5273,7 +5282,7 @@ bluelink {
 .go-back-btn {
     position: absolute;
     left: 20px;
-    top: 21px;
+    top: 123px;
     height: 30px;
     width: 100px;
     cursor: pointer;
@@ -6097,4 +6106,13 @@ video#bgvid {
 
 #done-btn-create{
  max-width: 119px;
+}
+
+#load-more-ideas{
+  padding: 8px 28px;
+  margin-bottom: 30px;
+}
+
+#by-category{
+  margin-top: -70px;
 }

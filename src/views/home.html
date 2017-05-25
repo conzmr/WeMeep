@@ -102,12 +102,12 @@
                 <div class="flex-cont user-menu">
                   <div class="sup-cont">
                     <p class="gray-dark">UserName</p>
-                    <p class="gray-lighter small">mail@mail.com</p>
+                    <p class="gray-lighter small bottom">mail@mail.com</p>
                   </div>
                   <p>My Profile</p>
                   <p>My Ideas</p>
-                  <p>Settings</p>
-                  <p class="gray-lighter">Log Out</p>
+                  <!-- <p>Settings</p> -->
+                  <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
               </ul>
           </div>
@@ -123,13 +123,13 @@
 
 <!--    <img src="/static/img/arrowDown.svg" id="right-blue-arrow" class="rot-270-right"></p>-->
 
-    <div class="content">
-        <div class="section-cont">
-            <div class="flex-cont row sub-nav" ng-show="selectedCategory==''">
+    <div class="content" >
+        <div class="section-cont" id="by-category">
+            <div class="flex-cont row sub-nav for-scroll" ng-show="selectedCategory==''">
               <p class="sub-gray" ng-click="Trending()"  ng-class="{'active': trending}">TRENDING</p>
-              <p class="sub-gray" ng-click="Recommmended()" ng-class="{'active': recommended}">RECOMMENDED</p>
+              <p class="sub-gray" ng-click="AllIdeas()" ng-class="{'active': allIdeas}">ALL IDEAS</p>
             </div>
-            <div class="flex-cont row sub-nav" ng-show="selectedCategory!=''">
+            <div class="flex-cont row sub-nav for-scroll" ng-show="selectedCategory!=''" >
               <div class="flex-cont row go-back-btn" ng-click="selectedCategory=''">
                 <img class="to-left-arrow" src="/static/img/arrowDown.svg">
                 <blue>BACK</blue>
@@ -242,6 +242,11 @@
                 </div>
 
             </div>
+            <div class="flex-cont">
+                <a href="#" class="color-button blue border-radius-6" id="load-more-ideas">More Ideas</a>
+            </div>
+
+
         </div>
 
     <div class="section-cont" ng-show="selectedCategory==''">
@@ -250,12 +255,12 @@
         </div>
 
         <div class="section-padd-cont">
-          <img class="category" ng-repeat="category in categories"
+          <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="category in categories"
          ng-init="coverImg = category.cover"
          ng-mouseover="coverImg = category.hover"
          ng-mouseout="coverImg = category.cover"
          ng-src="{{coverImg}}"
-         ng-click="selecCategory(category.name)">
+         ng-click="selecCategory(category.name)"></a>
     </div>
 
         </div>
@@ -266,11 +271,12 @@
             </div>
 
             <div class="section-padd-cont">
-              <img class="category" ng-repeat="category in otherCategories"
+                <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="category in otherCategories"
              ng-init="coverImg = category.cover"
              ng-mouseover="coverImg = category.hover"
              ng-mouseout="coverImg = category.cover"
-             ng-src="{{coverImg}}">
+             ng-src="{{coverImg}}"
+             ng-click="selecCategory(category.name)"></a>
         </div>
 
             </div>
@@ -297,9 +303,11 @@
       </div>
       <div class="right">
         <p class="medium-bold">Wetopia (c) 2017</p>
+        <!--
         <p class="small">Terms & Conditions</p>
         <p class="small">Privacy Policy</p>
         <p class="small">Ethics Code</p>
+        -->
       </div>
     </div>
 </body>
