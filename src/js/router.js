@@ -61,7 +61,15 @@ angular.module('wetopiaApp')
                 url: "/profile/:user_id",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
-                authenticate: true
+                authenticate: true,
+               onEnter: function(localStorageService,  $stateParams, $state){
+               if(localStorageService.get('user_id')==$stateParams.user_id){
+                //  $state.transitionTo ('myProfile');
+              //    event.preventDefault();
+            return {  controller: "myProfileCtrl",
+              templateUrl: "/static/views/myProfile.html" }
+                }
+             }
             })
             .state("test", {
                 url: "/test",
@@ -113,6 +121,13 @@ angular.module('wetopiaApp')
         }
         if (toState.data && toState.data.redirect) {
             var redirectTo = $injector.invoke(toState.data.redirect);
+            if (redirectTo) {
+                $state.go(redirectTo);
+                event.preventDefault();
+            }
+        }
+        if (toState.verify && toState.verify.redirect) {
+            var redirectTo = $injector.invoke(toState.verify.redirect);
             if (redirectTo) {
                 $state.go(redirectTo);
                 event.preventDefault();

@@ -35,15 +35,15 @@ var userSchema = new mongoose.Schema({
     },
     gender: String,
     testResults :[{
-      creative: {type: Number, defualt: 0},
-      coordinator: {type: Number, defualt: 0},
-      manager: {type: Number, defualt: 0},
-      networker: {type: Number, defualt: 0},
-      supporter: {type: Number, defualt: 0},
-      researcher: {type: Number, defualt: 0},
-      analyzer: {type: Number, defualt: 0},
-      perfectionist: {type: Number, defualt: 0},
-      specialist: {type: Number, defualt: 0}
+      creative: {type: Number, default: 0},
+      coordinator: {type: Number, default: 0},
+      manager: {type: Number, default: 0},
+      networker: {type: Number, default: 0},
+      supporter: {type: Number, default: 0},
+      researcher: {type: Number, default: 0},
+      analyzer: {type: Number, default: 0},
+      perfectionist: {type: Number, default: 0},
+      specialist: {type: Number, default: 0}
     }]
 })
 

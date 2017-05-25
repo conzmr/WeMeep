@@ -205,6 +205,12 @@ router.route('/users/:user_id/avatar')
   })
 })
 
+router.get('/members', function(req, res) {
+  User.find({}, 'name lastname username image', function(err, users){
+    res.json(users);
+  })
+})
+
 // GET PROFILE INFORMATION
 router.route('/users/:user_id') //just when the url has "id=" it will run, otherwise it will look for a username
 .get(function (req, res) {
@@ -212,7 +218,6 @@ router.route('/users/:user_id') //just when the url has "id=" it will run, other
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
-      console.log(user.projects);
     res.status(200).json({'user': user})
   })
 })

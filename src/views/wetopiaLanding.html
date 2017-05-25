@@ -1,7 +1,7 @@
 <body ng-app="wetopiaApp" ui-view>
     <div ng-class="{'blur': join || login || request||movilMenu }" ng-mousemove="landingCtrl.onMove($event)">
         <nav class="transparent-nav fadeIn fast" ng-class="{ 'scroll-white' : (scrolled > 1) }">
-            <img class=" logo " src="/static/img/logo_t.svg ">
+              <a class=" logo "  href="/"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
             <img class="hamburguer-menu " src="/static/img/hamburguermenu-min.png " ng-click="movilMenu=true">
               <div class="menu ">
               <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{ 'WHY_STARTUP' | translate }}</a>
@@ -239,14 +239,14 @@
 </div>
 </div>
 <div class="footer flex-cont">
-<!--
+
   <div class="left">
     <a  href="/home"  class="small">Home</a>
     <a href="/myProfile" class="small">My Profile</a>
     <a  href="/createIdea/first" class="small">Create Idea</a>
     <a href="/myIdea" class="small">My Idea</a>
   </div>
--->
+
 
   <div class="icons">
     <img src="/static/img/wetopia_dark-min.png">
@@ -258,14 +258,15 @@
     </div>
 
   </div>
-<!--
+
   <div class="right">
     <p class="medium-bold">Wetopia (c) 2017</p>
+    <!--
     <p class="small">Terms & Conditions</p>
     <p class="small">Privacy Policy</p>
     <p class="small">Ethics Code</p>
+    -->
   </div>
--->
 </div>
 
       </div>
@@ -295,8 +296,8 @@
                   <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
               <input type="button" value="Join" class="form-button " name="join" ng-click="signUp(signupForm.input.$error.email)">
-              <p class="terms">{{'ACCEPTING' | translate }}<span class="bluelink">{{'TERMS' | translate }}
-              {{'PRIVACY_POLICY' | translate }}</span>{{'ALONG' | translate }}<span class="bluelink">{{'ETHICS' | translate }}</span></p>
+              <!-- <p class="terms">{{'ACCEPTING' | translate }}<span class="bluelink">{{'TERMS' | translate }}
+              {{'PRIVACY_POLICY' | translate }}</span>{{'ALONG' | translate }}<span class="bluelink">{{'ETHICS' | translate }}</span></p> -->
               <p class="already">{{'ALREADY' | translate }}</p>
               <p class="bluelink already login-btn" ng-click="openLogin()">{{'SIGNIN' | translate }}</p>
             </div>

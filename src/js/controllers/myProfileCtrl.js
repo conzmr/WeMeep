@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService,) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -166,6 +166,21 @@ color: ' #E66449',
 percentage:'85%'
 }
 ];
+
+var user_id = localStorageService.get('user_id');
+
+profileDataService.getProfileInfo(user_id, function(response) {
+  if (response.data) {
+    $scope.user = response.data.user;
+    var user_id = response.data.user._id;
+    // profileDataService.getProfileMoments(user_id, function (res) {
+    //   $scope.moments = res.data.moments;
+    // })
+  } else {
+    $scope.user = {};
+    $state.go('home');
+  }
+});
 
 
             })
