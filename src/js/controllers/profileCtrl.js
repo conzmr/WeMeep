@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService) {
+.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService, ideaDataService) {
   $scope.notification = false;
   $scope.showNotifications=false;
   $scope.showUserMenu=false;
@@ -12,6 +12,7 @@ angular.module('wetopiaApp')
   $scope.currentUser.email = localStorageService.get('email');
   $scope.currentUser.name = localStorageService.get('name');
   $scope.testDone = false;
+  $scope.ideasData = [];
 
 
   $scope.logOut = function(){
@@ -150,30 +151,27 @@ percentage:'85%'
 ];
 
 
+
+
  var user_id = $stateParams.user_id;
 
   profileDataService.getProfileInfo(user_id, function(response) {
     if (response.data) {
       $scope.user = response.data.user;
       var user_id = response.data.user._id;
-      // profileDataService.getProfileMoments(user_id, function (res) {
-      //   $scope.moments = res.data.moments;
-      // })
-      console.log($scope.user.ideas);
+      for(var i = 0; i < $scope.user.ideas.length; i++){
+        var j =0;
+        ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+          if(response.data){
+            $scope.ideasData[j] = response.data;
+            j++;
+          }
+        })
+      }
+
     } else {
       $state.go('home');
     }
   });
-
-  $scope.uploadAvatar = function(file){
-        Upload.upload({
-        url: window.HOST + '/api/users/' + $scope.user._id + '/avatar',
-        data:{ file: file }
-      }).then(function (res) { //upload function returns a promise
-            $scope.user.image = res.data.path
-        }, function (errRes) { //catch error
-            $window.alert('Error status: ' + errRes.status);
-      });
-  }
 
 })

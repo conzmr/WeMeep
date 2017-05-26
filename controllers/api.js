@@ -78,10 +78,8 @@ router.post('/signup', function(req, res){
         new User({
           email: req.body.email,
           name: req.body.name,
-          username: req.body.username,
           lastname: req.body.lastname,
-          password: bcrypt.hashSync(req.body.password),
-          image: req.body.image || null//?
+          password: bcrypt.hashSync(req.body.password)
         })
         .save(function (err, user) { // Save the user
           if (err)
@@ -320,7 +318,7 @@ router.route('/users/:user_id/ideas')
       description: req.body.description,
       problem: req.body.problem,
       name: req.body.name,
-      categories: req.body.categories,
+      category: req.body.category,
       ideaname: ideaname
     })
     if (!req.body.members || req.body.members.length == 0)
@@ -348,7 +346,7 @@ router.route('/users/:user_id/ideas')
 })
 
 // GET INFORMATION FOR A SPECIFIC IDEA
-router.route('/ideas/:idea_id')
+router.route('/ideas/self/:idea_id')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id)
   .lean()
@@ -389,6 +387,37 @@ router.route('/ideas/:idea_id')
   res.status(501).json({'message':'Not yet supported.'})
 })
 
+// GET ALL IDEAS
+router.route('/ideas/all')
+.get(function (req, res) {
+      Idea.find()
+      .exec(function (err, ideas) {
+        if (err)
+          res.status(500).json({'error': err, 'success': false});
+        else
+          res.status(200).json({ideas})
+  })
+})
+
+// GET ALL IDEAS BY CATEGORY
+router.route('/ideas/all/:category')
+.get(function (req, res) {
+  const name = req.params.category
+  Category.findOne({ name })
+  .exec(function (err, category) {
+    if (err || !category)
+      res.status(500).json({'error': err, 'success': false});
+    else {
+      Idea.find({'category': category._id})
+      .exec(function (err, ideas) {
+        if (err)
+          res.status(500).json({'error': err, 'success': false});
+        else
+          res.status(200).json({ideas})
+      })
+    }
+  })
+})
 
 // GET STATS FOR AN IDEA
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,

@@ -2512,7 +2512,6 @@ nav {
     width: 100%;
     box-sizing: border-box;
     height: 160px;
-    @include backimg(ex2, jpg);
     border: 1px solid $wetopia-blue;
     border-radius: 10px 10px 0 0;
 }

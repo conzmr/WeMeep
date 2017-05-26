@@ -130,7 +130,7 @@
                 <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
                 </div>
             </div>
-            <p  class="medium-gray" ng-bind="user.username || 'No username to show.'">@</p>
+          <div class="simple-cont"><p class="medium-gray" ng-show="user.username">@</p><p  class="medium-gray" ng-bind="user.username || 'No username to show.'"></p></div>
             </div>
             <div class="flex-cont" id="profile-info">
               <p  class="title-dark left" ng-bind="user.name || 'No name to show.'"></p>
@@ -168,9 +168,9 @@
                 <div class="simple-margin-top" ng-show="user.ideas.length==0">
                   <p  class="title-dark ">{{user.name}} has no ideas yet.</p>
                 </div>
-                  <div class="card idea" ng-repeat="idea in user.ideas">
+                  <div class="card idea" ng-repeat="idea in ideasData">
                     <div class="card-block">
-                      <div class="card-img">
+                      <div class="card-img" ngf-background="idea.banner || '/static/img/Default_Profile_IMG.svg'">
                       </div>
                       <div class="card-info ">
                           <div class="user">
@@ -179,13 +179,13 @@
                                       <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
                                       </div>
                                   </div>
-                                  <p>UserName</p>
+                                  <p>{{user.name}} {{user.lastname}}</p>
                               </div>
                               <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                           </div>
-                          <p class="dark-title">{{idea.ideaname}}</p>
+                          <p class="dark-title">{{idea.name}}</p>
                           <p class="card-p">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                              {{idea.description}}
                           </p>
                       </div>
                       </div>
