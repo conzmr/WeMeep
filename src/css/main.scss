@@ -1298,6 +1298,7 @@ nav {
     .sup-cont {
         border-bottom: 1px solid $pt-gray;
         margin-bottom: 10px;
+        overflow-wrap: break-word;
 
         .gray-dark {
             margin-bottom: 3px;
@@ -5356,12 +5357,22 @@ bluelink {
     }
 }
 
+.left-img{
+  margin: auto 5px auto 0;
+  height: 17px;
+}
+
 .medium-gray {
     font-size: 17px;
     font-family: 'Museo_700';
     color: $gray-lighter;
     width: auto;
     margin: auto;
+    display: inline-block;
+
+    &.no-margins{
+      margin: 0 auto;
+    }
 
     &.left {
         margin: auto auto auto 0;
@@ -5400,10 +5411,6 @@ bluelink {
         margin-bottom: 5px;
     }
 
-    img {
-        height: 15px;
-        margin-right: 5px;
-    }
 }
 
 #profile-edit-info {
@@ -6115,4 +6122,9 @@ video#bgvid {
 
 #by-category{
   margin-top: -70px;
+}
+
+
+.no-clickable{
+  cursor: default;
 }

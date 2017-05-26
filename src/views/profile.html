@@ -101,13 +101,13 @@
               <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
                 <div class="flex-cont user-menu">
                   <div class="sup-cont">
-                    <p class="gray-dark">UserName</p>
-                    <p class="gray-lighter small">mail@mail.com</p>
+                    <p class="gray-dark">{{currentUser.name}}</p>
+                    <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p>My Profile</p>
                   <p>My Ideas</p>
-                  <p>Settings</p>
-                  <p class="gray-lighter">Log Out</p>
+                  <!-- <p>Settings</p> -->
+                  <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
               </ul>
           </div>
@@ -130,29 +130,30 @@
                 <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
                 </div>
             </div>
-            <p  class="medium-gray">@{{user.username}}</p>
+            <p  class="medium-gray" ng-bind="user.username || 'No username to show.'">@</p>
             </div>
             <div class="flex-cont" id="profile-info">
-              <p  class="title-dark left">{{user.name}}</p>
-              <p class="title-dark left subtitle">{{user.lastname}}</p>
-              <p class="medium-gray left">{{user.profession}}</p>
-              <p  class="medium-gray left">{{user.age}}</p>
-              <p  class="medium-gray left">{{user.birthdate}}</p>
-              <p  class="medium-gray left"><img src="/static/img/Gender_Icon.svg">{{user.gender}}</p>
-              <p  class="medium-gray left"><img src="/static/img/Location_Icon.svg">{{user.location}}</p>
+              <p  class="title-dark left" ng-bind="user.name || 'No name to show.'"></p>
+              <p class="title-dark left subtitle" ng-bind="user.lastname || 'No lastname to show.'"></p>
+              <p class="medium-gray left" ng-bind="user.profession || 'No profession to show.'"></p>
+              <p  class="medium-gray left" ng-bind="user.age || 'No age to show.'"></p>
+              <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'No gender to show.'"> </p></div>
+              <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.country || 'No country to show.'"></p></div>
             </div>
           </div>
           <div class="flex-cont">
             <p class="title-dark left">About {{user.name}}:</p>
-            <p class="normal-paragraph margin-tb left small-size">
-              {{user.about}}
+            <p class="normal-paragraph margin-tb left small-size" ng-bind="user.about || 'No bio to show.'">
             </p>
           </div>
         </div>
 
         <div class="mid-page flex-cont">
+          <div ng-show="!testDone" class="flex-cont absolute">
+              <a class="color-button blue complete-form discard no-bottom no-clickable">Coming Soon</a>
+          </div>
           <canvas id="radar" class="chart chart-radar flex-cont"
-  chart-data="user.testResults" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
+  chart-data="graphData" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
 </canvas>
         </div>
           </div>
@@ -160,11 +161,14 @@
           <div class="section-cont">
               <div class="flex-cont row sub-nav max-width">
                 <p class="sub-gray" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Ideas</p>
-                <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">Projects</p>
-                <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p>
+                <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">Projects</p> -->
+                <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
               </div>
               <div class="cards-cont">
-                  <div class="card idea">
+                <div class="simple-margin-top" ng-show="user.ideas.length==0">
+                  <p  class="title-dark ">{{user.name}} has no ideas yet.</p>
+                </div>
+                  <div class="card idea" ng-repeat="idea in user.ideas">
                     <div class="card-block">
                       <div class="card-img">
                       </div>
@@ -179,85 +183,7 @@
                               </div>
                               <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                           </div>
-                          <p class="dark-title">Lorem ipsum dolor sitming</p>
-                          <p class="card-p">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
-                      </div>
-                      </div>
-                      <div class="footer-nav">
-                          <a href="#">Categoría</a>
-                      </div>
-                  </div>
-
-                  <div class="card project">
-                    <div class="card-block">
-                      <div class="card-img">
-                      </div>
-                      <div class="card-info">
-                          <div class="user">
-                              <div class="left">
-                                <div class="polygon-each-img-wrap">
-                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                    </div>
-                                </div>
-                                  <p>UserName</p>
-                              </div>
-                                <img class="right-img" src="/static/img/PROJECT_VIEWS/Project_ICON.svg">
-                          </div>
-                          <p class="dark-title">Lorem ipsum dolor sitming</p>
-                          <p class="card-p">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
-                      </div>
-                      </div>
-                      <div class="footer-nav">
-                          <a href="#">Categoría</a>
-                      </div>
-                  </div>
-
-                  <div class="card idea">
-                    <div class="card-block">
-                      <div class="card-img">
-                      </div>
-                      <div class="card-info ">
-                          <div class="user">
-                              <div class="left">
-                                  <div class="polygon-each-img-wrap">
-                                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                      </div>
-                                  </div>
-                                  <p>UserName</p>
-                              </div>
-                              <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
-                          </div>
-                          <p class="dark-title">Lorem ipsum dolor sitming</p>
-                          <p class="card-p">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                          </p>
-                      </div>
-                      </div>
-                      <div class="footer-nav">
-                          <a href="#">Categoría</a>
-                      </div>
-                  </div>
-
-                  <div class="card project">
-                    <div class="card-block">
-                      <div class="card-img">
-                      </div>
-                      <div class="card-info">
-                          <div class="user">
-                              <div class="left">
-                                <div class="polygon-each-img-wrap">
-                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                    </div>
-                                </div>
-                                  <p>UserName</p>
-                              </div>
-                                <img class="right-img" src="/static/img/PROJECT_VIEWS/Project_ICON.svg">
-                          </div>
-                          <p class="dark-title">Lorem ipsum dolor sitming</p>
+                          <p class="dark-title">{{idea.ideaname}}</p>
                           <p class="card-p">
                               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                           </p>
@@ -271,7 +197,7 @@
               </div>
           </div>
 
-    <div class="flex-cont row wrap ">
+    <!-- <div class="flex-cont row wrap ">
       <div class="flex-cont row sub-nav" ng-show="selectedCategory!=''">
         <p class="sub-gray not-hov">STATUS</p>
       </div>
@@ -291,7 +217,7 @@
           <p  class="title-dark ">no badges yet</p>
         </div>
       </div>
-    </div>
+    </div> -->
       </div>
 
 

@@ -209,8 +209,8 @@
             </div>
 
             <div class="mid-page flex-cont">
-                <div ng-show="!user.testDone" class="flex-cont absolute">
-                    <a class="color-button blue complete-form discard no-bottom" ui-sref="test">Take the Test</a>
+                <div ng-show="!testDone" class="flex-cont absolute">
+                    <a class="color-button blue complete-form discard no-bottom no-clickable">Coming Soon</a>
                 </div>
                 <canvas id="radar" class="chart chart-radar flex-cont" chart-data="user.testResults" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
 </canvas>
@@ -221,7 +221,7 @@
         <div class="section-cont">
             <div class="flex-cont row sub-nav max-width">
                 <p class="sub-gray" ng-click="showIdeas()" ng-class="{'active blue': ideas}">My Ideas</p>
-                <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p>
+                <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p> -->
                 <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p>
             </div>
             <div class="cards-cont">

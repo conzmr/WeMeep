@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window) {
+.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService) {
   $scope.notification = false;
   $scope.showNotifications=false;
   $scope.showUserMenu=false;
@@ -8,22 +8,18 @@ angular.module('wetopiaApp')
   $scope.following = false;
   $scope.editProfile = false;
   $scope.user = {};
+  $scope.currentUser = {};
+  $scope.currentUser.email = localStorageService.get('email');
+  $scope.currentUser.name = localStorageService.get('name');
+  $scope.testDone = false;
 
-  $scope.user = {
-    name : "Name",
-    lastname : "Last Name",
-    username : "username",
-    testDone : false,
-    testResults : [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
-    //  [[65, 59, 90, 81, 56, 55, 40, 30, 12]],
-    profilePicture : null,
-    profession : "Profession",
-    birthdate : "06 / 06 / 1996",
-    gender : "Gender",
-    location : "Location",
-    about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque."
 
+  $scope.logOut = function(){
+    localStorageService.clearAll();
+    $state.go('landing');
   }
+
+  $scope.graphData = [[0,0,0,0,0,0,0,0,0]];
 
   $scope.showIdeas = function(){
     $scope.ideas = true;
@@ -163,6 +159,7 @@ percentage:'85%'
       // profileDataService.getProfileMoments(user_id, function (res) {
       //   $scope.moments = res.data.moments;
       // })
+      console.log($scope.user.ideas);
     } else {
       $state.go('home');
     }

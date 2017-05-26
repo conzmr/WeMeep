@@ -291,7 +291,7 @@ $scope.signUp = function (invalidEmail) {
   userData.lastname = $scope.user.lastname;
   userData.email = $scope.user.newEmail.toLowerCase(); //IMPORTANT
   userData.password = $scope.user.newPassword;
-  userData.username = $scope.user.newEmail;
+  userData.username =  $scope.user.newEmail.toLowerCase(); 
 
   signupDataService.signup(userData, function (res) {
     if (res.status == 200) {
