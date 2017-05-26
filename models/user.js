@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
     },
     bio: String,
     country: String,
-    //how to save age? 
+    //how to save age?
     password: {
       type: String,
       required: true
@@ -28,7 +28,7 @@ var userSchema = new mongoose.Schema({
     }],
     username: {
         type: String,
-        default: undefined
+        required: true
     },
     gender: String,
     testResults :[{
@@ -41,7 +41,10 @@ var userSchema = new mongoose.Schema({
       analyzer: {type: Number, default: 0},
       perfectionist: {type: Number, default: 0},
       specialist: {type: Number, default: 0}
-    }]
+    }],
+    //new attributes
+    profession: String,
+    birthdate: Number
 })
 
 userSchema.methods.comparePassword = function (password) {

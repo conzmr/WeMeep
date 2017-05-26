@@ -219,14 +219,30 @@ router.route('/users/:user_id') //just when the url has "id=" it will run, other
     res.status(200).json({'user': user})
   })
 })
+// UPDATE PROFILE INFORMATION
 .put(function (req, res) {
-  //TODO: Update user
-  res.status(501).json({'message':'Not yet supported.'})
+  const user = req.U_ID
+  const name = req.body.name
+  const lastname = req.body.lastname
+  const profession = req.body.profession
+  const birthdate = req.body.birthdate
+  const gender = req.body.gender
+  const location = req.body.location
+  const bio = req.body.bio
+
+  User.findOneAndUpdate(user, { $set: { name, lastname, profession, birthdate, gender, location, bio} }, { new: true })
+  .exec((error, user) => {
+    if (error) {
+      return res.status(500).json({ error })
+    }
+    res.status(200).json({ user })
+  })
 })
 .delete(function (req, res) {
   //TODO: *Deactivate* user, validate user us deleting himself
   res.status(501).json({'message':'Not yet supported.'})
 })
+
 
 /*************************************
 ***                                ***
