@@ -376,27 +376,42 @@ router.route('/ideas/self/create')
 })
 
 // GET INFORMATION FOR A SPECIFIC IDEA
-router.route('/ideas/self/:idea_id')
+router.route('/ideas/:idea_id/:pivot')
 .get(function (req, res) {
+  const pivot = req.params.pivot
+  // get the idea specified by the id
   Idea.findById(req.params.idea_id)
-  .lean()
-  .populate('members', 'username image')
-  .populate({
-    path: 'feedback',
-    model: 'Feedback',
-    populate: {
-      path: 'user',
-      model: 'User',
-      select: 'image name username'
-    }
-  })
-  .exec(function (err, project) {
-    if (err) {
-      res.status(500).json({'error': err, 'success': false});
+  .exec((error, idea) =>{
+    if (error) {
+      res.status(500).json({'error': err, 'success': false})
     } else {
-      res.json(project);
+
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      Idea.findById(idea.pivots[pivot - 1].id)
+      .lean()
+      .populate('members', 'username image')
+      .populate({
+        path: 'feedback',
+        model: 'Feedback',
+        populate: {
+          path: 'user',
+          model: 'User',
+          select: 'image name username'
+        }
+      })
+      .exec(function (err, project) {
+        if (err) {
+          res.status(500).json({'error': err, 'success': false});
+        } else {
+          res.json(project);
+        }
+      })
     }
   })
+
 })
 // ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA
 .post(function (req, res) {
