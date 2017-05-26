@@ -97,7 +97,7 @@ router.post('/signup', function(req, res){
 
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
-  if (!req.body || !(req.body.email || req.body.username)))
+  if (!req.body || !(req.body.email || req.body.username))
     return res.status(400).json({'message': "Authentication failed. No user specified." })
   User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ] }))
   .exec(function(err, user) {
@@ -352,6 +352,10 @@ router.route('/ideas/self/create')
           idea.members = req.body.members
           idea.members.push(req.U_ID)
         }
+        //create and add first pivot
+        const pivot = {_id: idea._id, number: 1}
+        idea.pivots.push(pivot)
+
         idea.save(function(err, idea) {
           if (err)
             return res.status(500).json({'err':err})
