@@ -182,5 +182,16 @@ profileDataService.getProfileInfo(user_id, function(response) {
   }
 });
 
+$scope.uploadAvatar = function(file){
+      Upload.upload({
+      url: window.HOST + '/api/users/' + $scope.user._id + '/avatar',
+      data:{ file: file }
+    }).then(function (res) { //upload function returns a promise
+          $scope.user.image = res.data.path
+      }, function (errRes) { //catch error
+          $window.alert('Error status: ' + errRes.status);
+    });
+}
+
 
             })

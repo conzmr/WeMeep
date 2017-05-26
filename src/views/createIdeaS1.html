@@ -1,4 +1,5 @@
 <div class="flex-cont create-cont">
+  <p class="close-x" ng-click="goHome()">x</p>
     <p class="sub-gray">CREATE IDEA</p>
     <div class="form-input">
         <img src="/static/img/Create Idea_name.svg">
@@ -15,7 +16,7 @@
             </ul>
         </div>
     </div>
-    <div class="form-input" ng-show="categorySelected=='Others'">
+    <div class="form-input" ng-show="categorySelected.name=='Others'">
         <input class="others" type="text" name="other-category" ng-model="otherCategory" placeholder="What's your project about?">
         <p class="red-text error more" ng-bind="errorCategoryMessage" ng-show="errorOtherCategory"></p>
     </div>
@@ -29,13 +30,13 @@
         <img src="/static/img/Create Idea_problem.svg">
         <p id="describe-problem-p">Does your idea solve an issue?</p>
         <div class="onoffswitch">
-            <input ng-model="mySwitch" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked ng-model="idea.solveProblem">
+            <input ng-model="solveProblem" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked>
             <label class="onoffswitch-label" for="myonoffswitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
         </div>
-        <div ng-show="mySwitch" id="show-problem">
+        <div ng-show="solveProblem" id="show-problem">
             <textarea class="" name="problem" maxlength="300" placeholder="What issue?" ng-model="idea.problem"></textarea>
         </div>
     </div>

@@ -64,10 +64,8 @@ angular.module('wetopiaApp')
                 authenticate: true,
                onEnter: function(localStorageService,  $stateParams, $state){
                if(localStorageService.get('user_id')==$stateParams.user_id){
-                //  $state.transitionTo ('myProfile');
-              //    event.preventDefault();
-            return {  controller: "myProfileCtrl",
-              templateUrl: "/static/views/myProfile.html" }
+                  $state.transitionTo ('myProfile');
+                  event.preventDefault();
                 }
              }
             })

@@ -290,15 +290,15 @@ $scope.signUp = function (invalidEmail) {
   userData.name = $scope.user.name;
   userData.lastname = $scope.user.lastname;
   userData.email = $scope.user.newEmail.toLowerCase(); //IMPORTANT
-  userData.password = $scope.user.newPassword;
-  userData.username = $scope.user.newEmail;
+  userData.username =  $scope.user.newEmail.toLowerCase();
 
   signupDataService.signup(userData, function (res) {
     if (res.status == 200) {
       //Set localStorage keys
       localStorageService.clearAll();
       localStorageService.set('token', res.data.token);
-      localStorageService.set('username', res.data.username)
+      localStorageService.set('name', res.data.name);
+      localStorageService.set('email', res.data.email);
       localStorageService.set('user_id', res.data._id);
       $scope.join=false;
       $state.go("home");
@@ -339,9 +339,10 @@ $scope.signIn = function(invalidEmail) {
   loginDataService.authenticate(this.user,
   function(res) {
     localStorageService.clearAll()
-    localStorageService.set('token', res.data.token) //Set the token for reuse in every request
-    localStorageService.set('user_id', res.data._id) //Set the user_id in the localStorageService
-    localStorageService.set('username', res.data.username) //Set the user_id in the localStorageService
+    localStorageService.set('token', res.data.token); //Set the token for reuse in every request
+    localStorageService.set('user_id', res.data._id); //Set the user_id in the localStorageService
+    localStorageService.set('name', res.data.name);
+    localStorageService.set('email', res.data.email);
     $state.go('home')
   },
   function(res) { //error callback

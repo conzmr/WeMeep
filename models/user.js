@@ -16,10 +16,8 @@ var userSchema = new mongoose.Schema({
       required: false
     },
     bio: String,
-    location: {
-      city: String,
-      state: String
-    },
+    country: String,
+    //how to save age? 
     password: {
       type: String,
       required: true

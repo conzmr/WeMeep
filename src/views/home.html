@@ -101,8 +101,8 @@
               <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
                 <div class="flex-cont user-menu">
                   <div class="sup-cont">
-                    <p class="gray-dark">UserName</p>
-                    <p class="gray-lighter small bottom">mail@mail.com</p>
+                    <p class="gray-dark">{{currentUser.name}}</p>
+                    <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p>My Profile</p>
                   <p>My Ideas</p>

@@ -19,7 +19,6 @@ angular.module('wetopiaApp')
         $scope.errorSolutionMessage = "";
         $scope.errorOtherCategory = false;
         $scope.idea.categories = [];
-        $scope.categories = [];
         $scope.categorySelected = {};
 
 
@@ -43,6 +42,10 @@ angular.module('wetopiaApp')
                     return member.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
                 });
             });
+        }
+
+        $scope.goHome = function(){
+          $state.go('home');
         }
 
         // Load categories when creating a moment
@@ -121,14 +124,13 @@ angular.module('wetopiaApp')
 
 
         $scope.submitIdea = function(banner) {
-            console.log("sumbitIdea Execute");
             // if ($scope.categorySelected == 'Others') {
             //     $scope.idea.categories = $scope.otherCategory;
             // }
 
             // getCategoryId($scope.categorySelected);
             // console.log("categories"+$scope.idea.categories);
-            $scope.idea.categories[0] = $scope.categorySelected.id;
+            $scope.idea.category = $scope.categorySelected.id;
             $scope.idea.banner = banner;
 
             createIdeaDataService.setIdea(user_id, function(res) {
@@ -137,7 +139,7 @@ angular.module('wetopiaApp')
                     $state.go('idea');
                 }
                 else {
-                  console.log('falle xq fui infiel');
+                    $window.alert('Something went wrong. Try again later.');
                 }
             });
 
