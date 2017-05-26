@@ -79,6 +79,7 @@ router.post('/signup', function(req, res){
           email: req.body.email,
           name: req.body.name,
           lastname: req.body.lastname,
+          username: req.body.username,
           password: bcrypt.hashSync(req.body.password)
         })
         .save(function (err, user) { // Save the user
@@ -96,10 +97,9 @@ router.post('/signup', function(req, res){
 
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
-  console.log(req.body);
-  if (!req.body || !req.body.email)
-    return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
+  if (!req.body || !(req.body.email || req.body.username)))
+    return res.status(400).json({'message': "Authentication failed. No user specified." })
+  User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ] }))
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
