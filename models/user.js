@@ -31,7 +31,7 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     gender: String,
-    testResults :[{
+    testResults: {
       creative: {type: Number, default: 0},
       coordinator: {type: Number, default: 0},
       manager: {type: Number, default: 0},
@@ -41,7 +41,7 @@ var userSchema = new mongoose.Schema({
       analyzer: {type: Number, default: 0},
       perfectionist: {type: Number, default: 0},
       specialist: {type: Number, default: 0}
-    }],
+    },
     //new attributes
     profession: String,
     birthdate: Number
