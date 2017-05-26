@@ -186,14 +186,12 @@ router.route('/members/:user_id')
 })
 
 // UPDATE A PROFILE PICTURE
-router.route('/users/:user_id/avatar')
-.post(upload, function(req,res){
-  User.findById(req.params.user_id)
+router.route('/users/self/avatar')
+.put(upload, function(req,res){
+  User.findById(req.U_ID)
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
-    if (req.params.user_id.indexOf(req.U_ID) <= -1)
-      return res.status(300).json({error: {message: "This are not you >:|"}})
     user.image = '/static/uploads/'+ req.file.filename
     user.save(function(err){
       if (err)
@@ -210,9 +208,10 @@ router.get('/members', function(req, res) {
 })
 
 // GET PROFILE INFORMATION
-router.route('/users/:user_id') //just when the url has "id=" it will run, otherwise it will look for a username
+router.route('/users/:username') //just when the url has "id=" it will run, otherwise it will look for a username
 .get(function (req, res) {
-  User.findById(req.params.user_id, '-password') //Return all excepting password
+  const username = req.params.username
+  User.findOne({ username }, '-password') //Return all excepting password
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
