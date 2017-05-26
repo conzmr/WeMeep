@@ -301,49 +301,60 @@ router.route('/ideas/:idea_id/interest')
   })
 })
 
-router.route('/users/:user_id/ideas')
+router.route('/ideas/self/create')
 // CREATE AN IDEA
 .post(function (req, res) {
   let ideaname = req.body.name.split(' ').join('-').toLowerCase()
+  const user = req.U_ID
+  const ideaLimit = 8
 
-  Idea.findOne({members: req.U_ID, ideaname: ideaname})
-  .exec(function(err, ideaFound){
-    if (err) {
-      return res.status(500).json({'err':err})
-    }
-    if (ideaFound)
-      return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+  User.findById(user)
+  .exec((error, user) =>{
+    if (error)
+      return res.status(500).json({error})
 
-    let idea = new Idea({
-      admin: req.U_ID,
-      banner: req.body.banner,
-      description: req.body.description,
-      problem: req.body.problem,
-      name: req.body.name,
-      category: req.body.category,
-      ideaname: ideaname
-    })
-    if (!req.body.members || req.body.members.length == 0)
-      idea.members = [req.U_ID]
-    else {
-      idea.members = req.body.members
-      idea.members.push(req.U_ID)
-    }
-    idea.save(function(err, idea) {
-      if (err)
-        return res.status(500).json({'err':err})
-      User.update(
-        { _id: {$in: idea.members} },
-        { $push: {"ideas":  idea._id} },
-        { multi: true }
-      )
-      .exec(function(err){
-        if (err)
-          return res.status(500).json({'error': err,});
-        else
-          res.status(201).json({message: 'Idea created!', idea: idea});
+    if (user.ideas.length >= 8)
+      return res.status(403).json({error: 'You have reached to your limit of ideas'})
+
+      Idea.findOne({members: req.U_ID, ideaname: ideaname})
+      .exec(function(err, ideaFound){
+        if (err) {
+          return res.status(500).json({'err':err})
+        }
+        if (ideaFound)
+          return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+
+        let idea = new Idea({
+          admin: req.U_ID,
+          banner: req.body.banner,
+          description: req.body.description,
+          problem: req.body.problem,
+          name: req.body.name,
+          category: req.body.category,
+          ideaname: ideaname
+        })
+        if (!req.body.members || req.body.members.length == 0)
+          idea.members = [req.U_ID]
+        else {
+          idea.members = req.body.members
+          idea.members.push(req.U_ID)
+        }
+        idea.save(function(err, idea) {
+          if (err)
+            return res.status(500).json({'err':err})
+          User.update(
+            { _id: {$in: idea.members} },
+            { $push: {"ideas":  idea._id} },
+            { multi: true }
+          )
+          .exec(function(err){
+            if (err)
+              return res.status(500).json({'error': err,});
+            else
+              res.status(201).json({message: 'Idea created!', idea: idea});
+          })
+        })
       })
-    })
   })
 })
 
