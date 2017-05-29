@@ -4,10 +4,11 @@ angular.module('wetopiaApp')
         let user_id = localStorageService.get('user_id');
         $scope.idea = createIdeaDataService.idea;
         $scope.mySwitch = false;
-        $scope.inputTeamMembers = false;
         $scope.tags = [];
+        $scope.inputTeamMembers = false;
         $scope.idea.members = [];
         $scope.showCategories = false;
+        $scope.categories= {};
         loadTags();
         $scope.errorTitle = false;
         $scope.errorTitleMessage = "";
@@ -18,7 +19,6 @@ angular.module('wetopiaApp')
         $scope.errorSolution = false;
         $scope.errorSolutionMessage = "";
         $scope.errorOtherCategory = false;
-        $scope.idea.categories = [];
         $scope.categorySelected = {};
 
 
@@ -49,18 +49,18 @@ angular.module('wetopiaApp')
         }
 
         // Load categories when creating a moment
-        function loadTags($query) {
-            return $http.get(HOST + '/api/tags', {
-                cache: true
-            }).then(function(response) {
-                var tags = response.data;
+        function loadTags() {
+          return $http.get(HOST + '/api/tags', {
+              cache: true
+          }).then(function(response) {
+              var tags = response.data;
                 for (var i = 0; i < tags.length; i++) {
                     $scope.categories[i] = {
-                      name : tags[i].name,
+                      name : tags[i].description,
                       id : tags[i]._id
                     }
                 }
-            })
+          });
         }
 
 
@@ -110,7 +110,6 @@ angular.module('wetopiaApp')
                     }
                 })
                 .then(function(res) { //upload function returns a promise
-                  console.log(res.data.file_name+" ghrej");
                     $scope.submitIdea('/static/uploads/' + res.data.file_name);
                 }, function(errRes) { //catch error
                     $window.alert('Error status: ' + errRes.status);

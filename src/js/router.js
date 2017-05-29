@@ -53,9 +53,9 @@ angular.module('wetopiaApp')
             })
             .state("myProfile", {
                 url: "/myProfile",
-                controller: "myProfileCtrl",
-                templateUrl: "/static/views/myProfile.html",
-                authenticate: true
+                  authenticate: true,
+                  controller: "myProfileCtrl",
+                  templateUrl: "/static/views/myProfile.html"
             })
             .state("profile", {
                 url: "/profile/:user_id",

@@ -135,10 +135,10 @@
                 <div class="flex-cont row wrap" id="upper-cont-profile">
                     <div class="flex-cont" id="profile-cont">
                         <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon profile-img" ngf-background="user.image || '/static/img/Default_Profile_IMG.svg'">
+                            <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
                             </div>
                         </div>
-                        <p class="medium-gray" ng-show="user.username">@{{user.username}}</p>
+                        <div class="simple-cont"><p class="medium-gray" ng-show="user.username">@</p><p  class="medium-gray" ng-bind="user.username || 'Add a username.'"></p></div>
                     </div>
                     <div class="flex-cont" id="profile-info">
                         <p class="title-dark left" ng-bind="user.name || 'Add your name.'"> </p>
@@ -150,8 +150,10 @@
                     </div>
                 </div>
                 <div class="flex-cont">
-                    <p class="title-dark left">About you:</p>
-                      <p class="normal-paragraph margin-tb left small-size" ng-bind="user.about || 'Add your bio to show.'">
+                    <p class="title-dark left">About {{user.name}}:</p>
+                    <p class="normal-paragraph margin-tb left small-size">
+                        {{user.about}}
+                    </p>
                 </div>
             </div>
 
@@ -164,17 +166,16 @@
                 <p class="normal-paragraph small bold">Add a profile picture</p>
                 </div>
                 <div class="polygon-each-img-wrap">
-              <div class="polygon-clip-hexagon profile-img" ngf-background="user.image || '/static/img/AddProfile_IMG.svg'">
+              <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/AddProfile_IMG.svg'">
               </div>
           </div>
           </label>
-          <p class="medium-gray" ng-show="user.username">@{{user.username}}</p>
-                        <!-- <div class="input-box">
+                        <div class="input-box">
                             <input type="text" name="edit-username-input" class="simple-input medium-gray total-width centered-text" maxlength="15" ng-style="usernameError && {'border': '2px solid #f48465'}" placeholder="username" ng-model="user.username">
                             <span class="input-label medium-gray">@</span>
                             <img class="username-status-img" ng-show="usernameError||user.username!=''" ng-src="{{usernameError?'/static/img/WRONG_UN_ICON.svg':'/static/img/RIGHT_UN_ICON.svg'}}">
                             <p class="red-text error center" ng-show="usernameError">Username taken!</p>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="flex-cont" id="profile-edit-info">
                         <input type="text" name="edit-name-input" class="simple-input title-dark" placeholder="Name" ng-model="user.name">
@@ -226,36 +227,35 @@
               <div class="simple-margin-top" ng-show="user.ideas.length==0">
                 <p  class="title-dark ">You have no ideas yet.</p>
               </div>
-                <div class="card idea" ng-repeat="idea in ideasData">
+                <div class="card idea">
                     <div class="card-block">
-                        <div class="card-img" ngf-background="idea.banner || '/static/img/Default_Profile_IMG.svg'">
+                        <div class="card-img">
                         </div>
                         <div class="card-info ">
                             <div class="user">
                                 <div class="left">
                                     <div class="polygon-each-img-wrap">
-                                        <div class="polygon-clip-hexagon" ngf-background="user.img || '/static/img/Image_default.svg'">
+                                        <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}">
                                         </div>
                                     </div>
-                                    <p>{{idea.admin}}</p>
-                                    <!-- cambiar al del admin -->
+                                    <p>UserName</p>
                                 </div>
                                 <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                             </div>
-                            <p class="dark-title">{{idea.name}}</p>
+                            <p class="dark-title">Lorem ipsum dolor sitming</p>
                             <p class="card-p">
-                              {{idea.description}}
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
                     </div>
                     <div class="footer-nav">
-                        <a href="#">{{idea.category}}</a>
+                        <a href="#">Categoría</a>
                     </div>
                 </div>
 
             </div>
         </div>
-<!--
+
         <div class="flex-cont row wrap ">
             <div class="flex-cont row sub-nav" ng-show="selectedCategory!=''">
                 <p class="sub-gray not-hov">STATUS</p>
@@ -276,34 +276,32 @@
                     <p class="title-dark ">no badges yet</p>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 
 
     <div class="footer flex-cont">
-      <div class="left">
-        <a href="/home" class="small">Home</a>
-        <a href="/myProfile" class="small">My Profile</a>
-        <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Idea</a>
-      </div>
-      <div class="icons">
-        <img src="/static/img/wetopia_dark.png">
-        <div class="simple-cont">
-          <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
-          <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
-          <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
-          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+        <div class="left">
+            <a href="/home" class="small">Home</a>
+            <a href="/myProfile" class="small">My Profile</a>
+            <a href="/createIdea/first" class="small">Create Idea</a>
+            <a href="/myIdea" class="small">My Idea</a>
         </div>
+        <div class="icons">
+            <img src="/static/img/wetopia_dark.png">
+            <div class="simple-cont">
+                <a href="https://www.facebook.com/wetopiaCo/" target="_blank"><img src="/static/img/fb_icon_dark.svg"></a>
+                <a href="https://twitter.com/wetopiaco" target="_blank"><img src="/static/img/twitter.svg"></a>
+                <a href="https://www.instagram.com/wetopia.co/" target="_blank"><img src="/static/img/instagram_dark.svg"></a>
+                <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+            </div>
 
-      </div>
-      <div class="right">
-        <p class="medium-bold">Wetopia (c) 2017</p>
-        <!--
-        <p class="small">Terms & Conditions</p>
-        <p class="small">Privacy Policy</p>
-        <p class="small">Ethics Code</p>
-        -->
-      </div>
+        </div>
+        <div class="right">
+            <p class="medium-bold">Wetopia (c) 2017</p>
+            <p class="small">Terms & Conditions</p>
+            <p class="small">Privacy Policy</p>
+            <p class="small">Ethics Code</p>
+        </div>
     </div>
 </body>

@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService,) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, ideaDataService, $state) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -9,22 +9,9 @@ angular.module('wetopiaApp')
         $scope.editProfile = false;
         $scope.showSelectGender = false;
         $scope.usernameError=false;
-
-        $scope.user = {
-          name : "Name",
-          lastname : "Last Name",
-          username : "username",
-          testDone : false,
-          testResults : [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
-          //  [[65, 59, 90, 81, 56, 55, 40, 30, 12]],
-          profilePicture : null,
-          profession : "Profession",
-          birthdate : "06 / 06 / 1996",
-          gender : "Gender",
-          location : "Location",
-          about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque."
-
-        }
+        $scope.ideasData = [];
+        var adminsData = [];
+        $location.path('/profile/'+localStorageService.get('user_id')).replace();
 
         $scope.selectGender = function(gender){
           $scope.user.gender = gender;
@@ -169,14 +156,47 @@ percentage:'85%'
 
 var user_id = localStorageService.get('user_id');
 
+$stateParams.user_id = user_id;
+
 profileDataService.getProfileInfo(user_id, function(response) {
-  if (response.data) {
+  if(response.status==200){
     $scope.user = response.data.user;
-    var user_id = response.data.user._id;
-    // profileDataService.getProfileMoments(user_id, function (res) {
-    //   $scope.moments = res.data.moments;
-    // })
-  } else {
+    for(var i = 0; i < $scope.user.ideas.length; i++){
+      var j =0;
+      ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+        if(response.data){
+          // $scope.ideasData[j] = response.data;
+          $scope.ideasData[j] = {};
+          $scope.ideasData[j].name = response.data.name;
+          $scope.ideasData[j].banner = response.data.banner;
+          $scope.ideasData[j].description = response.data.description;
+          $scope.ideasData[j].admin = response.data.admin;
+          $scope.ideasData[j].category = response.data.category;
+          // $scope.ideasData[j].admin = profileDataService.getProfileInfo(response.data.admin, function(res){
+          //   if(res.data){
+          //     console.log(res.data.user.name);
+          //     return res.data.user.name;
+          //   }
+          // })
+          console.log($scope.ideasData[j]);
+          // console.log($scope.ideasData[j]);
+          // profileDataService.getProfileInfo(response.data.admin, function(res){
+          //   if(res.data){
+          //   console.log(res.data);
+          //   console.log($scope.ideasData[j]);
+          //
+          //     // $scope.ideasData[j].admin = {
+          //     //   name: res.data.user.name,
+          //     //   lastname: res.data.user.lastname
+          //     // }
+          //   }
+          // })
+          j++;
+        }
+      })
+    }
+  }
+  else {
     $scope.user = {};
     $state.go('home');
   }

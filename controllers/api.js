@@ -153,13 +153,15 @@ router.use(function(req, res, next) {
 *************************************/
 // RETURN ALL AVAILABLE CATEGORIES
 router.get('/tags', function(req, res){
-  Category.find({})
-  .exec(function(err, tags){
-    if (err)
-      res.status(500).json({'error': err})
-    else
-      res.json(tags);
+  Category.find({}, function(err, tags){
+    res.json(tags);
   })
+  // .exec(function(err, tags){
+  //   if (err)
+  //     res.status(500).json({'error': err})
+  //   else
+  //     res.json(tags);
+  // })
 })
 
 /*************************************

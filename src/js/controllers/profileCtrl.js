@@ -158,10 +158,10 @@ percentage:'85%'
   profileDataService.getProfileInfo(user_id, function(response) {
     if (response.data) {
       $scope.user = response.data.user;
-      var user_id = response.data.user._id;
       for(var i = 0; i < $scope.user.ideas.length; i++){
         var j =0;
         ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+          console.log(response.data);
           if(response.data){
             $scope.ideasData[j] = response.data;
             j++;
