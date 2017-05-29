@@ -79,6 +79,7 @@ router.post('/signup', function(req, res){
           email: req.body.email,
           name: req.body.name,
           lastname: req.body.lastname,
+          username: req.body.username,
           password: bcrypt.hashSync(req.body.password)
         })
         .save(function (err, user) { // Save the user
@@ -96,10 +97,9 @@ router.post('/signup', function(req, res){
 
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
-  console.log(req.body);
-  if (!req.body || !req.body.email)
-    return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
+  if (!req.body || !(req.body.email || req.body.username))
+    return res.status(400).json({'message': "Authentication failed. No user specified." })
+  User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ] }))
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
@@ -188,14 +188,12 @@ router.route('/members/:user_id')
 })
 
 // UPDATE A PROFILE PICTURE
-router.route('/users/:user_id/avatar')
-.post(upload, function(req,res){
-  User.findById(req.params.user_id)
+router.route('/users/self/avatar')
+.put(upload, function(req,res){
+  User.findById(req.U_ID)
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
-    if (req.params.user_id.indexOf(req.U_ID) <= -1)
-      return res.status(300).json({error: {message: "This are not you >:|"}})
     user.image = '/static/uploads/'+ req.file.filename
     user.save(function(err){
       if (err)
@@ -212,23 +210,40 @@ router.get('/members', function(req, res) {
 })
 
 // GET PROFILE INFORMATION
-router.route('/users/:user_id') //just when the url has "id=" it will run, otherwise it will look for a username
+router.route('/users/:username') //just when the url has "id=" it will run, otherwise it will look for a username
 .get(function (req, res) {
-  User.findById(req.params.user_id, '-password') //Return all excepting password
+  const username = req.params.username
+  User.findOne({ username }, '-password') //Return all excepting password
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
     res.status(200).json({'user': user})
   })
 })
+// UPDATE PROFILE INFORMATION
 .put(function (req, res) {
-  //TODO: Update user
-  res.status(501).json({'message':'Not yet supported.'})
+  const user = req.U_ID
+  const name = req.body.name
+  const lastname = req.body.lastname
+  const profession = req.body.profession
+  const birthdate = req.body.birthdate
+  const gender = req.body.gender
+  const location = req.body.location
+  const bio = req.body.bio
+
+  User.findOneAndUpdate(user, { $set: { name, lastname, profession, birthdate, gender, location, bio} }, { new: true })
+  .exec((error, user) => {
+    if (error) {
+      return res.status(500).json({ error })
+    }
+    res.status(200).json({ user })
+  })
 })
 .delete(function (req, res) {
   //TODO: *Deactivate* user, validate user us deleting himself
   res.status(501).json({'message':'Not yet supported.'})
 })
+
 
 /*************************************
 ***                                ***
@@ -301,74 +316,104 @@ router.route('/ideas/:idea_id/interest')
   })
 })
 
-router.route('/users/:user_id/ideas')
+router.route('/ideas/self/create')
 // CREATE AN IDEA
 .post(function (req, res) {
   let ideaname = req.body.name.split(' ').join('-').toLowerCase()
+  const user = req.U_ID
+  const ideaLimit = 8
 
-  Idea.findOne({members: req.U_ID, ideaname: ideaname})
-  .exec(function(err, ideaFound){
-    if (err) {
-      return res.status(500).json({'err':err})
-    }
-    if (ideaFound)
-      return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+  User.findById(user)
+  .exec((error, user) =>{
+    if (error)
+      return res.status(500).json({error})
 
-    let idea = new Idea({
-      admin: req.U_ID,
-      banner: req.body.banner,
-      description: req.body.description,
-      problem: req.body.problem,
-      name: req.body.name,
-      category: req.body.category,
-      ideaname: ideaname
-    })
-    if (!req.body.members || req.body.members.length == 0)
-      idea.members = [req.U_ID]
-    else {
-      idea.members = req.body.members
-      idea.members.push(req.U_ID)
-    }
-    idea.save(function(err, idea) {
-      if (err)
-        return res.status(500).json({'err':err})
-      User.update(
-        { _id: {$in: idea.members} },
-        { $push: {"ideas":  idea._id} },
-        { multi: true }
-      )
-      .exec(function(err){
-        if (err)
-          return res.status(500).json({'error': err,});
-        else
-          res.status(201).json({message: 'Idea created!', idea: idea});
+    if (user.ideas.length >= 8)
+      return res.status(403).json({error: 'You have reached to your limit of ideas'})
+
+      Idea.findOne({members: req.U_ID, ideaname: ideaname})
+      .exec(function(err, ideaFound){
+        if (err) {
+          return res.status(500).json({'err':err})
+        }
+        if (ideaFound)
+          return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+
+        let idea = new Idea({
+          admin: req.U_ID,
+          banner: req.body.banner,
+          description: req.body.description,
+          problem: req.body.problem,
+          name: req.body.name,
+          category: req.body.category,
+          ideaname: ideaname
+        })
+        if (!req.body.members || req.body.members.length == 0)
+          idea.members = [req.U_ID]
+        else {
+          idea.members = req.body.members
+          idea.members.push(req.U_ID)
+        }
+        //create and add first pivot
+        const pivot = {_id: idea._id, number: 1}
+        idea.pivots.push(pivot)
+
+        idea.save(function(err, idea) {
+          if (err)
+            return res.status(500).json({'err':err})
+          User.update(
+            { _id: {$in: idea.members} },
+            { $push: {"ideas":  idea._id} },
+            { multi: true }
+          )
+          .exec(function(err){
+            if (err)
+              return res.status(500).json({'error': err,});
+            else
+              res.status(201).json({message: 'Idea created!', idea: idea});
+          })
+        })
       })
-    })
   })
 })
 
 // GET INFORMATION FOR A SPECIFIC IDEA
-router.route('/ideas/self/:idea_id')
+router.route('/ideas/:idea_id/:pivot')
 .get(function (req, res) {
+  const pivot = req.params.pivot
+  // get the idea specified by the id
   Idea.findById(req.params.idea_id)
-  .lean()
-  .populate('members', 'username image')
-  .populate({
-    path: 'feedback',
-    model: 'Feedback',
-    populate: {
-      path: 'user',
-      model: 'User',
-      select: 'image name username'
-    }
-  })
-  .exec(function (err, project) {
-    if (err) {
-      res.status(500).json({'error': err, 'success': false});
+  .exec((error, idea) =>{
+    if (error) {
+      res.status(500).json({'error': err, 'success': false})
     } else {
-      res.json(project);
+
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      Idea.findById(idea.pivots[pivot - 1].id)
+      .lean()
+      .populate('members', 'username image')
+      .populate({
+        path: 'feedback',
+        model: 'Feedback',
+        populate: {
+          path: 'user',
+          model: 'User',
+          select: 'image name username'
+        }
+      })
+      .exec(function (err, project) {
+        if (err) {
+          res.status(500).json({'error': err, 'success': false});
+        } else {
+          res.json(project);
+        }
+      })
     }
   })
+
 })
 // ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA
 .post(function (req, res) {

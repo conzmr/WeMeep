@@ -45,6 +45,15 @@ var ideaSchema = new mongoose.Schema({
     ref: 'User',
     unique: true
   }],
+  pivots: [
+    {
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Idea',
+        unique: true
+      },
+      number: Number
+  }]
 });
 
 module.exports = mongoose.model('Idea', ideaSchema);
