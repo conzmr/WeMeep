@@ -9,7 +9,7 @@ $scope.allIdeas = false;
 $scope.selectedCategory = "";
 $scope.currentUser = {};
 $scope.currentUser.email = localStorageService.get('email');
-$scope.currentUser.name = localStorageService.get('name');
+$scope.currentUser.username = localStorageService.get('username');
 
 
 $scope.logOut = function(){

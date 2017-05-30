@@ -66,14 +66,18 @@ router.post('/invitation', function(req, res) {
 
 // register NEW USER
 router.post('/signup', function(req, res){
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }]}, 'email')
+  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ]}, 'email username')
   .exec(function (err, user) { // if there are any errors, return the error
     if (err) {
-      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that email."}); // return shit if a server error occurs
+      res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
     } else {
       if (user) { //TODO: it would be better to validate all this with mongoose
-        if (user.email == req.body.email)
+        if (user.username == req.body.username && user.email == req.body.email)
+          res.status(402).json({'message': "That email and username are already registered. Try with another ones."})
+        else if (user.email == req.body.email)
           res.status(400).json({'message': "That email is already registered. Try with another one."})
+        else if (user.username == req.body.username)
+          res.status(401).json({'message': "That username is already registered. Try with another one."})
       } else {
         new User({
           email: req.body.email,
@@ -87,7 +91,7 @@ router.post('/signup', function(req, res){
             res.status(500).json({'error': err, 'message': "Could not save user."});
           else { // Create a token and --- sign with the user information --- and secret password
             var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) //Expires in 60 hours
-            res.status(200).json({ '_id': user._id, 'name': user.name, 'email': user.email, 'token': token })
+            res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token })
           }
         })
       }
@@ -97,9 +101,10 @@ router.post('/signup', function(req, res){
 
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
-  if (!req.body || !(req.body.email || req.body.username))
-    return res.status(400).json({'message': "Authentication failed. No user specified." })
-  User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }, { 'username': req.body.username.toLowerCase() } ] }))
+  console.log(req.body);
+  if (!req.body || !req.body.email)
+    return res.status(400).json({'message': "Authentication failed. No user specified." });
+  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
@@ -113,11 +118,33 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'name': user.name, 'email': user.email, 'token': token }) // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'username': user.username, 'token': token })  // Return the information including token as JSON
       }
     }
   })
 })
+// router.post('/authenticate', function(req, res) {
+//   if (!req.body || (!req.body.email))
+//     return res.status(400).json({'message': "Authentication failed. No user specified." })
+//   User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }] }))
+//   .exec(function(err, user) {
+//     if (err)
+//       res.status(500).json({'error': err})
+//     else if (!user) {
+//       console.log('---------no user');
+//       res.status(401).json({'message': "Authentication failed. Wrong user or password."})
+//     } else {
+//       if (!user.comparePassword(req.body.password)) { // check if password matches
+//         console.log('---------bad password');
+//         res.status(401).json({'message': "Authentication failed. Wrong user or password."})
+//       } else {
+//         console.log('---------all cool!!');
+//         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
+//         res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token }) // Return the information including token as JSON
+//       }
+//     }
+//   })
+// })
 
 
 /*************************************
@@ -370,7 +397,7 @@ router.route('/ideas/self/create')
             if (err)
               return res.status(500).json({'error': err,});
             else
-              res.status(201).json({message: 'Idea created!', idea: idea});
+              return res.status(201).json({message: 'Idea created!', idea: idea});
           })
         })
       })

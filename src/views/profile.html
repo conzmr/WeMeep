@@ -130,20 +130,20 @@
                 <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
                 </div>
             </div>
-          <p class="medium-gray" ng-show="user.username">@{{user.username}}</p>
+          <div class="simple-cont"><p class="medium-gray" ng-show="user.username">@</p><p  class="medium-gray" ng-bind="user.username || 'No username to show.'"></p></div>
             </div>
             <div class="flex-cont" id="profile-info">
               <p  class="title-dark left" ng-bind="user.name || 'No name to show.'"></p>
               <p class="title-dark left subtitle" ng-bind="user.lastname || 'No lastname to show.'"></p>
               <p class="medium-gray left" ng-bind="user.profession || 'No profession to show.'"></p>
-              <p  class="medium-gray left" ng-bind="user.age || 'No age to show.'"></p>
+              <p  class="medium-gray left" ng-bind="user.birthdate || 'No age to show.'"></p>
               <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'No gender to show.'"> </p></div>
               <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.country || 'No country to show.'"></p></div>
             </div>
           </div>
           <div class="flex-cont">
             <p class="title-dark left">About {{user.name}}:</p>
-            <p class="normal-paragraph margin-tb left small-size" ng-bind="user.about || 'No bio to show.'">
+            <p class="normal-paragraph margin-tb left small-size" ng-bind="user.bio || 'No bio to show.'">
             </p>
           </div>
         </div>
@@ -153,7 +153,7 @@
               <a class="color-button blue complete-form discard no-bottom no-clickable">Coming Soon</a>
           </div>
           <canvas id="radar" class="chart chart-radar flex-cont"
-  chart-data="graphData" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
+  chart-data="testResults" chart-options="options" width="600" height="400" chart-colors="colors" chart-options="options" chart-labels="labels">
 </canvas>
         </div>
           </div>
@@ -176,10 +176,10 @@
                           <div class="user">
                               <div class="left">
                                   <div class="polygon-each-img-wrap">
-                                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                      <div class="polygon-clip-hexagon"ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                       </div>
                                   </div>
-                                  <p>{{user.name}} {{user.lastname}}</p>
+                                  <p>{{idea.admin}}</p>
                               </div>
                               <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                           </div>
@@ -190,7 +190,7 @@
                       </div>
                       </div>
                       <div class="footer-nav">
-                          <a href="#">Categoría</a>
+                          <a href="#">{{idea.category}}</a>
                       </div>
                   </div>
 
@@ -221,30 +221,28 @@
       </div>
 
 
-      <div class="footer flex-cont">
-        <div class="left">
-          <a href="/home" class="small">Home</a>
-          <a href="/myProfile" class="small">My Profile</a>
-          <a href="/createIdea/first" class="small">Create Idea</a>
-          <a href="/myIdea" class="small">My Idea</a>
-        </div>
-        <div class="icons">
-          <img src="/static/img/wetopia_dark.png">
-          <div class="simple-cont">
-            <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
-            <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
-            <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
-            <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
-          </div>
-
-        </div>
-        <div class="right">
-          <p class="medium-bold">Wetopia (c) 2017</p>
-          <!--
-          <p class="small">Terms & Conditions</p>
-          <p class="small">Privacy Policy</p>
-          <p class="small">Ethics Code</p>
-          -->
-        </div>
+    <div class="footer flex-cont">
+      <div class="left">
+        <a href="/home" class="small">Home</a>
+        <a href="/myProfile" class="small">My Profile</a>
+        <a href="/createIdea/first" class="small">Create Idea</a>
+        <a href="/myIdea" class="small">My Idea</a>
       </div>
+      <div class="icons">
+        <img src="/static/img/wetopia_dark.png">
+        <div class="simple-cont">
+          <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
+          <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
+          <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
+          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+        </div>
+
+      </div>
+      <div class="right">
+        <p class="medium-bold">Wetopia (c) 2017</p>
+        <p class="small">Terms & Conditions</p>
+        <p class="small">Privacy Policy</p>
+        <p class="small">Ethics Code</p>
+      </div>
+    </div>
 </body>

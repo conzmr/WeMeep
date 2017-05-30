@@ -11,7 +11,17 @@ angular.module('wetopiaApp')
         $scope.usernameError=false;
         $scope.ideasData = [];
         var adminsData = [];
-        $location.path('/profile/'+localStorageService.get('user_id')).replace();
+        $scope.testResults = [];
+        var username = localStorageService.get('username');
+        $location.path('/profile/'+username).replace();
+
+        var calculateResults = function (obj) {
+          for( var key in obj ) {
+            if ( obj.hasOwnProperty(key) ) {
+            $scope.testResults.push(obj[key]);
+          }
+        }
+      }
 
         $scope.selectGender = function(gender){
           $scope.user.gender = gender;
@@ -154,13 +164,32 @@ percentage:'85%'
 }
 ];
 
-var user_id = localStorageService.get('user_id');
+$stateParams.username = username;
 
-$stateParams.user_id = user_id;
+// var getAllIdeasInformation = function(ideas){
+//   for(var i =0; i< ideas.length; i++){
+//       ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+//         console.log(response);
+//       });
+//   }
+// }
+//
+// var getUserInformation = function(){
+//
+//     profileDataService.getProfileInfo(username, function(response){
+//       $scope.user = response.data.user;
+//     }).then(getAllIdeasInformation(response.data.user.ideas));
+//
+//
+// }
+//
+// getUserInformation();
 
-profileDataService.getProfileInfo(user_id, function(response) {
+profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
     $scope.user = response.data.user;
+    var obj = response.data.user.testResults;
+    calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){
       var j =0;
       ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){

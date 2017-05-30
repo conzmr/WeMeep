@@ -2,8 +2,7 @@ angular.module('wetopiaApp')
 .service('profileDataService', function($http) {
 
   this.getProfileInfo = function(user_id, callback) {
-    $http.get(window.HOST + '/api/users/' + user_id )
-    .then(callback);
+    return $http.get(window.HOST + '/api/users/' + user_id ).then(callback);
   }
 
   this.getProfileMoments = function(user_id, callback) {
@@ -16,5 +15,6 @@ angular.module('wetopiaApp')
     $http.get(window.HOST + '/api/users/' + user_id + '/inbox/moments')
     .then(callback);
   }
+
 
 })
