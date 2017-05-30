@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope, localStorageService, $state) {
+.controller('homeCtrl', function($scope, localStorageService, $state, categoriesDataService) {
 
 $scope.notification = false;
 $scope.showNotifications=false;
@@ -10,6 +10,7 @@ $scope.selectedCategory = "";
 $scope.currentUser = {};
 $scope.currentUser.email = localStorageService.get('email');
 $scope.currentUser.username = localStorageService.get('username');
+$scope.categoriesBanner = categoriesDataService.categories;
 
 
 $scope.logOut = function(){

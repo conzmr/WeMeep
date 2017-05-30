@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, ideaDataService, $state) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -10,6 +10,8 @@ angular.module('wetopiaApp')
         $scope.showSelectGender = false;
         $scope.usernameError=false;
         $scope.ideasData = [];
+        $scope.categoriesBanner = categoriesDataService.categories;
+        console.log($scope.categoriesBanner['art']);
         var adminsData = [];
         $scope.testResults = [];
         var username = localStorageService.get('username');
@@ -21,6 +23,11 @@ angular.module('wetopiaApp')
             $scope.testResults.push(obj[key]);
           }
         }
+      }
+
+      $scope.getBannerImage = function(category){
+        return $scope.categoriesBanner['art'].banner;
+        // return $scope.categoriesBanner[category];
       }
 
         $scope.selectGender = function(gender){
@@ -164,26 +171,8 @@ percentage:'85%'
 }
 ];
 
-$stateParams.username = username;
 
-// var getAllIdeasInformation = function(ideas){
-//   for(var i =0; i< ideas.length; i++){
-//       ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
-//         console.log(response);
-//       });
-//   }
-// }
-//
-// var getUserInformation = function(){
-//
-//     profileDataService.getProfileInfo(username, function(response){
-//       $scope.user = response.data.user;
-//     }).then(getAllIdeasInformation(response.data.user.ideas));
-//
-//
-// }
-//
-// getUserInformation();
+$stateParams.username = username;
 
 profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
@@ -192,41 +181,36 @@ profileDataService.getProfileInfo(username, function(response) {
     calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){
       var j =0;
-      ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+      ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
         if(response.data){
-          // $scope.ideasData[j] = response.data;
-          $scope.ideasData[j] = {};
-          $scope.ideasData[j].name = response.data.name;
-          $scope.ideasData[j].banner = response.data.banner;
-          $scope.ideasData[j].description = response.data.description;
-          $scope.ideasData[j].admin = response.data.admin;
-          $scope.ideasData[j].category = response.data.category;
-          // $scope.ideasData[j].admin = profileDataService.getProfileInfo(response.data.admin, function(res){
-          //   if(res.data){
-          //     console.log(res.data.user.name);
-          //     return res.data.user.name;
-          //   }
-          // })
-          console.log($scope.ideasData[j]);
-          // console.log($scope.ideasData[j]);
-          // profileDataService.getProfileInfo(response.data.admin, function(res){
-          //   if(res.data){
-          //   console.log(res.data);
-          //   console.log($scope.ideasData[j]);
-          //
-          //     // $scope.ideasData[j].admin = {
-          //     //   name: res.data.user.name,
-          //     //   lastname: res.data.user.lastname
-          //     // }
-          //   }
-          // })
+          $scope.ideasData[j] = response.data;
+          for(var i =0; i< response.data.members.length; i++){
+            if(response.data.members[i]._id == response.data.admin){
+              $scope.ideasData[j].admin = response.data.members[i];
+            }
+          }
           j++;
+          return j-1;
         }
       })
+      .then(
+    function(response){
+      categoriesDataService.getCategories(function(res){
+        for(var i=0; i< res.data.length; i++){
+          if(res.data[i]._id == $scope.ideasData[response].category){
+            $scope.ideasData[response].category = res.data[i];
+          }
+        }
+      })
+    },
+    function(failureResponse){
+      console.log(failureResponse);
+    }
+  )
+
     }
   }
   else {
-    $scope.user = {};
     $state.go('home');
   }
 });

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="810px" height="610px" viewBox="0 0 810 610" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Art_IMG</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="403.9368 0.284 0 0.284 0 609 403.9368 609 807.8736 609 807.8736 0.284 403.9368 0.284"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Art_IMG">
+            <g id="Page-1" transform="translate(1.000000, 0.000000)">
+                <g id="Group-3" transform="translate(0.000000, 0.715000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M764.5566,609 L43.3176,609 C19.4926,609 -0.0004,589.507 -0.0004,565.682 L-0.0004,43.602 C-0.0004,19.777 19.4926,0.284 43.3176,0.284 L764.5566,0.284 C788.3806,0.284 807.8736,19.777 807.8736,43.602 L807.8736,565.683 C807.8736,589.507 788.3816,609 764.5566,609" id="Fill-1" fill="#D1D2D4" mask="url(#mask-2)"></path>
+                </g>
+                <polygon id="Fill-4" fill="#E6E7E7" points="220.1594 199.2531 403.9364 93.1491 587.7144 199.2531 587.7144 411.4611 403.9364 517.5651 220.1594 411.4611"></polygon>
+                <path d="M336.9897,391.0694 C336.9897,391.0694 324.8167,349.0384 413.4347,247.3694 C409.9137,232.6094 404.3867,209.3414 447.3647,200.9064 C460.1367,195.4364 456.5117,189.1604 459.1787,187.5024 C461.8467,185.8404 470.7717,191.6294 470.9177,222.1754 C468.5857,239.1104 460.3957,258.7894 445.5637,259.7074 C434.2037,279.3414 387.2147,353.8974 380.7997,358.8964 C374.3847,363.8924 351.7367,396.9404 336.9897,391.0694" id="Fill-6" fill="#D1D2D4"></path>
+            </g>
+        </g>
+    </g>
+</svg>
