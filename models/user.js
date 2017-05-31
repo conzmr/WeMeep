@@ -27,7 +27,8 @@ var userSchema = new mongoose.Schema({
     }],
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     gender: String,
     testResults: {

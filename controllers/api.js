@@ -72,18 +72,18 @@ router.post('/signup', function(req, res){
       res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
     } else {
       if (user) { //TODO: it would be better to validate all this with mongoose
-        if (user.username == req.body.username && user.email == req.body.email)
+        if (user.username == req.body.username.toLowerCase() && user.email == req.body.email)
           res.status(402).json({'message': "That email and username are already registered. Try with another ones."})
         else if (user.email == req.body.email)
           res.status(400).json({'message': "That email is already registered. Try with another one."})
-        else if (user.username == req.body.username)
+        else if (user.username == req.body.username.toLowerCase())
           res.status(401).json({'message': "That username is already registered. Try with another one."})
       } else {
         new User({
           email: req.body.email,
           name: req.body.name,
           lastname: req.body.lastname,
-          username: req.body.username,
+          username: req.body.username.toLowerCase(),
           password: bcrypt.hashSync(req.body.password)
         })
         .save(function (err, user) { // Save the user
@@ -102,9 +102,15 @@ router.post('/signup', function(req, res){
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
   console.log(req.body);
-  if (!req.body || !req.body.email)
-    return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
+  if (!req.body || !(req.body.email || req.body.username))
+    return res.status(400).json({'message': "Authentication failed. No user specified." })
+  let email = undefined
+  let username = undefined
+
+  if (req.body.email) email = req.body.email.toLowerCase()
+  if (req.body.username) username = req.body.username.toLowerCase()
+
+  User.findOne({ $or: [ { 'email': email }, { 'username': username } ] })
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
@@ -459,6 +465,73 @@ router.route('/ideas/:idea_id/:pivot')
 .delete(function (req, res) {
   //TODO: Delete project
   res.status(501).json({'message':'Not yet supported.'})
+})
+
+// PIVOT AN IDEA
+router.route('/ideas/:idea_id/self/pivot')
+.post(function (req, res) {
+
+  Idea.findById(req.params.idea_id)
+  .exec(function (err, idea) {
+    if (err) res.status(500).json({'error': err, 'success': false})
+    else res.json(idea)
+  })
+  let ideaname = req.body.name.split(' ').join('-').toLowerCase()
+  const user = req.U_ID
+  const ideaLimit = 8
+
+  User.findById(user)
+  .exec((error, user) =>{
+    if (error)
+      return res.status(500).json({error})
+
+    if (user.ideas.length >= 8)
+      return res.status(403).json({error: 'You have reached to your limit of ideas'})
+
+      Idea.findOne({members: req.U_ID, ideaname: ideaname})
+      .exec(function(err, ideaFound){
+        if (err) {
+          return res.status(500).json({'err':err})
+        }
+        if (ideaFound)
+          return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+
+        let idea = new Idea({
+          admin: req.U_ID,
+          banner: req.body.banner,
+          description: req.body.description,
+          problem: req.body.problem,
+          name: req.body.name,
+          category: req.body.category,
+          ideaname: ideaname
+        })
+        if (!req.body.members || req.body.members.length == 0)
+          idea.members = [req.U_ID]
+        else {
+          idea.members = req.body.members
+          idea.members.push(req.U_ID)
+        }
+        //create and add first pivot
+        const pivot = {_id: idea._id, number: 1}
+        idea.pivots.push(pivot)
+
+        idea.save(function(err, idea) {
+          if (err)
+            return res.status(500).json({'err':err})
+          User.update(
+            { _id: {$in: idea.members} },
+            { $push: {"ideas":  idea._id} },
+            { multi: true }
+          )
+          .exec(function(err){
+            if (err)
+              return res.status(500).json({'error': err,});
+            else
+              res.status(201).json({message: 'Idea created!', idea: idea});
+          })
+        })
+      })
+  })
 })
 
 // GET ALL IDEAS
