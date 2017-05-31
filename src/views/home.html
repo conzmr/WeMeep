@@ -95,13 +95,13 @@
           </div>
           <div class="inner-nav">
               <div class="polygon-each-img-wrap">
-                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ngf-background="currentUser.image || '/static/img/navigation-menu/User_ICON.svg'" > <!--modify as create idea 3-->
                   </div>
               </div>
               <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
                 <div class="flex-cont user-menu">
                   <div class="sup-cont">
-                    <p class="gray-dark">{{currentUser.name}}</p>
+                    <p class="gray-dark">{{currentUser.username}}</p>
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p>My Profile</p>

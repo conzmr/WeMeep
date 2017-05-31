@@ -24,6 +24,8 @@ angular.module("wetopiaApp")
     $scope.nameError=false;
     $scope.lastnameMessageError="";
     $scope.lastnameError=false;
+    $scope.usernameMessageError="";
+    $scope.usernameError=false;
     $scope.user={};
     $scope.graphImg={
       Mario : '/static/img/Mario.png',
@@ -137,6 +139,8 @@ angular.module("wetopiaApp")
       $scope.nameError=false;
       $scope.lastnameMessageError="";
       $scope.lastnameError=false;
+      $scope.usernameMessageError="";
+      $scope.usernameError=false;
     }
 
     $scope.closeLogin = function() {
@@ -277,6 +281,10 @@ $scope.signUp = function (invalidEmail) {
     $scope.emailMessageError="Please enter an email address. ";
     $scope.emailError = true;
   }
+  if(!$scope.user.username){
+    $scope.usernameMessageError="Please enter a username. ";
+    $scope.usernameError = true;
+  }
   if(invalidEmail){
     $scope.emailMessageError="Please enter a valid email address. ";
     $scope.emailError = true;
@@ -285,19 +293,19 @@ $scope.signUp = function (invalidEmail) {
     $scope.passwordMessageError="Please enter a password. ";
     $scope.passwordError=true;
   }
-  if($scope.user.name&&$scope.user.lastname&&$scope.user.newEmail&&$scope.user.newPassword){
+  if($scope.user.name&&$scope.user.lastname&&$scope.user.newEmail&&$scope.user.newPassword&&$scope.user.username){
   let userData = {}
   userData.name = $scope.user.name;
   userData.lastname = $scope.user.lastname;
   userData.email = $scope.user.newEmail.toLowerCase(); //IMPORTANT
-  userData.username =  $scope.user.newEmail.toLowerCase();
+  userData.username =  $scope.user.username;
 
   signupDataService.signup(userData, function (res) {
     if (res.status == 200) {
       //Set localStorage keys
       localStorageService.clearAll();
       localStorageService.set('token', res.data.token);
-      localStorageService.set('name', res.data.name);
+      localStorageService.set('username', res.data.username);
       localStorageService.set('email', res.data.email);
       localStorageService.set('user_id', res.data._id);
       $scope.join=false;
@@ -306,6 +314,18 @@ $scope.signUp = function (invalidEmail) {
   }, function(res) {
     switch (res.status) {
       case 400:
+      $scope.emailError=true;
+      $scope.emailMessageError = "Email already registered."
+      break;
+
+      case 401:
+      $scope.usernameError=true;
+      $scope.usernameMessageError = "Username already on use."
+      break;
+
+      case 402:
+      $scope.usernameError=true;
+      $scope.usernameMessageError = "Username already on use."
       $scope.emailError=true;
       $scope.emailMessageError = "Email already registered."
       break;
@@ -322,39 +342,51 @@ $scope.signUp = function (invalidEmail) {
 }
 
 $scope.signIn = function(invalidEmail) {
+  var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
-    $scope.emailMessageError="Please enter your email. ";
+    $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
   }
   if(invalidEmail){
-    $scope.emailMessageError="Please enter a valid email address. ";
-    $scope.emailError = true;
+    console.log(invalidEmail+"invalid");
+    toLogUser.username = $scope.user.email;
+  }
+  else{
+    toLogUser.email = $scope.user.email;
   }
   if(!$scope.user.password){
     $scope.passwordMessageError="Please enter your password. ";
     $scope.passwordError=true;
   }
   if($scope.user.email&&$scope.user.password){
-  loginDataService.authenticate(this.user,
+    toLogUser.password = $scope.user.password;
+    console.log(toLogUser);
+  loginDataService.authenticate(toLogUser,
   function(res) {
     localStorageService.clearAll()
     localStorageService.set('token', res.data.token); //Set the token for reuse in every request
     localStorageService.set('user_id', res.data._id); //Set the user_id in the localStorageService
-    localStorageService.set('name', res.data.name);
+    localStorageService.set('username', res.data.username);
     localStorageService.set('email', res.data.email);
-    $state.go('home')
+    $state.go('home');
   },
   function(res) { //error callback
     switch (res.status) {
       case 401:
       $scope.emailError=true;
-      $scope.emailMessageError = "Wrong email or password."
-      $scope.passwordMessageError="Wrong email or password. ";
+      $scope.emailMessageError = "Wrong username, email or password."
+      $scope.passwordMessageError="Wrong username, email or password. ";
+      $scope.passwordError=true;
+      break;
+      case 500:
+      $scope.emailError=true;
+      $scope.emailMessageError = "Wrong username, email or password."
+      $scope.passwordMessageError="Wrong username, email or password. ";
       $scope.passwordError=true;
       break;
       case 400:
-      $scope.emailMessageError="Please enter your email. ";
+      $scope.emailMessageError="Please enter your username or email. ";
       $scope.emailError = true;
         break;
       default:

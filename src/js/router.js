@@ -53,17 +53,17 @@ angular.module('wetopiaApp')
             })
             .state("myProfile", {
                 url: "/myProfile",
-                controller: "myProfileCtrl",
-                templateUrl: "/static/views/myProfile.html",
-                authenticate: true
+                  authenticate: true,
+                  controller: "myProfileCtrl",
+                  templateUrl: "/static/views/myProfile.html"
             })
             .state("profile", {
-                url: "/profile/:user_id",
+                url: "/profile/:username",
                 controller: "profileCtrl",
                 templateUrl: "/static/views/profile.html",
                 authenticate: true,
                onEnter: function(localStorageService,  $stateParams, $state){
-               if(localStorageService.get('user_id')==$stateParams.user_id){
+               if(localStorageService.get('username')==$stateParams.username){
                   $state.transitionTo ('myProfile');
                   event.preventDefault();
                 }

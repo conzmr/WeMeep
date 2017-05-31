@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService,) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -9,22 +9,26 @@ angular.module('wetopiaApp')
         $scope.editProfile = false;
         $scope.showSelectGender = false;
         $scope.usernameError=false;
+        $scope.ideasData = [];
+        $scope.categoriesBanner = categoriesDataService.categories;
+        console.log($scope.categoriesBanner['art']);
+        var adminsData = [];
+        $scope.testResults = [];
+        var username = localStorageService.get('username');
+        $location.path('/profile/'+username).replace();
 
-        $scope.user = {
-          name : "Name",
-          lastname : "Last Name",
-          username : "username",
-          testDone : false,
-          testResults : [[0, 0, 0, 0, 0, 0, 0, 0, 0]],
-          //  [[65, 59, 90, 81, 56, 55, 40, 30, 12]],
-          profilePicture : null,
-          profession : "Profession",
-          birthdate : "06 / 06 / 1996",
-          gender : "Gender",
-          location : "Location",
-          about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque."
-
+        var calculateResults = function (obj) {
+          for( var key in obj ) {
+            if ( obj.hasOwnProperty(key) ) {
+            $scope.testResults.push(obj[key]);
+          }
         }
+      }
+
+      $scope.getBannerImage = function(category){
+        return $scope.categoriesBanner['art'].banner;
+        // return $scope.categoriesBanner[category];
+      }
 
         $scope.selectGender = function(gender){
           $scope.user.gender = gender;
@@ -167,17 +171,46 @@ percentage:'85%'
 }
 ];
 
-var user_id = localStorageService.get('user_id');
 
-profileDataService.getProfileInfo(user_id, function(response) {
-  if (response.data) {
+$stateParams.username = username;
+
+profileDataService.getProfileInfo(username, function(response) {
+  if(response.status==200){
     $scope.user = response.data.user;
-    var user_id = response.data.user._id;
-    // profileDataService.getProfileMoments(user_id, function (res) {
-    //   $scope.moments = res.data.moments;
-    // })
-  } else {
-    $scope.user = {};
+    var obj = response.data.user.testResults;
+    calculateResults(obj);
+    for(var i = 0; i < $scope.user.ideas.length; i++){
+      var j =0;
+      ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
+        if(response.data){
+          $scope.ideasData[j] = response.data;
+          for(var i =0; i< response.data.members.length; i++){
+            if(response.data.members[i]._id == response.data.admin){
+              $scope.ideasData[j].admin = response.data.members[i];
+            }
+          }
+          j++;
+          return j-1;
+        }
+      })
+      .then(
+    function(response){
+      categoriesDataService.getCategories(function(res){
+        for(var i=0; i< res.data.length; i++){
+          if(res.data[i]._id == $scope.ideasData[response].category){
+            $scope.ideasData[response].category = res.data[i];
+          }
+        }
+      })
+    },
+    function(failureResponse){
+      console.log(failureResponse);
+    }
+  )
+
+    }
+  }
+  else {
     $state.go('home');
   }
 });

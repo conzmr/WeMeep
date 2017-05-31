@@ -10,9 +10,10 @@ angular.module('wetopiaApp')
   $scope.user = {};
   $scope.currentUser = {};
   $scope.currentUser.email = localStorageService.get('email');
-  $scope.currentUser.name = localStorageService.get('name');
+  $scope.currentUser.username = localStorageService.get('username');
   $scope.testDone = false;
   $scope.ideasData = [];
+  $scope.testResults = [];
 
 
   $scope.logOut = function(){
@@ -20,7 +21,14 @@ angular.module('wetopiaApp')
     $state.go('landing');
   }
 
-  $scope.graphData = [[0,0,0,0,0,0,0,0,0]];
+  var calculateResults = function (obj) {
+    for( var key in obj ) {
+      if ( obj.hasOwnProperty(key) ) {
+      $scope.testResults.push(obj[key]);
+    }
+  }
+}
+
 
   $scope.showIdeas = function(){
     $scope.ideas = true;
@@ -153,15 +161,17 @@ percentage:'85%'
 
 
 
- var user_id = $stateParams.user_id;
+ var username= $stateParams.username;
 
-  profileDataService.getProfileInfo(user_id, function(response) {
+  profileDataService.getProfileInfo(username, function(response) {
     if (response.data) {
       $scope.user = response.data.user;
-      var user_id = response.data.user._id;
+      var obj = response.data.user.testResults;
+      calculateResults(obj);
       for(var i = 0; i < $scope.user.ideas.length; i++){
         var j =0;
         ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
+          console.log(response.data);
           if(response.data){
             $scope.ideasData[j] = response.data;
             j++;
