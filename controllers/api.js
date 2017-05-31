@@ -72,18 +72,18 @@ router.post('/signup', function(req, res){
       res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that user or email."}); // return shit if a server error occurs
     } else {
       if (user) { //TODO: it would be better to validate all this with mongoose
-        if (user.username == req.body.username && user.email == req.body.email)
+        if (user.username == req.body.username.toLowerCase() && user.email == req.body.email)
           res.status(402).json({'message': "That email and username are already registered. Try with another ones."})
         else if (user.email == req.body.email)
           res.status(400).json({'message': "That email is already registered. Try with another one."})
-        else if (user.username == req.body.username)
+        else if (user.username == req.body.username.toLowerCase())
           res.status(401).json({'message': "That username is already registered. Try with another one."})
       } else {
         new User({
           email: req.body.email,
           name: req.body.name,
           lastname: req.body.lastname,
-          username: req.body.username,
+          username: req.body.username.toLowerCase(),
           password: bcrypt.hashSync(req.body.password)
         })
         .save(function (err, user) { // Save the user
@@ -102,9 +102,15 @@ router.post('/signup', function(req, res){
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
   console.log(req.body);
-  if (!req.body || !req.body.email)
-    return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
+  if (!req.body || !(req.body.email || req.body.username))
+    return res.status(400).json({'message': "Authentication failed. No user specified." })
+  let email = undefined
+  let username = undefined
+
+  if (req.body.email) email = req.body.email.toLowerCase()
+  if (req.body.username) username = req.body.username.toLowerCase()
+
+  User.findOne({ $or: [ { 'email': email }, { 'username': username } ] })
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
