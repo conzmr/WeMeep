@@ -493,7 +493,7 @@ router.route('/ideas/all/:category')
   })
 })
 
-// GET STATS FOR AN IDEA
+//GET STATS FOR AN IDEA
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
 router.route('/ideas/:idea_id/stats')
 .get(function (req, res) {

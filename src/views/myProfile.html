@@ -135,7 +135,7 @@
                 <div class="flex-cont row wrap" id="upper-cont-profile">
                     <div class="flex-cont" id="profile-cont">
                         <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
+                            <div class="polygon-clip-hexagon profile-img" ngf-background="user.image || '/static/img/Default_Profile_IMG.svg'">
                             </div>
                         </div>
                         <p class="medium-gray" ng-show="user.username">@{{user.username}}</p>
@@ -145,9 +145,9 @@
                         <p class="title-dark left" ng-bind="user.name || 'Add your name.'"> </p>
                         <p class="title-dark left subtitle"  ng-bind="user.lastname || 'Add your lastname.'"></p>
                         <p class="medium-gray left"  ng-bind="user.profession || 'Add your profession.'"></p>
-                        <p class="medium-gray left"  ng-bind="user.birthdate|| 'Add your age.'"></p>
+                        <p class="medium-gray left"  ng-bind="age || 'Add your age.'"></p>
                         <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'Add your gender.'"> </p></div>
-                        <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.country || 'Add your country.'"></p></div>
+                        <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'Add your country.'"></p></div>
                     </div>
                 </div>
                 <div class="flex-cont">
@@ -159,17 +159,17 @@
             <div ng-show="editProfile" class="flex-cont mid-page">
                 <div class="flex-cont row wrap" id="upper-cont-profile">
                     <div class="flex-cont" id="profile-cont">
-                        <input id="profile-picture-input" type="file" ngf-select name="file" ng-model="user.profilePicture" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+                        <input id="profile-picture-input" type="file" ngf-select name="file" ng-model="user.image" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
                         <label for="profile-picture-input" id="select-profile-pic-label">
-                <div ng-show="user.profilePicture== defaultPicture" class="flex-cont absolute">
-                <p class="normal-paragraph small bold">Add a profile picture</p>
+                <div ng-show="!user.image" class="flex-cont absolute">
+                <p class="normal-paragraph small bold" >Add a profile picture</p>
                 </div>
                 <div class="polygon-each-img-wrap">
-              <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/AddProfile_IMG.svg'">
+              <div class="polygon-clip-hexagon profile-img" ngf-background="user.image || '/static/img/AddProfile_IMG.svg'">
               </div>
           </div>
           </label>
-          <p class="medium-gray" ng-show="user.username">@{{user.username}}</p>
+          <p class="medium-gray">@{{user.username}}</p>
                         <!-- <div class="input-box">
                             <input type="text" name="edit-username-input" class="simple-input medium-gray total-width centered-text" maxlength="15" ng-style="usernameError && {'border': '2px solid #f48465'}" placeholder="username" ng-model="user.username">
                             <span class="input-label medium-gray">@</span>
@@ -181,7 +181,7 @@
                         <input type="text" name="edit-name-input" class="simple-input title-dark" placeholder="Name" ng-model="user.name">
                         <input type="text" name="edit-lastname-input" class="simple-input title-dark subtitle" placeholder="Last name" ng-model="user.lastname">
                         <input type="text" name="edit-profession-input" class="simple-input medium-gray" placeholder="Profession" ng-model="user.profession">
-                        <input type="date" name="edit-birthday-input" class="simple-input medium-gray" placeholder="Birthday" ng-model="user.birthdate">
+                        <input type="date" name="edit-birthday-input" class="simple-input medium-gray" placeholder="Birthday" ng-model="dateOfBirth">
                         <div class="flex-cont relative">
                             <input type="text" name="edit-gender-input" ng-click="changeShowSelectGender()" id="select-gender" readonly="readonly" class="simple-input medium-gray" placeholder="Gender" ng-model="user.gender">
                             <div class="list-cont total-width" ng-show="showSelectGender" click-outside="showSelectGender=false" outside-if-not="select-gender">
@@ -192,7 +192,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <input type="text" name="edit-location-input" class="simple-input medium-gray" placeholder="Location" ng-model="user.country">
+                        <input type="text" name="edit-location-input" class="simple-input medium-gray" placeholder="Location" ng-model="user.location">
                     </div>
                 </div>
                 <div class="flex-cont">
@@ -202,7 +202,7 @@
                         <div class="flex-cont absolute auto">
                             <p class="normal-paragraph right" id="edit-textarea-length">140</p>
                         </div>
-                        <a class="color-button blue left discard no-bottom border-radius-6" ng-click="editProfile=false" href="">Done editing</a>
+                        <a class="color-button blue left discard no-bottom border-radius-6" ng-click="updateProfileInfo()" href="">Done editing</a>
                     </div>
                 </div>
             </div>
@@ -229,7 +229,7 @@
               </div>
               <div class="card idea" ng-repeat="idea in ideasData">
                 <div class="card-block">
-                  <div class="card-img" ngf-background="idea.banner || '/static/img/Image_default.svg'">
+                  <div class="card-img" ngf-background="idea.banner">
                   </div>
                   <div class="card-info ">
                       <div class="user">

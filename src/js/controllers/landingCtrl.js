@@ -364,7 +364,7 @@ $scope.signIn = function(invalidEmail) {
     console.log(toLogUser);
   loginDataService.authenticate(toLogUser,
   function(res) {
-    localStorageService.clearAll()
+    localStorageService.clearAll();
     localStorageService.set('token', res.data.token); //Set the token for reuse in every request
     localStorageService.set('user_id', res.data._id); //Set the user_id in the localStorageService
     localStorageService.set('username', res.data.username);

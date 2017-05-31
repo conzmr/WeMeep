@@ -11,7 +11,6 @@ angular.module('wetopiaApp')
         $scope.usernameError=false;
         $scope.ideasData = [];
         $scope.categoriesBanner = categoriesDataService.categories;
-        console.log($scope.categoriesBanner['art']);
         var adminsData = [];
         $scope.testResults = [];
         var username = localStorageService.get('username');
@@ -25,9 +24,38 @@ angular.module('wetopiaApp')
         }
       }
 
-      $scope.getBannerImage = function(category){
-        return $scope.categoriesBanner['art'].banner;
-        // return $scope.categoriesBanner[category];
+      var getBannerImage = function(category){
+        return $scope.categoriesBanner[category].banner;
+      }
+      $scope.updateProfileInfo = function(){
+        let newUserInformation = {
+          name: $scope.user.name,
+          lastname: $scope.user.lastname,
+          profession: $scope.user.profession,
+          birthdate: Date.parse($scope.dateOfBirth),
+          gender: $scope.user.gender,
+          location: $scope.user.location,
+          bio: $scope.user.bio
+        }
+        updateAgeViews();
+        console.log(username);
+        console.log(newUserInformation);
+        $scope.editProfile = false;
+        profileDataService.updateProfileInfo(username, newUserInformation, function(response){
+          console.log(response.status);
+          console.log(response.data);
+        })
+      }
+
+      function convertToYears( date ){
+        const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
+        var years = Math.floor((Date.now() - date) / MS_PER_YEAR);
+        return years;
+      }
+
+      function convertToTimestamp (date){
+        var date = new Date(date);
+        return date;
       }
 
         $scope.selectGender = function(gender){
@@ -171,12 +199,17 @@ percentage:'85%'
 }
 ];
 
-
-$stateParams.username = username;
+function updateAgeViews() {
+  if($scope.user.birthdate){
+    $scope.age = convertToYears($scope.user.birthdate)+" years";
+    $scope.dateOfBirth = convertToTimestamp($scope.user.birthdate);
+  }
+}
 
 profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
     $scope.user = response.data.user;
+    updateAgeViews();
     var obj = response.data.user.testResults;
     calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){
@@ -199,6 +232,9 @@ profileDataService.getProfileInfo(username, function(response) {
         for(var i=0; i< res.data.length; i++){
           if(res.data[i]._id == $scope.ideasData[response].category){
             $scope.ideasData[response].category = res.data[i];
+            if($scope.ideasData[response].banner == undefined){
+                $scope.ideasData[response].banner = getBannerImage(res.data[i].name);
+            }
           }
         }
       })
@@ -207,7 +243,6 @@ profileDataService.getProfileInfo(username, function(response) {
       console.log(failureResponse);
     }
   )
-
     }
   }
   else {

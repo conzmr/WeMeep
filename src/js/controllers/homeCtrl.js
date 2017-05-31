@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope, localStorageService, $state, categoriesDataService) {
+.controller('homeCtrl', function($scope, localStorageService, $state, categoriesDataService, ideaDataService) {
 
 $scope.notification = false;
 $scope.showNotifications=false;
@@ -11,7 +11,26 @@ $scope.currentUser = {};
 $scope.currentUser.email = localStorageService.get('email');
 $scope.currentUser.username = localStorageService.get('username');
 $scope.categoriesBanner = categoriesDataService.categories;
+var allIdeasContainer = [];
+$scope.showingIdeas = [];
 
+var getAllIdeas = function(){
+  ideaDataService.getAllIdeas(function(response) {
+    if(response.data){
+      allIdeasContainer = response.data.ideas;
+    }
+  }).then(function(){
+    for (var i = 0; i < allIdeasContainer.length; i++) {
+      console.log(allIdeasContainer[i]);
+    }
+  })
+}
+
+getAllIdeas();
+
+$scope.getBannerImage = function(category){
+  return $scope.categoriesBanner[category].banner;
+}
 
 $scope.logOut = function(){
   localStorageService.clearAll();
@@ -39,6 +58,8 @@ $scope.Trending = function(){
 $scope.AllIdeas = function(){
   $scope.trending = false;
   $scope.allIdeas = true;
+  $scope.showingIdeas = allIdeasContainer;
+  console.log($scope.showingIdeas);
 }
 
 $scope.categories = [{
