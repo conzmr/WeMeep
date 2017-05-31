@@ -432,6 +432,73 @@ router.route('/ideas/:idea_id/:pivot')
   res.status(501).json({'message':'Not yet supported.'})
 })
 
+// PIVOT AN IDEA
+router.route('/ideas/:idea_id/self/pivot')
+.post(function (req, res) {
+
+  Idea.findById(req.params.idea_id)
+  .exec(function (err, idea) {
+    if (err) res.status(500).json({'error': err, 'success': false})
+    else res.json(idea)
+  })
+  let ideaname = req.body.name.split(' ').join('-').toLowerCase()
+  const user = req.U_ID
+  const ideaLimit = 8
+
+  User.findById(user)
+  .exec((error, user) =>{
+    if (error)
+      return res.status(500).json({error})
+
+    if (user.ideas.length >= 8)
+      return res.status(403).json({error: 'You have reached to your limit of ideas'})
+
+      Idea.findOne({members: req.U_ID, ideaname: ideaname})
+      .exec(function(err, ideaFound){
+        if (err) {
+          return res.status(500).json({'err':err})
+        }
+        if (ideaFound)
+          return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+
+        let idea = new Idea({
+          admin: req.U_ID,
+          banner: req.body.banner,
+          description: req.body.description,
+          problem: req.body.problem,
+          name: req.body.name,
+          category: req.body.category,
+          ideaname: ideaname
+        })
+        if (!req.body.members || req.body.members.length == 0)
+          idea.members = [req.U_ID]
+        else {
+          idea.members = req.body.members
+          idea.members.push(req.U_ID)
+        }
+        //create and add first pivot
+        const pivot = {_id: idea._id, number: 1}
+        idea.pivots.push(pivot)
+
+        idea.save(function(err, idea) {
+          if (err)
+            return res.status(500).json({'err':err})
+          User.update(
+            { _id: {$in: idea.members} },
+            { $push: {"ideas":  idea._id} },
+            { multi: true }
+          )
+          .exec(function(err){
+            if (err)
+              return res.status(500).json({'error': err,});
+            else
+              res.status(201).json({message: 'Idea created!', idea: idea});
+          })
+        })
+      })
+  })
+})
+
 // GET ALL IDEAS
 router.route('/ideas/all')
 .get(function (req, res) {
