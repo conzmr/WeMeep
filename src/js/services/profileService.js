@@ -6,7 +6,7 @@ angular.module('wetopiaApp')
   }
 
   this.updateProfileInfo = function(user_id, new_info, callback, errorCallback) {
-    $http.put(window.HOST + '/api/users/' + user_id, new_info).then(callback, errorCallback);
+    return $http.put(window.HOST + '/api/users/' + user_id, new_info).then(callback, errorCallback);
   }
 
   this.getProfileMoments = function(user_id, callback) {

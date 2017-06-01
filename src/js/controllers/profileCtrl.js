@@ -11,6 +11,7 @@ angular.module('wetopiaApp')
   $scope.currentUser = {};
   $scope.currentUser.email = localStorageService.get('email');
   $scope.currentUser.username = localStorageService.get('username');
+  $scope.categoriesBanner = categoriesDataService.categories;
   $scope.testDone = false;
   $scope.ideasData = [];
   $scope.testResults = [];
@@ -161,7 +162,11 @@ percentage:'85%'
 }
 ];
 
-
+function convertToYears( date ){
+  const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
+  var years = Math.floor((Date.now() - date) / MS_PER_YEAR);
+  return years;
+}
 
 
  var username= $stateParams.username;
@@ -169,6 +174,9 @@ percentage:'85%'
  profileDataService.getProfileInfo(username, function(response) {
    if(response.status==200){
      $scope.user = response.data.user;
+     if($scope.user.birthdate){
+           $scope.age = convertToYears($scope.user.birthdate)+" years";
+     }
      var obj = response.data.user.testResults;
      calculateResults(obj);
      for(var i = 0; i < $scope.user.ideas.length; i++){

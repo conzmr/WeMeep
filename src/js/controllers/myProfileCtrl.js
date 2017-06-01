@@ -37,14 +37,11 @@ angular.module('wetopiaApp')
           location: $scope.user.location,
           bio: $scope.user.bio
         }
-        updateAgeViews();
-        console.log(username);
-        console.log(newUserInformation);
         $scope.editProfile = false;
         profileDataService.updateProfileInfo(username, newUserInformation, function(response){
           console.log(response.status);
           console.log(response.data);
-        })
+        }).then(updateAgeViews());
       }
 
       function convertToYears( date ){

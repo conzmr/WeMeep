@@ -299,6 +299,7 @@ $scope.signUp = function (invalidEmail) {
   userData.lastname = $scope.user.lastname;
   userData.email = $scope.user.newEmail.toLowerCase(); //IMPORTANT
   userData.username =  $scope.user.username;
+  userData.password = $scope.user.newPassword;
 
   signupDataService.signup(userData, function (res) {
     if (res.status == 200) {
@@ -345,6 +346,8 @@ $scope.signIn = function(invalidEmail) {
   var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
+    console.log(invalidEmail);
+    console.log("error here");
     $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
   }
@@ -365,10 +368,10 @@ $scope.signIn = function(invalidEmail) {
   loginDataService.authenticate(toLogUser,
   function(res) {
     localStorageService.clearAll();
-    localStorageService.set('token', res.data.token); //Set the token for reuse in every request
-    localStorageService.set('user_id', res.data._id); //Set the user_id in the localStorageService
+    localStorageService.set('token', res.data.token);
     localStorageService.set('username', res.data.username);
     localStorageService.set('email', res.data.email);
+    localStorageService.set('user_id', res.data._id);
     $state.go('home');
   },
   function(res) { //error callback
