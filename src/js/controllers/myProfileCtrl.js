@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, ideaDataService, $state, categoriesDataService) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, Upload, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -27,6 +27,7 @@ angular.module('wetopiaApp')
       var getBannerImage = function(category){
         return $scope.categoriesBanner[category].banner;
       }
+
       $scope.updateProfileInfo = function(){
         let newUserInformation = {
           name: $scope.user.name,
@@ -38,6 +39,21 @@ angular.module('wetopiaApp')
           bio: $scope.user.bio
         }
         $scope.editProfile = false;
+	 if ($scope.user.image){
+            Upload.upload({
+                    url: window.HOST + '/api/upload',
+                    data: {
+                        file: $scope.user.image
+                    }
+                })
+                .then(function(res) { //upload function returns a promise
+		                profileDataService.updateProfilePicture(res.data.file_name, function(response){
+                      console.log(response.status);
+                    })
+                }, function(errRes) { //catch error
+                    $window.alert('Error status: ' + errRes.status);
+                });
+          }
         profileDataService.updateProfileInfo(username, newUserInformation, function(response){
           console.log(response.status);
           console.log(response.data);

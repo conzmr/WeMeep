@@ -10,13 +10,18 @@ angular.module('wetopiaApp')
   }
 
   this.getProfileMoments = function(user_id, callback) {
-    $http.get(window.HOST + '/api/users/' + user_id + '/moments')
+    return $http.get(window.HOST + '/api/users/' + user_id + '/moments')
     .then(callback);
   }
 
   this.getProfileInboxMoments = function(user_id, callback) {
     console.log('Getting inbox moments')
-    $http.get(window.HOST + '/api/users/' + user_id + '/inbox/moments')
+    return $http.get(window.HOST + '/api/users/' + user_id + '/inbox/moments')
+    .then(callback);
+  }
+
+  this.updateProfilePicture = function(image, callback){
+    return $http.put(window.HOST + '/api/users/self/avatars')
     .then(callback);
   }
 
