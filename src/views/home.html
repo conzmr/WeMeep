@@ -140,7 +140,7 @@
                 <div class="simple-margin-top" ng-show="showingIdeas.length==0">
                   <p  class="title-dark ">There are no ideas to show.</p>
                 </div>
-                <div class="card idea" ng-repeat="idea in showingIdeas">
+                <div class="card idea" ng-repeat="idea in showingIdeas | limitTo: limitIdeas">
                   <div class="card-block">
                     <div class="card-img" ngf-background="idea.banner || getBannerImage('others')">
                     </div>
@@ -195,7 +195,7 @@
 
             </div>
             <div class="flex-cont">
-                <a href="#" class="color-button blue border-radius-6" id="load-more-ideas">More Ideas</a>
+                <a class="color-button blue border-radius-6" id="load-more-ideas" ng-show="showingIdeas.length > limitIdeas" ng-click="loadMoreIdeas()">More Ideas</a>
             </div>
 
 
@@ -212,7 +212,7 @@
          ng-mouseover="coverImg = category.hover"
          ng-mouseout="coverImg = category.cover"
          ng-src="{{coverImg}}"
-         ng-click="selecCategory(category.name)"></a>
+         ng-click="selecCategory(category.name, category.id_name)"></a>
     </div>
 
         </div>
@@ -241,7 +241,7 @@
         <a href="/home" class="small">Home</a>
         <a href="/myProfile" class="small">My Profile</a>
         <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Idea</a>
+        <a href="/myIdea" class="small">My Ideas</a>
       </div>
       <div class="icons">
         <img src="/static/img/wetopia_dark.png">

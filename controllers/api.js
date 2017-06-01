@@ -234,8 +234,9 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
   const gender = req.body.gender
   const location = req.body.location
   const bio = req.body.bio
+  const image = req.body.image
 
-  User.findOneAndUpdate({'_id': user}, { $set: { name, lastname, profession, birthdate, gender, location, bio} }, { new: true })
+  User.findOneAndUpdate({'_id': user}, { $set: { name, lastname, profession, birthdate, gender, location, bio, image} }, { new: true })
   .exec((error, user) => {
     if (error) {
       return res.status(500).json({ error })
@@ -389,7 +390,7 @@ router.route('/ideas/:idea_id/:pivot')
   Idea.findById(req.params.idea_id)
   .exec((error, idea) =>{
     if (error) {
-      res.status(500).json({'error': err, 'success': false})
+      res.status(500).json({'error': error, 'success': false})
     } else {
 
       idea.pivots.sort((a, b) => {

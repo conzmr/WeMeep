@@ -1,5 +1,14 @@
 angular.module('wetopiaApp')
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $location, Upload, ideaDataService, $state, categoriesDataService) {
+    .filter('toYears', function($filter){
+      return function(input)
+      {
+        if(input == null){ return ""; }
+        const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
+        var years = Math.floor((Date.now() - input) / MS_PER_YEAR);
+        return years;
+      };
+    })
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -10,6 +19,8 @@ angular.module('wetopiaApp')
         $scope.showSelectGender = false;
         $scope.usernameError=false;
         $scope.ideasData = [];
+        $scope.user = {};
+        $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
         $scope.categoriesBanner = categoriesDataService.categories;
         var adminsData = [];
         $scope.testResults = [];
@@ -28,6 +39,10 @@ angular.module('wetopiaApp')
         return $scope.categoriesBanner[category].banner;
       }
 
+      function isString (obj) {
+        return (Object.prototype.toString.call(obj) === '[object String]');
+      }
+
       $scope.updateProfileInfo = function(){
         let newUserInformation = {
           name: $scope.user.name,
@@ -39,31 +54,44 @@ angular.module('wetopiaApp')
           bio: $scope.user.bio
         }
         $scope.editProfile = false;
-	 if ($scope.user.image){
+        // console.log($scope.user.image.indexOf('static/uploads')==-1);
+        console.log(isString($scope.user.image));
+        console.log($scope.user.image);
+	 if (!isString($scope.user.image)){
             Upload.upload({
                     url: window.HOST + '/api/upload',
                     data: {
                         file: $scope.user.image
                     }
                 })
-                .then(function(res) { //upload function returns a promise
-		                profileDataService.updateProfilePicture(res.data.file_name, function(response){
-                      console.log(response.status);
-                    })
+                .then(function(res) {
+                  console.log(res);
+                  console.log("Res data"+res.data);
+                  if(res.data.file_name){
+                    newUserInformation.image = '/static/uploads/'+ res.data.file_name;
+                  }
+                  profileDataService.updateProfileInfo(username, newUserInformation, function(response){
+                    if(response.success){
+                        $scope.user.birthdate = newUserInformation.birthdate;
+                        $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+                    }
+                  }).then(updateAgeViews());
+		                // profileDataService.updateProfilePicture(res.data.file_name, function(response){
+                    //   console.log(response.status);
+                    // })
                 }, function(errRes) { //catch error
-                    $window.alert('Error status: ' + errRes.status);
+                    // $window.alert('Error status: ' + errRes.status);
                 });
           }
-        profileDataService.updateProfileInfo(username, newUserInformation, function(response){
-          console.log(response.status);
-          console.log(response.data);
-        }).then(updateAgeViews());
-      }
-
-      function convertToYears( date ){
-        const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
-        var years = Math.floor((Date.now() - date) / MS_PER_YEAR);
-        return years;
+          else{
+              newUserInformation.image = $scope.user.image;
+            profileDataService.updateProfileInfo(username, newUserInformation, function(response){
+              if(response.success){
+                  $scope.user.birthdate = newUserInformation.birthdate;
+                  $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+              }
+            }).then(updateAgeViews());
+          }
       }
 
       function convertToTimestamp (date){
@@ -214,7 +242,6 @@ percentage:'85%'
 
 function updateAgeViews() {
   if($scope.user.birthdate){
-    $scope.age = convertToYears($scope.user.birthdate)+" years";
     $scope.dateOfBirth = convertToTimestamp($scope.user.birthdate);
   }
 }
@@ -222,7 +249,7 @@ function updateAgeViews() {
 profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
     $scope.user = response.data.user;
-    updateAgeViews();
+    $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
     var obj = response.data.user.testResults;
     calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){

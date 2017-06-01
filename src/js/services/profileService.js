@@ -20,9 +20,9 @@ angular.module('wetopiaApp')
     .then(callback);
   }
 
-  this.updateProfilePicture = function(image, callback){
-    return $http.put(window.HOST + '/api/users/self/avatars')
-    .then(callback);
+  this.updateProfilePicture = function(image, callback, errorCallback){
+    return $http.put(window.HOST + '/api/users/self/avatars', image)
+    .then(callback, errorCallback);
   }
 
 
