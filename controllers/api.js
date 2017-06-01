@@ -129,29 +129,6 @@ router.post('/authenticate', function(req, res) {
     }
   })
 })
-// router.post('/authenticate', function(req, res) {
-//   if (!req.body || (!req.body.email))
-//     return res.status(400).json({'message': "Authentication failed. No user specified." })
-//   User.findOne(({ $or: [ { 'email': req.body.email.toLowerCase() }] }))
-//   .exec(function(err, user) {
-//     if (err)
-//       res.status(500).json({'error': err})
-//     else if (!user) {
-//       console.log('---------no user');
-//       res.status(401).json({'message': "Authentication failed. Wrong user or password."})
-//     } else {
-//       if (!user.comparePassword(req.body.password)) { // check if password matches
-//         console.log('---------bad password');
-//         res.status(401).json({'message': "Authentication failed. Wrong user or password."})
-//       } else {
-//         console.log('---------all cool!!');
-//         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-//         res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token }) // Return the information including token as JSON
-//       }
-//     }
-//   })
-// })
-
 
 /*************************************
 ***                                ***
@@ -264,7 +241,7 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
   const location = req.body.location
   const bio = req.body.bio
 
-  User.findOneAndUpdate(user, { $set: { name, lastname, profession, birthdate, gender, location, bio} }, { new: true })
+  User.findOneAndUpdate({'_id': user}, { $set: { name, lastname, profession, birthdate, gender, location, bio} }, { new: true })
   .exec((error, user) => {
     if (error) {
       return res.status(500).json({ error })
