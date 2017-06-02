@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService, ideaDataService) {
+.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService, categoriesDataService, ideaDataService) {
   $scope.notification = false;
   $scope.showNotifications=false;
   $scope.showUserMenu=false;
@@ -11,10 +11,14 @@ angular.module('wetopiaApp')
   $scope.currentUser = {};
   $scope.currentUser.email = localStorageService.get('email');
   $scope.currentUser.username = localStorageService.get('username');
+  $scope.categoriesBanner = categoriesDataService.categories;
   $scope.testDone = false;
   $scope.ideasData = [];
   $scope.testResults = [];
 
+  var getBannerImage = function(category){
+    return $scope.categoriesBanner[category].banner;
+  }
 
   $scope.logOut = function(){
     localStorageService.clearAll();
@@ -158,30 +162,60 @@ percentage:'85%'
 }
 ];
 
-
+function convertToYears( date ){
+  const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
+  var years = Math.floor((Date.now() - date) / MS_PER_YEAR);
+  return years;
+}
 
 
  var username= $stateParams.username;
 
-  profileDataService.getProfileInfo(username, function(response) {
-    if (response.data) {
-      $scope.user = response.data.user;
-      var obj = response.data.user.testResults;
-      calculateResults(obj);
-      for(var i = 0; i < $scope.user.ideas.length; i++){
-        var j =0;
-        ideaDataService.getIdeaInformation($scope.user.ideas[i], function(response){
-          console.log(response.data);
-          if(response.data){
-            $scope.ideasData[j] = response.data;
-            j++;
-          }
-        })
-      }
+ profileDataService.getProfileInfo(username, function(response) {
+   if(response.status==200){
+     $scope.user = response.data.user;
+     if($scope.user.birthdate){
+           $scope.age = convertToYears($scope.user.birthdate)+" years";
+     }
+     var obj = response.data.user.testResults;
+     calculateResults(obj);
+     for(var i = 0; i < $scope.user.ideas.length; i++){
+       var j =0;
+       ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
+         if(response.data){
+           $scope.ideasData[j] = response.data;
+           for(var i =0; i< response.data.members.length; i++){
+             if(response.data.members[i]._id == response.data.admin){
+               $scope.ideasData[j].admin = response.data.members[i];
+             }
+           }
+           j++;
+           return j-1;
+         }
+       })
+       .then(
+     function(response){
+       categoriesDataService.getCategories(function(res){
+         for(var i=0; i< res.data.length; i++){
+           if(res.data[i]._id == $scope.ideasData[response].category){
+             $scope.ideasData[response].category = res.data[i];
+             if($scope.ideasData[response].banner == undefined){
+                 $scope.ideasData[response].banner = getBannerImage(res.data[i].name);
+             }
+           }
+         }
+       })
+     },
+     function(failureResponse){
+       console.log(failureResponse);
+     }
+   )
+     }
+   }
+   else {
+     $state.go('home');
+   }
+ });
 
-    } else {
-      $state.go('home');
-    }
-  });
 
 })

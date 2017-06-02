@@ -104,7 +104,7 @@
                     <p class="gray-dark">{{currentUser.username}}</p>
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
-                  <p>My Profile</p>
+                  <p ui-sref="myProfile">My Profile</p>
                   <p>My Ideas</p>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
@@ -137,33 +137,37 @@
               <p class="sub-gray not-hov">{{selectedCategory}}</p>
             </div>
             <div class="cards-cont">
-                <div class="card idea">
+                <div class="simple-margin-top" ng-show="showingIdeas.length==0">
+                  <p  class="title-dark ">There are no ideas to show.</p>
+                </div>
+                <div class="card idea" ng-repeat="idea in showingIdeas | limitTo: limitIdeas">
                   <div class="card-block">
-                    <div class="card-img">
+                    <div class="card-img" ngf-background="idea.banner || getBannerImage('others')">
                     </div>
                     <div class="card-info ">
                         <div class="user">
                             <div class="left">
                                 <div class="polygon-each-img-wrap">
-                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                    <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>UserName</p>
+                                <p>{{idea.admin}}</p>
                             </div>
                             <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
-                        <p class="dark-title">Lorem ipsum dolor sitming</p>
+                        <p class="dark-title">{{idea.name}}</p>
                         <p class="card-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            {{idea.description}}
                         </p>
                     </div>
                     </div>
                     <div class="footer-nav">
-                        <a href="#">Categoría</a>
+                        <a href="#">{{idea.category}}</a>
                     </div>
                 </div>
 
-                <div class="card project">
+
+                <!-- <div class="card project">
                   <div class="card-block">
                     <div class="card-img">
                     </div>
@@ -171,7 +175,7 @@
                         <div class="user">
                             <div class="left">
                               <div class="polygon-each-img-wrap">
-                                  <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                                  <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}">
                                   </div>
                               </div>
                                 <p>UserName</p>
@@ -187,63 +191,11 @@
                     <div class="footer-nav">
                         <a href="#">Categoría</a>
                     </div>
-                </div>
-
-                <div class="card idea">
-                  <div class="card-block">
-                    <div class="card-img">
-                    </div>
-                    <div class="card-info ">
-                        <div class="user">
-                            <div class="left">
-                                <div class="polygon-each-img-wrap">
-                                    <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                    </div>
-                                </div>
-                                <p>UserName</p>
-                            </div>
-                            <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
-                        </div>
-                        <p class="dark-title">Lorem ipsum dolor sitming</p>
-                        <p class="card-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                    </div>
-                    <div class="footer-nav">
-                        <a href="#">Categoría</a>
-                    </div>
-                </div>
-
-                <div class="card project">
-                  <div class="card-block">
-                    <div class="card-img">
-                    </div>
-                    <div class="card-info">
-                        <div class="user">
-                            <div class="left">
-                              <div class="polygon-each-img-wrap">
-                                  <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                  </div>
-                              </div>
-                                <p>UserName</p>
-                            </div>
-                              <img class="right-img" src="/static/img/PROJECT_VIEWS/Project_ICON.svg">
-                        </div>
-                        <p class="dark-title">Lorem ipsum dolor sitming</p>
-                        <p class="card-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                    </div>
-                    <div class="footer-nav">
-                        <a href="#">Categoría</a>
-                    </div>
-                </div>
+                </div> -->
 
             </div>
             <div class="flex-cont">
-                <a href="#" class="color-button blue border-radius-6" id="load-more-ideas">More Ideas</a>
+                <a class="color-button blue border-radius-6" id="load-more-ideas" ng-show="showingIdeas.length > limitIdeas" ng-click="loadMoreIdeas()">More Ideas</a>
             </div>
 
 
@@ -260,7 +212,7 @@
          ng-mouseover="coverImg = category.hover"
          ng-mouseout="coverImg = category.cover"
          ng-src="{{coverImg}}"
-         ng-click="selecCategory(category.name)"></a>
+         ng-click="selecCategory(category.name, category.id_name)"></a>
     </div>
 
         </div>
@@ -289,7 +241,7 @@
         <a href="/home" class="small">Home</a>
         <a href="/myProfile" class="small">My Profile</a>
         <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Idea</a>
+        <a href="/myIdea" class="small">My Ideas</a>
       </div>
       <div class="icons">
         <img src="/static/img/wetopia_dark.png">
@@ -303,6 +255,7 @@
       </div>
       <div class="right">
         <p class="medium-bold">Wetopia (c) 2017</p>
+        <a href="/blog" class="small">Blog</a>
         <!--
         <p class="small">Terms & Conditions</p>
         <p class="small">Privacy Policy</p>
