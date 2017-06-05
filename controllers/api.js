@@ -409,6 +409,8 @@ router.route('/ideas/:idea_id/:pivot')
           select: 'image name username'
         }
       })
+      .populate('admin', 'username image')
+      .populate('category', 'name description')
       .exec(function (err, project) {
         if (err) {
           res.status(500).json({'error': err, 'success': false});
@@ -443,6 +445,8 @@ router.route('/ideas/:idea_id/:pivot')
 router.route('/ideas/all')
 .get(function (req, res) {
       Idea.find()
+      .populate('admin', 'username image')
+      .populate('category', 'name description')
       .exec(function (err, ideas) {
         if (err)
           res.status(500).json({'error': err, 'success': false});
@@ -452,7 +456,7 @@ router.route('/ideas/all')
 })
 
 // GET ALL IDEAS BY CATEGORY
-router.route('/ideas/all/:category')
+router.route('/ideas/all/category/:category')
 .get(function (req, res) {
   const name = req.params.category
   Category.findOne({ name })
@@ -461,6 +465,8 @@ router.route('/ideas/all/:category')
       res.status(500).json({'error': err, 'success': false});
     else {
       Idea.find({'category': category._id})
+      .populate('admin', 'username image')
+      .populate('category', 'name description')
       .exec(function (err, ideas) {
         if (err)
           res.status(500).json({'error': err, 'success': false});
