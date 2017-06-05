@@ -528,6 +528,7 @@ a {
     .tab-paragraph {
         margin: -15px auto auto 55px !important;
         font-size: 16px !important;
+        width: 100%;
         @media screen and (max-width: 500px) {
             margin: auto !important;
         }
@@ -1866,7 +1867,8 @@ nav {
 }
 
 .comment {
-    max-width: 500px;
+  max-width: 500px;
+  width: 100%;
 
     p {
         clear: both;
@@ -2159,6 +2161,7 @@ nav {
         @extend %white-tooltip;
         margin-top: -4px;
         left: 65%;
+        z-index: 1000;
 
         &::after,
         &::before {
@@ -2477,8 +2480,8 @@ nav {
         flex-direction: row;
 
         .polygon-clip-hexagon {
-            height: 20px;
-            width: 16px;
+            height: 30px;
+            width: 28px;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -2494,7 +2497,7 @@ nav {
         }
 
         .right-img {
-            height: 15px;
+            height: 18px;
             margin: auto 0 auto auto;
         }
     }
@@ -2541,7 +2544,7 @@ nav {
     .card-p {
         margin: 0 auto auto 0;
         text-align: left;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .left {
@@ -2562,14 +2565,14 @@ nav {
             display: inline-block;
             width: auto;
             margin: auto auto auto 3px;
-            font-size: 11px;
+            font-size: 15px;
         }
     }
 }
 
 .dark-title {
     font: {
-        size: 14px;
+        size: 18px;
         weight: bolder;
     }
     color: $gray-dark;
@@ -2577,7 +2580,7 @@ nav {
 
 .card-p {
     @include font( 'Museo', 300);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .upper-img {
@@ -2621,11 +2624,10 @@ nav {
 
 .footer-nav {
     margin-top: -8px;
-
     a {
         color: $gray-lighter;
         display: inline-block;
-        font-size: 11px;
+        font-size: 13px;
         margin: 0 2px;
     }
     text-align: center;
@@ -6127,4 +6129,20 @@ video#bgvid {
 
 .no-clickable{
   cursor: default;
+}
+
+.numeration{
+  &:after{
+    content: 'th Pivot'
+  }
+  &.first{
+    &:after{
+      content: 'st Pivot'
+    }
+  }
+  &.second{
+    &:after{
+      content: 'nd Pivot'
+    }
+  }
 }

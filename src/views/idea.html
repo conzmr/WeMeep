@@ -125,32 +125,18 @@
       <div class="flex-cont row wrap">
         <div class="flex-cont mid-page">
             <div class="idea-header">
-                <p class="idea-title">Idea Title
+                <p class="idea-title">{{idea.name}}
                 </p>
                 <div class="idea-header-info">
                     <p>Created by </p>
                     <div class="select-team">
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                </div>
-                            </div>
-                            <p class="tooltiptext">Team Member</p>
-                        </div>
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                </div>
-                            </div>
-                            <p class="tooltiptext">Team Member</p>
-                        </div>
-                        <div class="tooltip">
-                            <div class="polygon-each-img-wrap">
-                                <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/PROJECT_VIEWS/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                                </div>
-                            </div>
-                            <p class="tooltiptext">Team Member</p>
-                        </div>
+                      <div class="tooltip" ng-repeat="member in idea.members">
+                          <div class="polygon-each-img-wrap">
+                              <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'" >
+                              </div>
+                          </div>
+                          <p class="tooltiptext">{{member.username}}</p>
+                      </div>
                       <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
                     </div>
                     <p> and located in </p>
@@ -159,10 +145,10 @@
                 </div>
 
                 <div class="inner-nav selector">
-                    <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
+                    <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
                     <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
                       <div class="flex-cont user-menu">
-                        <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
+                        <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
                       </div>
                     </ul>
                 </div>
@@ -175,19 +161,21 @@
                  <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                 </p>
                 <p class="tab-paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                  {{idea.description}}
                 </p>
 
+                <div class="simple-cont" ng-show="idea.problem">
                 <img class="big-img" src="/static/img/Create Idea_problem.svg">
                 <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                 </p>
                 <p class="tab-paragraph">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                  {{idea.problem}}
                 </p>
+              </div>
             </div>
         </div>
         <div class="mid-page flex-cont">
-            <div class="idea-img" ng-style="{'background-image': 'url(static/img/Image_default.svg)'}">
+            <div class="idea-img" ngf-background="idea.banner || '/static/img/Image_default.svg'">
             </div>
         </div>
           </div>
@@ -203,16 +191,19 @@
 
             <p class="black-medium">Current Pivot Feedback</p>
             <div class="comments flex-cont">
-              <div class="comment flex-box" ng-repeat="comment in feedback">
+              <div class="simple-margin-top" ng-show="idea.feedback.length==0">
+                <p  class="title-dark ">No comments yet.</p>
+              </div>
+              <div class="comment flex-box" ng-repeat="comment in idea.feedback">
                 <div class="flex-cont comment-top">
                   <div class="polygon-each-img-wrap">
-                      <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(' +comment.img+ ')'}">
+                      <div class="polygon-clip-hexagon" ngf-background="comment.user.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'">
                       </div>
                   </div>
-                  <p class="name" ng-bind="comment.firstname"></p>
-                  <p class="username" ng-bind="comment.username"></p>
-                  <img class="star-img" ng-src="{{comment.stars > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" >
-                  <p class="star" ng-bind="comment.stars"></p>
+                  <p class="name" ng-bind="comment.user.name"></p>
+                  <p class="username" ng-bind="comment.user.username"></p>
+                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" >
+                  <p class="star" ng-bind="comment.stars.length"></p>
                 </div>
                 <div class="tab-paragraph" ng-bind="comment.comment">
               </p>

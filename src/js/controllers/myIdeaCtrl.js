@@ -1,17 +1,52 @@
 angular.module('wetopiaApp')
-    .controller('myIdeaCtrl', function($scope) {
+    .filter('enumeration', function($filter){
+      return function(input)
+      {
+        if(input == null){ return ""; }
+        else if(input == 1){
+          return input+"st Pivot";
+        }
+        else if(input == 2){
+          return input+"nd Pivot";
+        }
+        else{
+          return input+"th Pivot";
+        }
+      };
+    })
+    .controller('myIdeaCtrl', function($scope, ideaDataService, categoriesDataService, $filter, $stateParams) {
         $scope.pivoting = false;
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
         $scope.showPivots = false;
-        $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
-        $scope.pivotSelected = $scope.pivots[0];
-        $scope.newPivot=$scope.pivots.length+1;
+        // $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
+        // $scope.pivotSelected = $filter('enumeration')($scope.pivotSelected);
+        // $scope.newPivot=$scope.pivots.length+1;
         $scope.wantToDiscard = false;
         $scope.whyDiscard = false;
         $scope.discarded = false;
         $scope.saved = false;
+        $scope.categoriesBanner = categoriesDataService.categories;
+        var idea_id= $stateParams.idea_id;
+
+        $scope.getIdea = function(pivotNumber){
+          $scope.showPivots = false;
+          ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
+            if(response.data){
+              $scope.pivotSelected = $filter('enumeration')(pivotNumber);
+              $scope.idea = response.data;
+            }
+          })
+          // ideaDataService.getIdeaStats(idea_id, function(response){
+          //   console.log('hed');
+          //   console.log(response.status);
+          //   console.log(response);
+          //   console.log(response.data);
+          // })
+        }
+
+        $scope.getIdea(1);
 
         $scope.discardIdea = function(){
           $scope.wantToDiscard = false;

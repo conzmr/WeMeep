@@ -133,7 +133,7 @@ angular.module('wetopiaApp')
             $scope.idea.banner = banner;
             createIdeaDataService.setIdea(function(res) {
                 if (res.status == 201) {
-                    $state.go('idea');
+                    $state.go('myIdea', {idea_id:res.data.idea_id});
                 }
                 if (res.status == 403){
                   window.alert('You have reached to your limit of ideas.');

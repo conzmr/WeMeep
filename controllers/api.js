@@ -375,7 +375,7 @@ router.route('/ideas/self/create')
             if (err)
               return res.status(500).json({'error': err,});
             else
-              return res.status(201).json({message: 'Idea created!', idea: idea});
+              return res.status(201).json({message: 'Idea created!', idea_id: idea._id});
           })
         })
       })

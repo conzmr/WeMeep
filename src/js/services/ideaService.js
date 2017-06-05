@@ -16,9 +16,9 @@ angular.module('wetopiaApp')
     .then(callback, errorCallback);
   }
 
-  this.getIdeaStats = function (idea_id, callback) {
+  this.getIdeaStats = function (idea_id, callback, errorCallback) {
     return $http.get(window.HOST + '/api/ideas/'+idea_id+'/stats')
-    .then(callback)
+    .then(callback, errorCallback)
   }
 
 

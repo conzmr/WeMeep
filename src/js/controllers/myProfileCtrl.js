@@ -5,10 +5,10 @@ angular.module('wetopiaApp')
         if(input == null){ return ""; }
         const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
         var years = Math.floor((Date.now() - input) / MS_PER_YEAR);
-        return years;
+        return years+ " years";
       };
     })
-    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $stateParams, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
+    .controller('myProfileCtrl', function($scope, localStorageService, profileDataService, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -20,7 +20,7 @@ angular.module('wetopiaApp')
         $scope.usernameError=false;
         $scope.ideasData = [];
         $scope.user = {};
-        $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+        $scope.age = $filter('toYears')($scope.user.birthdate);
         $scope.categoriesBanner = categoriesDataService.categories;
         var adminsData = [];
         $scope.testResults = [];
@@ -33,6 +33,11 @@ angular.module('wetopiaApp')
             $scope.testResults.push(obj[key]);
           }
         }
+      }
+
+      $scope.logOut = function(){
+        localStorageService.clearAll();
+        $state.go('landing');
       }
 
       var getBannerImage = function(category){

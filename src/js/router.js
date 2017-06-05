@@ -14,13 +14,13 @@ angular.module('wetopiaApp')
                 authenticate: true
             })
             .state("myIdea", {
-                url: "/myIdea",
+                url: "/idea/:idea_id",
                 controller: "myIdeaCtrl",
                 templateUrl: "/static/views/myIdea.html",
                 authenticate: true
             })
             .state("idea", {
-                url: "/idea",
+                url: "/idea/:idea_id",
                 controller: "ideaCtrl",
                 templateUrl: "/static/views/idea.html",
                 authenticate: true
