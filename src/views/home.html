@@ -140,9 +140,9 @@
                 <div class="simple-margin-top" ng-show="showingIdeas.length==0">
                   <p  class="title-dark ">There are no ideas to show.</p>
                 </div>
-                <div class="card idea" ng-repeat="idea in showingIdeas | limitTo: limitIdeas">
+                <a class="card idea" ng-repeat="idea in showingIdeas | limitTo: limitIdeas" ng-href="/idea/{{idea._id}}" >
                   <div class="card-block">
-                    <div class="card-img" ngf-background="idea.banner || getBannerImage('others')">
+                    <div class="card-img" ngf-background="idea.banner || getBannerImage(idea.category.name)">
                     </div>
                     <div class="card-info ">
                         <div class="user">
@@ -151,7 +151,7 @@
                                     <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>{{idea.admin}}</p>
+                                <p>{{idea.admin.username}}</p>
                             </div>
                             <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
@@ -162,9 +162,9 @@
                     </div>
                     </div>
                     <div class="footer-nav">
-                        <a href="#">{{idea.category}}</a>
+                        <a href="#">{{idea.category.description}}</a>
                     </div>
-                </div>
+                </a>
 
 
                 <!-- <div class="card project">
@@ -212,7 +212,7 @@
          ng-mouseover="coverImg = category.hover"
          ng-mouseout="coverImg = category.cover"
          ng-src="{{coverImg}}"
-         ng-click="selecCategory(category.name, category.id_name)"></a>
+         ng-click="selectCategory(category.name, category.id_name)"></a>
     </div>
 
         </div>

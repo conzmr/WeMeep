@@ -1699,7 +1699,7 @@ nav {
 .idea-header {
     text-align: left;
     height: auto;
-    margin: auto;
+    margin: auto auto auto 0;
 
     .pivote-t {
         margin: {
@@ -2536,7 +2536,8 @@ nav {
     height: 160px;
 
     .dark-title {
-        margin: 10px auto 10px 0;
+        margin: 10px auto 5px 0;
+        font-size: 16px;
         text-align: left;
         @include font( 'Museo', 900);
     }
@@ -2564,7 +2565,7 @@ nav {
             @include font( 'Museo', 300);
             display: inline-block;
             width: auto;
-            margin: auto auto auto 3px;
+            margin: auto auto auto 0px;
             font-size: 15px;
         }
     }
@@ -5154,6 +5155,7 @@ bluelink {
         margin: {
             left: 0;
         }
+        max-width: 410px;
     }
 }
 
@@ -5349,6 +5351,8 @@ bluelink {
     font-family: 'Museo_700';
     font-size: 30px;
     width: auto;
+    text-align: center;
+    line-height: 30px !important;
 
     &.left {
         margin: auto auto auto 0;

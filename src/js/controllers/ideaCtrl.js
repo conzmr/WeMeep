@@ -24,6 +24,19 @@ angular.module('wetopiaApp')
         $scope.categoriesBanner = categoriesDataService.categories;
         var idea_id= $stateParams.idea_id;
         var user_id = localStorageService.get('user_id');
+        $scope.currentUser = {};
+        $scope.currentUser.email = localStorageService.get('email');
+        $scope.currentUser.username = localStorageService.get('username');
+
+        $scope.goToIdea = function(idea_id){
+          $state.go('idea', {idea_id:idea_id});
+          console.log(idea_id);
+        }
+
+        $scope.logOut = function(){
+          localStorageService.clearAll();
+          $state.go('landing');
+        }
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
@@ -36,12 +49,12 @@ angular.module('wetopiaApp')
               }
             }
           })
-          ideaDataService.getIdeaStats(idea_id, function(response){
-            console.log('hed');
-            console.log(response.status);
-            console.log(response);
-            console.log(response.data);
-          })
+          // ideaDataService.getIdeaStats(idea_id, function(response){
+          //   console.log('hed');
+          //   console.log(response.status);
+          //   console.log(response);
+          //   console.log(response.data);
+          // })
         }
 
         $scope.getIdea(1);

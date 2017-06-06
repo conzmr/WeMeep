@@ -16,7 +16,7 @@ angular.module('wetopiaApp')
   $scope.ideasData = [];
   $scope.testResults = [];
 
-  var getBannerImage = function(category){
+  $scope.getBannerImage = function(category){
     return $scope.categoriesBanner[category].banner;
   }
 
@@ -174,9 +174,6 @@ function convertToYears( date ){
  profileDataService.getProfileInfo(username, function(response) {
    if(response.status==200){
      $scope.user = response.data.user;
-     if($scope.user.birthdate){
-           $scope.age = convertToYears($scope.user.birthdate)+" years";
-     }
      var obj = response.data.user.testResults;
      calculateResults(obj);
      for(var i = 0; i < $scope.user.ideas.length; i++){
@@ -184,32 +181,9 @@ function convertToYears( date ){
        ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
          if(response.data){
            $scope.ideasData[j] = response.data;
-           for(var i =0; i< response.data.members.length; i++){
-             if(response.data.members[i]._id == response.data.admin){
-               $scope.ideasData[j].admin = response.data.members[i];
-             }
-           }
            j++;
-           return j-1;
          }
        })
-       .then(
-     function(response){
-       categoriesDataService.getCategories(function(res){
-         for(var i=0; i< res.data.length; i++){
-           if(res.data[i]._id == $scope.ideasData[response].category){
-             $scope.ideasData[response].category = res.data[i];
-             if($scope.ideasData[response].banner == undefined){
-                 $scope.ideasData[response].banner = getBannerImage(res.data[i].name);
-             }
-           }
-         }
-       })
-     },
-     function(failureResponse){
-       console.log(failureResponse);
-     }
-   )
      }
    }
    else {

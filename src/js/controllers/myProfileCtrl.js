@@ -20,7 +20,7 @@ angular.module('wetopiaApp')
         $scope.usernameError=false;
         $scope.ideasData = [];
         $scope.user = {};
-        $scope.age = $filter('toYears')($scope.user.birthdate);
+        // $scope.age = $filter('toYears')($scope.user.birthdate);
         $scope.categoriesBanner = categoriesDataService.categories;
         var adminsData = [];
         $scope.testResults = [];
@@ -40,7 +40,7 @@ angular.module('wetopiaApp')
         $state.go('landing');
       }
 
-      var getBannerImage = function(category){
+      $scope.getBannerImage = function(category){
         return $scope.categoriesBanner[category].banner;
       }
 
@@ -59,9 +59,6 @@ angular.module('wetopiaApp')
           bio: $scope.user.bio
         }
         $scope.editProfile = false;
-        // console.log($scope.user.image.indexOf('static/uploads')==-1);
-        console.log(isString($scope.user.image));
-        console.log($scope.user.image);
 	 if (!isString($scope.user.image)){
             Upload.upload({
                     url: window.HOST + '/api/upload',
@@ -70,15 +67,13 @@ angular.module('wetopiaApp')
                     }
                 })
                 .then(function(res) {
-                  console.log(res);
-                  console.log("Res data"+res.data);
                   if(res.data.file_name){
                     newUserInformation.image = '/static/uploads/'+ res.data.file_name;
                   }
                   profileDataService.updateProfileInfo(username, newUserInformation, function(response){
-                    if(response.success){
+                    if(response.status==200){
                         $scope.user.birthdate = newUserInformation.birthdate;
-                        $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+                        localStorageService.set('image', response.data.user.image);
                     }
                   }).then(updateAgeViews());
 		                // profileDataService.updateProfilePicture(res.data.file_name, function(response){
@@ -91,9 +86,9 @@ angular.module('wetopiaApp')
           else{
               newUserInformation.image = $scope.user.image;
             profileDataService.updateProfileInfo(username, newUserInformation, function(response){
-              if(response.success){
+              if(response.status==200){
                   $scope.user.birthdate = newUserInformation.birthdate;
-                  $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+                  localStorageService.set('image', response.data.user.image);
               }
             }).then(updateAgeViews());
           }
@@ -254,7 +249,7 @@ function updateAgeViews() {
 profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
     $scope.user = response.data.user;
-    $scope.age = $filter('toYears')($scope.user.birthdate) +" years.";
+    updateAgeViews();
     var obj = response.data.user.testResults;
     calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){
@@ -262,32 +257,9 @@ profileDataService.getProfileInfo(username, function(response) {
       ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
         if(response.data){
           $scope.ideasData[j] = response.data;
-          for(var i =0; i< response.data.members.length; i++){
-            if(response.data.members[i]._id == response.data.admin){
-              $scope.ideasData[j].admin = response.data.members[i];
-            }
-          }
           j++;
-          return j-1;
         }
       })
-      .then(
-    function(response){
-      categoriesDataService.getCategories(function(res){
-        for(var i=0; i< res.data.length; i++){
-          if(res.data[i]._id == $scope.ideasData[response].category){
-            $scope.ideasData[response].category = res.data[i];
-            if($scope.ideasData[response].banner == undefined){
-                $scope.ideasData[response].banner = getBannerImage(res.data[i].name);
-            }
-          }
-        }
-      })
-    },
-    function(failureResponse){
-      console.log(failureResponse);
-    }
-  )
     }
   }
   else {
@@ -305,6 +277,5 @@ $scope.uploadAvatar = function(file){
           $window.alert('Error status: ' + errRes.status);
     });
 }
-
 
             })

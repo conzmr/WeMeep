@@ -31,6 +31,7 @@ var getAllIdeas = function(){
 var getIdeasByCategory = function(category){
   ideaDataService.getIdeasByCategory(category, function(response) {
     if(response.data){
+      console.log(response.data);
       console.log(response.status);
       console.log("MI data"+response.data);
       $scope.showingIdeas = response.data.ideas;
@@ -168,7 +169,7 @@ $scope.otherCategories = [{
   hover:'/static/img/CATEGORIES_ICONS/HOVER/FASH_ICON.svg'
 }];
 
-$scope.selecCategory = function(category, id_name){
+$scope.selectCategory = function(category, id_name){
   $scope.selectedCategory = category.toUpperCase();
   getIdeasByCategory(id_name);
 }

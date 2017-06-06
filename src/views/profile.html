@@ -136,7 +136,8 @@
               <p  class="title-dark left" ng-bind="user.name || 'No name to show.'"></p>
               <p class="title-dark left subtitle" ng-bind="user.lastname || 'No lastname to show.'"></p>
               <p class="medium-gray left" ng-bind="user.profession || 'No profession to show.'"></p>
-              <p  class="medium-gray left" ng-bind="age|| 'No age to show.'"></p>
+              <p class="medium-gray left"  ng-show="!user.birthdate">No age to show.</p>
+              <p class="medium-gray left"  ng-show="user.birthdate">{{user.birthdate| toYears}}</p>
               <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'No gender to show.'"> </p></div>
               <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'No country to show.'"></p></div>
             </div>
@@ -168,9 +169,9 @@
                 <div class="simple-margin-top" ng-show="user.ideas.length==0">
                   <p  class="title-dark ">{{user.name}} has no ideas yet.</p>
                 </div>
-                <div class="card idea" ng-repeat="idea in ideasData">
+                <a class="card idea" ng-repeat="idea in ideasData" ng-href="/idea/{{idea._id}}" >
                   <div class="card-block">
-                    <div class="card-img" ngf-background="idea.banner">
+                    <div class="card-img" ngf-background="idea.banner || getBannerImage(idea.category.name)">
                     </div>
                     <div class="card-info ">
                         <div class="user">
@@ -192,7 +193,7 @@
                     <div class="footer-nav">
                         <a href="#">{{idea.category.description}}</a>
                     </div>
-                </div>
+                </a>
 
               </div>
           </div>
