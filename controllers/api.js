@@ -277,7 +277,7 @@ router.route('/ideas/:idea_id/feedback')
       if (err)
         return res.status(500).json({'error': err,});
       else
-        res.status(201).json({message: 'Feedback sent.'});
+        res.status(201).json({feedback});
     })
   })
 });
@@ -298,7 +298,6 @@ router.route('/ideas/:idea_id/:feedback_id/star')
     }
   })
 })
-
 
 /*************************************
 ***                                ***

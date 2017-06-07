@@ -59,7 +59,7 @@ angular.module('wetopiaApp')
           bio: $scope.user.bio
         }
         $scope.editProfile = false;
-	 if (!isString($scope.user.image)){
+	 if (!isString($scope.user.image)&&$scope.user.image!=undefined){
             Upload.upload({
                     url: window.HOST + '/api/upload',
                     data: {

@@ -15,6 +15,7 @@ angular.module('wetopiaApp')
         $scope.currentUser = {};
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
+        $scope.currentUser.image = localStorageService.get('image');
 
         $scope.showWantToSave = function() {
             $scope.wantToSave = true;

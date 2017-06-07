@@ -2625,7 +2625,7 @@ nav {
 
 .footer-nav {
     margin-top: -8px;
-    a {
+    p {
         color: $gray-lighter;
         display: inline-block;
         font-size: 13px;
@@ -3044,7 +3044,7 @@ nav {
         -webkit-clip-path: url("#polygon-clip-hexagon");
         clip-path: url("#polygon-clip-hexagon");
         height: 35px;
-        width: 33px;
+        width: 30px;
         display: inline-flex;
         margin: auto 5px;
         background: {
@@ -5351,7 +5351,6 @@ bluelink {
     font-family: 'Museo_700';
     font-size: 30px;
     width: auto;
-    text-align: center;
     line-height: 30px !important;
 
     &.left {

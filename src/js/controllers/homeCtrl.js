@@ -10,6 +10,7 @@ $scope.selectedCategory = "";
 $scope.currentUser = {};
 $scope.currentUser.email = localStorageService.get('email');
 $scope.currentUser.username = localStorageService.get('username');
+$scope.currentUser.image = localStorageService.get('image');
 $scope.categoriesBanner = categoriesDataService.categories;
 var allIdeasContainer = [];
 $scope.showingIdeas = [];

@@ -14,7 +14,7 @@ angular.module('wetopiaApp')
         }
       };
     })
-    .controller('myIdeaCtrl', function($scope, localStorageService, ideaDataService, categoriesDataService, $filter, $stateParams) {
+    .controller('myIdeaCtrl', function($scope, localStorageService, $state, ideaDataService, categoriesDataService, $filter, $stateParams) {
         $scope.pivoting = false;
         $scope.notification = false;
         $scope.showNotifications=false;
@@ -32,6 +32,7 @@ angular.module('wetopiaApp')
         $scope.currentUser = {};
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
+        $scope.currentUser.image = localStorageService.get('image');
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
@@ -39,14 +40,20 @@ angular.module('wetopiaApp')
             if(response.data){
               $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               $scope.idea = response.data;
+              if($scope.idea.admin.username != $scope.currentUser.username){
+                $state.go('idea', {idea_id:idea_id});
+              }
             }
+          }).then(function(){
+
           })
-          // ideaDataService.getIdeaStats(idea_id, function(response){
-          //   console.log('hed');
-          //   console.log(response.status);
-          //   console.log(response);
-          //   console.log(response.data);
-          // })
+        }
+
+        $scope.getIdeaStats = function (){
+          ideaDataService.getIdeaStats(idea_id, function(response){
+            console.log('hed idea');
+            console.log(response);
+          })
         }
 
         $scope.getIdea(1);

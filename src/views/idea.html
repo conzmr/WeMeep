@@ -185,8 +185,8 @@
               <div class="form-description movil-p no-padding">
                  <p class="form-subtitle color"><span class="big-txt aqua-text">Give feedback</span>
                 </p>
-                  <textarea name="feedback-textarea" class="feedback" maxlength="300" placeholder="What do you think about this idea and the current pivot? What would make it better?" ></textarea>
-                  <a class="color-button blue right complete-form send-feedback-btn"  href="">Publish</a>
+                  <textarea name="feedback-textarea" class="feedback" maxlength="300" ng-model="newComment" placeholder="What do you think about this idea and the current pivot? What would make it better?" ></textarea>
+                  <a class="color-button blue right complete-form send-feedback-btn" ng-click="giveFeedback()">Publish</a>
               </div>
 
             <p class="black-medium">Current Pivot Feedback</p>
@@ -202,7 +202,7 @@
                   </div>
                   <p class="name" ng-bind="comment.user.name"></p>
                   <p class="username" ng-bind="comment.user.username"></p>
-                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" >
+                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStartToFeedback(comment._id)">
                   <p class="star" ng-bind="comment.stars.length"></p>
                 </div>
                 <div class="tab-paragraph" ng-bind="comment.comment">
@@ -218,19 +218,19 @@
             <div id="res-statistics" class="left-align">
                 <table class="right-num">
                     <tr>
-                        <td ng-click="changeLike('like4')"><img class="pointer" ng-src="{{like=='like4'?'/static/img/Likes/noti_like 4.svg':'/static/img/Likes/like 4_Active.svg'}}"></td>
+                        <td ng-click="changeLike('money')"><img class="pointer" ng-src="{{like=='money'?'/static/img/Likes/noti_like 4.svg':'/static/img/Likes/like 4_Active.svg'}}"></td>
                         <td>I would buy it</td>
                     </tr>
                     <tr>
-                        <td  ng-click="changeLike('like3')"><img class="pointer" ng-src="{{like=='like3'?'/static/img/Likes/noti_like 3.svg':'/static/img/Likes/like 3_Active.svg'}}"></td>
+                        <td  ng-click="changeLike('love')"><img class="pointer" ng-src="{{like=='love'?'/static/img/Likes/noti_like 3.svg':'/static/img/Likes/like 3_Active.svg'}}"></td>
                         <td>Love it</td>
                     </tr>
                     <tr>
-                        <td ng-click="changeLike('like2')"><img class="pointer" ng-src="{{like=='like2'?'/static/img/Likes/noti_like 2.svg':'/static/img/Likes/like 2_Active.svg'}}"></td>
+                        <td ng-click="changeLike('like')"><img class="pointer" ng-src="{{like=='like'?'/static/img/Likes/noti_like 2.svg':'/static/img/Likes/like 2_Active.svg'}}"></td>
                         <td>Not bad</td>
                     </tr>
                     <tr>
-                        <td ng-click="changeLike('like1')"><img class="pointer" ng-src="{{like=='like1'?'/static/img/Likes/noti_like 1.svg':'/static/img/Likes/like 1_Active.svg'}}"></td>
+                        <td ng-click="changeLike('dislike')"><img class="pointer" ng-src="{{like=='dislike'?'/static/img/Likes/noti_like 1.svg':'/static/img/Likes/like 1_Active.svg'}}"></td>
                         <td>I don't like it</td>
                     </tr>
                 </table>

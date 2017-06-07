@@ -95,16 +95,16 @@
           </div>
           <div class="inner-nav">
               <div class="polygon-each-img-wrap">
-                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                  <div class="polygon-clip-hexagon" ng-click="changeShowMenu()" id="profile-picture" ngf-background="currentUser.image || '/static/img/navigation-menu/User_ICON.svg'"> <!--modify as create idea 3-->
                   </div>
               </div>
               <ul ng-show="showUserMenu" click-outside="showUserMenu=false" outside-if-not="profile-picture">
                 <div class="flex-cont user-menu">
                   <div class="sup-cont">
-                    <p class="gray-dark">{{currentUser.name}}</p>
+                    <p class="gray-dark">{{currentUser.username}}</p>
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
-                  <p>My Profile</p>
+                  <p ui-sref="myProfile">My Profile</p>
                   <p>My Ideas</p>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
@@ -127,7 +127,7 @@
           <div class="flex-cont row wrap" id="upper-cont-profile">
             <div class="flex-cont" id="profile-cont">
             <div class="polygon-each-img-wrap">
-                <div class="polygon-clip-hexagon profile-img" ngf-background="user.profilePicture || '/static/img/Default_Profile_IMG.svg'">
+                <div class="polygon-clip-hexagon profile-img" ngf-background="user.image || '/static/img/Default_Profile_IMG.svg'">
                 </div>
             </div>
           <div class="simple-cont"><p class="medium-gray" ng-show="user.username">@</p><p  class="medium-gray" ng-bind="user.username || 'No username to show.'"></p></div>
@@ -191,7 +191,7 @@
                     </div>
                     </div>
                     <div class="footer-nav">
-                        <a href="#">{{idea.category.description}}</a>
+                        <p href="#">{{idea.category.description}}</p>
                     </div>
                 </a>
 

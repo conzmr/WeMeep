@@ -21,5 +21,19 @@ angular.module('wetopiaApp')
     .then(callback, errorCallback)
   }
 
+  this.giveFeedback = function (idea_id, text, callback, errorCallback) {
+    return $http.post(window.HOST + '/api/ideas/'+idea_id+'/feedback', text)
+    .then(callback, errorCallback)
+  }
+
+  this.giveStartToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
+    return $http.post(window.HOST + '/api/ideas/'+idea_id+'/'+feedback_id+'/star')
+    .then(callback, errorCallback)
+  }
+
+  this.giveLike = function (idea_id, like_type, callback, errorCallback) {
+    return $http.post(window.HOST + '/api/ideas/'+idea_id+'/interest', like_type)
+    .then(callback, errorCallback)
+  }
 
 })

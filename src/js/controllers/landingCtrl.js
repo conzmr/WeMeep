@@ -336,7 +336,6 @@ $scope.signUp = function (invalidEmail) {
       $scope.emailMessageError = "Please enter a valid email address."
       break;
     }
-
 }
 );
 }
@@ -346,13 +345,10 @@ $scope.signIn = function(invalidEmail) {
   var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
-    console.log(invalidEmail);
-    console.log("error here");
     $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
   }
   if(invalidEmail){
-    console.log(invalidEmail+"invalid");
     toLogUser.username = $scope.user.email;
   }
   else{
@@ -364,7 +360,6 @@ $scope.signIn = function(invalidEmail) {
   }
   if($scope.user.email&&$scope.user.password){
     toLogUser.password = $scope.user.password;
-    console.log(toLogUser);
   loginDataService.authenticate(toLogUser,
   function(res) {
     localStorageService.clearAll();
