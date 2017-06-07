@@ -49,8 +49,7 @@ var ideaSchema = new mongoose.Schema({
     {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Idea',
-        unique: true
+        ref: 'Idea'
       },
       number: Number
   }]

@@ -101,10 +101,14 @@ router.post('/signup', function(req, res){
 
 // AUTHENTICATE TO GIVE NEW TOKEN (This should be done @login)
 router.post('/authenticate', function(req, res) {
-  console.log(req.body);
-  if (!req.body || !req.body.email)
-    return res.status(400).json({'message': "Authentication failed. No user specified." });
-  User.findOne({ $or: [ { 'email': req.body.email.toLowerCase() } ] })
+  if (!req.body || !(req.body.email || req.body.username)) return res.status(400).json({'message': "Authentication failed. No user specified." })
+  let email = undefined
+  let username = undefined
+
+  if (req.body.email) email = req.body.email.toLowerCase()
+  if (req.body.username) username = req.body.username.toLowerCase()
+
+  User.findOne({ $or: [ { 'email': email }, { 'username': username } ] })
   .exec(function(err, user) {
     if (err)
       res.status(500).json({'error': err})
@@ -387,10 +391,10 @@ router.route('/ideas/:idea_id/:pivot')
   const pivot = req.params.pivot
   // get the idea specified by the id
   Idea.findById(req.params.idea_id)
-  .exec((error, idea) =>{
-    if (error) {
-      res.status(500).json({'error': error, 'success': false})
-    } else {
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
 
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
@@ -431,13 +435,74 @@ router.route('/ideas/:idea_id/:pivot')
       res.json({"message": "Successfully added a new view to the idea", "success": true})
   })
 })
+// UPDATE AN IDEA
 .put(function (req, res) {
-  //TODO: Update project info
-  res.status(501).json({'message':'Not yet supported.'})
+  // Pivot Management
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+        idea.pivots.sort((a, b) => {
+          return parseFloat(a.number) - parseFloat(b.number)
+        })
+
+        const myIdea = idea.pivots[pivot - 1].id
+        const banner = req.body.banner
+        const description = req.body.description
+        const problem = req.body.problem
+        const members = req.body.members
+
+        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, description, problem, members } }, { new: true })
+        .exec((error, user) => {
+          if (error) {
+            return res.status(500).json({ error })
+          }
+          res.status(200).json({ user })
+        })
+      }
+    })
 })
 .delete(function (req, res) {
   //TODO: Delete project
   res.status(501).json({'message':'Not yet supported.'})
+})
+
+// PIVOT AN IDEA
+router.route('/ideas/this/:idea_id/pivot')
+.post(function (req, res) {
+
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+      let pivot = new Idea({
+        admin: req.U_ID,
+        banner: idea.banner,
+        description: req.body.description,
+        problem: req.body.problem,
+        name: idea.name,
+        category: idea.category,
+        ideaname: idea.ideaname,
+        members: idea.members
+      })
+
+      pivot.save(function(err, newIdea) {
+        if (err)
+          return res.status(500).json({'err':err})
+        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': {'_id': newIdea.id, 'number':idea.pivots.length + 1} } }, { new: true })
+        .exec(function(err){
+          if (err) return res.status(500).json({'error': err,});
+          else
+            return res.status(201).json({message: 'Created Pivot!', pivot: newIdea});
+        })
+      })
+    }
+  })
 })
 
 // GET ALL IDEAS
