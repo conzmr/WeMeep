@@ -471,6 +471,41 @@ router.route('/ideas/:idea_id/:pivot')
   res.status(501).json({'message':'Not yet supported.'})
 })
 
+// PIVOT AN IDEA
+router.route('/ideas/this/:idea_id/pivot')
+.post(function (req, res) {
+
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+      let pivot = new Idea({
+        admin: req.U_ID,
+        banner: idea.banner,
+        description: req.body.description,
+        problem: req.body.problem,
+        name: idea.name,
+        category: idea.category,
+        ideaname: idea.ideaname,
+        members: idea.members
+      })
+
+      pivot.save(function(err, newIdea) {
+        if (err)
+          return res.status(500).json({'err':err})
+        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': {'_id': newIdea.id, 'number':idea.pivots.length + 1} } }, { new: true })
+        .exec(function(err){
+          if (err) return res.status(500).json({'error': err,});
+          else
+            return res.status(201).json({message: 'Created Pivot!', pivot: newIdea});
+        })
+      })
+    }
+  })
+})
+
 // GET ALL IDEAS
 router.route('/ideas/all')
 .get(function (req, res) {
