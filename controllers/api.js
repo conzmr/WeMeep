@@ -284,7 +284,7 @@ router.route('/ideas/:idea_id/feedback')
         res.status(201).json({message: 'Feedback sent.'});
     })
   })
-});
+})
 
 // STAR A FEEDBACK
 router.route('/ideas/:idea_id/:feedback_id/star')
@@ -299,6 +299,24 @@ router.route('/ideas/:idea_id/:feedback_id/star')
       res.status(400).json({'message': "Already starred."})
     else {
       res.status(201).json(result)
+    }
+  })
+})
+
+router.route('/feedback/:feedback_id')
+// DELETE FEEDBACK
+.delete(function (req, res) {
+  Feedback.findById(req.params.feedback_id)
+  .exec(function(err, feedback){
+    if (err) return res.status(500).json({'error': err})
+    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
+    if (feedback.user != req.U_ID) return res.status(401).json({error:{message: "This is not your comment. GFY you hacker!"}})
+    else {
+        Feedback.findById(req.params.feedback_id)
+        .remove(function(err){
+          if (err) return res.status(500).json({'error': err})
+          return res.status(200).json({'message': "Feedback successfully deleted"})
+        })
     }
   })
 })
@@ -466,9 +484,24 @@ router.route('/ideas/:idea_id/:pivot')
       }
     })
 })
+// DELETE IDEA
 .delete(function (req, res) {
-  //TODO: Delete project
-  res.status(501).json({'message':'Not yet supported.'})
+  Idea.findById(req.params.idea_id)
+  .exec(function(err, idea){
+    if (err) return res.status(500).json({'error': err})
+    if (!idea) return res.status(404).json({'error': {'message': "Idea not found"}})
+    if (idea.members.indexOf(req.U_ID) <= -1) return res.status(401).json({error:{message: "This is not your idea. GFY you hacker!"}})
+    else {
+      // DELETE EVERYTHING BASED IN PIVOTS
+      (idea.pivots).forEach((pivot) => {
+        Idea.findById(pivot)
+        .remove(function(err){
+          if (err) return res.status(500).json({'error': err})
+        })
+        return res.status(200).json({'message': "Idea successfully deleted"})
+      })
+    }
+  })
 })
 
 // PIVOT AN IDEA
