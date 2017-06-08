@@ -544,14 +544,13 @@ router.route('/ideas/all/category/:category')
 
 //GET STATS FOR AN IDEA
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
-router.route('/ideas/:idea_id/stats')
+router.route('/ideas/:idea_id/:pivot/stats')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id, 'members')
   .exec(function (err, idea) {
-    if (err)
-      return res.status(500).json({'error': err})
-   if (idea.members.indexOf(req.U_ID) <= -1)
-      return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here >:| "}})
+   if (err) return res.status(500).json({'error': err})
+   else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+   if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
       /* Interests */
       const interestAggregator = [
