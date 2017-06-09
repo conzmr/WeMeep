@@ -302,6 +302,18 @@ router.route('/ideas/:idea_id/:feedback_id/star')
     }
   })
 })
+// UNSTAR A COMMENT
+.delete(function (req, res) {
+  Feedback.findById(req.params.feedback_id)
+  .update({ $pull: { 'stars': req.U_ID } })
+  .exec(function(err, feedback){
+    if (err) return res.status(500).json({'error': err})
+    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
+    if (feedback.nModified == 0) return res.status(400).json({'message': "Not starred"}) //If the comment wasn't modified, it was not starred
+
+    return res.status(201).json(feedback)
+  })
+})
 
 router.route('/feedback/:feedback_id')
 // DELETE FEEDBACK
