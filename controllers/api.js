@@ -172,6 +172,25 @@ router.get('/tags', function(req, res){
   // })
 })
 
+// GET RECOMMENDED CATEGORIES
+router.route('/categories/recommended')
+.get(function (req, res) {
+  Idea.find({}) // find all ideas
+  .populate('category', 'name')
+  .exec(function(err, ideas) {
+    let category = {}
+    // get category of every idea
+    ideas.forEach((idea) => {
+      if (category[idea.category.name] === undefined) category[idea.category.name] = 0
+      category[idea.category.name] = category[idea.category.name] + 1
+    })
+
+    let categories = Object.keys(category).sort(function(a,b){return category[b]-category[a]})
+
+    return res.status(200).json(categories)
+  })
+})
+
 /*************************************
 ***                                ***
 ***              USERS             ***
@@ -498,6 +517,7 @@ router.route('/ideas/:idea_id/:pivot')
 })
 // DELETE IDEA
 .delete(function (req, res) {
+  const user = req.U_ID
   Idea.findById(req.params.idea_id)
   .exec(function(err, idea){
     if (err) return res.status(500).json({'error': err})
@@ -510,6 +530,11 @@ router.route('/ideas/:idea_id/:pivot')
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
         })
+      })
+
+      User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
+      .exec((error, user) => {
+        if (error) return res.status(500).json({ error })
         return res.status(200).json({'message': "Idea successfully deleted"})
       })
     }
