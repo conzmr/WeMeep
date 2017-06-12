@@ -352,25 +352,29 @@ router.route('/feedback/:feedback_id')
   })
 })
 
-
+// .update({_id: id, 'profile_set.name': {$ne: 'nick'}},
+//   {$push: {profile_set: {'name': 'nick', 'options': 2}}})
 /*************************************
 ***                                ***
 ***          IDEAS                 ***
 ***                                ***
 *************************************/
-// SHOW INTEREST ON AN IDEA
+// SHOW INTEREST ON AN IDEA BY PIVOT
 router.route('/ideas/:idea_id/interest')
 .post(function (req, res) {
-  Idea.findById(req.params.idea_id)
-  .update({ $addToSet: {'interest': {'userID': req.U_ID, 'type':req.body.interest} } })
-  .exec(function(err, result) {
-    if (err) {
-      res.status(500).json({'error': err})
-    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
-      res.status(400).json({'message': "Already shown interest."})
-    else {
-      res.status(201).json(result)
+  //Idea.findOneAndUpdate({'_id': req.params.idea_id, 'interests._id': {$ne: req.U_ID} }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+  Idea.findOne({'_id': req.params.idea_id, 'interests._id': {$eq: req.U_ID} })
+  .exec(function(err, ideas) {
+    if (err) return res.status(500).json({'error': err})
+
+    if (!ideas) {
+      Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+      .exec(function(err, ideas) {
+        if (err) return res.status(500).json({'error': err})
+        return res.status(200).json({'message': "Success showing interest."})
+      })
     }
+    else return res.status(400).json({'message': "Already shown interest."})
   })
 })
 
