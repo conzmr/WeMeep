@@ -590,6 +590,38 @@ router.route('/ideas/all')
   })
 })
 
+// GET TRENDING IDEAS
+router.route('/ideas/trending')
+.get(function (req, res) {
+      Idea.find()
+      .populate('admin', 'username image')
+      .populate('category', 'name description')
+      .exec(function (err, ideas) {
+        let trendingIdeas = []
+
+        // get category of every idea
+        ideas.forEach((idea) => {
+          console.log(idea);
+          trendingIdeas.push({
+            id: idea.id,
+            trending: idea.views.length + idea.feedback.length,
+            name: idea.name,
+            description: idea.description,
+            admin: idea.admin,
+            banner: idea.banner,
+            category: idea.category
+          })
+        })
+
+        console.log(trendingIdeas);
+        let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
+        trendingIdeas.sort((a,b) => b.trending - a.trending);
+
+        return res.status(200).json(trendingIdeas)
+  })
+})
+
+
 // GET ALL IDEAS BY CATEGORY
 router.route('/ideas/all/category/:category')
 .get(function (req, res) {
