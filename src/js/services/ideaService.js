@@ -6,6 +6,11 @@ angular.module('wetopiaApp')
     .then(callback)
   }
 
+  this.updateIdeaInformation = function (idea_id, pivot, newInformation, callback) {
+    return $http.put(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot, newInformation)
+    .then(callback)
+  }
+
   this.getAllIdeas = function (callback) {
     return $http.get(window.HOST + '/api/ideas/all')
     .then(callback)
@@ -33,6 +38,11 @@ angular.module('wetopiaApp')
 
   this.giveLike = function (idea_id, like_type, callback, errorCallback) {
     return $http.post(window.HOST + '/api/ideas/'+idea_id+'/interest', like_type)
+    .then(callback, errorCallback)
+  }
+
+  this.createNewPivot = function (idea_id, pivotInformation, callback, errorCallback) {
+    return $http.post(window.HOST + '/api/ideas/this/'+idea_id+'/pivot', pivotInformation)
     .then(callback, errorCallback)
   }
 

@@ -40,6 +40,7 @@ var ideaSchema = new mongoose.Schema({
     required: true
   },
   problem: String,
+  country: String,
   views: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

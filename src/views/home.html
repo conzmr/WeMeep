@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" placeholder="What are you looking for?" type="search" name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -140,7 +140,7 @@
                 <div class="simple-margin-top" ng-show="showingIdeas.length==0">
                   <p  class="title-dark ">There are no ideas to show.</p>
                 </div>
-                <a class="card idea" ng-repeat="idea in ideasData" ng-href="/idea/{{idea._id}}" >
+                <a class="card idea" ng-repeat="idea in showingIdeas | limitTo:limitIdeas" ng-href="/idea/{{idea._id}}" >
                   <div class="card-block">
                     <div class="card-img" ngf-background="idea.banner || getBannerImage(idea.category.name)">
                     </div>

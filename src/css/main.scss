@@ -462,6 +462,7 @@ a {
     #add-members {
         cursor: pointer;
         height: 31px;
+        width: 30px;
         margin-left: 2px !important;
     }
 }
@@ -620,6 +621,16 @@ a {
         &.no-outline {
             outline: none;
             margin-top: 15px;
+        }
+
+        &.indent{
+          margin: 0px auto 20px 52px;
+          width: 90%;
+
+          @media screen and (max-width: 650px){
+            margin-left: auto;
+            width: 100%;
+          }
         }
     }
 
@@ -1003,14 +1014,14 @@ nav {
 .wrapper {
     display: inline-block;
     vertical-align: middle;
-    padding: 10px;
     margin: auto;
-    height: 30px;
-    margin-right: 10px;
+    height: auto;
+    margin-right: 20px;
     width: 210px;
     text-align: right;
     position: relative;
     display: flex;
+
     @media screen and (max-width: 730px) {
         order: 4;
         flex: 1 100%;
@@ -1020,30 +1031,55 @@ nav {
 
     &:hover {
         input {
-            border: 1px solid $gray-lighter;
+            border: 1px solid $wetopia-aqua;
         }
     }
 
     i {
         &.fa-search {
-            color: $wetopia-blue;
+            color: $wetopia-aqua;
             cursor: pointer;
             z-index: 4;
             font-size: 20px;
+            font-weight: lighter;
             margin: auto auto auto -25px;
         }
     }
 
     input {
-        border-radius: 3px;
+        border-radius: 6px;
         z-index: 3;
         margin: auto 0 auto auto;
-        font-size: 15px;
-        padding: 0;
-        height: 28px;
+        font-size: 16px;
+        padding: 6px;
+        height: auto;
         background-color: white;
-        width: 200px;
-        text-indent: 10px;
+        width: 210px;
+        text-indent: 2px;
+        &::-webkit-input-placeholder {
+            color: transparent;
+            font-size: 13px;
+            font-style: italic;
+            font-family: 'Museo';
+        }
+
+        &::-moz-placeholder {
+            color: transparent;
+            font-size: 13px;
+            font-family: 'Museo';
+            font-style: italic;
+        }
+
+        &:focus, &:hover{
+            border: 1px solid $wetopia-aqua;
+            &::-webkit-input-placeholder {
+                color: $gray-lighter;
+            }
+
+            &::-moz-placeholder {
+                color: $gray-lighter;
+            }
+        }
 
         &::-webkit-search-cancel-button {
             -webkit-appearance: none;
@@ -1322,6 +1358,7 @@ nav {
             width: 120px !important;
             padding: 5px 10px !important;
             top: 50%;
+            left: 2px;
             border-radius: 6px !important;
 
             &::after,
@@ -1425,13 +1462,18 @@ nav {
 }
 
 .red-text {
-    color: $wetopia-red;
+    color: $wetopia-red !important;
 
     &.error {
         font-size: 11px !important;
         position: absolute;
         bottom: -25px;
         left: 33px;
+        width: auto;
+
+        &.bottom-0{
+          bottom:0px;
+        }
 
         &.more {
             bottom: -30px;
@@ -1439,6 +1481,27 @@ nav {
 
         &.less {
             bottom: -20px;
+        }
+
+        &.less-25{
+          bottom: -25px;
+        }
+
+        &.left-0{
+          left: 0px;
+        }
+
+        &.less-15 {
+          bottom: -15px;
+        }
+
+        &.left{
+          left: 50px;
+          &.textarea{
+            @media screen and (max-width: 650px){
+             left: 0;
+            }
+          }
         }
     }
 
@@ -1495,7 +1558,7 @@ nav {
 .idea-info,
 .max-cont {
     width: 100%;
-    background: $gray-bg;
+    background: white;
     height: auto;
     text-align: center;
     padding: 120px 10px 80px;
@@ -1594,6 +1657,12 @@ nav {
     text-align: center;
     margin: auto;
 
+    &.upper-margin{
+      @media screen and (max-width: 1020px){
+        margin-top: 50px;
+      }
+    }
+
     &.left-align {
         text-align: left;
 
@@ -1686,6 +1755,7 @@ nav {
         top: 0;
         bottom: 30px;
     }
+    word-break: break-all;
     @include font( 'Museo', 300);
 }
 
@@ -1771,7 +1841,7 @@ nav {
 
     .blue-text {
         display: inline-block;
-        margin-left: 5px;
+        margin-left: 0px;
         vertical-align: -webkit-baseline-middle;
     }
 
@@ -2629,7 +2699,6 @@ nav {
         color: $gray-lighter;
         display: inline-block;
         font-size: 13px;
-        margin: 0 2px;
     }
     text-align: center;
 }
@@ -2994,10 +3063,6 @@ nav {
     position: absolute;
 }
 
-.sub-gray {
-    font-size: 28px;
-    text-align: center;
-}
 
 #notifications-icon {
     height: 30px;
@@ -3835,6 +3900,19 @@ nav {
     }
 }
 
+.edit-icon{
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  z-index: 1000;
+  height: 16px;
+  cursor: pointer;
+
+  &.top{
+    top: 0px;
+  }
+}
+
 .close-x {
     color: $pt-gray;
     position: absolute;
@@ -3866,6 +3944,7 @@ nav {
 
         .normal-paragraph {
             margin: 0 15px;
+            width: 100%;
         }
         @media screen and (max-width: 500px) {
             padding: 25px 20px;
@@ -3914,7 +3993,7 @@ nav {
         }
 
         .form-description {
-            max-width: 450px;
+            width: 450px;
             min-width: 200px;
             padding: 0 20px;
             margin: auto;
@@ -3948,14 +4027,6 @@ nav {
 
     .flex-cont {
         padding: 25px 35px;
-
-        .sub-gray {
-            color: $gray-dark;
-            letter-spacing: 1px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            margin-top: 10px;
-        }
 
         input {
             &:not(.selector) {
@@ -4536,6 +4607,11 @@ bluelink {
     width: auto;
     display: inline-block;
 
+    &.width-100{
+      width: 100%;
+      position: relative;
+    }
+
     &.relative {
         position: relative;
     }
@@ -4825,6 +4901,7 @@ bluelink {
         left: 0;
         font-size: 13px;
         color: $gray-dark;
+        padding: 0;
         @include font("Museo", 300);
     }
 
@@ -5095,6 +5172,10 @@ bluelink {
     font-size: 20px;
     font-family: 'Museo';
 
+    &.bolder{
+      font-weight: bold;
+    }
+
     &.dark {
         font-family: 'Museo_D';
     }
@@ -5105,11 +5186,11 @@ bluelink {
     max-width: 500px;
 
     .polygon-clip-hexagon {
-        height: 30px;
-        width: 27px;
+        height: 35px;
+        width: 30px;
         background-size: cover;
         background-repeat: no-repeat;
-        margin: auto 5px auto 0;
+        margin: auto 8px auto 0;
     }
 
     .star-img {
@@ -5121,7 +5202,8 @@ bluelink {
 
     p {
         font-family: 'Museo';
-        font-size: 17px;
+        font-size: 18px;
+        line-height: 18px;
         margin: auto 5px auto 0;
 
         &.username {
@@ -5142,10 +5224,17 @@ bluelink {
 .comments {
     margin: 15px auto auto 0;
     max-width: 500px;
+
+    .tab-paragraph{
+      margin: 0px auto auto 38px;
+      font-size: 16px;
+      line-height: 16px;
+    }
+    font-family: 'Museo';
 }
 
 .comment {
-    margin: 5px auto;
+    margin: 0px auto 20px auto;
 }
 
 .tab-paragraph {
@@ -5170,12 +5259,21 @@ bluelink {
     padding: 8px 10px;
     cursor: pointer;
 
+
     &.right {
         margin: auto 0 auto auto;
     }
 
     &.left {
         margin: auto auto auto 0;
+
+        &.indent{
+          padding: 8px 0px;
+
+          @media screen and (min-width: 650px){
+            margin-left: 52px;
+          }
+    }
     }
 
     &.gray-dark {
@@ -5242,7 +5340,9 @@ bluelink {
     &.complete-form {
         width: 110px;
         font-size: 18px;
-        padding: 5px;
+        padding: 8px 0px;
+        font-family: 'Museo';
+        font-weight: bold;
         border-radius: 6px;
     }
 
@@ -5310,7 +5410,9 @@ bluelink {
 }
 
 #location-img {
-    margin-right: 5px;
+  margin-left: 8px;
+  vertical-align: -webkit-baseline-middle;
+
 }
 
 .send-feedback-btn {
@@ -5336,6 +5438,32 @@ bluelink {
     }
 }
 
+
+.sub-gray {
+  font-size: 28px;
+  text-align: center;
+    color: $gray-dark;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+
+
+    &.light{
+      color: $gray-lighter;
+      margin-bottom: 10px !important;
+      font-weight: bold;
+      font-family: 'Museo';
+    }
+
+    &.medium-margin{
+      margin: 20px auto;
+
+      &.no-bottom{
+        margin-bottom: 0px;
+      }
+    }
+}
+
 .justify-textarea {
     margin: 20px 60px 0 !important;
     width: 280px !important;
@@ -5353,8 +5481,18 @@ bluelink {
     width: auto;
     line-height: 30px !important;
 
+    &.disable{
+      color: $gray-lighter;
+    }
+
     &.left {
         margin: auto auto auto 0;
+    }
+
+    &.bigger{
+      font-size: 40px;
+      height: 40px !important;
+      width: 100%;
     }
 
     &.subtitle {
@@ -5382,6 +5520,20 @@ bluelink {
     &.left {
         margin: auto auto auto 0;
     }
+}
+
+.small-blue{
+  font-size: 16px;
+  font-family: 'Museo_D';
+  margin-left: 5px;
+  color: $wetopia-blue;
+  width: 100px !important;
+  text-indent: 3px;
+
+  &[name="edit-idea-location-input"]{
+    vertical-align: baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
 }
 
 .profile-img {
@@ -5412,6 +5564,10 @@ bluelink {
     width: auto;
     padding-right: 35px;
 
+    .padding{
+      padding: 2px 0;
+    }
+
     .subtitle {
         margin-bottom: 5px;
     }
@@ -5422,6 +5578,10 @@ bluelink {
     margin: 0 auto auto 10px;
     height: auto;
     width: auto;
+
+    input{
+      height: 20px;
+    }
 
     .subtitle {
         margin-bottom: 5px;
@@ -5484,6 +5644,10 @@ bluelink {
     display: none;
 }
 
+#idea-input-banner{
+  display: none;
+}
+
 .simple-input {
     width: 200px;
     border-radius: 1px !important;
@@ -5500,6 +5664,10 @@ bluelink {
 
     &[type=date] {
         text-indent: 3px;
+    }
+
+    &.bigger-title{
+      height: 30px;
     }
 
     &.title-dark {
@@ -6148,4 +6316,9 @@ video#bgvid {
       content: 'nd Pivot'
     }
   }
+}
+
+
+#myIdeaEditor{
+
 }

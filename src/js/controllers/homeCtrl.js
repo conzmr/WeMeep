@@ -12,7 +12,6 @@ $scope.currentUser.email = localStorageService.get('email');
 $scope.currentUser.username = localStorageService.get('username');
 $scope.currentUser.image = localStorageService.get('image');
 $scope.categoriesBanner = categoriesDataService.categories;
-var allIdeasContainer = [];
 $scope.showingIdeas = [];
 var initialLimit = 8;
 $scope.limitIdeas = initialLimit;
@@ -24,7 +23,7 @@ $scope.loadMoreIdeas = function(){
 var getAllIdeas = function(){
   ideaDataService.getAllIdeas(function(response) {
     if(response.data){
-      allIdeasContainer = response.data.ideas;
+      $scope.showingIdeas = response.data.ideas;
     }
   })
 }
@@ -40,7 +39,6 @@ var getIdeasByCategory = function(category){
   })
 }
 
-getAllIdeas();
 
 $scope.getBannerImage = function(category){
   return $scope.categoriesBanner[category].banner;
@@ -72,7 +70,7 @@ $scope.Trending = function(){
 $scope.AllIdeas = function(){
   $scope.trending = false;
   $scope.allIdeas = true;
-  $scope.showingIdeas = allIdeasContainer;
+  getAllIdeas();
 }
 
 $scope.categories = [{

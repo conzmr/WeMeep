@@ -25,8 +25,8 @@ angular.module('wetopiaApp')
         var idea_id= $stateParams.idea_id;
         var user_id = localStorageService.get('user_id');
         $scope.currentUser = {};
-        var currentPivot = 1;
-        $scope.pivotSelected = $filter('enumeration')(currentPivot);
+        $scope.currentPivot = 1;
+        $scope.pivotSelected = $filter('enumeration')($scope.currentPivot);
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
         $scope.currentUser.image = localStorageService.get('image');
@@ -43,7 +43,7 @@ angular.module('wetopiaApp')
 
         $scope.giveStartToFeedback = function(feedback_id){
           ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
-            $scope.getIdea(currentPivot);
+            $scope.getIdea($scope.currentPivot);
           })
         }
 
@@ -62,7 +62,7 @@ angular.module('wetopiaApp')
               text : $scope.newComment
             };
             ideaDataService.giveFeedback(idea_id, newComment, function(response){
-              $scope.getIdea(currentPivot);
+              $scope.getIdea($scope.currentPivot);
               $scope.newComment = "";
             })
           }
@@ -72,7 +72,7 @@ angular.module('wetopiaApp')
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data){
-              currentPivot = pivotNumber;
+              $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
               if($scope.idea.admin._id == user_id){
                 $state.go('myIdea', {idea_id:idea_id});
@@ -87,7 +87,7 @@ angular.module('wetopiaApp')
           // })
         }
 
-        $scope.getIdea(currentPivot);
+        $scope.getIdea($scope.currentPivot);
 
         var getBannerImage = function(category){
           return $scope.categoriesBanner[category].banner;

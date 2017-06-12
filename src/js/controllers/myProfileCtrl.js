@@ -12,7 +12,7 @@ angular.module('wetopiaApp')
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
-        $scope.ideas = true;
+        // $scope.ideas = true;
         $scope.projects = false;
         $scope.following = false;
         $scope.editProfile = false;
@@ -109,7 +109,7 @@ angular.module('wetopiaApp')
         }
 
         $scope.showIdeas = function(){
-          $scope.ideas = true;
+          // $scope.ideas = true;
           $scope.following = false;
           $scope.projects = false;
         }

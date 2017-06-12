@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" placeholder="What are you looking for?" type="search" name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -124,7 +124,7 @@
     <div class="max-cont">
         <div class="flex-cont row wrap margin-bottom">
             <div ng-show="!editProfile" class="flex-cont mid-page">
-                <img class="close-x down" src="/static/img/Edit_ICON.svg" ng-click="editProfile=true">
+                <img class="edit-icon" src="/static/img/lapiz.svg" ng-click="editProfile=true">
                 <div class="flex-cont row wrap" id="upper-cont-profile">
                     <div class="flex-cont" id="profile-cont">
                         <div class="polygon-each-img-wrap">
@@ -136,16 +136,16 @@
                     </div>
                     <div class="flex-cont" id="profile-info">
                         <p class="title-dark left" ng-bind="user.name || 'Add your name.'"> </p>
-                        <p class="title-dark left subtitle"  ng-bind="user.lastname || 'Add your lastname.'"></p>
-                        <p class="medium-gray left"  ng-bind="user.profession || 'Add your profession.'"></p>
-                        <p class="medium-gray left"  ng-show="!user.birthdate">Add your age</p>
-                          <p class="medium-gray left"  ng-show="user.birthdate">{{user.birthdate| toYears}}</p>
-                        <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'Add your gender.'"> </p></div>
-                        <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'Add your country.'"></p></div>
+                        <p class="title-dark left subtitle "  ng-bind="user.lastname || 'Add your lastname.'"></p>
+                        <p class="medium-gray left padding"  ng-bind="user.profession || 'Add your profession.'"></p>
+                        <p class="medium-gray left padding"  ng-show="!user.birthdate">Add your age</p>
+                          <p class="medium-gray left padding"  ng-show="user.birthdate">{{user.birthdate| toYears}}</p>
+                        <div class="simple-cont left padding"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'Add your gender.'"> </p></div>
+                        <div class="simple-cont left padding"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'Add your country.'"></p></div>
                     </div>
                 </div>
                 <div class="flex-cont">
-                    <p class="title-dark left">About you:</p>
+                    <p class="title-dark left">About me:</p>
                     <p class="normal-paragraph margin-tb left small-size" ng-bind="user.bio || 'Add a bio.'">
                 </div>
             </div>
@@ -201,7 +201,7 @@
                 </div>
             </div>
 
-            <div class="mid-page flex-cont">
+            <div class="mid-page flex-cont upper-margin">
                 <div ng-show="!testDone" class="flex-cont absolute">
                     <a class="color-button blue complete-form discard no-bottom no-clickable">Coming Soon</a>
                 </div>
@@ -213,13 +213,13 @@
 
         <div class="section-cont">
             <div class="flex-cont row sub-nav max-width">
-                <p class="sub-gray" ng-click="showIdeas()" ng-class="{'active blue': ideas}">My Ideas</p>
+                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}">My Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
             </div>
             <div class="cards-cont">
               <div class="simple-margin-top" ng-show="user.ideas.length==0">
-                <p  class="title-dark ">You have no ideas yet.</p>
+                <p  class="title-dark disable">You have no ideas yet.</p>
               </div>
               <a class="card idea" ng-repeat="idea in ideasData" ng-href="/idea/{{idea._id}}" >
                 <div class="card-block">

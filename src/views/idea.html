@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" type="search" placeholder="What are you looking for?"  name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -140,7 +140,8 @@
                       <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
                     </div>
                     <p> and located in </p>
-                    <span class="blue-text"> <img id="location-img" src="/static/img/location_Idea.svg">México
+                    <img id="location-img" src="/static/img/location_Idea.svg">
+                    <span class="blue-text"> México
         </span>
                 </div>
 
@@ -148,7 +149,7 @@
                     <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
                     <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
                       <div class="flex-cont user-menu">
-                        <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
+                        <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="currentPivot==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
                       </div>
                     </ul>
                 </div>
@@ -189,10 +190,10 @@
                   <a class="color-button blue right complete-form send-feedback-btn" ng-click="giveFeedback()">Publish</a>
               </div>
 
-            <p class="black-medium">Current Pivot Feedback</p>
+            <p class="black-medium bolder">Current Pivot Feedback</p>
             <div class="comments flex-cont">
               <div class="simple-margin-top" ng-show="idea.feedback.length==0">
-                <p  class="title-dark ">No comments yet.</p>
+                <p  class="title-dark disable">Be the first comment.</p>
               </div>
               <div class="comment flex-box" ng-repeat="comment in idea.feedback">
                 <div class="flex-cont comment-top">

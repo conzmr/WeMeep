@@ -153,7 +153,6 @@ router.use(function(req, res, next) {
   }
 });
 
-
 /*************************************
 ***                                ***
 ***         CATEGORIES             ***
@@ -454,8 +453,9 @@ router.route('/ideas/:idea_id/:pivot')
         const description = req.body.description
         const problem = req.body.problem
         const members = req.body.members
+        const country = req.body.country
 
-        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, description, problem, members } }, { new: true })
+        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, country, description, problem, members } }, { new: true })
         .exec((error, user) => {
           if (error) {
             return res.status(500).json({ error })

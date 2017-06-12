@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" type="search" placeholder="What are you looking for?"  name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -123,32 +123,47 @@
 
     <div class="idea-info">
         <div class="flex-cont row wrap">
-            <div class="flex-cont mid-page">
+            <div class="flex-cont mid-page" id="myIdeaEditor">
+              <img class="edit-icon top" src="/static/img/lapiz.svg"  ng-show="!editIdea" ng-click="editIdea=true">
                 <div class="idea-header">
-                    <p class="idea-title">{{idea.name}}
+                    <p ng-show="!editIdea" class="idea-title">{{idea.name}}
                     </p>
+                    <div class="simple-cont width-100">
+                    <input ng-show="editIdea" type="text" ng-click="scope.ideaNameError=false" name="edit-idea-name-input" class="simple-input title-dark bigger" placeholder="Idea Name" ng-model="idea.name">
+                    <p class="red-text error less-25 left-0" ng-show="ideaNameError">Please add a title for your idea.</p>
+                    </div>
+
                     <div class="idea-header-info">
                         <p>Created by </p>
                         <div class="select-team">
-                          <div class="tooltip" ng-repeat="member in idea.members">
+                          <div class="tooltip">
+                              <div class="polygon-each-img-wrap">
+                                  <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'" >
+                                  </div>
+                              </div>
+                              <p class="tooltiptext">{{idea.admin.username}}</p>
+                          </div>
+                          <div class="tooltip" ng-repeat="member in members" ng-show="member.username != idea.admin.username">
                               <div class="polygon-each-img-wrap">
                                   <div class="polygon-clip-hexagon" ngf-background="member.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'" >
                                   </div>
                               </div>
                               <p class="tooltiptext">{{member.username}}</p>
                           </div>
-                            <!--  <img id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">-->
+                             <img ng-show="editIdea" id="add-members" src="/static/img/Create Idea_add.svg" ng-click="inputTeamMembers=true">
                         </div>
                         <p> and located in </p>
-                        <span class="blue-text"> <img id="location-img" src="/static/img/location_Idea.svg">México
-        </span>
+                        <img id="location-img" src="/static/img/location_Idea.svg">
+                        <span ng-show="!editIdea" class="blue-text" ng-bind="idea.country||'Add a country'"></span>
+                          <input type="text" ng-show="editIdea" name="edit-idea-location-input" class="simple-input small-blue" placeholder="Location" ng-model="idea.country">
+
                     </div>
 
                     <div class="inner-nav selector">
-                      <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
+                      <input type="text" class="color-button blue left selector numeration"  id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
                       <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
                         <div class="flex-cont user-menu">
-                          <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="pivotSelected==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
+                          <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="currentPivot==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
                                 <p class="dark" id="new-pivot" ng-click="createPivot()">+ New Pivot</p>
                             </div>
                         </ul>
@@ -161,31 +176,39 @@
                     <img class="big-img" src="/static/img/Create Idea_idea.svg">
                     <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                     </p>
-                    <p class="tab-paragraph">
+                    <p ng-show="!editIdea" class="tab-paragraph">
                         {{idea.description}}
                     </p>
+                    <div class="simple-cont width-100">
+                    <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="What's your idea about?" ng-click="descriptionError=false" ng-model="idea.description"></textarea>
+                    <p class="red-text error less-15 left textarea" ng-show="descriptionError">Please add a description of your idea.</p>
+                    </div>
 
-                    <div class="simple-cont" ng-show="idea.problem">
+                    <div class="simple-cont width-100" ng-show="idea.problem || editIdea">
                     <img class="big-img" src="/static/img/Create Idea_problem.svg">
                     <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                     </p>
-                    <p class="tab-paragraph">
+                    <p ng-show="!editIdea" class="tab-paragraph">
                       {{idea.problem}}
                     </p>
+                    <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="Does your idea solve an issue? Which one?" ng-model="idea.problem"></textarea>
                   </div>
+
+                  <a class="color-button blue left no-bottom border-radius-6 indent"  ng-show="editIdea" ng-click="updateIdea()" href="">Done</a>
                 </div>
             </div>
             <div class="mid-page flex-cont">
-                <div class="idea-img"  ngf-background="idea.banner || '/static/img/Image_default.svg'">
-                </div>
+              <input id="idea-input-banner" type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+                <label for="idea-input-banner" class="idea-img"  ng-style="editIdea && {'cursor': 'pointer'}" ngf-background="idea.banner ||  getBannerImage(idea.category.name)">
+              </label>
             </div>
         </div>
         <div class="flex-cont row wrap">
             <div class="flex-cont mid-page left-align pad-left">
-                <p class="black-medium">Current Pivot Feedback</p>
+                <p class="black-medium bolder">Current Pivot Feedback</p>
                 <div class="comments flex-cont">
                   <div class="simple-margin-top" ng-show="idea.feedback.length==0">
-                    <p  class="title-dark ">No comments yet.</p>
+                    <p  class="title-dark disable">No comments yet.</p>
                   </div>
                   <div class="comment flex-box" ng-repeat="comment in idea.feedback">
                     <div class="flex-cont comment-top">
@@ -247,14 +270,15 @@
         <div class="centered-form modal-form complete" click-outside="pivoting=false" outside-if-not="new-pivot">
             <div class="flex-cont">
                 <p class="close-x upper" ng-click="pivoting=false">x</p>
-                <p class="sub-gray">NEW PIVOT</p>
+                <p class="sub-gray medium-margin">NEW PIVOT</p>
                 <div class="flex-cont left-align">
                     <p class="lighter-gray">Previous Pivots</p>
                     <div class="inner-nav selector">
-                        <input type="text" class="color-button blue left selector" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" value="pivots[0]">
-                        <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
-                            <div class="flex-cont user-menu">
-                                <li ng-repeat="pivot in pivots" ng-style="pivotSelected==pivot && {'color': '#00A8CB'}" ng-click="selectPivot(pivot)" ng-bind="pivot"></li>
+                      <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
+                      <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
+                        <div class="flex-cont user-menu">
+                          <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="pivotSelected==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
+
                             </div>
                         </ul>
                     </div>
@@ -263,24 +287,23 @@
                     <div class="form-description movil-p">
                         <img class="big-img" src="/static/img/Create Idea_idea.svg">
                         <p class="form-subtitle color"><span class="big-txt aqua-text">Idea
-                   <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg"></span>
+                   <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg" ng-click="copy('idea')"></span>
                         </p>
                         <p class="normal-paragraph">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                          {{idea.description}}
                         </p>
                     </div>
                     <div class="form-description movil-p">
                         <img class="big-img" src="/static/img/Create Idea_problem.svg">
                         <p class="form-subtitle color"> <span class="big-txt red-text">Problem
-                  <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg"></span>
+                  <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg" ng-click="copy('problem')"></span>
                         </p>
                         <p class="normal-paragraph">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac. Vivamus aliquam quam ipsum, nec sagittis nisi dignissim pellentesque.
+                          {{idea.problem}}
                         </p>
                     </div>
                 </div>
                 <div class="flex-cont row left-align">
-                    <p class="act-pivote not simple" ng-bind="newPivot"></p>
                     <blue class="text-left">New Pivot</blue>
                 </div>
                 <div class="flex-cont row textarea">
@@ -288,18 +311,19 @@
                         <img class="big-img" src="/static/img/Create Idea_idea.svg">
                         <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                         </p>
-                        <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <p class="red-text error bottom-0" ng-show="pivotDescriptionError">Please add a description of your idea.</p>
+                        <textarea name="description" class="" ng-model="newIdea" maxlength="300" ng-click="pivotDescriptionError = false" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
                         <p class="textarea-length">300</p>
                     </div>
                     <div class="form-description movil-p ">
                         <img class="big-img" src="/static/img/Create Idea_problem.svg">
                         <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                         </p>
-                        <textarea name="description" class="" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <textarea name="description" class="" ng-model="newProblem" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
                         <p class="textarea-length">300</p>
                     </div>
                 </div>
-                <a class="color-button blue complete-form" href="" ng-click="pivoting=false">Pivot</a>
+                <a class="color-button blue complete-form" href="" ng-click="createNewPivot()">Pivot</a>
             </div>
         </div>
     </div>
@@ -391,6 +415,55 @@
                     <p class="medium light no-margin">you can re-activate it later on to keep</p>
                     <p class="medium light no-margin">working on it.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex-modal white alert-modal" ng-show="inputTeamMembers">
+        <div class="centered-form modal-form" id="input-team-members" click-outside="inputTeamMembers=false" outside-if-not="add-members create-team-img tag-project">
+            <div class="flex-cont create-cont">
+                <p class="close-x" ng-click="inputTeamMembers=false">x</p>
+                <p class="sub-gray medium-margin no-bottom">ADD YOUR TEAM</p>
+                <tags-input id="team-members-tags" ng-model="members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0" add-from-autocomplete-only="true" template="tag-project">
+                    <auto-complete highlight-matched-text="false" source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
+                </tags-input>
+
+
+                <script type="text/ng-template" id="tag-project">
+                    <div class="tag-template">
+                        <div class="polygon-each-img-wrap">
+                            <div class="user-team-img polygon-clip-hexagon"  ngf-background="data.image || '/static/img/Default_Profile_IMG.svg'">
+                            </div>
+                        </div>
+                        <p class="name-tag">{{$getDisplayText()}}</p>
+                        <img class="create-team-img remove-pic" src="/static/img/Create Idea_added.svg" ng-click="$removeTag()">
+                    </div>
+                </script>
+
+
+                <script type="text/ng-template" id="autocomplete-project">
+                    <div class="autocomplete-template">
+                        <div class="polygon-each-img-wrap">
+                            <div class="user-team-img polygon-clip-hexagon" ngf-background="data.image || '/static/img/Default_Profile_IMG.svg'">
+                            </div>
+                        </div>
+                        <span class="name-tag" ng-bind-html="$highlight($getDisplayText())"></span>
+                      <span class="user-tag">@{{data.username}}</span>
+                        <img class="create-team-img" src="/static/img/Create Idea_add.svg">
+                    </div>
+                </script>
+
+                <svg class="clip-svg">
+      <defs>
+        <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+          <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+        </clipPath>
+      </defs>
+    </svg>
+    <div class="simple-cont flex" id="btn-cont-members">
+                <input class="blue-button form-button done-button" type="button" name="done-selection" value="Done" ng-click="inputTeamMembers=false">
+    </div>
             </div>
         </div>
     </div>

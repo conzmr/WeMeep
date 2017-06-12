@@ -14,39 +14,82 @@ angular.module('wetopiaApp')
         }
       };
     })
-    .controller('myIdeaCtrl', function($scope, localStorageService, $state, ideaDataService, categoriesDataService, $filter, $stateParams) {
+    .controller('myIdeaCtrl', function($scope, $window, localStorageService, $http, $state, ideaDataService, categoriesDataService, $filter, $stateParams) {
         $scope.pivoting = false;
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
         $scope.showPivots = false;
-        // $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
-        // $scope.pivotSelected = $filter('enumeration')($scope.pivotSelected);
-        // $scope.newPivot=$scope.pivots.length+1;
+        $scope.editIdea = false;
+        $scope.inputTeamMembers = false;
         $scope.wantToDiscard = false;
         $scope.whyDiscard = false;
         $scope.discarded = false;
         $scope.saved = false;
+        $scope.ideaNameError = false;
         $scope.categoriesBanner = categoriesDataService.categories;
         var idea_id= $stateParams.idea_id;
         $scope.currentUser = {};
+        var user_id = localStorageService.get('user_id');
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
         $scope.currentUser.image = localStorageService.get('image');
+        $scope.currentPivot = 1;
+        $scope.pivotSelected = $filter('enumeration')($scope.currentPivot);
+        $scope.members = [];
+        $scope.descriptionError = false;
+
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data){
-              $scope.pivotSelected = $filter('enumeration')(pivotNumber);
+              $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
               if($scope.idea.admin.username != $scope.currentUser.username){
                 $state.go('idea', {idea_id:idea_id});
               }
+              var j=0;
+              for(var i =0; i < $scope.idea.members.length; i++){
+                if($scope.idea.members[i].username != $scope.idea.admin.username){
+                  $scope.members[j] = $scope.idea.members[i];
+                  j++;
+                }
+              }
             }
-          }).then(function(){
-
           })
+        }
+
+        $scope.updateIdea = function(){
+          if(!$scope.idea.description){
+            $scope.descriptionError=true;
+          }
+          if(!$scope.idea.name){
+            $scope.ideaNameError=true;
+          }
+          else if($scope.idea.name&&$scope.idea.description){
+          $scope.editIdea = false;
+          $scope.descriptionError = false;
+          $scope.ideaNameError =false
+          $scope.ideaNameError= false;
+          $scope.members.push($scope.idea.admin);
+          let newInformation = {
+            banner: $scope.idea.banner,
+            problem: $scope.idea.problem,
+            description: $scope.idea.description,
+            country: $scope.idea.country,
+            members: $scope.members
+          }
+          ideaDataService.updateIdeaInformation(idea_id, $scope.currentPivot, newInformation, function(response){
+            if(response.status!=200){
+              window.alert("There was a problem. Please, try again later.");
+            }
+          })
+          }
+        }
+
+        $scope.getBannerImage = function(category){
+          return $scope.categoriesBanner[category].banner;
         }
 
         $scope.getIdeaStats = function (){
@@ -56,7 +99,59 @@ angular.module('wetopiaApp')
           })
         }
 
-        $scope.getIdea(1);
+        $scope.copy = function (type){
+          if(type=='idea'){
+            if($scope.newIdea!=$scope.idea.description){
+              $scope.newIdea = $scope.idea.description;
+            }
+            else{
+              $scope.newIdea = "";
+            }
+
+          }
+          else if(type=='problem'){
+            if($scope.newProblem!=$scope.idea.problem){
+              $scope.newProblem = $scope.idea.problem;
+            }
+            else{
+              $scope.newProblem ="";
+            }
+          }
+        }
+
+        $scope.loadMembers = function($query) {
+            return $http.get(HOST + '/api/members/' + user_id, {
+                cache: true
+            }).then(function(response) {
+                var members = response.data;
+                return members.filter(function(member) {
+                    return member.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+                });
+            });
+        }
+
+        $scope.createNewPivot = function (){
+          if(!$scope.newIdea){
+            $scope.pivotDescriptionError = true;
+          }
+          if ($scope.newIdea) {
+            let newPivotInfo = {
+              description: $scope.newIdea,
+              problem : $scope.newProblem
+            }
+            ideaDataService.createNewPivot(idea_id, newPivotInfo, function(response){
+              if(response.status!=201){
+                window.alert("There was a problem. Please, try again later. "+response.status);
+              }
+              $scope.newIdea="";
+              $scope.newProblem="";
+              $scope.pivoting = false;
+              $scope.pivotDescriptionError = false;
+            })
+          }
+        }
+
+        $scope.getIdea($scope.currentPivot);
 
         $scope.discardIdea = function(){
           $scope.wantToDiscard = false;
@@ -101,41 +196,9 @@ angular.module('wetopiaApp')
           $scope.showPivots = !$scope.showPivots;
         }
 
-        $scope.feedback = [{
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 12,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 7,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 2,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 0,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 8,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
+        $scope.updateIdeaInfo = function(){
+          $scope.editIdea = false;
+          console.log("puchale");
         }
-      ]
 
     })

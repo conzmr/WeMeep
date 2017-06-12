@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" type="search" placeholder="What are you looking for?"  name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -135,11 +135,11 @@
             <div class="flex-cont" id="profile-info">
               <p  class="title-dark left" ng-bind="user.name || 'No name to show.'"></p>
               <p class="title-dark left subtitle" ng-bind="user.lastname || 'No lastname to show.'"></p>
-              <p class="medium-gray left" ng-bind="user.profession || 'No profession to show.'"></p>
-              <p class="medium-gray left"  ng-show="!user.birthdate">No age to show.</p>
-              <p class="medium-gray left"  ng-show="user.birthdate">{{user.birthdate| toYears}}</p>
-              <div class="simple-cont left"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'No gender to show.'"> </p></div>
-              <div class="simple-cont left"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'No country to show.'"></p></div>
+              <p class="medium-gray left padding" ng-bind="user.profession || 'No profession to show.'"></p>
+              <p class="medium-gray left padding"  ng-show="!user.birthdate">No age to show.</p>
+              <p class="medium-gray left padding"  ng-show="user.birthdate">{{user.birthdate| toYears}}</p>
+              <div class="simple-cont left padding"><img class="left-img" src="/static/img/Gender_Icon.svg"> <p  class="medium-gray no-margins" ng-bind="user.gender || 'No gender to show.'"> </p></div>
+              <div class="simple-cont left padding"><img  class="left-img"src="/static/img/Location_Icon.svg"><p  class="medium-gray no-margins" ng-bind="user.location || 'No country to show.'"></p></div>
             </div>
           </div>
           <div class="flex-cont">
@@ -149,7 +149,7 @@
           </div>
         </div>
 
-        <div class="mid-page flex-cont">
+        <div class="mid-page flex-cont upper-margin">
           <div ng-show="!testDone" class="flex-cont absolute">
               <a class="color-button blue complete-form discard no-bottom no-clickable">Coming Soon</a>
           </div>
@@ -161,13 +161,13 @@
 
           <div class="section-cont">
               <div class="flex-cont row sub-nav max-width">
-                <p class="sub-gray" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Ideas</p>
+                <p class="sub-gray light" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Created Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
               </div>
               <div class="cards-cont">
                 <div class="simple-margin-top" ng-show="user.ideas.length==0">
-                  <p  class="title-dark ">{{user.name}} has no ideas yet.</p>
+                  <p  class="title-dark disable">{{user.name}} has no ideas yet.</p>
                 </div>
                 <a class="card idea" ng-repeat="idea in ideasData" ng-href="/idea/{{idea._id}}" >
                   <div class="card-block">
@@ -222,28 +222,31 @@
       </div>
 
 
-    <div class="footer flex-cont">
-      <div class="left">
-        <a href="/home" class="small">Home</a>
-        <a href="/myProfile" class="small">My Profile</a>
-        <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Idea</a>
-      </div>
-      <div class="icons">
-        <img src="/static/img/wetopia_dark.png">
-        <div class="simple-cont">
-          <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
-          <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
-          <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
-          <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+      <div class="footer flex-cont">
+        <div class="left">
+          <a href="/home" class="small">Home</a>
+          <a href="/myProfile" class="small">My Profile</a>
+          <a href="/createIdea/first" class="small">Create Idea</a>
+          <a href="/myIdea" class="small">My Ideas</a>
         </div>
+        <div class="icons">
+          <img src="/static/img/wetopia_dark.png">
+          <div class="simple-cont">
+            <a href="https://www.facebook.com/wetopiaCo/" target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
+            <a href="https://twitter.com/wetopiaco" target="_blank" ><img src="/static/img/twitter.svg"></a>
+            <a href="https://www.instagram.com/wetopia.co/" target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
+            <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
+          </div>
 
+        </div>
+        <div class="right">
+          <p class="medium-bold">Wetopia (c) 2017</p>
+          <a href="/blog" class="small">Blog</a>
+          <!--
+          <p class="small">Terms & Conditions</p>
+          <p class="small">Privacy Policy</p>
+          <p class="small">Ethics Code</p>
+          -->
+        </div>
       </div>
-      <div class="right">
-        <p class="medium-bold">Wetopia (c) 2017</p>
-        <p class="small">Terms & Conditions</p>
-        <p class="small">Privacy Policy</p>
-        <p class="small">Ethics Code</p>
-      </div>
-    </div>
 </body>
