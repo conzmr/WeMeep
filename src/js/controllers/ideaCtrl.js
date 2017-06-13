@@ -31,11 +31,6 @@ angular.module('wetopiaApp')
         $scope.currentUser.username = localStorageService.get('username');
         $scope.currentUser.image = localStorageService.get('image');
 
-        $scope.goToIdea = function(idea_id){
-          $state.go('idea', {idea_id:idea_id});
-          console.log(idea_id);
-        }
-
         $scope.logOut = function(){
           localStorageService.clearAll();
           $state.go('landing');
@@ -63,7 +58,7 @@ angular.module('wetopiaApp')
           let like = {
             interest: like_type
           }
-          ideaDataService.giveLike(idea_id, like, function(response){
+          ideaDataService.giveLike(idea_id, $scope.currentPivot, like, function(response){
             console.log(response);
           })
         }
@@ -91,12 +86,6 @@ angular.module('wetopiaApp')
               }
             }
           })
-          // ideaDataService.getIdeaStats(idea_id, function(response){
-          //   console.log('hed');
-          //   console.log(response.status);
-          //   console.log(response);
-          //   console.log(response.data);
-          // })
         }
 
         $scope.getIdea($scope.currentPivot);

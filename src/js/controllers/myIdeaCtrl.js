@@ -46,9 +46,14 @@ angular.module('wetopiaApp')
             if(response.data){
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
+              console.log("MyIdea");
               if($scope.idea.admin.username != $scope.currentUser.username){
                 $state.go('idea', {idea_id:idea_id});
               }
+              ideaDataService.getIdeaStats(idea_id, pivotNumber, function(response){
+                $scope.idea.stats = response.data;
+                console.log($scope.idea.stats);
+              })
               var j=0;
               for(var i =0; i < $scope.idea.members.length; i++){
                 if($scope.idea.members[i].username != $scope.idea.admin.username){
@@ -61,7 +66,7 @@ angular.module('wetopiaApp')
             switch (res.status) {
               case 404:
                 $state.go('home');
-                break;    
+                break;
             }
           })
         }
