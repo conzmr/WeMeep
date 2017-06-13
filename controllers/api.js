@@ -15,6 +15,7 @@ const Idea = require("../models/idea.js")
 const Category = require("../models/category.js")
 const Feedback = require("../models/feedback.js")
 const Guest = require("../models/guest.js")
+const DeletedIdea = require("../models/deleted_idea.js")
 
 // config files
 const invite = require("../config/createinvitation.js")
@@ -547,10 +548,27 @@ router.route('/ideas/:idea_id/:pivot')
         })
       })
 
+      // Remove idea reference from user
       User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
       .exec((error, user) => {
         if (error) return res.status(500).json({ error })
-        return res.status(200).json({'message': "Idea successfully deleted"})
+
+        // Save information of deleted idea
+        let deletedIdea = new DeletedIdea({
+          user: req.U_ID,
+          description: idea.description,
+          problem: idea.problem,
+          name: idea.name,
+          category: idea.category,
+          interests: idea.interests,
+          views: idea.views,
+          comment: req.body.comment
+        })
+
+        deletedIdea.save(function(err, newIdea) {
+          if (err) return res.status(500).json({'err':err})
+          return res.status(200).json({'message': "Idea successfully deleted"})
+        })
       })
     }
   })
