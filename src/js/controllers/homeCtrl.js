@@ -15,6 +15,7 @@ $scope.categoriesBanner = categoriesDataService.categories;
 $scope.showingIdeas = [];
 var initialLimit = 8;
 $scope.limitIdeas = initialLimit;
+getTrendingIdeas();
 
 $scope.loadMoreIdeas = function(){
   $scope.limitIdeas+=initialLimit;
@@ -28,12 +29,17 @@ var getAllIdeas = function(){
   })
 }
 
+function getTrendingIdeas(){
+  ideaDataService.getTrendingIdeas(function(response) {
+    if(response.data){
+      $scope.showingIdeas = response.data;
+    }
+  })
+}
+
 var getIdeasByCategory = function(category){
   ideaDataService.getIdeasByCategory(category, function(response) {
     if(response.data){
-      console.log(response.data);
-      console.log(response.status);
-      console.log("MI data"+response.data);
       $scope.showingIdeas = response.data.ideas;
     }
   })
@@ -59,7 +65,9 @@ $scope.changeShowMenu = function(){
 
 $scope.Trending = function(){
   $scope.trending = true;
+
   $scope.allIdeas = false;
+  getTrendingIdeas();
 }
 
 // $scope.Recommmended = function(){
