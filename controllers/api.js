@@ -352,29 +352,40 @@ router.route('/feedback/:feedback_id')
   })
 })
 
-// .update({_id: id, 'profile_set.name': {$ne: 'nick'}},
-//   {$push: {profile_set: {'name': 'nick', 'options': 2}}})
 /*************************************
 ***                                ***
 ***          IDEAS                 ***
 ***                                ***
 *************************************/
 // SHOW INTEREST ON AN IDEA BY PIVOT
-router.route('/ideas/:idea_id/interest')
+router.route('/ideas/:idea_id/:pivot/interest')
 .post(function (req, res) {
-  //Idea.findOneAndUpdate({'_id': req.params.idea_id, 'interests._id': {$ne: req.U_ID} }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
-  Idea.findOne({'_id': req.params.idea_id, 'interests._id': {$eq: req.U_ID} })
-  .exec(function(err, ideas) {
-    if (err) return res.status(500).json({'error': err})
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
 
-    if (!ideas) {
-      Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      Idea.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
-        return res.status(200).json({'message': "Success showing interest."})
+
+        if (!ideas) {
+          Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+          .exec(function(err, ideas) {
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'message': "Success showing interest."})
+          })
+        }
+        else return res.status(400).json({'message': "Already shown interest."})
       })
     }
-    else return res.status(400).json({'message': "Already shown interest."})
   })
 })
 
