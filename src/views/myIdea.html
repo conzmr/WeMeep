@@ -365,7 +365,7 @@
                 <p class="simple-paragraph">Are you sure you want to discard completely this idea?</p>
                 <!-- <p class="medium light no-margin">You can also save it to get back to it later.</p> -->
                 <div class="flex-cont row eighty">
-                    <a class="color-button blue complete-form discard" id="yes-delete" href="" ng-click="discardIdea()">Yes, delete it</a>
+                    <a class="color-button blue complete-form discard" id="yes-delete" href="" ng-click="deleteIdea()">Yes, delete it</a>
                     <!-- <a class="color-button blue complete-form discard" id="save-idea" href="" ng-click="saveIdea()">Save it</a> -->
                 </div>
                 <a href="" class="medium-bold gray" ng-click="wantToDiscard=false">Cancel</a>
@@ -374,25 +374,25 @@
     </div>
 
     <div class="flex-modal white" ng-show="whyDiscard">
-        <div class="centered-form modal-form complete" click-outside="whyDiscard=false" outside-if-not="yes-delete">
+        <div class="centered-form modal-form complete" click-outside="goHome('whyDiscard')" outside-if-not="yes-delete">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="whyDiscard=false">x</p>
+                <p class="close-x upper" ng-click="goHome('whyDiscard')">x</p>
                 <p class="sub-gray">DISCARD</p>
                 <p class="medium light no-margin">We're sorry to see your idea go.</p>
                 <p class="medium light no-margin">Can you tell us more of why you chose</p>
                 <p class="medium light no-margin">to get rid of it?</p>
                 <textarea name="why-discard" class="justify-textarea" maxlength="300" placeholder="Tell us about your experience. "></textarea>
                 <div class="flex-cont row">
-                    <a class="color-button blue complete-form discard no-bottom" id="discard-btn" href="" ng-click="discardMessage()">Done</a>
+                    <a class="color-button blue complete-form discard no-bottom" id="discard-btn" ng-click="discardMessage()">Done</a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="flex-modal white" ng-show="discarded">
-        <div class="centered-form modal-form complete" click-outside="discarded=false" outside-if-not="discard-btn">
+        <div class="centered-form modal-form complete" click-outside="goHome('discarded')" outside-if-not="discard-btn">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="discarded=false">x</p>
+                <p class="close-x upper" ng-click="goHome('discarded')">x</p>
                 <p class="sub-gray">DISCARDED</p>
                 <div class="simple-cont margin">
                     <p class="medium light no-margin">Your idea has been deleted.</p>

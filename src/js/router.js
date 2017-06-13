@@ -123,8 +123,9 @@ angular.module('wetopiaApp')
     })
 
 //Run service to check the token is valid
-.run(function($rootScope, $state, AuthService, $injector) {
+.run(function($rootScope, $state, AuthService,  $window, $injector) {
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+       $window.scrollTo(0, 0);
         if (toState.authenticate && !AuthService.isAuthenticated()) { // User isn’t authenticated
             $state.transitionTo("landing"); //If it's not valid redirect to login
             event.preventDefault();

@@ -57,7 +57,27 @@ angular.module('wetopiaApp')
                 }
               }
             }
+          }, function(res){
+            switch (res.status) {
+              case 404:
+                $state.go('home');
+                break;    
+            }
           })
+        }
+
+        $scope.goHome = function(modal){
+          if(modal=="whyDiscard" && $scope.whyDiscard || modal == "discarded" && $scope.discarded ){
+              $state.go('home');
+          }
+        }
+
+        $scope.deleteIdea = function(){
+          $scope.wantToDiscard = false;
+          $scope.whyDiscard = true;
+          ideaDataService.deleteIdea(idea_id, $scope.currentPivot, function(response){
+            console.log(response);
+          });
         }
 
         $scope.updateIdea = function(){
@@ -152,11 +172,6 @@ angular.module('wetopiaApp')
         }
 
         $scope.getIdea($scope.currentPivot);
-
-        $scope.discardIdea = function(){
-          $scope.wantToDiscard = false;
-          $scope.whyDiscard = true;
-        }
 
         $scope.saveIdea = function(){
           $scope.wantToDiscard=false;

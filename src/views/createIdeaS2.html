@@ -1,6 +1,6 @@
 <div class="flex-cont create-cont">
     <p class="close-x" ng-click="goHome()">x</p>
-    <p class="sub-gray">CREATE IDEA</p>
+    <p class="sub-gray medium-margin no-bottom">CREATE IDEA</p>
     <div class="form-description">
         <img src="/static/img/Create Idea_team.svg">
         <p class="form-subtitle">Add your team members</p>
@@ -35,7 +35,7 @@
     <div class="centered-form modal-form" id="input-team-members" click-outside="inputTeamMembers=false" outside-if-not="add-members create-team-img tag-project">
         <div class="flex-cont create-cont">
             <p class="close-x" ng-click="inputTeamMembers=false">x</p>
-            <p class="sub-gray">ADD YOUR TEAM</p>
+            <p class="sub-gray medium-margin no-bottom">ADD YOUR TEAM</p>
             <tags-input id="team-members-tags" ng-model="idea.members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0" add-from-autocomplete-only="true" template="tag-project">
                 <auto-complete highlight-matched-text="false" source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
             </tags-input>

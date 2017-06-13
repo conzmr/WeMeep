@@ -132,19 +132,27 @@ angular.module('wetopiaApp')
             $scope.idea.category = $scope.categorySelected.id;
             $scope.idea.banner = banner;
             createIdeaDataService.setIdea(function(res) {
+
+              console.log(res.status);
                 if (res.status == 201) {
                     $state.go('myIdea', {idea_id:res.data.idea_id});
                 }
-                if (res.status == 403){
-                  window.alert('You have reached to your limit of ideas.');
-                }
-                if (res.status == 300){
+              },function(res) {
+                switch (res.status) {
+                  case 403:
+                  window.alert('You have reached your limit of ideas.');
+                  break;
+
+                  case 300:
                   window.alert('You already have an idea with this name.');
-                }
-                if (res.status == 500){
+                  break;
+
+                  case 500:
                   window.alert('Something went wrong. Please try again.');
+                  break;
                 }
-            });
+            }
+          );
 
         }
 

@@ -43,7 +43,19 @@ angular.module('wetopiaApp')
 
         $scope.giveStartToFeedback = function(feedback_id){
           ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
-            $scope.getIdea($scope.currentPivot);
+            if(response.status==201){
+              $scope.getIdea($scope.currentPivot);
+            }
+          }, function(response){
+            switch (response.status) {
+              case 400:
+                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
+                  if(response.status==201){
+                    $scope.getIdea($scope.currentPivot);
+                  }
+                })
+                break;
+            }
           })
         }
 

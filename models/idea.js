@@ -18,11 +18,11 @@ var ideaSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the Feedback */
     ref: 'Feedback'
   }],
-   interest: [
-    {
-      userID: {
+   interests: [{
+      _id: {
         type: mongoose.Schema.Types.ObjectId, /* Object ID from User */
-        ref: 'User', /* User Schema. Remember to define it as this in the export module */
+        ref: 'User' /* User Schema. Remember to define it as this in the export module */,
+        unique: true
       },
       /* This type could be: money, love, like, dislike */
       type: {

@@ -1,14 +1,19 @@
 angular.module('wetopiaApp')
 .service('ideaDataService', function($http) {
 
-  this.getIdeaInformation = function (idea_id, pivot, callback) {
+  this.getIdeaInformation = function (idea_id, pivot, callback, errorCallback) {
     return $http.get(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot)
-    .then(callback)
+    .then(callback, errorCallback)
   }
 
   this.updateIdeaInformation = function (idea_id, pivot, newInformation, callback) {
     return $http.put(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot, newInformation)
     .then(callback)
+  }
+
+  this.deleteIdea = function (idea_id, pivot, newInformation, callback, errorCallback) {
+    return $http.delete(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot)
+    .then(callback, errorCallback)
   }
 
   this.getAllIdeas = function (callback) {
@@ -18,7 +23,7 @@ angular.module('wetopiaApp')
 
   this.getIdeasByCategory = function (category, callback, errorCallback) {
     return $http.get(window.HOST + '/api/ideas/all/category/'+category)
-    .then(callback, errorCallback);
+    .then(callback, errorCallback)
   }
 
   this.getIdeaStats = function (idea_id, callback, errorCallback) {
@@ -31,8 +36,18 @@ angular.module('wetopiaApp')
     .then(callback, errorCallback)
   }
 
+  this.deleteFeedback = function (feedback_id, callback, errorCallback){
+    return $http.delete(window.HOST + '/api/feedback/'+feedback_id)
+    .then(callback, errorCallback)
+  }
+
   this.giveStartToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
     return $http.post(window.HOST + '/api/ideas/'+idea_id+'/'+feedback_id+'/star')
+    .then(callback, errorCallback)
+  }
+
+  this.deleteStartToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
+    return $http.delete(window.HOST + '/api/ideas/'+idea_id+'/'+feedback_id+'/star')
     .then(callback, errorCallback)
   }
 

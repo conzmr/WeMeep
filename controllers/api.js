@@ -171,6 +171,25 @@ router.get('/tags', function(req, res){
   // })
 })
 
+// GET RECOMMENDED CATEGORIES
+router.route('/categories/recommended')
+.get(function (req, res) {
+  Idea.find({}) // find all ideas
+  .populate('category', 'name')
+  .exec(function(err, ideas) {
+    let category = {}
+    // get category of every idea
+    ideas.forEach((idea) => {
+      if (category[idea.category.name] === undefined) category[idea.category.name] = 0
+      category[idea.category.name] = category[idea.category.name] + 1
+    })
+
+    let categories = Object.keys(category).sort(function(a,b){return category[b]-category[a]})
+
+    return res.status(200).json(categories)
+  })
+})
+
 /*************************************
 ***                                ***
 ***              USERS             ***
@@ -283,7 +302,7 @@ router.route('/ideas/:idea_id/feedback')
         res.status(201).json({feedback});
     })
   })
-});
+})
 
 // STAR A FEEDBACK
 router.route('/ideas/:idea_id/:feedback_id/star')
@@ -301,25 +320,59 @@ router.route('/ideas/:idea_id/:feedback_id/star')
     }
   })
 })
+// UNSTAR A COMMENT
+.delete(function (req, res) {
+  Feedback.findById(req.params.feedback_id)
+  .update({ $pull: { 'stars': req.U_ID } })
+  .exec(function(err, feedback){
+    if (err) return res.status(500).json({'error': err})
+    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
+    if (feedback.nModified == 0) return res.status(400).json({'message': "Not starred"}) //If the comment wasn't modified, it was not starred
+    return res.status(201).json(feedback)
+  })
+})
 
+router.route('/feedback/:feedback_id')
+// DELETE FEEDBACK
+.delete(function (req, res) {
+  Feedback.findById(req.params.feedback_id)
+  .exec(function(err, feedback){
+    if (err) return res.status(500).json({'error': err})
+    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
+    if (feedback.user != req.U_ID) return res.status(401).json({error:{message: "This is not your comment. GFY you hacker!"}})
+    else {
+        Feedback.findById(req.params.feedback_id)
+        .remove(function(err){
+          if (err) return res.status(500).json({'error': err})
+          return res.status(200).json({'message': "Feedback successfully deleted"})
+        })
+    }
+  })
+})
+
+// .update({_id: id, 'profile_set.name': {$ne: 'nick'}},
+//   {$push: {profile_set: {'name': 'nick', 'options': 2}}})
 /*************************************
 ***                                ***
 ***          IDEAS                 ***
 ***                                ***
 *************************************/
-// SHOW INTEREST ON AN IDEA
+// SHOW INTEREST ON AN IDEA BY PIVOT
 router.route('/ideas/:idea_id/interest')
 .post(function (req, res) {
-  Idea.findById(req.params.idea_id)
-  .update({ $addToSet: {'interest': {'userID': req.U_ID, 'type':req.body.interest} } })
-  .exec(function(err, result) {
-    if (err) {
-      res.status(500).json({'error': err})
-    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
-      res.status(400).json({'message': "Already shown interest."})
-    else {
-      res.status(201).json(result)
+  //Idea.findOneAndUpdate({'_id': req.params.idea_id, 'interests._id': {$ne: req.U_ID} }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+  Idea.findOne({'_id': req.params.idea_id, 'interests._id': {$eq: req.U_ID} })
+  .exec(function(err, ideas) {
+    if (err) return res.status(500).json({'error': err})
+
+    if (!ideas) {
+      Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+      .exec(function(err, ideas) {
+        if (err) return res.status(500).json({'error': err})
+        return res.status(200).json({'message': "Success showing interest."})
+      })
     }
+    else return res.status(400).json({'message': "Already shown interest."})
   })
 })
 
@@ -465,9 +518,30 @@ router.route('/ideas/:idea_id/:pivot')
       }
     })
 })
+// DELETE IDEA
 .delete(function (req, res) {
-  //TODO: Delete project
-  res.status(501).json({'message':'Not yet supported.'})
+  const user = req.U_ID
+  Idea.findById(req.params.idea_id)
+  .exec(function(err, idea){
+    if (err) return res.status(500).json({'error': err})
+    if (!idea) return res.status(404).json({'error': {'message': "Idea not found"}})
+    if (idea.members.indexOf(req.U_ID) <= -1) return res.status(401).json({error:{message: "This is not your idea. GFY you hacker!"}})
+    else {
+      // DELETE EVERYTHING BASED IN PIVOTS
+      (idea.pivots).forEach((pivot) => {
+        Idea.findById(pivot)
+        .remove(function(err){
+          if (err) return res.status(500).json({'error': err})
+        })
+      })
+
+      User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
+      .exec((error, user) => {
+        if (error) return res.status(500).json({ error })
+        return res.status(200).json({'message': "Idea successfully deleted"})
+      })
+    }
+  })
 })
 
 // PIVOT AN IDEA
@@ -519,6 +593,38 @@ router.route('/ideas/all')
   })
 })
 
+// GET TRENDING IDEAS
+router.route('/ideas/trending')
+.get(function (req, res) {
+      Idea.find()
+      .populate('admin', 'username image')
+      .populate('category', 'name description')
+      .exec(function (err, ideas) {
+        let trendingIdeas = []
+
+        // get category of every idea
+        ideas.forEach((idea) => {
+          console.log(idea);
+          trendingIdeas.push({
+            id: idea.id,
+            trending: idea.views.length + idea.feedback.length,
+            name: idea.name,
+            description: idea.description,
+            admin: idea.admin,
+            banner: idea.banner,
+            category: idea.category
+          })
+        })
+
+        console.log(trendingIdeas);
+        let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
+        trendingIdeas.sort((a,b) => b.trending - a.trending);
+
+        return res.status(200).json(trendingIdeas)
+  })
+})
+
+
 // GET ALL IDEAS BY CATEGORY
 router.route('/ideas/all/category/:category')
 .get(function (req, res) {
@@ -543,14 +649,13 @@ router.route('/ideas/all/category/:category')
 
 //GET STATS FOR AN IDEA
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
-router.route('/ideas/:idea_id/stats')
+router.route('/ideas/:idea_id/:pivot/stats')
 .get(function (req, res) {
   Idea.findById(req.params.idea_id, 'members')
   .exec(function (err, idea) {
-    if (err)
-      return res.status(500).json({'error': err})
-   if (idea.members.indexOf(req.U_ID) <= -1)
-      return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here >:| "}})
+   if (err) return res.status(500).json({'error': err})
+   else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+   if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
       /* Interests */
       const interestAggregator = [
