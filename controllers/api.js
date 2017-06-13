@@ -606,7 +606,7 @@ router.route('/ideas/trending')
         ideas.forEach((idea) => {
           console.log(idea);
           trendingIdeas.push({
-            id: idea.id,
+            _id: idea.id,
             trending: idea.views.length + idea.feedback.length,
             name: idea.name,
             description: idea.description,

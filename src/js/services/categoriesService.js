@@ -3,52 +3,99 @@ angular.module('wetopiaApp')
 
   this.categories = {
     art : {
-      banner: '/static/img/CAT_IMAGES/Art_IMG.svg'
+      name: 'Art',
+      banner: '/static/img/CAT_IMAGES/Art_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/ART_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/ART_ICON.svg'
     },
     design : {
-      banner: '/static/img/CAT_IMAGES/Design_IMG.svg'
+      name: 'Design',
+      banner: '/static/img/CAT_IMAGES/Design_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/DESIGN_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/DESIGN_ICON.svg'
     }
     ,
     ecological : {
-      banner: '/static/img/CAT_IMAGES/Eco_IMG.svg'
+      name: 'Ecological',
+      banner: '/static/img/CAT_IMAGES/Eco_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/ECO_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/ECO_ICON.svg'
     },
     education : {
-      banner: '/static/img/CAT_IMAGES/Edu_IMG.svg'
+      name: 'Education',
+      banner: '/static/img/CAT_IMAGES/Edu_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/EDU_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/EDU_ICON.svg'
     },
     fashion : {
-      banner: '/static/img/CAT_IMAGES/Fashion_IMG.svg'
+      name: 'Fashion',
+      banner: '/static/img/CAT_IMAGES/Fashion_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/FASH_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/FASH_ICON.svg'
     },
     film: {
-      banner: '/static/img/CAT_IMAGES/Film_IMG.svg'
+      name: 'Film & Fotography',
+      banner: '/static/img/CAT_IMAGES/Film_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/FILM_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/FILM_ICON.svg'
     },
-    finances : {
-      banner: '/static/img/CAT_IMAGES/Finances_IMG.svg'
+    economics : {
+      name: 'Finances',
+      banner: '/static/img/CAT_IMAGES/Finances_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/FINAN_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/FINAN_ICON.svg'
     },
     food : {
-      banner: '/static/img/CAT_IMAGES/Food_IMG.svg'
+      name: 'Food',
+      banner: '/static/img/CAT_IMAGES/Food_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/FOOD_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/FOOD_ICON.svg'
     },
     games : {
-      banner: '/static/img/CAT_IMAGES/Games_IMG.svg'
+      name: 'Games',
+      banner: '/static/img/CAT_IMAGES/Games_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/GAMES_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/GAMES_ICON.svg'
     },
     handcraft : {
-      banner: '/static/img/CAT_IMAGES/Handcraft_IMG.svg'
+      name: 'Hand Craft',
+      banner: '/static/img/CAT_IMAGES/Handcraft_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/HC_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/HC_ICON.svg'
     },
     health : {
-      banner: '/static/img/CAT_IMAGES/Health_IMG.svg'
+      name: 'Health',
+      banner: '/static/img/CAT_IMAGES/Health_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/HEALTH_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/HEALTH_ICON.svg'
     },
     social : {
-      banner: '/static/img/CAT_IMAGES/Social_IMG.svg'
+      name: 'Social',
+      banner: '/static/img/CAT_IMAGES/Social_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/SOCIAL_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/SOCIAL_ICON.svg'
     },
     technology : {
-      banner: '/static/img/CAT_IMAGES/Tech_IMG.svg'
+      name: 'Technological',
+      banner: '/static/img/CAT_IMAGES/Tech_IMG.svg',
+      cover: '/static/img/CATEGORIES_ICONS/TECH_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/TECH_ICON.svg'
     },
     others: {
-      banner: '/static/img/Image_default.svg'
+      name: 'Others',
+      banner: '/static/img/Image_default.svg',
+      cover: '/static/img/CATEGORIES_ICONS/OTHERS_ICON.svg',
+      hover:'/static/img/CATEGORIES_ICONS/HOVER/OTHERS_ICON.svg'
     }
   }
 
   this.getCategories = function (callback, errorCallback) {
     return $http.get(window.HOST + '/api/tags')
+    .then(callback, errorCallback)
+  }
+
+  this.getRecommendedCategories = function (callback, errorCallback) {
+    return $http.get(window.HOST + '/api/categories/recommended')
     .then(callback, errorCallback)
   }
 
