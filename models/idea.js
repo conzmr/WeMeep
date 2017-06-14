@@ -21,8 +21,7 @@ var ideaSchema = new mongoose.Schema({
    interests: [{
       _id: {
         type: mongoose.Schema.Types.ObjectId, /* Object ID from User */
-        ref: 'User' /* User Schema. Remember to define it as this in the export module */,
-        unique: true
+        ref: 'User' /* User Schema. Remember to define it as this in the export module */
       },
       /* This type could be: money, love, like, dislike */
       type: {
