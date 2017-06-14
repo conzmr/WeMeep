@@ -29,6 +29,8 @@ angular.module('wetopiaApp')
         $scope.ideaNameError = false;
         $scope.categoriesBanner = categoriesDataService.categories;
         var idea_id= $stateParams.idea_id;
+        var currentComment = "";
+        var commentIndex = "";
         $scope.currentUser = {};
         var user_id = localStorageService.get('user_id');
         $scope.currentUser.email = localStorageService.get('email');
@@ -39,6 +41,24 @@ angular.module('wetopiaApp')
         $scope.members = [];
         $scope.descriptionError = false;
 
+        $scope.giveStartToFeedback = function(feedback_id){
+          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+            if(response.status==201){
+              $scope.getIdea($scope.currentPivot);
+            }
+          }, function(response){
+            switch (response.status) {
+              case 400:
+                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
+                  if(response.status==201){
+                    $scope.getIdea($scope.currentPivot);
+                  }
+                })
+                break;
+            }
+          })
+        }
+
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
@@ -46,8 +66,7 @@ angular.module('wetopiaApp')
             if(response.data){
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
-              console.log("MyIdea");
-              if($scope.idea.admin.username != $scope.currentUser.username){
+              if($scope.idea.admin._id != user_id){
                 $state.go('idea', {idea_id:idea_id});
               }
               ideaDataService.getIdeaStats(idea_id, pivotNumber, function(response){
@@ -72,15 +91,57 @@ angular.module('wetopiaApp')
         }
 
         $scope.goHome = function(modal){
-          if(modal=="whyDiscard" && $scope.whyDiscard || modal == "discarded" && $scope.discarded ){
+          if(modal == "discarded" && $scope.discarded ){
               $state.go('home');
           }
         }
 
-        $scope.deleteIdea = function(){
-          $scope.wantToDiscard = false;
+        $scope.giveStartToFeedback = function(feedback_id, index){
+          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+            if(response.status==201){
+              $scope.idea.feedback[index].stars.push(response.data);
+            }
+          }, function(response){
+            switch (response.status) {
+              case 400:
+                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
+                  if(response.status==201){
+                      $scope.idea.feedback[index].stars.splice(commentIndex, 1);
+                  }
+                })
+                break;
+            }
+          })
+        }
+
+        $scope.wantoToDeleteFeedback = function(comment_id, index){
+          $scope.wantToDeleteComment = true;
+          currentComment = comment_id;
+          commentIndex = index;
+        }
+
+        $scope.deleteFeedback = function(){
+          ideaDataService.deleteFeedback(currentComment, function(response){
+            if(response.status==200){
+              $scope.idea.feedback.splice(commentIndex, 1);
+            }
+          })
+          $scope.wantToDeleteComment = false;
+          $scope.deletedComment = true;
+        }
+
+        $scope.toDelete = function(){
           $scope.whyDiscard = true;
-          ideaDataService.deleteIdea(idea_id, $scope.currentPivot, function(response){
+          $scope.wantToDiscard = false;
+        }
+
+        $scope.deleteIdea = function(){
+          $scope.whyDiscard = false;
+          $scope.discarded = true;
+          let comment = {
+            comment : $scope.whyDeleted
+          }
+          ideaDataService.deleteIdea(idea_id, $scope.currentPivot, comment, function(response){
             console.log(response);
           });
         }

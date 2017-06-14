@@ -6319,6 +6319,19 @@ video#bgvid {
 }
 
 
-#myIdeaEditor{
+.delete{
+  color: $gray-lighter;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  font-weight: bolder;
+
+  &:hover, &:active{
+    color: $color-red;
+  }
+
+  &.right{
+    margin: auto 0px auto 20px;
+  }
 
 }

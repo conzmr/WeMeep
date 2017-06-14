@@ -26,6 +26,8 @@ angular.module('wetopiaApp')
         var user_id = localStorageService.get('user_id');
         $scope.currentUser = {};
         $scope.currentPivot = 1;
+        var currentComment = "";
+        var commentIndex = "";
         $scope.pivotSelected = $filter('enumeration')($scope.currentPivot);
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
@@ -36,17 +38,33 @@ angular.module('wetopiaApp')
           $state.go('landing');
         }
 
-        $scope.giveStartToFeedback = function(feedback_id){
+        $scope.wantoToDeleteFeedback = function(comment_id, index){
+          $scope.wantToDeleteComment = true;
+          currentComment = comment_id;
+          commentIndex = index;
+        }
+
+        $scope.deleteFeedback = function(){
+          ideaDataService.deleteFeedback(currentComment, function(response){
+            if(response.status==200){
+              $scope.idea.feedback.splice(commentIndex, 1);
+            }
+          })
+          $scope.wantToDeleteComment = false;
+          $scope.deletedComment = true;
+        }
+
+        $scope.giveStartToFeedback = function(feedback_id, index){
           ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
             if(response.status==201){
-              $scope.getIdea($scope.currentPivot);
+              $scope.idea.feedback[index].stars.push(response.data);
             }
           }, function(response){
             switch (response.status) {
               case 400:
                 ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
                   if(response.status==201){
-                    $scope.getIdea($scope.currentPivot);
+                      $scope.idea.feedback[index].stars.splice(commentIndex, 1);
                   }
                 })
                 break;
@@ -69,8 +87,7 @@ angular.module('wetopiaApp')
               text : $scope.newComment
             };
             ideaDataService.giveFeedback(idea_id, newComment, function(response){
-              $scope.getIdea($scope.currentPivot);
-              $scope.newComment = "";
+              $scope.idea.feedback.push(response.data.feedback);
             })
           }
         }
@@ -122,7 +139,4 @@ angular.module('wetopiaApp')
         $scope.changeShowPivots = function(){
           $scope.showPivots = !$scope.showPivots;
         }
-
-
-
     })

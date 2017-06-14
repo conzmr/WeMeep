@@ -11,8 +11,8 @@ angular.module('wetopiaApp')
     .then(callback)
   }
 
-  this.deleteIdea = function (idea_id, pivot, newInformation, callback, errorCallback) {
-    return $http.delete(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot)
+  this.deleteIdea = function (idea_id, pivot, comment, callback, errorCallback) {
+    return $http.delete(window.HOST + '/api/ideas/'+ idea_id+'/'+pivot, comment)
     .then(callback, errorCallback)
   }
 

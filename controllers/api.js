@@ -300,7 +300,16 @@ router.route('/ideas/:idea_id/feedback')
       if (err)
         return res.status(500).json({'error': err,});
       else
-        res.status(201).json({feedback});
+      feedback.populate({
+          path: 'user',
+          model: 'User',
+          select: 'image name username'
+      },function(err, feedback){
+        if (err)
+          return res.status(500).json({'error': err,});
+        else
+          res.status(201).json({feedback});
+      })
     })
   })
 })
@@ -481,7 +490,8 @@ router.route('/ideas/:idea_id/:pivot')
       .exec(function (err, project) {
         if (err) {
           res.status(500).json({'error': err, 'success': false});
-        } else {
+        }
+        else {
           res.json(project);
         }
       })
