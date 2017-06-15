@@ -6059,9 +6059,7 @@ video#bgvid {
     width: 160px;
     transition: all linear 0.5s;
 
-    &.click{
-
-
+    &.click, &:hover{
       img{
         width: 100px;
         transition: all linear 0.5s;

@@ -694,16 +694,16 @@ router.route('/ideas/:idea_id/:pivot/stats')
   .exec(function (err, idea) {
    if (err) return res.status(500).json({'error': err})
    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
-   if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
+   else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
       /* Interests */
       const interestAggregator = [
         {
           $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
         },
-        { $unwind: "$interest" },
+        { $unwind: "$interests" },
         { $group: {
-                  _id: "$interest.type",
+                  _id: "$interests.type",
                   count: { $sum: 1 }
           }
         }
@@ -746,10 +746,10 @@ router.route('/ideas/:idea_id/:pivot/stats')
       ]
 
       const promises = [
-        Idea.aggregate(interestAggregator).exec(),
-        Idea.aggregate(viewAggregator).exec(),
-        Idea.aggregate(feedbackAggregator).exec(),
-        Feedback.aggregate(starsAggregator).exec()
+        Idea.aggregate(interestAggregator).exec()
+        // Idea.aggregate(viewAggregator).exec(),
+        // Idea.aggregate(feedbackAggregator).exec(),
+        // Feedback.aggregate(starsAggregator).exec()
       ]
        Promise.all(promises).then(function(results) {
          res.status(200).json(results);

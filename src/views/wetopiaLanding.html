@@ -169,7 +169,8 @@
           <img id="team-graph" ng-src="{{graph}}" >
         </div>
         <div class="flex-cont row wrap">
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Pedro'}">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Pedro'}"
+          ng-mouseover="changeGraph('Pedro')" ng-mouseout="changeGraph('Pedro')">
             <img src="/static/img/TEAM/team-pedro.png" alt="Pedro Camarena"
             id='pedro' ng-click="changeGraph('Pedro')"
             click-outside="changeGraph('All')" outside-if-not="luis mario constanza ilse">
@@ -179,7 +180,8 @@
             </div>
           </div>
 
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Luis'}">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Luis'}"
+          ng-mouseover="changeGraph('Luis')" ng-mouseout="changeGraph('Luis')">
             <img src="/static/img/TEAM/team-luis.png" alt="Luis Mendoza"
             id='luis'  ng-click="changeGraph('Luis')"
             click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ilse">
@@ -189,7 +191,8 @@
             </div>
           </div>
 
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Constanza'}">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Constanza'}"
+           ng-mouseover="changeGraph('Constanza')" ng-mouseout="changeGraph('Constanza')">
             <img src="/static/img/TEAM/team-cons.png" alt="Constanza Madrigal"
             id="constanza" ng-click="changeGraph('Constanza')"
            click-outside="changeGraph('All')" outside-if-not="luis mario pedro ilse">
@@ -199,7 +202,8 @@
             </div>
           </div>
 
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Mario'}">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Mario'}"
+          ng-mouseover="changeGraph('Mario')" ng-mouseout="changeGraph('Mario')">
             <img src="/static/img/TEAM/team-mario.png" alt="Mario García"
             id="mario" ng-click="changeGraph('Mario')"
            click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ilse">
@@ -209,7 +213,8 @@
             </div>
           </div>
 
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Ilse'}">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Ilse'}"
+          ng-mouseover="changeGraph('Ilse')" ng-mouseout="changeGraph('Ilse')">
             <img src="/static/img/TEAM/team-ilse.png" alt="Ilse Mora"
             id="ilse" ng-click="changeGraph('Ilse')"
             click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
