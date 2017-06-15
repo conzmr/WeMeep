@@ -28,22 +28,30 @@ angular.module("wetopiaApp")
     $scope.usernameError=false;
     $scope.user={};
     $scope.graphImg={
-      Mario : '/static/img/Mario.png',
-      Constanza : '/static/img/Conz.png',
-      Luis : '/static/img/Luis.png',
-      Ele : '/static/img/Ele.png',
-      Pedro : '/static/img/Pedro.png',
-      All: '/static/img/COMPLETA.png'
+      Mario : '/static/img/GRAPH/test-grafica_mario.png',
+      Constanza : '/static/img/GRAPH/test-grafica_cons.png',
+      Luis : '/static/img/GRAPH/test-grafica_luis.png',
+      Ilse : '/static/img/GRAPH/test-grafica_ilse.png',
+      Pedro : '/static/img/GRAPH/test-grafica_pedro.png',
+      All: '/static/img/GRAPH/test-grafica_todos.png'
     }
-    $scope.graph=$scope.graphImg['All'];
+    $scope.selectedMember = 'All';
+    $scope.graph=$scope.graphImg[$scope.selectedMember];
 
     $scope.changeGraph = function(name){
-      if($scope.graph == $scope.graphImg[name]){
-        $scope.graph = $scope.graphImg['All'];
+      if($scope.selectedMember == name){
+        $scope.selectedMember = 'All';
       }
       else{
-        $scope.graph = $scope.graphImg[name];
+        $scope.selectedMember = name;
       }
+      $scope.graph=$scope.graphImg[$scope.selectedMember];
+      // if($scope.graph == $scope.graphImg[name]){
+      //   $scope.graph = $scope.graphImg['All'];
+      // }
+      // else{
+      //   $scope.graph = $scope.graphImg[name];
+      // }
     }
 
     //mails id

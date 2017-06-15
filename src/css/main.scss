@@ -243,6 +243,14 @@ input {
             padding: 7px 25px 9px;
             border: 1px solid $wetopia-blue;
             border-color: $wetopia-blue;
+
+            &.border-complete{
+              border-radius: 8px;
+              margin-top: 25px;
+              font-family: 'Museo';
+              padding: 12px 25px;
+              font-size: 22px;
+            }
         }
     }
 
@@ -6046,63 +6054,56 @@ video#bgvid {
 }
 
 .team-cont {
-    margin-left: 0;
-    height: auto;
-    padding: 0 0 20px;
-    width: auto;
+    margin: auto 10px;
+    height: 160px;
+    width: 160px;
+    transition: all linear 0.5s;
+
+    &.click{
+
+
+      img{
+        width: 100px;
+        transition: all linear 0.5s;
+      }
+
+      .simple-paragraph{
+        display: block;
+        -webkit-animation: fadeIn 0.5s linear 0s;
+        -moz-animation: fadeIn 0.5s linear 0s;
+        -o-animation: fadeIn 0.5s linear 0s;
+        animation: fadeIn 0.5s linear 0s;
+      }
+    }
 
     .simple-cont {
         text-align: left;
-        margin: auto auto auto 15px;
+        margin: 5px auto auto auto;
         width: auto;
-        height: 60px;
     }
 
     img {
         width: 80px;
-        margin: auto 0 auto auto;
+        margin: auto auto 0px auto;
         cursor: pointer;
-        @media screen and (max-width: 800px) {
-            margin-left: 200px;
-        }
-        @media screen and (max-width: 650px) {
-            margin-left: 180px;
-        }
-        @media screen and (max-width: 500px) {
-            margin-left: 150px;
-        }
-        @media screen and (max-width: 450px) {
-            margin-left: 130px;
-        }
-        @media screen and (max-width: 400px) {
-            margin-left: 100px;
-        }
-        @media screen and (max-width: 350px) {
-            margin-left: 70px;
-        }
+        transition: all linear 0.5s;
     }
 
     .simple-paragraph {
         line-height: 17px;
-        margin-bottom: 0;
+        margin-bottom: 5px;
         text-align: left;
+        display: none;
+        -webkit-animation: fadeOut 0.3s linear 0s;
+        -moz-animation: fadeOut 0.3s linear 0s;
+        -o-animation: fadeOut 0.3s linear 0s;
+        animation: fadeOut 0.3s linear 0s;
     }
 
     .small-italic {
-        margin-top: 3px;
         font-weight: lighter;
         text-align: left;
-    }
-    @media screen and (max-width: 1200px) and (min-width: 900px) {
-        flex-direction: column !important;
-
-        img {
-            margin: auto auto 0 !important;
-        }
-
-        .simple-cont {
-            margin: 5px auto auto !important;
-        }
+        font-size: 14px;
     }
 }
 
@@ -6114,64 +6115,9 @@ video#bgvid {
 }
 
 #team-graph {
+    max-width: 650px;
     width: 100%;
-
-    .simple-cont {
-        text-align: right;
-    }
-}
-
-.team-side {
-    height: 350px;
-    width: auto;
-    justify-content: flex-start;
-    margin: 80px auto auto;
-    @media screen and (max-width: 900px) {
-        flex-wrap: wrap;
-        height: auto;
-        margin: auto;
-        justify-content: flex-start;
-        width: 70%;
-
-        .team-cont {
-            margin: auto 20px;
-        }
-    }
-    @media screen and (max-width: 800px) {
-        width: 83%;
-    }
-    @media screen and (max-width: 630px) {
-        width: 100%;
-    }
-    @media screen and (max-width: 610px) {
-        flex-direction: column;
-
-        .team-cont {
-            margin-left: 0;
-        }
-
-        .team-side {
-            margin-left: 100px;
-        }
-    }
-}
-
-#team-center {
-    max-width: 600px;
-    height: auto;
-    @media screen and (max-width: 800px) {
-        order: -1;
-    }
-}
-
-#all-team-container {
-    @media screen and (max-width: 800px) {
-        flex-wrap: wrap;
-
-        .team-cont {
-            height: 110px;
-        }
-    }
+    margin: auto;
 }
 
 .uppercase {
@@ -6334,4 +6280,16 @@ video#bgvid {
     margin: auto 0px auto 20px;
   }
 
+}
+
+.swap-animation.ng-enter {
+  transition:0.5s linear all;
+}
+.swap-animation.ng-enter {
+  opacity: 0;
+  transition: 0.5s;
+}
+.swap-animation.ng-enter-active {
+  opacity: 1;
+  transition: 0.5s;
 }
