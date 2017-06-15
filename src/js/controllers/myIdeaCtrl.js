@@ -59,7 +59,6 @@ angular.module('wetopiaApp')
           })
         }
 
-
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
@@ -69,10 +68,31 @@ angular.module('wetopiaApp')
               if($scope.idea.admin._id != user_id){
                 $state.go('idea', {idea_id:idea_id});
               }
-              ideaDataService.getIdeaStats(idea_id, pivotNumber, function(response){
-                $scope.idea.stats = response.data;
-                console.log($scope.idea.stats);
-              })
+              else{
+                ideaDataService.getIdeaStats(idea_id, pivotNumber, function(response){
+                  let data = response.data[0];
+                  let stats = {
+                    dislike : 0,
+                    like: 0,
+                    love: 0,
+                    money: 0
+                  }
+                  for(var i=0; i<data.length; i++){
+                    if(data[i]._id == 'dislike'){
+                      stats.dislike = data[i].count;
+                    }
+                    if(data[i]._id == 'like'){
+                      stats.like = data[i].count;
+                    }
+                    if(data[i]._id == 'love'){
+                      stats.love = data[i].count;
+                    }
+                    if(data[i]._id == 'money'){
+                      stats.money = data[i].count;
+                    }
+                  }
+                  $scope.idea.stats = stats;
+                })
               var j=0;
               for(var i =0; i < $scope.idea.members.length; i++){
                 if($scope.idea.members[i].username != $scope.idea.admin.username){
@@ -80,6 +100,7 @@ angular.module('wetopiaApp')
                   j++;
                 }
               }
+                }
             }
           }, function(res){
             switch (res.status) {
@@ -176,13 +197,6 @@ angular.module('wetopiaApp')
 
         $scope.getBannerImage = function(category){
           return $scope.categoriesBanner[category].banner;
-        }
-
-        $scope.getIdeaStats = function (){
-          ideaDataService.getIdeaStats(idea_id, function(response){
-            console.log('hed idea');
-            console.log(response);
-          })
         }
 
         $scope.copy = function (type){

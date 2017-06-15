@@ -123,7 +123,7 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token }) // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
       }
     }
   })
@@ -385,7 +385,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
         if (err) return res.status(500).json({'error': err})
 
         if (!ideas) {
-          Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+          Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
           .exec(function(err, ideas) {
             if (err) return res.status(500).json({'error': err})
             return res.status(200).json({'message': "Success showing interest."})

@@ -74,7 +74,8 @@ angular.module('wetopiaApp')
 
         function giveLike(like_type){
           let like = {
-            interest: like_type
+            interest: like_type,
+            comment: $scope.whyInterest
           }
           ideaDataService.giveLike(idea_id, $scope.currentPivot, like, function(response){
             console.log(response);
@@ -96,6 +97,7 @@ angular.module('wetopiaApp')
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data){
+              console.log(response.data);
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
               if($scope.idea.admin._id == user_id){
