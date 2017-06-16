@@ -278,7 +278,7 @@
           <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
             <div class="flex-cont">
               <p class="close-x" ng-click="join=false">&times</p>
-              <p class="sub-gray">{{'SIGNUP' | translate }}</p>
+              <p class="sub-gray bottom">{{'SIGNUP' | translate }}</p>
               <div class="form-input">
                   <img  ng-src="{{nameError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}">
                   <input type="text" name="signup-name" ng-click="clearErrors()"  ng-model="user.name" placeholder="Name" required/>
@@ -304,7 +304,7 @@
                   <input type="password" ng-model="user.newPassword" ng-click="clearErrors()" ng-style="passwordError && {'color':'#F26649'}"  name="signup-password" placeholder="Password" required="true">
                   <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
-              <input type="button" value="Join" class="form-button " name="join" ng-click="signUp(signupForm.input.$error.email)">
+              <input type="button" value="Join" class="form-button color-button blue" name="join" ng-click="signUp(signupForm.input.$error.email)">
               <!-- <p class="terms">{{'ACCEPTING' | translate }}<span class="bluelink">{{'TERMS' | translate }}
               {{'PRIVACY_POLICY' | translate }}</span>{{'ALONG' | translate }}<span class="bluelink">{{'ETHICS' | translate }}</span></p> -->
               <p class="already">{{'ALREADY' | translate }}</p>
@@ -317,7 +317,7 @@
           <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf">
             <div class="flex-cont">
               <p class="close-x" ng-click="login=false">&times</p>
-              <p class="sub-gray">{{'LOGIN' | translate }}</p>
+              <p class="sub-gray bottom">{{'LOGIN' | translate }}</p>
               <form name="loginForm" class="form-input">
                   <img ng-src="{{emailError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}" >
                   <input type="email" ng-click="clearErrors()" ng-click="clearErrors()"  ng-model="user.email" ng-style="emailError && {'color':'#F26649'}" name="input-login-mail" placeholder="Username or email" required="true">
@@ -329,7 +329,7 @@
                   <p class="red-text error" ng-bind="passwordMessageError" ng-show="passwordError"></p>
               </div>
               <p class="terms right" ng-class="{'margin-top': passwordError}" >{{'FORGOT' | translate }}</p>
-              <input type="button" value="Join" class="form-button " name="login" ng-click="signIn(loginForm.input.$error.email)">
+              <input type="button" value="Join" class="form-button color-button blue" name="login" ng-click="signIn(loginForm.input.$error.email)">
               <p class="already">{{'DONT' | translate }}</p>
               <p class="bluelink already signup-nav" id="signup-nav" ng-click="openSignup()">{{'JOIN_NOW' | translate }}</p>
               </div>

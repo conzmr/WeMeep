@@ -36,8 +36,8 @@ angular.module('wetopiaApp')
     .then(callback, errorCallback)
   }
 
-  this.giveFeedback = function (idea_id, text, callback, errorCallback) {
-    return $http.post(window.HOST + '/api/ideas/'+idea_id+'/feedback', text)
+  this.giveFeedback = function (idea_id, pivot, text, callback, errorCallback) {
+    return $http.post(window.HOST + '/api/ideas/'+idea_id+'/'+pivot+'/feedback', text)
     .then(callback, errorCallback)
   }
 

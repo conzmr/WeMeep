@@ -63,6 +63,12 @@ angular.module('wetopiaApp')
                   controller: "myProfileCtrl",
                   templateUrl: "/static/views/myProfile.html"
             })
+            .state("profileSection", {
+                url: "/profile/:username/:section",
+                  authenticate: true,
+                  controller: "myProfileCtrl",
+                  templateUrl: "/static/views/myProfile.html"
+            })
             .state("profile", {
                 url: "/profile/:username",
                 controller: "profileCtrl",
@@ -129,7 +135,8 @@ angular.module('wetopiaApp')
     })
 
 //Run service to check the token is valid
-.run(function($rootScope, $state, AuthService,  $window, $injector) {
+.run(function($rootScope, $state, AuthService,  $window, $injector, $anchorScroll) {
+    $anchorScroll.yOffset = -5000;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
        $window.scrollTo(0, 0);
         if (toState.authenticate && !AuthService.isAuthenticated()) { // User isn’t authenticated

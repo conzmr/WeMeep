@@ -105,7 +105,7 @@
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p ui-sref="myProfile">My Profile</p>
-                  <p>My Ideas</p>
+                  <a ng-href="/profile/{{currentUser.username}}#myIdeas">My Ideas</a>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
@@ -203,7 +203,7 @@
 
     <div class="section-cont" ng-show="selectedCategory==''">
         <div class="flex-cont row sub-nav no-margin-bot">
-          <p class="sub-gray not-hov">CATEGORIES</p>
+          <p class="sub-gray not-hov not-bottom">CATEGORIES</p>
         </div>
 
         <div class="section-padd-cont">

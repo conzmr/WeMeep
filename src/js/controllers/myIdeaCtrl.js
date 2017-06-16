@@ -291,6 +291,10 @@ angular.module('wetopiaApp')
           $scope.showPivots = !$scope.showPivots;
         }
 
+        $scope.changeShowPivotsModal = function(){
+          $scope.showPivotsModal = !$scope.showPivotsModal;
+        }
+
         $scope.updateIdeaInfo = function(){
           $scope.editIdea = false;
           console.log("puchale");

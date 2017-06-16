@@ -161,15 +161,13 @@ router.use(function(req, res, next) {
 *************************************/
 // RETURN ALL AVAILABLE CATEGORIES
 router.get('/tags', function(req, res){
-  Category.find({}, function(err, tags){
-    res.json(tags);
+  Category.find({})
+  .exec(function(err, tags){
+    if (err)
+      res.status(500).json({'error': err})
+    else
+      res.json(tags);
   })
-  // .exec(function(err, tags){
-  //   if (err)
-  //     res.status(500).json({'error': err})
-  //   else
-  //     res.json(tags);
-  // })
 })
 
 // GET RECOMMENDED CATEGORIES
@@ -230,12 +228,6 @@ router.route('/users/self/avatar')
   })
 })
 
-router.get('/members', function(req, res) {
-  User.find({}, 'name lastname username image', function(err, users){
-    res.json(users);
-  })
-})
-
 // GET PROFILE INFORMATION
 router.route('/users/:username') //just when the url has "id=" it will run, otherwise it will look for a username
 .get(function (req, res) {
@@ -278,39 +270,56 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
 ***          FEEDBACK              ***
 ***                                ***
 *************************************/
-// GIVE FEEDBACK TO AN IDEA
-router.route('/ideas/:idea_id/feedback')
+// GIVE FEEDBACK TO AN IDEA/PIVOT
+ router.route('/ideas/:idea_id/:pivot/feedback')
 .post(function (req, res) {
-  /* COMMENT AN IDEA */
-  let feedback = new Feedback({
-    user: req.U_ID,
-    comment: req.body.text,
-    idea: req.params.idea_id
-  });
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
 
-  feedback.save(function(err, feedback) {
-    if (err)
-      return res.status(500).json({'err':err})
-    Idea.update(
-      { _id: {$in: req.params.idea_id} },
-      { $push: {"feedback":  feedback._id} },
-      { multi: true }
-    )
-    .exec(function(err){
-      if (err)
-        return res.status(500).json({'error': err,});
-      else
-      feedback.populate({
-          path: 'user',
-          model: 'User',
-          select: 'image name username'
-      },function(err, feedback){
-        if (err)
-          return res.status(500).json({'error': err,});
-        else
-          res.status(201).json({feedback});
+      //order pivots
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
       })
-    })
+
+      //create comment
+      let feedback = new Feedback({
+        user: req.U_ID,
+        comment: req.body.text,
+        idea: req.params.idea_id
+      })
+
+      //save comment
+      feedback.save(function(err, feedback) {
+        if (err)  return res.status(500).json({'err':err})
+        Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id}, { $push: {'feedback': feedback._id } }, { multi: true })
+        .exec(function(err, ideas) {
+          if (err) return res.status(500).json({'error': err})
+          feedback.populate({
+              path: 'user',
+              model: 'User',
+              select: 'image name username'
+          }, function(err, feedback){
+            if (err) return res.status(500).json({'error': err,});
+            else
+                  feedback.populate({
+          path: 'user',
+           model: 'User',
+           select: 'image name username'
+       },function(err, feedback){
+         if (err)
+           return res.status(500).json({'error': err,});
+         else
+           res.status(201).json({feedback});
+       })
+          })
+        })
+      })
+    }
   })
 })
 
@@ -355,6 +364,7 @@ router.route('/feedback/:feedback_id')
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
           return res.status(200).json({'message': "Feedback successfully deleted"})
+          //TODO: Remove reference from idea/pivot
         })
     }
   })
@@ -385,7 +395,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
         if (err) return res.status(500).json({'error': err})
 
         if (!ideas) {
-          Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+          Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
           .exec(function(err, ideas) {
             if (err) return res.status(500).json({'error': err})
             return res.status(200).json({'message': "Success showing interest."})
@@ -398,7 +408,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
 })
 
 router.route('/ideas/self/create')
-// CREATE AN IDEA
+// CREATE AN IDEA WITH IT'S FIRST PIVOT
 .post(function (req, res) {
   let ideaname = req.body.name.split(' ').join('-').toLowerCase()
   const user = req.U_ID
@@ -458,7 +468,7 @@ router.route('/ideas/self/create')
   })
 })
 
-// GET INFORMATION FOR A SPECIFIC IDEA
+// GET INFORMATION FOR A SPECIFIC IDEA/PIVOT
 router.route('/ideas/:idea_id/:pivot')
 .get(function (req, res) {
   const pivot = req.params.pivot
@@ -499,17 +509,33 @@ router.route('/ideas/:idea_id/:pivot')
   })
 
 })
-// ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA
+// ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA/PIVOT
 .post(function (req, res) {
-  Idea.findByIdAndUpdate(req.params.idea_id, { $addToSet: {views: req.U_ID} })
-  .exec(function(err) {
-    if (err)
-      res.status(500).json({'error': err, 'success': false});
-    else
-      res.json({"message": "Successfully added a new view to the idea", "success": true})
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+
+      // order pivots
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      //add view to pivot
+      Idea.findByIdAndUpdate(idea.pivots[pivot - 1].id, { $addToSet: {views: req.U_ID} })
+      .exec(function(err) {
+        if (err)
+          res.status(500).json({'error': err, 'success': false});
+        else
+          res.json({"message": "Successfully added a new view to the idea", "success": true})
+      })
+    }
   })
 })
-// UPDATE AN IDEA
+// UPDATE AN IDEA/PIVOT
 .put(function (req, res) {
   // Pivot Management
   const pivot = req.params.pivot
@@ -540,7 +566,7 @@ router.route('/ideas/:idea_id/:pivot')
       }
     })
 })
-// DELETE IDEA
+// DELETE IDEA AND ALL THE PIVOTS RELATED TO THE IDEA
 .delete(function (req, res) {
   const user = req.U_ID
   Idea.findById(req.params.idea_id)
@@ -583,7 +609,7 @@ router.route('/ideas/:idea_id/:pivot')
   })
 })
 
-// PIVOT AN IDEA
+// PIVOT AN IDEA (CREATE PIVOT)
 router.route('/ideas/this/:idea_id/pivot')
 .post(function (req, res) {
 
@@ -643,7 +669,7 @@ router.route('/ideas/trending')
 
         // get category of every idea
         ideas.forEach((idea) => {
-          console.log(idea);
+
           trendingIdeas.push({
             _id: idea.id,
             trending: idea.views.length + idea.feedback.length,
@@ -655,7 +681,6 @@ router.route('/ideas/trending')
           })
         })
 
-        console.log(trendingIdeas);
         let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
         trendingIdeas.sort((a,b) => b.trending - a.trending);
 
@@ -686,78 +711,86 @@ router.route('/ideas/all/category/:category')
   })
 })
 
-//GET STATS FOR AN IDEA
+//GET STATS FOR AN IDEA/PIVOT
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
 router.route('/ideas/:idea_id/:pivot/stats')
 .get(function (req, res) {
-  Idea.findById(req.params.idea_id, 'members')
-  .exec(function (err, idea) {
-   if (err) return res.status(500).json({'error': err})
-   else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
-   else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
+  // Pivot Management
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
-      /* Interests */
-      const interestAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$interests" },
-        { $group: {
-                  _id: "$interests.type",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* View Stats */
-      const viewAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$views" },
-        { $group: {
-                  _id: "Views",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* Feedback Stats */
-      const feedbackAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$feedback" },
-        { $group: {
-                  _id: "Feedback",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* Stars in Idea */
-      const starsAggregator = [
-        {
-          $match: { "idea" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$stars" },
-        { $group: {
-                  _id: "Starred Comments",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
+        idea.pivots.sort((a, b) => {
+          return parseFloat(a.number) - parseFloat(b.number)
+        })
 
-      const promises = [
-        Idea.aggregate(interestAggregator).exec()
-        // Idea.aggregate(viewAggregator).exec(),
-        // Idea.aggregate(feedbackAggregator).exec(),
-        // Feedback.aggregate(starsAggregator).exec()
-      ]
-       Promise.all(promises).then(function(results) {
-         res.status(200).json(results);
-       }).catch(function(err){
-           res.status(500).json(err);
-       });
+        const myIdea = idea.pivots[pivot - 1].id
+          /* Interests */
+          const interestAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$interests" },
+            { $group: {
+                      _id: "$interests.type",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* View Stats */
+          const viewAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$views" },
+            { $group: {
+                      _id: "Views",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* Feedback Stats */
+          const feedbackAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$feedback" },
+            { $group: {
+                      _id: "Feedback",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* Stars in Idea */
+          const starsAggregator = [
+            {
+              $match: { "idea" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$stars" },
+            { $group: {
+                      _id: "Starred Comments",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
 
-    }
+          const promises = [
+            Idea.aggregate(interestAggregator).exec(),
+            Idea.aggregate(viewAggregator).exec(),
+            Idea.aggregate(feedbackAggregator).exec(),
+            Feedback.aggregate(starsAggregator).exec()
+          ]
+           Promise.all(promises).then(function(results) {
+             res.status(200).json(results);
+           }).catch(function(err){
+               res.status(500).json(err);
+           })
+
+        }
   })
 })
 

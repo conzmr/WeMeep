@@ -78,7 +78,6 @@ angular.module('wetopiaApp')
             comment: $scope.whyInterest
           }
           ideaDataService.giveLike(idea_id, $scope.currentPivot, like, function(response){
-            console.log(response);
           })
         }
 
@@ -87,8 +86,9 @@ angular.module('wetopiaApp')
             let newComment = {
               text : $scope.newComment
             };
-            ideaDataService.giveFeedback(idea_id, newComment, function(response){
+            ideaDataService.giveFeedback(idea_id, $scope.currentPivot, newComment, function(response){
               $scope.idea.feedback.push(response.data.feedback);
+              $scope.newComment = "";
             })
           }
         }
@@ -97,7 +97,6 @@ angular.module('wetopiaApp')
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data){
-              console.log(response.data);
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data;
               if($scope.idea.admin._id == user_id){

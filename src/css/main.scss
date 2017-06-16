@@ -2527,10 +2527,10 @@ nav {
 }
 
 .cards-cont {
-    padding: 15px 0;
+    padding: 0;
     width: 100%;
     clear: both;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -2543,7 +2543,7 @@ nav {
 }
 
 .card {
-    width: 210px;
+    width: 200px;
     margin: 20px 30px;
     display: inline-block;
     cursor: pointer;
@@ -2575,7 +2575,7 @@ nav {
         }
 
         .right-img {
-            height: 18px;
+            height: 15px;
             margin: auto 0 auto auto;
         }
     }
@@ -2722,8 +2722,8 @@ nav {
 }
 
 .category {
-    width: 108px;
-    height: 150px;
+    width: 98px;
+    height: 130px;
     position: relative;
     cursor: pointer;
     margin: 15px 10px;
@@ -3080,7 +3080,7 @@ nav {
 .transparent-nav {
     background: transparent;
     padding: 0 50px;
-    height: 80px;
+    height: 60px;
     max-width: 100%;
     position: fixed;
     display: -webkit-flex;
@@ -3421,8 +3421,9 @@ nav {
         }
 
         &.for-scroll{
-          padding-top: 120px;
-          margin-top: 0;
+          padding-top: 80px;
+          margin: 0 auto;
+          max-width: 800px;
         }
 
         &.max-width {
@@ -3438,6 +3439,10 @@ nav {
             line-height: 25px;
             margin-bottom: 20px;
             padding: 0 20px;
+
+            &.not-bottom{
+              margin-bottom: 10px;
+            }
 
             &:hover {
                 &:not(.not-hov) {
@@ -4100,9 +4105,9 @@ nav {
         }
 
         &.bluelink {
-            margin-top: -7px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 2px;
         }
     }
 
@@ -5405,7 +5410,7 @@ bluelink {
 .go-back-btn {
     position: absolute;
     left: 20px;
-    top: 118px;
+    top: 80px;
     height: 30px;
     width: 100px;
     cursor: pointer;
@@ -5479,6 +5484,10 @@ bluelink {
       &.no-bottom{
         margin-bottom: 0px;
       }
+    }
+
+    &.bottom{
+      margin-bottom: 30px;
     }
 }
 
@@ -6246,7 +6255,7 @@ video#bgvid {
 #load-more-ideas{
   padding: 8px 28px;
   margin-bottom: 30px;
-  margin-top: -30px;
+  margin-top: -50px;
 }
 
 #by-category{
