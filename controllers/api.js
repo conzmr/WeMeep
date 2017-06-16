@@ -123,7 +123,7 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token }) // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
       }
     }
   })
@@ -153,7 +153,6 @@ router.use(function(req, res, next) {
     res.status(403).json({'message': "No token provided"});
   }
 });
-
 
 /*************************************
 ***                                ***
@@ -300,7 +299,14 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
         Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id}, { $push: {'feedback': feedback._id } }, { multi: true })
         .exec(function(err, ideas) {
           if (err) return res.status(500).json({'error': err})
-          return res.status(200).json({'message': "Feedback sent"})
+          feedback.populate({
+              path: 'user',
+              model: 'User',
+              select: 'image name username'
+          }, function(err, feedback){
+            if (err) return res.status(500).json({'error': err,});
+            else return res.status(200).json({'message': "Feedback sent"})
+          })
         })
       })
     }
@@ -331,7 +337,6 @@ router.route('/ideas/:idea_id/:feedback_id/star')
     if (err) return res.status(500).json({'error': err})
     if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
     if (feedback.nModified == 0) return res.status(400).json({'message': "Not starred"}) //If the comment wasn't modified, it was not starred
-
     return res.status(201).json(feedback)
   })
 })
@@ -380,7 +385,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
         if (err) return res.status(500).json({'error': err})
 
         if (!ideas) {
-          Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+          Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
           .exec(function(err, ideas) {
             if (err) return res.status(500).json({'error': err})
             return res.status(200).json({'message': "Success showing interest."})
@@ -446,7 +451,7 @@ router.route('/ideas/self/create')
             if (err)
               return res.status(500).json({'error': err,});
             else
-              return res.status(201).json({message: 'Idea created!', idea: idea});
+              return res.status(201).json({message: 'Idea created!', idea_id: idea._id});
           })
         })
       })
@@ -485,7 +490,8 @@ router.route('/ideas/:idea_id/:pivot')
       .exec(function (err, project) {
         if (err) {
           res.status(500).json({'error': err, 'success': false});
-        } else {
+        }
+        else {
           res.json(project);
         }
       })
@@ -538,8 +544,9 @@ router.route('/ideas/:idea_id/:pivot')
         const description = req.body.description
         const problem = req.body.problem
         const members = req.body.members
+        const country = req.body.country
 
-        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, description, problem, members } }, { new: true })
+        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, country, description, problem, members } }, { new: true })
         .exec((error, user) => {
           if (error) {
             return res.status(500).json({ error })
@@ -654,7 +661,7 @@ router.route('/ideas/trending')
         ideas.forEach((idea) => {
 
           trendingIdeas.push({
-            id: idea.id,
+            _id: idea.id,
             trending: idea.views.length + idea.feedback.length,
             name: idea.name,
             description: idea.description,

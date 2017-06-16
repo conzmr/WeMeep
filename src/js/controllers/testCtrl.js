@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('testCtrl', function($scope, $state) {
+    .controller('testCtrl', function($scope, $state, localStorageService) {
 
         $scope.notification = false;
         $scope.showNotifications = false;
@@ -12,9 +12,18 @@ angular.module('wetopiaApp')
         $scope.testResults = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0]
         ];
+        $scope.currentUser = {};
+        $scope.currentUser.email = localStorageService.get('email');
+        $scope.currentUser.username = localStorageService.get('username');
+        $scope.currentUser.image = localStorageService.get('image');
 
         $scope.showWantToSave = function() {
             $scope.wantToSave = true;
+        }
+
+        $scope.logOut = function(){
+          localStorageService.clearAll();
+          $state.go('landing');
         }
 
         $scope.changeShowNotifications = function() {

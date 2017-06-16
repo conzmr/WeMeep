@@ -8,7 +8,7 @@
           <p class="blue-text">IDEA</p>
         </div>
         <div class="wrapper">
-            <input id="nav-search" type="search" name="navsearch" />
+            <input id="nav-search" placeholder="What are you looking for?" type="search" name="navsearch" />
             <i class="fa fa-search"></i>
         </div>
         <div class="right">
@@ -130,7 +130,7 @@
               <p class="sub-gray" ng-click="AllIdeas()" ng-class="{'active': allIdeas}">ALL IDEAS</p>
             </div>
             <div class="flex-cont row sub-nav for-scroll" ng-show="selectedCategory!=''" >
-              <div class="flex-cont row go-back-btn" ng-click="selectedCategory=''">
+              <div class="flex-cont row go-back-btn" ng-click="goBack()">
                 <img class="to-left-arrow" src="/static/img/arrowDown.svg">
                 <blue>BACK</blue>
               </div>
@@ -140,9 +140,9 @@
                 <div class="simple-margin-top" ng-show="showingIdeas.length==0">
                   <p  class="title-dark ">There are no ideas to show.</p>
                 </div>
-                <div class="card idea" ng-repeat="idea in showingIdeas | limitTo: limitIdeas">
+                <a class="card idea" ng-repeat="idea in showingIdeas | limitTo:limitIdeas" ng-href="/idea/{{idea._id}}" >
                   <div class="card-block">
-                    <div class="card-img" ngf-background="idea.banner || getBannerImage('others')">
+                    <div class="card-img" ngf-background="idea.banner || getBannerImage(idea.category.name)">
                     </div>
                     <div class="card-info ">
                         <div class="user">
@@ -151,7 +151,7 @@
                                     <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>{{idea.admin}}</p>
+                                <p>{{idea.admin.username}}</p>
                             </div>
                             <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
@@ -162,9 +162,9 @@
                     </div>
                     </div>
                     <div class="footer-nav">
-                        <a href="#">{{idea.category}}</a>
+                          <p href="#">{{idea.category.description}}</p>
                     </div>
-                </div>
+                </a>
 
 
                 <!-- <div class="card project">
@@ -207,12 +207,12 @@
         </div>
 
         <div class="section-padd-cont">
-          <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="category in categories"
-         ng-init="coverImg = category.cover"
-         ng-mouseover="coverImg = category.hover"
-         ng-mouseout="coverImg = category.cover"
+          <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="(key,value) in categoriesService"
+         ng-init="coverImg = value.cover"
+         ng-mouseover="coverImg = value.hover"
+         ng-mouseout="coverImg = value.cover"
          ng-src="{{coverImg}}"
-         ng-click="selecCategory(category.name, category.id_name)"></a>
+         ng-click="selectCategory(value.name, key)"></a>
     </div>
 
         </div>
@@ -223,12 +223,12 @@
             </div>
 
             <div class="section-padd-cont">
-                <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="category in otherCategories"
-             ng-init="coverImg = category.cover"
-             ng-mouseover="coverImg = category.hover"
-             ng-mouseout="coverImg = category.cover"
+              <a href="#by-category" offset="0" du-smooth-scroll du-scrollspy><img class="category" ng-repeat="category in recommendedCategories"
+             ng-init="coverImg = categoriesService[category].cover"
+             ng-mouseover="coverImg = categoriesService[category].hover"
+             ng-mouseout="coverImg = categoriesService[category].cover"
              ng-src="{{coverImg}}"
-             ng-click="selecCategory(category.name)"></a>
+             ng-click="selectCategory(categoriesService[category].name, category)"></a>
         </div>
 
             </div>

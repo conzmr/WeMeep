@@ -243,6 +243,14 @@ input {
             padding: 7px 25px 9px;
             border: 1px solid $wetopia-blue;
             border-color: $wetopia-blue;
+
+            &.border-complete{
+              border-radius: 8px;
+              margin-top: 25px;
+              font-family: 'Museo';
+              padding: 12px 25px;
+              font-size: 22px;
+            }
         }
     }
 
@@ -462,6 +470,7 @@ a {
     #add-members {
         cursor: pointer;
         height: 31px;
+        width: 30px;
         margin-left: 2px !important;
     }
 }
@@ -528,6 +537,7 @@ a {
     .tab-paragraph {
         margin: -15px auto auto 55px !important;
         font-size: 16px !important;
+        width: 100%;
         @media screen and (max-width: 500px) {
             margin: auto !important;
         }
@@ -619,6 +629,16 @@ a {
         &.no-outline {
             outline: none;
             margin-top: 15px;
+        }
+
+        &.indent{
+          margin: 0px auto 20px 52px;
+          width: 90%;
+
+          @media screen and (max-width: 650px){
+            margin-left: auto;
+            width: 100%;
+          }
         }
     }
 
@@ -1002,14 +1022,14 @@ nav {
 .wrapper {
     display: inline-block;
     vertical-align: middle;
-    padding: 10px;
     margin: auto;
-    height: 30px;
-    margin-right: 10px;
+    height: auto;
+    margin-right: 20px;
     width: 210px;
     text-align: right;
     position: relative;
     display: flex;
+
     @media screen and (max-width: 730px) {
         order: 4;
         flex: 1 100%;
@@ -1019,30 +1039,55 @@ nav {
 
     &:hover {
         input {
-            border: 1px solid $gray-lighter;
+            border: 1px solid $wetopia-aqua;
         }
     }
 
     i {
         &.fa-search {
-            color: $wetopia-blue;
+            color: $wetopia-aqua;
             cursor: pointer;
             z-index: 4;
             font-size: 20px;
+            font-weight: lighter;
             margin: auto auto auto -25px;
         }
     }
 
     input {
-        border-radius: 3px;
+        border-radius: 6px;
         z-index: 3;
         margin: auto 0 auto auto;
-        font-size: 15px;
-        padding: 0;
-        height: 28px;
+        font-size: 16px;
+        padding: 6px;
+        height: auto;
         background-color: white;
-        width: 200px;
-        text-indent: 10px;
+        width: 210px;
+        text-indent: 2px;
+        &::-webkit-input-placeholder {
+            color: transparent;
+            font-size: 13px;
+            font-style: italic;
+            font-family: 'Museo';
+        }
+
+        &::-moz-placeholder {
+            color: transparent;
+            font-size: 13px;
+            font-family: 'Museo';
+            font-style: italic;
+        }
+
+        &:focus, &:hover{
+            border: 1px solid $wetopia-aqua;
+            &::-webkit-input-placeholder {
+                color: $gray-lighter;
+            }
+
+            &::-moz-placeholder {
+                color: $gray-lighter;
+            }
+        }
 
         &::-webkit-search-cancel-button {
             -webkit-appearance: none;
@@ -1321,6 +1366,7 @@ nav {
             width: 120px !important;
             padding: 5px 10px !important;
             top: 50%;
+            left: 2px;
             border-radius: 6px !important;
 
             &::after,
@@ -1424,13 +1470,18 @@ nav {
 }
 
 .red-text {
-    color: $wetopia-red;
+    color: $wetopia-red !important;
 
     &.error {
         font-size: 11px !important;
         position: absolute;
         bottom: -25px;
         left: 33px;
+        width: auto;
+
+        &.bottom-0{
+          bottom:0px;
+        }
 
         &.more {
             bottom: -30px;
@@ -1438,6 +1489,27 @@ nav {
 
         &.less {
             bottom: -20px;
+        }
+
+        &.less-25{
+          bottom: -25px;
+        }
+
+        &.left-0{
+          left: 0px;
+        }
+
+        &.less-15 {
+          bottom: -15px;
+        }
+
+        &.left{
+          left: 50px;
+          &.textarea{
+            @media screen and (max-width: 650px){
+             left: 0;
+            }
+          }
         }
     }
 
@@ -1494,7 +1566,7 @@ nav {
 .idea-info,
 .max-cont {
     width: 100%;
-    background: $gray-bg;
+    background: white;
     height: auto;
     text-align: center;
     padding: 120px 10px 80px;
@@ -1593,6 +1665,12 @@ nav {
     text-align: center;
     margin: auto;
 
+    &.upper-margin{
+      @media screen and (max-width: 1020px){
+        margin-top: 50px;
+      }
+    }
+
     &.left-align {
         text-align: left;
 
@@ -1685,6 +1763,7 @@ nav {
         top: 0;
         bottom: 30px;
     }
+    word-break: break-all;
     @include font( 'Museo', 300);
 }
 
@@ -1698,7 +1777,7 @@ nav {
 .idea-header {
     text-align: left;
     height: auto;
-    margin: auto;
+    margin: auto auto auto 0;
 
     .pivote-t {
         margin: {
@@ -1770,7 +1849,7 @@ nav {
 
     .blue-text {
         display: inline-block;
-        margin-left: 5px;
+        margin-left: 0px;
         vertical-align: -webkit-baseline-middle;
     }
 
@@ -1866,7 +1945,8 @@ nav {
 }
 
 .comment {
-    max-width: 500px;
+  max-width: 500px;
+  width: 100%;
 
     p {
         clear: both;
@@ -2159,6 +2239,7 @@ nav {
         @extend %white-tooltip;
         margin-top: -4px;
         left: 65%;
+        z-index: 1000;
 
         &::after,
         &::before {
@@ -2477,8 +2558,8 @@ nav {
         flex-direction: row;
 
         .polygon-clip-hexagon {
-            height: 20px;
-            width: 16px;
+            height: 30px;
+            width: 28px;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -2494,7 +2575,7 @@ nav {
         }
 
         .right-img {
-            height: 15px;
+            height: 18px;
             margin: auto 0 auto auto;
         }
     }
@@ -2533,7 +2614,8 @@ nav {
     height: 160px;
 
     .dark-title {
-        margin: 10px auto 10px 0;
+        margin: 10px auto 5px 0;
+        font-size: 16px;
         text-align: left;
         @include font( 'Museo', 900);
     }
@@ -2541,7 +2623,7 @@ nav {
     .card-p {
         margin: 0 auto auto 0;
         text-align: left;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .left {
@@ -2561,15 +2643,15 @@ nav {
             @include font( 'Museo', 300);
             display: inline-block;
             width: auto;
-            margin: auto auto auto 3px;
-            font-size: 11px;
+            margin: auto auto auto 0px;
+            font-size: 15px;
         }
     }
 }
 
 .dark-title {
     font: {
-        size: 14px;
+        size: 18px;
         weight: bolder;
     }
     color: $gray-dark;
@@ -2577,7 +2659,7 @@ nav {
 
 .card-p {
     @include font( 'Museo', 300);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .upper-img {
@@ -2621,12 +2703,10 @@ nav {
 
 .footer-nav {
     margin-top: -8px;
-
-    a {
+    p {
         color: $gray-lighter;
         display: inline-block;
-        font-size: 11px;
-        margin: 0 2px;
+        font-size: 13px;
     }
     text-align: center;
 }
@@ -2991,10 +3071,6 @@ nav {
     position: absolute;
 }
 
-.sub-gray {
-    font-size: 28px;
-    text-align: center;
-}
 
 #notifications-icon {
     height: 30px;
@@ -3041,7 +3117,7 @@ nav {
         -webkit-clip-path: url("#polygon-clip-hexagon");
         clip-path: url("#polygon-clip-hexagon");
         height: 35px;
-        width: 33px;
+        width: 30px;
         display: inline-flex;
         margin: auto 5px;
         background: {
@@ -3832,6 +3908,19 @@ nav {
     }
 }
 
+.edit-icon{
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  z-index: 1000;
+  height: 16px;
+  cursor: pointer;
+
+  &.top{
+    top: 0px;
+  }
+}
+
 .close-x {
     color: $pt-gray;
     position: absolute;
@@ -3863,6 +3952,7 @@ nav {
 
         .normal-paragraph {
             margin: 0 15px;
+            width: 100%;
         }
         @media screen and (max-width: 500px) {
             padding: 25px 20px;
@@ -3911,7 +4001,7 @@ nav {
         }
 
         .form-description {
-            max-width: 450px;
+            width: 450px;
             min-width: 200px;
             padding: 0 20px;
             margin: auto;
@@ -3945,14 +4035,6 @@ nav {
 
     .flex-cont {
         padding: 25px 35px;
-
-        .sub-gray {
-            color: $gray-dark;
-            letter-spacing: 1px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            margin-top: 10px;
-        }
 
         input {
             &:not(.selector) {
@@ -4533,6 +4615,11 @@ bluelink {
     width: auto;
     display: inline-block;
 
+    &.width-100{
+      width: 100%;
+      position: relative;
+    }
+
     &.relative {
         position: relative;
     }
@@ -4822,6 +4909,7 @@ bluelink {
         left: 0;
         font-size: 13px;
         color: $gray-dark;
+        padding: 0;
         @include font("Museo", 300);
     }
 
@@ -5092,6 +5180,10 @@ bluelink {
     font-size: 20px;
     font-family: 'Museo';
 
+    &.bolder{
+      font-weight: bold;
+    }
+
     &.dark {
         font-family: 'Museo_D';
     }
@@ -5102,11 +5194,11 @@ bluelink {
     max-width: 500px;
 
     .polygon-clip-hexagon {
-        height: 30px;
-        width: 27px;
+        height: 35px;
+        width: 30px;
         background-size: cover;
         background-repeat: no-repeat;
-        margin: auto 5px auto 0;
+        margin: auto 8px auto 0;
     }
 
     .star-img {
@@ -5118,7 +5210,8 @@ bluelink {
 
     p {
         font-family: 'Museo';
-        font-size: 17px;
+        font-size: 18px;
+        line-height: 18px;
         margin: auto 5px auto 0;
 
         &.username {
@@ -5139,10 +5232,17 @@ bluelink {
 .comments {
     margin: 15px auto auto 0;
     max-width: 500px;
+
+    .tab-paragraph{
+      margin: 0px auto auto 38px;
+      font-size: 16px;
+      line-height: 16px;
+    }
+    font-family: 'Museo';
 }
 
 .comment {
-    margin: 5px auto;
+    margin: 0px auto 20px auto;
 }
 
 .tab-paragraph {
@@ -5152,6 +5252,7 @@ bluelink {
         margin: {
             left: 0;
         }
+        max-width: 410px;
     }
 }
 
@@ -5166,12 +5267,21 @@ bluelink {
     padding: 8px 10px;
     cursor: pointer;
 
+
     &.right {
         margin: auto 0 auto auto;
     }
 
     &.left {
         margin: auto auto auto 0;
+
+        &.indent{
+          padding: 8px 0px;
+
+          @media screen and (min-width: 650px){
+            margin-left: 52px;
+          }
+    }
     }
 
     &.gray-dark {
@@ -5238,7 +5348,9 @@ bluelink {
     &.complete-form {
         width: 110px;
         font-size: 18px;
-        padding: 5px;
+        padding: 8px 0px;
+        font-family: 'Museo';
+        font-weight: bold;
         border-radius: 6px;
     }
 
@@ -5306,7 +5418,9 @@ bluelink {
 }
 
 #location-img {
-    margin-right: 5px;
+  margin-left: 8px;
+  vertical-align: -webkit-baseline-middle;
+
 }
 
 .send-feedback-btn {
@@ -5332,6 +5446,32 @@ bluelink {
     }
 }
 
+
+.sub-gray {
+  font-size: 28px;
+  text-align: center;
+    color: $gray-dark;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+
+
+    &.light{
+      color: $gray-lighter;
+      margin-bottom: 10px !important;
+      font-weight: bold;
+      font-family: 'Museo';
+    }
+
+    &.medium-margin{
+      margin: 20px auto;
+
+      &.no-bottom{
+        margin-bottom: 10px;
+      }
+    }
+}
+
 .justify-textarea {
     margin: 20px 60px 0 !important;
     width: 280px !important;
@@ -5347,9 +5487,20 @@ bluelink {
     font-family: 'Museo_700';
     font-size: 30px;
     width: auto;
+    line-height: 30px !important;
+
+    &.disable{
+      color: $gray-lighter;
+    }
 
     &.left {
         margin: auto auto auto 0;
+    }
+
+    &.bigger{
+      font-size: 40px;
+      height: 40px !important;
+      width: 100%;
     }
 
     &.subtitle {
@@ -5377,6 +5528,20 @@ bluelink {
     &.left {
         margin: auto auto auto 0;
     }
+}
+
+.small-blue{
+  font-size: 16px;
+  font-family: 'Museo_D';
+  margin-left: 5px;
+  color: $wetopia-blue;
+  width: 100px !important;
+  text-indent: 3px;
+
+  &[name="edit-idea-location-input"]{
+    vertical-align: baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
 }
 
 .profile-img {
@@ -5407,6 +5572,10 @@ bluelink {
     width: auto;
     padding-right: 35px;
 
+    .padding{
+      padding: 2px 0;
+    }
+
     .subtitle {
         margin-bottom: 5px;
     }
@@ -5417,6 +5586,10 @@ bluelink {
     margin: 0 auto auto 10px;
     height: auto;
     width: auto;
+
+    input{
+      height: 20px;
+    }
 
     .subtitle {
         margin-bottom: 5px;
@@ -5479,6 +5652,10 @@ bluelink {
     display: none;
 }
 
+#idea-input-banner{
+  display: none;
+}
+
 .simple-input {
     width: 200px;
     border-radius: 1px !important;
@@ -5495,6 +5672,10 @@ bluelink {
 
     &[type=date] {
         text-indent: 3px;
+    }
+
+    &.bigger-title{
+      height: 30px;
     }
 
     &.title-dark {
@@ -5873,63 +6054,54 @@ video#bgvid {
 }
 
 .team-cont {
-    margin-left: 0;
-    height: auto;
-    padding: 0 0 20px;
-    width: auto;
+    margin: auto 10px;
+    height: 160px;
+    width: 160px;
+    transition: all linear 0.5s;
+
+    &.click, &:hover{
+      img{
+        width: 100px;
+        transition: all linear 0.5s;
+      }
+
+      .simple-paragraph{
+        display: block;
+        -webkit-animation: fadeIn 0.5s linear 0s;
+        -moz-animation: fadeIn 0.5s linear 0s;
+        -o-animation: fadeIn 0.5s linear 0s;
+        animation: fadeIn 0.5s linear 0s;
+      }
+    }
 
     .simple-cont {
         text-align: left;
-        margin: auto auto auto 15px;
+        margin: 5px auto auto auto;
         width: auto;
-        height: 60px;
     }
 
     img {
         width: 80px;
-        margin: auto 0 auto auto;
+        margin: auto auto 0px auto;
         cursor: pointer;
-        @media screen and (max-width: 800px) {
-            margin-left: 200px;
-        }
-        @media screen and (max-width: 650px) {
-            margin-left: 180px;
-        }
-        @media screen and (max-width: 500px) {
-            margin-left: 150px;
-        }
-        @media screen and (max-width: 450px) {
-            margin-left: 130px;
-        }
-        @media screen and (max-width: 400px) {
-            margin-left: 100px;
-        }
-        @media screen and (max-width: 350px) {
-            margin-left: 70px;
-        }
+        transition: all linear 0.5s;
     }
 
     .simple-paragraph {
         line-height: 17px;
-        margin-bottom: 0;
+        margin-bottom: 5px;
         text-align: left;
+        display: none;
+        -webkit-animation: fadeOut 0.3s linear 0s;
+        -moz-animation: fadeOut 0.3s linear 0s;
+        -o-animation: fadeOut 0.3s linear 0s;
+        animation: fadeOut 0.3s linear 0s;
     }
 
     .small-italic {
-        margin-top: 3px;
         font-weight: lighter;
         text-align: left;
-    }
-    @media screen and (max-width: 1200px) and (min-width: 900px) {
-        flex-direction: column !important;
-
-        img {
-            margin: auto auto 0 !important;
-        }
-
-        .simple-cont {
-            margin: 5px auto auto !important;
-        }
+        font-size: 14px;
     }
 }
 
@@ -5941,64 +6113,9 @@ video#bgvid {
 }
 
 #team-graph {
+    max-width: 650px;
     width: 100%;
-
-    .simple-cont {
-        text-align: right;
-    }
-}
-
-.team-side {
-    height: 350px;
-    width: auto;
-    justify-content: flex-start;
-    margin: 80px auto auto;
-    @media screen and (max-width: 900px) {
-        flex-wrap: wrap;
-        height: auto;
-        margin: auto;
-        justify-content: flex-start;
-        width: 70%;
-
-        .team-cont {
-            margin: auto 20px;
-        }
-    }
-    @media screen and (max-width: 800px) {
-        width: 83%;
-    }
-    @media screen and (max-width: 630px) {
-        width: 100%;
-    }
-    @media screen and (max-width: 610px) {
-        flex-direction: column;
-
-        .team-cont {
-            margin-left: 0;
-        }
-
-        .team-side {
-            margin-left: 100px;
-        }
-    }
-}
-
-#team-center {
-    max-width: 600px;
-    height: auto;
-    @media screen and (max-width: 800px) {
-        order: -1;
-    }
-}
-
-#all-team-container {
-    @media screen and (max-width: 800px) {
-        flex-wrap: wrap;
-
-        .team-cont {
-            height: 110px;
-        }
-    }
+    margin: auto;
 }
 
 .uppercase {
@@ -6127,4 +6244,50 @@ video#bgvid {
 
 .no-clickable{
   cursor: default;
+}
+
+.numeration{
+  &:after{
+    content: 'th Pivot'
+  }
+  &.first{
+    &:after{
+      content: 'st Pivot'
+    }
+  }
+  &.second{
+    &:after{
+      content: 'nd Pivot'
+    }
+  }
+}
+
+
+.delete{
+  color: $gray-lighter;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  font-weight: bolder;
+
+  &:hover, &:active{
+    color: $color-red;
+  }
+
+  &.right{
+    margin: auto 0px auto 20px;
+  }
+
+}
+
+.swap-animation.ng-enter {
+  transition:0.5s linear all;
+}
+.swap-animation.ng-enter {
+  opacity: 0;
+  transition: 0.5s;
+}
+.swap-animation.ng-enter-active {
+  opacity: 1;
+  transition: 0.5s;
 }

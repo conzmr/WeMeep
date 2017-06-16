@@ -1,13 +1,117 @@
 angular.module('wetopiaApp')
-    .controller('ideaCtrl', function($scope) {
+      .filter('enumeration', function($filter){
+        return function(input)
+        {
+          if(input == null){ return ""; }
+          else if(input == 1){
+            return input+"st Pivot";
+          }
+          else if(input == 2){
+            return input+"nd Pivot";
+          }
+          else{
+            return input+"th Pivot";
+          }
+        };
+      })
+    .controller('ideaCtrl', function($scope, ideaDataService, $state, $filter, $stateParams, categoriesDataService, localStorageService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
         $scope.showPivots = false;
-        $scope.pivots = ['1st Pivot', '2nd Pivot', '3th Pivot'];
-        $scope.pivotSelected = $scope.pivots[0];
         $scope.like = "";
         $scope.likeFeedback = false;
+        $scope.categoriesBanner = categoriesDataService.categories;
+        var idea_id= $stateParams.idea_id;
+        var user_id = localStorageService.get('user_id');
+        $scope.currentUser = {};
+        $scope.currentPivot = 1;
+        var currentComment = "";
+        var commentIndex = "";
+        $scope.pivotSelected = $filter('enumeration')($scope.currentPivot);
+        $scope.currentUser.email = localStorageService.get('email');
+        $scope.currentUser.username = localStorageService.get('username');
+        $scope.currentUser.image = localStorageService.get('image');
+
+        $scope.logOut = function(){
+          localStorageService.clearAll();
+          $state.go('landing');
+        }
+
+        $scope.wantoToDeleteFeedback = function(comment_id, index){
+          $scope.wantToDeleteComment = true;
+          currentComment = comment_id;
+          commentIndex = index;
+        }
+
+        $scope.deleteFeedback = function(){
+          ideaDataService.deleteFeedback(currentComment, function(response){
+            if(response.status==200){
+              $scope.idea.feedback.splice(commentIndex, 1);
+            }
+          })
+          $scope.wantToDeleteComment = false;
+          $scope.deletedComment = true;
+        }
+
+        $scope.giveStartToFeedback = function(feedback_id, index){
+          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+            if(response.status==201){
+              $scope.idea.feedback[index].stars.push(response.data);
+            }
+          }, function(response){
+            switch (response.status) {
+              case 400:
+                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
+                  if(response.status==201){
+                      $scope.idea.feedback[index].stars.splice(commentIndex, 1);
+                  }
+                })
+                break;
+            }
+          })
+        }
+
+        function giveLike(like_type){
+          let like = {
+            interest: like_type,
+            comment: $scope.whyInterest
+          }
+          ideaDataService.giveLike(idea_id, $scope.currentPivot, like, function(response){
+            console.log(response);
+          })
+        }
+
+        $scope.giveFeedback = function(){
+          if($scope.newComment){
+            let newComment = {
+              text : $scope.newComment
+            };
+            ideaDataService.giveFeedback(idea_id, newComment, function(response){
+              $scope.idea.feedback.push(response.data.feedback);
+            })
+          }
+        }
+
+        $scope.getIdea = function(pivotNumber){
+          $scope.showPivots = false;
+          ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
+            if(response.data){
+              console.log(response.data);
+              $scope.currentPivot = pivotNumber;
+              $scope.idea = response.data;
+              if($scope.idea.admin._id == user_id){
+                $state.go('myIdea', {idea_id:idea_id});
+              }
+            }
+          })
+        }
+
+        $scope.getIdea($scope.currentPivot);
+
+        var getBannerImage = function(category){
+          return $scope.categoriesBanner[category].banner;
+        }
 
         $scope.changeLike = function(like){
           if($scope.like==like){
@@ -16,8 +120,14 @@ angular.module('wetopiaApp')
           }
           else{
             $scope.like = like;
+            giveLike(like);
             $scope.likeFeedback = true;
           }
+        }
+
+        $scope.logOut = function(){
+          localStorageService.clearAll();
+          $state.go('landing');
         }
 
         $scope.changeShowNotifications = function(){
@@ -28,50 +138,7 @@ angular.module('wetopiaApp')
           $scope.showUserMenu = !$scope.showUserMenu;
         }
 
-        $scope.selectPivot = function(pivot){
-          $scope.pivotSelected = pivot;
-          $scope.showPivots = false;
-        }
-
         $scope.changeShowPivots = function(){
           $scope.showPivots = !$scope.showPivots;
         }
-
-        $scope.feedback = [{
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 12,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 7,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 2,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 0,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        },
-        {
-          firstname : "FirstName",
-          username : "Username",
-          img : "/static/img/PROJECT_VIEWS/User_ICON.svg",
-          stars: 8,
-          comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut hendrerit ex massa, et pellentesque enim blandit ac."
-        }
-      ]
-
     })

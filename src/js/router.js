@@ -7,6 +7,12 @@ angular.module('wetopiaApp')
                 templateUrl: "/static/views/wetopiaLanding.html",
                 authenticate: false //Doesn't requires authentication
             })
+            .state("landingAction", {
+                url: "/:actionParam",
+                controller: "landingCtrl",
+                templateUrl: "/static/views/wetopiaLanding.html",
+                authenticate: false //Doesn't requires authentication
+            })
             .state("home", {
                 url: "/home",
                 controller: "homeCtrl",
@@ -14,13 +20,13 @@ angular.module('wetopiaApp')
                 authenticate: true
             })
             .state("myIdea", {
-                url: "/myIdea",
+                url: "/idea/:idea_id",
                 controller: "myIdeaCtrl",
                 templateUrl: "/static/views/myIdea.html",
                 authenticate: true
             })
             .state("idea", {
-                url: "/idea",
+                url: "/idea/:idea_id",
                 controller: "ideaCtrl",
                 templateUrl: "/static/views/idea.html",
                 authenticate: true
@@ -75,6 +81,18 @@ angular.module('wetopiaApp')
                 templateUrl: "/static/views/test.html",
                 authenticate: true
             })
+            .state("file", {
+                url: "/B82F78012D19096C9C02329214B6873A.txt",
+                controller: function($http){
+                    return $http.get(HOST + '/api/download-file', {
+                        cache: true
+                    }).then(function(response) {
+                        console.log(response);
+                    });
+                },
+                templateUrl: "/static/B82F78012D19096C9C02329214B6873A.txt",
+                authenticate: false //Doesn't requires authentication
+            })
 
 
         // Send to landingpage if the URL was not found
@@ -111,8 +129,9 @@ angular.module('wetopiaApp')
     })
 
 //Run service to check the token is valid
-.run(function($rootScope, $state, AuthService, $injector) {
+.run(function($rootScope, $state, AuthService,  $window, $injector) {
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+       $window.scrollTo(0, 0);
         if (toState.authenticate && !AuthService.isAuthenticated()) { // User isn’t authenticated
             $state.transitionTo("landing"); //If it's not valid redirect to login
             event.preventDefault();

@@ -1,6 +1,6 @@
 angular.module("wetopiaApp")
 
-.controller("landingCtrl", function($scope, $document, $window, $state, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper) {
+.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper) {
     $scope.join = false;
     $scope.login = false;
     $scope.request = false;
@@ -28,28 +28,46 @@ angular.module("wetopiaApp")
     $scope.usernameError=false;
     $scope.user={};
     $scope.graphImg={
-      Mario : '/static/img/Mario.png',
-      Constanza : '/static/img/Conz.png',
-      Luis : '/static/img/Luis.png',
-      Ele : '/static/img/Ele.png',
-      Pedro : '/static/img/Pedro.png',
-      All: '/static/img/COMPLETA.png'
+      Mario : '/static/img/GRAPH/test-grafica_mario.png',
+      Constanza : '/static/img/GRAPH/test-grafica_cons.png',
+      Luis : '/static/img/GRAPH/test-grafica_luis.png',
+      Ilse : '/static/img/GRAPH/test-grafica_ilse.png',
+      Pedro : '/static/img/GRAPH/test-grafica_pedro.png',
+      All: '/static/img/GRAPH/test-grafica_todos.png'
     }
-    $scope.graph=$scope.graphImg['All'];
+    var actionParam = $stateParams.actionParam;
+
+    if(actionParam){
+      if(actionParam == 'login'){
+        $scope.login = true;
+      }
+      else if(actionParam == 'signup'){
+        $scope.join = true;
+      }
+    }
+
+    $scope.selectedMember = 'All';
+    $scope.graph=$scope.graphImg[$scope.selectedMember];
 
     $scope.changeGraph = function(name){
-      if($scope.graph == $scope.graphImg[name]){
-        $scope.graph = $scope.graphImg['All'];
+      if($scope.selectedMember == name){
+        $scope.selectedMember = 'All';
       }
       else{
-        $scope.graph = $scope.graphImg[name];
+        $scope.selectedMember = name;
       }
+      $scope.graph=$scope.graphImg[$scope.selectedMember];
+      // if($scope.graph == $scope.graphImg[name]){
+      //   $scope.graph = $scope.graphImg['All'];
+      // }
+      // else{
+      //   $scope.graph = $scope.graphImg[name];
+      // }
     }
 
     //mails id
-    $scope.enMail = '8e523446-ee22-43be-9d98-fe872989fc47'
-    $scope.esMail = '3284a8f2-977a-4b4c-a98b-77bfd62f7090'
-
+    $scope.enMail = '8e523446-ee22-43be-9d98-fe872989fc47';
+    $scope.esMail = '3284a8f2-977a-4b4c-a98b-77bfd62f7090';
 
       $scope.titleWords=[$translate.instant('RANDCREATE'), $translate.instant('RANDJOIN'), $translate.instant('RANDHELP')];
       $scope.subtitles=[[$translate.instant('WORLD'),$translate.instant('INFLUENTIAL'),
@@ -336,7 +354,6 @@ $scope.signUp = function (invalidEmail) {
       $scope.emailMessageError = "Please enter a valid email address."
       break;
     }
-
 }
 );
 }
@@ -346,13 +363,10 @@ $scope.signIn = function(invalidEmail) {
   var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
-    console.log(invalidEmail);
-    console.log("error here");
     $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
   }
   if(invalidEmail){
-    console.log(invalidEmail+"invalid");
     toLogUser.username = $scope.user.email;
   }
   else{
@@ -364,7 +378,6 @@ $scope.signIn = function(invalidEmail) {
   }
   if($scope.user.email&&$scope.user.password){
     toLogUser.password = $scope.user.password;
-    console.log(toLogUser);
   loginDataService.authenticate(toLogUser,
   function(res) {
     localStorageService.clearAll();
@@ -372,6 +385,7 @@ $scope.signIn = function(invalidEmail) {
     localStorageService.set('username', res.data.username);
     localStorageService.set('email', res.data.email);
     localStorageService.set('user_id', res.data._id);
+      localStorageService.set('image', res.data.image);
     $state.go('home');
   },
   function(res) { //error callback
@@ -401,7 +415,7 @@ $scope.signIn = function(invalidEmail) {
 
 $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
-	};
+};
 
 
 })

@@ -3,9 +3,9 @@ angular.module('wetopiaApp')
 
         this.idea = {};
 
-        this.setIdea = function(callback, errCallback) {
-          $http.post(window.HOST + '/api/ideas/self/create', this.idea)
-              .then(callback, errCallback)
+        this.setIdea = function(callback, errorCallback) {
+           $http.post(window.HOST + '/api/ideas/self/create', this.idea)
+              .then(callback, errorCallback)
         };
 
         // this.getProject = function (project_id, callback) {

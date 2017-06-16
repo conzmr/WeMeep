@@ -35,10 +35,8 @@
                   <div class="form-input flex-cont email">
                     <p class="center-paragraph ">{{'REASONS' | translate }}</p>
                     <p class="simple-paragraph">{{'THING' | translate }}</p>
-                      <p class="sub-paragraph fadeIn fast">{{'SOON' | translate }}</p>
-                      <input type="email" ng-style="errorHeader && {'color':'#F26649'}" ng-click="clearRequest()"  ng-model="guestEmail" name="request-email" placeholder="Email" required="true">
-                      <p class="red-text error" ng-bind="mailRequestError" ng-show="errorHeader"></p>
-                      <a class="blue-button join-button join-btn-land request-btn" href="" ng-click="submit(guestEmail, 'header')">{{'EMAIL_JOIN' | translate }}</a>
+                      <!-- <p class="sub-paragraph fadeIn fast">{{'SOON' | translate }}</p> -->
+                      <a class="blue-button join-button join-btn-land request-btn border-complete" ng-click="join=true">{{'SIGNNOW' | translate }}!</a>
                   </div>
 
             </div>
@@ -166,59 +164,68 @@
 
     <div class="flex-cont" id="our-team" >
       <p class="sub-gray">{{'TEAM' | translate }}</p>
-      <div class="flex-cont row" id="all-team-container">
-      <div class="flex-cont team-side">
-        <div class="flex-cont row team-cont ">
-          <img src="/static/img/Geppe_IMG.png" alt="Pedro Camarena"
-          id='pedro' ng-click="changeGraph('Pedro')"
-          click-outside="changeGraph('All')" outside-if-not="luis mario constanza ele">
-          <div class="simple-cont">
-            <p class="simple-paragraph">{{'PEDRO' | translate }}</p>
-            <p class="small-italic">{{'MANAGER' | translate }}</p>
-          </div>
+      <div class="flex-cont" >
+        <div class="flex-cont">
+          <img id="team-graph" ng-src="{{graph}}" >
         </div>
-        <div class="flex-cont row team-cont ">
-          <img src="/static/img/Luis_IMG.png" alt="Luis Mendoza"
-          id='luis'  ng-click="changeGraph('Luis')"
-          click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ele">
-          <div class="simple-cont">
-            <p class="simple-paragraph">{{'LUIS' | translate }}</p>
-            <p class="small-italic">{{'BRAND' | translate }}</p>
+        <div class="flex-cont row wrap">
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Pedro'}"
+          ng-mouseover="changeGraph('Pedro')" ng-mouseout="changeGraph('Pedro')">
+            <img src="/static/img/TEAM/team-pedro.png" alt="Pedro Camarena"
+            id='pedro' ng-click="changeGraph('Pedro')"
+            click-outside="changeGraph('All')" outside-if-not="luis mario constanza ilse">
+            <div class="simple-cont">
+              <p class="simple-paragraph">{{'PEDRO' | translate }}</p>
+              <p class="small-italic">{{'MANAGER' | translate }}</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="flex-cont" id="team-center">
-        <img id="team-graph" ng-src="{{graph}}" alt="Wetopia team graph">
-        <div class="flex-cont row team-cont ">
-          <img src="/static/img/MARIO_IMG.png" alt="Mario García"
-          id="mario" ng-click="changeGraph('Mario')"
-         click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ele">
-          <div class="simple-cont">
-            <p class="simple-paragraph">{{'MARIO' | translate }}</p>
-            <p class="small-italic">{{'BACK' | translate }}</p>
+
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Luis'}"
+          ng-mouseover="changeGraph('Luis')" ng-mouseout="changeGraph('Luis')">
+            <img src="/static/img/TEAM/team-luis.png" alt="Luis Mendoza"
+            id='luis'  ng-click="changeGraph('Luis')"
+            click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ilse">
+            <div class="simple-cont">
+              <p class="simple-paragraph">{{'LUIS' | translate }}</p>
+              <p class="small-italic">{{'BRAND' | translate }}</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="flex-cont team-side">
-        <div class="flex-cont row team-cont ">
-          <img src="/static/img/Conz_IMG.png" alt="Constanza Madrigal"
-          id="constanza" ng-click="changeGraph('Constanza')"
-         click-outside="changeGraph('All')" outside-if-not="luis mario pedro ele">
-          <div class="simple-cont">
-            <p class="simple-paragraph">{{'CONZ' | translate }}</p>
-            <p class="small-italic">{{'FRONT' | translate }}</p>
+
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Constanza'}"
+           ng-mouseover="changeGraph('Constanza')" ng-mouseout="changeGraph('Constanza')">
+            <img src="/static/img/TEAM/team-cons.png" alt="Constanza Madrigal"
+            id="constanza" ng-click="changeGraph('Constanza')"
+           click-outside="changeGraph('All')" outside-if-not="luis mario pedro ilse">
+            <div class="simple-cont">
+              <p class="simple-paragraph">{{'CONZ' | translate }}</p>
+              <p class="small-italic">{{'FRONT' | translate }}</p>
+            </div>
           </div>
-        </div>
-        <div class="flex-cont row team-cont ">
-          <img src="/static/img/ELE_IMG.png" alt="Eleonora Paredes"
-          id="ele" ng-click="changeGraph('Ele')"
-          click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
-          <div class="simple-cont">
-            <p class="simple-paragraph">{{'ELE' | translate }}</p>
-            <p class="small-italic">{{'DESIGN' | translate }}</p>
+
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Mario'}"
+          ng-mouseover="changeGraph('Mario')" ng-mouseout="changeGraph('Mario')">
+            <img src="/static/img/TEAM/team-mario.png" alt="Mario García"
+            id="mario" ng-click="changeGraph('Mario')"
+           click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ilse">
+            <div class="simple-cont">
+              <p class="simple-paragraph">{{'MARIO' | translate }}</p>
+              <p class="small-italic">{{'BACK' | translate }}</p>
+            </div>
           </div>
+
+          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Ilse'}"
+          ng-mouseover="changeGraph('Ilse')" ng-mouseout="changeGraph('Ilse')">
+            <img src="/static/img/TEAM/team-ilse.png" alt="Ilse Mora"
+            id="ilse" ng-click="changeGraph('Ilse')"
+            click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
+            <div class="simple-cont">
+              <p class="simple-paragraph">{{'ILSE' | translate }}</p>
+              <p class="small-italic">{{'DESIGN' | translate }}</p>
+            </div>
+          </div>
+
         </div>
-      </div>
+
 
 
       </div>
@@ -228,12 +235,8 @@
 <div class="flex-cont" id="bottom-land-bg" >
   <p class="center-paragraph">{{'WAITING' | translate }}</p>
   <p class="simple-paragraph">{{'TODAY' | translate }}.</p>
-<!--  <a class="blue-button join-button join-btn-land " href="" ng-click="join=true ">Join Now!</a>-->
 <div class="form-input flex-cont email" id="form-input-footer">
-    <p class="sub-paragraph fadeIn fast center-advice">{{'LAUNCHING' | translate }}</p>
-    <input type="email" ng-style="errorFooter && {'color':'#F26649'}" ng-click="clearRequest()" ng-model="userEmail" name="request-email" placeholder="Email" required="true">
-    <p class="red-text error" ng-bind="mailRequestError" ng-show="errorFooter"></p>
-    <a class="blue-button join-button join-btn-land request-btn"  href="" ng-click="submit(userEmail, 'footer')">{{'JOIN_FOOTER' | translate }}</a>
+  <a class="blue-button join-button join-btn-land request-btn border-complete" ng-click="join=true">{{'SIGNNOW' | translate }}!</a>
 </div>
 </div>
 </div>
@@ -261,6 +264,7 @@
 
   <div class="right">
     <p class="medium-bold">Wetopia (c) 2017</p>
+    <a href="/blog" class="small">Blog</a>
     <!--
     <p class="small">Terms & Conditions</p>
     <p class="small">Privacy Policy</p>
