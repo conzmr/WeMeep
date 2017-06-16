@@ -737,10 +737,10 @@ router.route('/ideas/:idea_id/:pivot/stats')
       ]
 
       const promises = [
-        Idea.aggregate(interestAggregator).exec()
-        // Idea.aggregate(viewAggregator).exec(),
-        // Idea.aggregate(feedbackAggregator).exec(),
-        // Feedback.aggregate(starsAggregator).exec()
+        Idea.aggregate(interestAggregator).exec(),
+        Idea.aggregate(viewAggregator).exec(),
+        Idea.aggregate(feedbackAggregator).exec(),
+        Feedback.aggregate(starsAggregator).exec()
       ]
        Promise.all(promises).then(function(results) {
          res.status(200).json(results);
