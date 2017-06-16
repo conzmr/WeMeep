@@ -162,15 +162,13 @@ router.use(function(req, res, next) {
 *************************************/
 // RETURN ALL AVAILABLE CATEGORIES
 router.get('/tags', function(req, res){
-  Category.find({}, function(err, tags){
-    res.json(tags);
+  Category.find({})
+  .exec(function(err, tags){ß
+    if (err)
+      res.status(500).json({'error': err})
+    else
+      res.json(tags);
   })
-  // .exec(function(err, tags){
-  //   if (err)
-  //     res.status(500).json({'error': err})
-  //   else
-  //     res.json(tags);
-  // })
 })
 
 // GET RECOMMENDED CATEGORIES
@@ -231,12 +229,6 @@ router.route('/users/self/avatar')
   })
 })
 
-router.get('/members', function(req, res) {
-  User.find({}, 'name lastname username image', function(err, users){
-    res.json(users);
-  })
-})
-
 // GET PROFILE INFORMATION
 router.route('/users/:username') //just when the url has "id=" it will run, otherwise it will look for a username
 .get(function (req, res) {
@@ -279,30 +271,39 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
 ***          FEEDBACK              ***
 ***                                ***
 *************************************/
-// GIVE FEEDBACK TO AN IDEA
-router.route('/ideas/:idea_id/feedback')
+// GIVE FEEDBACK TO AN IDEA/PIVOT
+ router.route('/ideas/:idea_id/:pivot/feedback')
 .post(function (req, res) {
-  /* COMMENT AN IDEA */
-  let feedback = new Feedback({
-    user: req.U_ID,
-    comment: req.body.text,
-    idea: req.params.idea_id
-  });
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
 
-  feedback.save(function(err, feedback) {
-    if (err)
-      return res.status(500).json({'err':err})
-    Idea.update(
-      { _id: {$in: req.params.idea_id} },
-      { $push: {"feedback":  feedback._id} },
-      { multi: true }
-    )
-    .exec(function(err){
-      if (err)
-        return res.status(500).json({'error': err,});
-      else
-        res.status(201).json({message: 'Feedback sent.'});
-    })
+      //order pivots
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      //create comment
+      let feedback = new Feedback({
+        user: req.U_ID,
+        comment: req.body.text,
+        idea: req.params.idea_id
+      })
+
+      //save comment
+      feedback.save(function(err, feedback) {
+        if (err)  return res.status(500).json({'err':err})
+        Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id}, { $push: {'feedback': feedback._id } }, { multi: true })
+        .exec(function(err, ideas) {
+          if (err) return res.status(500).json({'error': err})
+          return res.status(200).json({'message': "Feedback sent"})
+        })
+      })
+    }
   })
 })
 
@@ -378,7 +379,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
         if (err) return res.status(500).json({'error': err})
 
         if (!ideas) {
-          Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
+          Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest} } }, { new: true })
           .exec(function(err, ideas) {
             if (err) return res.status(500).json({'error': err})
             return res.status(200).json({'message': "Success showing interest."})
