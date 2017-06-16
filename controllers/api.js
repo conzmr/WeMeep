@@ -519,7 +519,7 @@ router.route('/ideas/:idea_id/:pivot')
     }
   })
 })
-// UPDATE AN IDEA
+// UPDATE AN IDEA/PIVOT
 .put(function (req, res) {
   // Pivot Management
   const pivot = req.params.pivot
@@ -549,7 +549,7 @@ router.route('/ideas/:idea_id/:pivot')
       }
     })
 })
-// DELETE IDEA
+// DELETE IDEA AND ALL THE PIVOTS RELATED TO THE IDEA
 .delete(function (req, res) {
   const user = req.U_ID
   Idea.findById(req.params.idea_id)
@@ -592,7 +592,7 @@ router.route('/ideas/:idea_id/:pivot')
   })
 })
 
-// PIVOT AN IDEA
+// PIVOT AN IDEA (CREATE PIVOT)
 router.route('/ideas/this/:idea_id/pivot')
 .post(function (req, res) {
 
@@ -652,7 +652,7 @@ router.route('/ideas/trending')
 
         // get category of every idea
         ideas.forEach((idea) => {
-          console.log(idea);
+
           trendingIdeas.push({
             id: idea.id,
             trending: idea.views.length + idea.feedback.length,
@@ -664,7 +664,6 @@ router.route('/ideas/trending')
           })
         })
 
-        console.log(trendingIdeas);
         let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
         trendingIdeas.sort((a,b) => b.trending - a.trending);
 
@@ -695,78 +694,86 @@ router.route('/ideas/all/category/:category')
   })
 })
 
-//GET STATS FOR AN IDEA
+//GET STATS FOR AN IDEA/PIVOT
 //This function returns an array with the results only. This is the order: money, loves, likes, dislikes,
 router.route('/ideas/:idea_id/:pivot/stats')
 .get(function (req, res) {
-  Idea.findById(req.params.idea_id, 'members')
-  .exec(function (err, idea) {
-   if (err) return res.status(500).json({'error': err})
-   else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
-   else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
+  // Pivot Management
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
-      /* Interests */
-      const interestAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$interests" },
-        { $group: {
-                  _id: "$interests.type",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* View Stats */
-      const viewAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$views" },
-        { $group: {
-                  _id: "Views",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* Feedback Stats */
-      const feedbackAggregator = [
-        {
-          $match: { "_id" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$feedback" },
-        { $group: {
-                  _id: "Feedback",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
-      /* Stars in Idea */
-      const starsAggregator = [
-        {
-          $match: { "idea" : new mongoose.Types.ObjectId(req.params.idea_id)}
-        },
-        { $unwind: "$stars" },
-        { $group: {
-                  _id: "Starred Comments",
-                  count: { $sum: 1 }
-          }
-        }
-      ]
+        idea.pivots.sort((a, b) => {
+          return parseFloat(a.number) - parseFloat(b.number)
+        })
 
-      const promises = [
-        Idea.aggregate(interestAggregator).exec(),
-        Idea.aggregate(viewAggregator).exec(),
-        Idea.aggregate(feedbackAggregator).exec(),
-        Feedback.aggregate(starsAggregator).exec()
-      ]
-       Promise.all(promises).then(function(results) {
-         res.status(200).json(results);
-       }).catch(function(err){
-           res.status(500).json(err);
-       });
+        const myIdea = idea.pivots[pivot - 1].id
+          /* Interests */
+          const interestAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$interests" },
+            { $group: {
+                      _id: "$interests.type",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* View Stats */
+          const viewAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$views" },
+            { $group: {
+                      _id: "Views",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* Feedback Stats */
+          const feedbackAggregator = [
+            {
+              $match: { "_id" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$feedback" },
+            { $group: {
+                      _id: "Feedback",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
+          /* Stars in Idea */
+          const starsAggregator = [
+            {
+              $match: { "idea" : new mongoose.Types.ObjectId(myIdea)}
+            },
+            { $unwind: "$stars" },
+            { $group: {
+                      _id: "Starred Comments",
+                      count: { $sum: 1 }
+              }
+            }
+          ]
 
-    }
+          const promises = [
+            Idea.aggregate(interestAggregator).exec(),
+            Idea.aggregate(viewAggregator).exec(),
+            Idea.aggregate(feedbackAggregator).exec(),
+            Feedback.aggregate(starsAggregator).exec()
+          ]
+           Promise.all(promises).then(function(results) {
+             res.status(200).json(results);
+           }).catch(function(err){
+               res.status(500).json(err);
+           })
+
+        }
   })
 })
 
