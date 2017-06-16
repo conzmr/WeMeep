@@ -349,6 +349,7 @@ router.route('/feedback/:feedback_id')
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
           return res.status(200).json({'message': "Feedback successfully deleted"})
+          //TODO: Remove reference from idea/pivot
         })
     }
   })
@@ -392,7 +393,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
 })
 
 router.route('/ideas/self/create')
-// CREATE AN IDEA
+// CREATE AN IDEA WITH IT'S FIRST PIVOT
 .post(function (req, res) {
   let ideaname = req.body.name.split(' ').join('-').toLowerCase()
   const user = req.U_ID
@@ -452,7 +453,7 @@ router.route('/ideas/self/create')
   })
 })
 
-// GET INFORMATION FOR A SPECIFIC IDEA
+// GET INFORMATION FOR A SPECIFIC IDEA/PIVOT
 router.route('/ideas/:idea_id/:pivot')
 .get(function (req, res) {
   const pivot = req.params.pivot
@@ -492,14 +493,30 @@ router.route('/ideas/:idea_id/:pivot')
   })
 
 })
-// ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA
+// ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA/PIVOT
 .post(function (req, res) {
-  Idea.findByIdAndUpdate(req.params.idea_id, { $addToSet: {views: req.U_ID} })
-  .exec(function(err) {
-    if (err)
-      res.status(500).json({'error': err, 'success': false});
-    else
-      res.json({"message": "Successfully added a new view to the idea", "success": true})
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+
+      // order pivots
+      idea.pivots.sort((a, b) => {
+        return parseFloat(a.number) - parseFloat(b.number)
+      })
+
+      //add view to pivot
+      Idea.findByIdAndUpdate(idea.pivots[pivot - 1].id, { $addToSet: {views: req.U_ID} })
+      .exec(function(err) {
+        if (err)
+          res.status(500).json({'error': err, 'success': false});
+        else
+          res.json({"message": "Successfully added a new view to the idea", "success": true})
+      })
+    }
   })
 })
 // UPDATE AN IDEA
