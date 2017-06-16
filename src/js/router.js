@@ -8,7 +8,7 @@ angular.module('wetopiaApp')
                 authenticate: false //Doesn't requires authentication
             })
             .state("landingAction", {
-                url: "/:actionParam",
+                url: "/sign/:actionParam",
                 controller: "landingCtrl",
                 templateUrl: "/static/views/wetopiaLanding.html",
                 authenticate: false //Doesn't requires authentication

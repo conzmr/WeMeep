@@ -1,6 +1,6 @@
 <div class="flex-cont create-cont">
-    <p class="close-x" ng-click="goHome()">x</p>
-    <p class="sub-gray medium-margin no-bottom">CREATE IDEA</p>
+    <p class="close-x" ng-click="goHome()">&times</p>
+    <p class="sub-gray medium-margin">CREATE IDEA</p>
     <div class="form-description">
         <img src="/static/img/Create Idea_team.svg">
         <p class="form-subtitle">Add your team members</p>
@@ -29,16 +29,33 @@
          </div>
      </div>
     <input class="blue-button form-button lessmargin-button" type="button" name="selectTeam-button" id="done-btn-create" value="Done" ng-click="createIdea()">
+
+    <svg class="clip-svg">
+  <defs>
+    <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+      <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+    </clipPath>
+  </defs>
+</svg>
+
 </div>
 
 <div class="flex-modal white alert-modal" ng-show="inputTeamMembers">
     <div class="centered-form modal-form" id="input-team-members" click-outside="inputTeamMembers=false" outside-if-not="add-members create-team-img tag-project">
         <div class="flex-cont create-cont">
-            <p class="close-x" ng-click="inputTeamMembers=false">x</p>
+            <p class="close-x" ng-click="inputTeamMembers=false">&times</p>
             <p class="sub-gray medium-margin no-bottom">ADD YOUR TEAM</p>
             <tags-input id="team-members-tags" ng-model="idea.members" key-property="_id" display-property="name" placeholder="Add Member" replace-spaces-with-dashes="false" max-tags="3" min-length="0" add-from-autocomplete-only="true" template="tag-project">
                 <auto-complete highlight-matched-text="false" source="loadMembers($query)" min-length="0" load-on-focus="true" load-on-empty="true" max-results-to-show="35" template="autocomplete-project"></auto-complete>
             </tags-input>
+
+            <svg class="clip-svg">
+          <defs>
+            <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
+              <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
+            </clipPath>
+          </defs>
+        </svg>
 
 
             <script type="text/ng-template" id="tag-project">
@@ -59,19 +76,14 @@
                         <div class="user-team-img polygon-clip-hexagon" ngf-background="data.image || '/static/img/Default_Profile_IMG.svg'">
                         </div>
                     </div>
+                    <div class="flex-cont username-name-tag">
                     <span class="name-tag" ng-bind-html="$highlight($getDisplayText())"></span>
                   <span class="user-tag">@{{data.username}}</span>
+                  </div>
                     <img class="create-team-img" src="/static/img/Create Idea_add.svg">
                 </div>
             </script>
 
-            <svg class="clip-svg">
-  <defs>
-    <clipPath id="polygon-clip-hexagon" clipPathUnits="objectBoundingBox">
-      <polygon points="0.5 0, 1 0.25, 1 0.75, 0.5 1, 0 0.75, 0 0.25" />
-    </clipPath>
-  </defs>
-</svg>
 <div class="simple-cont flex" id="btn-cont-members">
             <input class="blue-button form-button done-button" type="button" name="done-selection" value="Done" ng-click="inputTeamMembers=false">
 </div>

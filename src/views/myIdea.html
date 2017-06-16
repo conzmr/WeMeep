@@ -128,8 +128,8 @@
                 <div class="idea-header">
                     <p ng-show="!editIdea" class="idea-title">{{idea.name}}
                     </p>
-                    <div class="simple-cont width-100">
-                    <input ng-show="editIdea" type="text" ng-click="scope.ideaNameError=false" name="edit-idea-name-input" class="simple-input title-dark bigger" placeholder="Idea Name" ng-model="idea.name">
+                    <div ng-show="editIdea" class="simple-cont width-100">
+                    <input  type="text" ng-click="scope.ideaNameError=false" name="edit-idea-name-input" class="simple-input title-dark bigger" placeholder="Idea Name" ng-model="idea.name">
                     <p class="red-text error less-25 left-0" ng-show="ideaNameError">Please add a title for your idea.</p>
                     </div>
 

@@ -277,7 +277,7 @@
       <div class="flex-modal white " ng-show="join">
           <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
             <div class="flex-cont">
-              <p class="close-x" ng-click="join=false">x</p>
+              <p class="close-x" ng-click="join=false">&times</p>
               <p class="sub-gray">{{'SIGNUP' | translate }}</p>
               <div class="form-input">
                   <img  ng-src="{{nameError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}">
@@ -316,7 +316,7 @@
       <div class="flex-modal white " id="login-land"  ng-show="login">
           <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf">
             <div class="flex-cont">
-              <p class="close-x" ng-click="login=false">x</p>
+              <p class="close-x" ng-click="login=false">&times</p>
               <p class="sub-gray">{{'LOGIN' | translate }}</p>
               <form name="loginForm" class="form-input">
                   <img ng-src="{{emailError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}" >
@@ -339,7 +339,7 @@
       <div class="flex-modal white " id="request-land"  ng-show="request">
           <div class="centered-form modal-form" click-outside="request=false" outside-if-not="request-btn signup-nav">
             <div class="flex-cont">
-              <p class="close-x" ng-click="closeRequestModal()">x</p>
+              <p class="close-x" ng-click="closeRequestModal()">&times</p>
               <p class="sub-gray">{{'REQUEST' | translate }}</p>
               <div class="form-input">
                   <img ng-src="{{error?'/static/img/Login_mail_red.svg':'/static/img/Login_mail.svg'}}" src="/static/img/Login_mail.svg">
@@ -354,7 +354,7 @@
       <div class="flex-modal white alert-modal"  ng-show="thanks">
           <div class="centered-form modal-form" click-outside="thanks=false">
             <div class="flex-cont">
-              <p class="close-x" ng-click="thanks=false">x</p>
+              <p class="close-x" ng-click="thanks=false">&times</p>
               <p class="sub-gray">{{'THANKS' | translate }}</p>
               <img class="done-icon" src="/static/img/DONE_ICON.svg">
               <p class="medium">{{'PART' | translate }}</p>
@@ -375,7 +375,7 @@
 
       <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu" g>
         <img class=" logo " src="/static/img/logo_t.svg ">
-              <p class="close-x" ng-click="movilMenu=false">x</p>
+              <p class="close-x" ng-click="movilMenu=false">&times</p>
               <p class="sub-white" ng-click="movilMenu=false" href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{'WHY_STARTUP' | translate }}</p>
               <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>{{'HOW' | translate }}</p>
               <p class="sub-white" ng-click="movilMenu=false" href="#features" offset="30" du-smooth-scroll du-scrollspy >{{'FEATURES' | translate }}</p>
