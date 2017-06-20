@@ -46,6 +46,15 @@ angular.module("wetopiaApp")
       }
     }
 
+    $scope.isLogged = function(){
+      if(localStorageService.get('username')){
+        $state.go('home');
+      }
+      else{
+        login = true;
+      }
+    }
+
     $scope.selectedMember = 'All';
     $scope.graph=$scope.graphImg[$scope.selectedMember];
 
@@ -175,7 +184,7 @@ angular.module("wetopiaApp")
 
     $scope.openLogin= function() {
         $scope.closeSignup();
-        $scope.login = true;
+        $scope.isLogged();
     }
 
     $scope.closeSignup = function(){

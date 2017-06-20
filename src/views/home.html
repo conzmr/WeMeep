@@ -7,10 +7,10 @@
           <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
           <p class="blue-text">IDEA</p>
         </div>
-        <div class="wrapper">
+        <!-- <div class="wrapper">
             <input id="nav-search" placeholder="What are you looking for?" type="search" name="navsearch" />
             <i class="fa fa-search"></i>
-        </div>
+        </div> -->
         <div class="right">
           <div class="display-inner">
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
@@ -125,7 +125,7 @@
 
     <div class="content" >
         <div class="section-cont" id="by-category">
-            <div class="flex-cont row sub-nav for-scroll" ng-show="selectedCategory==''">
+            <div class="flex-cont row sub-nav for-scroll bottom" ng-show="selectedCategory==''">
               <p class="sub-gray" ng-click="Trending()"  ng-class="{'active': trending}">TRENDING</p>
               <p class="sub-gray" ng-click="AllIdeas()" ng-class="{'active': allIdeas}">ALL IDEAS</p>
             </div>

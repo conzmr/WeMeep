@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope, localStorageService, $state, categoriesDataService, ideaDataService) {
+.controller('homeCtrl', function($scope, $window, localStorageService, $state, categoriesDataService, ideaDataService) {
 
 $scope.notification = false;
 $scope.showNotifications=false;
@@ -99,6 +99,7 @@ $scope.AllIdeas = function(){
 $scope.selectCategory = function(category, id_name){
   $scope.selectedCategory = category.toUpperCase();
   getIdeasByCategory(id_name);
+  // $window.scrollTo(0, 0);
 }
 
 })

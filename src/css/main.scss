@@ -1019,81 +1019,81 @@ nav {
     }
 }
 
-.wrapper {
-    display: inline-block;
-    vertical-align: middle;
-    margin: auto;
-    height: auto;
-    margin-right: 20px;
-    width: 210px;
-    text-align: right;
-    position: relative;
-    display: flex;
-
-    @media screen and (max-width: 730px) {
-        order: 4;
-        flex: 1 100%;
-        text-align: center;
-        margin: auto;
-    }
-
-    &:hover {
-        input {
-            border: 1px solid $wetopia-aqua;
-        }
-    }
-
-    i {
-        &.fa-search {
-            color: $wetopia-aqua;
-            cursor: pointer;
-            z-index: 4;
-            font-size: 20px;
-            font-weight: lighter;
-            margin: auto auto auto -25px;
-        }
-    }
-
-    input {
-        border-radius: 6px;
-        z-index: 3;
-        margin: auto 0 auto auto;
-        font-size: 16px;
-        padding: 6px;
-        height: auto;
-        background-color: white;
-        width: 210px;
-        text-indent: 2px;
-        &::-webkit-input-placeholder {
-            color: transparent;
-            font-size: 13px;
-            font-style: italic;
-            font-family: 'Museo';
-        }
-
-        &::-moz-placeholder {
-            color: transparent;
-            font-size: 13px;
-            font-family: 'Museo';
-            font-style: italic;
-        }
-
-        &:focus, &:hover{
-            border: 1px solid $wetopia-aqua;
-            &::-webkit-input-placeholder {
-                color: $gray-lighter;
-            }
-
-            &::-moz-placeholder {
-                color: $gray-lighter;
-            }
-        }
-
-        &::-webkit-search-cancel-button {
-            -webkit-appearance: none;
-        }
-    }
-}
+// .wrapper {
+//     display: inline-block;
+//     vertical-align: middle;
+//     margin: auto;
+//     height: auto;
+//     margin-right: 20px;
+//     width: 210px;
+//     text-align: right;
+//     position: relative;
+//     display: flex;
+//
+//     @media screen and (max-width: 730px) {
+//         order: 4;
+//         flex: 1 100%;
+//         text-align: center;
+//         margin: auto;
+//     }
+//
+//     &:hover {
+//         input {
+//             border: 1px solid $wetopia-aqua;
+//         }
+//     }
+//
+//     i {
+//         &.fa-search {
+//             color: $wetopia-aqua;
+//             cursor: pointer;
+//             z-index: 4;
+//             font-size: 20px;
+//             font-weight: lighter;
+//             margin: auto auto auto -25px;
+//         }
+//     }
+//
+//     input {
+//         border-radius: 6px;
+//         z-index: 3;
+//         margin: auto 0 auto auto;
+//         font-size: 16px;
+//         padding: 6px;
+//         height: auto;
+//         background-color: white;
+//         width: 210px;
+//         text-indent: 2px;
+//         &::-webkit-input-placeholder {
+//             color: transparent;
+//             font-size: 13px;
+//             font-style: italic;
+//             font-family: 'Museo';
+//         }
+//
+//         &::-moz-placeholder {
+//             color: transparent;
+//             font-size: 13px;
+//             font-family: 'Museo';
+//             font-style: italic;
+//         }
+//
+//         &:focus, &:hover{
+//             border: 1px solid $wetopia-aqua;
+//             &::-webkit-input-placeholder {
+//                 color: $gray-lighter;
+//             }
+//
+//             &::-moz-placeholder {
+//                 color: $gray-lighter;
+//             }
+//         }
+//
+//         &::-webkit-search-cancel-button {
+//             -webkit-appearance: none;
+//         }
+//     }
+// }
 
 .scroll-list {
     overflow-y: scroll;
@@ -2470,7 +2470,7 @@ nav {
 }
 
 .content {
-    background-color: whitesmoke;
+    background-color: white;
     margin-top: 0;
     padding: 100px 60px 30px;
     max-width: 1500px;
@@ -2593,7 +2593,7 @@ nav {
     width: 100%;
     background-size: cover;
     box-sizing: border-box;
-    height: 160px;
+    height: 140px;
     border: 1px solid $wetopia-blue;
     border-radius: 10px 10px 0 0;
 }
@@ -2611,19 +2611,19 @@ nav {
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    height: 160px;
+    height: 150px;
 
     .dark-title {
         margin: 10px auto 5px 0;
-        font-size: 16px;
+        font-size: 15px;
         text-align: left;
-        @include font( 'Museo', 900);
+        font-family: 'Museo';
     }
 
     .card-p {
         margin: 0 auto auto 0;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .left {
@@ -2640,11 +2640,11 @@ nav {
 
         p {
             color: $gray-lighter;
-            @include font( 'Museo', 300);
+            font-family: 'Museo';
             display: inline-block;
             width: auto;
             margin: auto auto auto 0px;
-            font-size: 15px;
+            font-size: 14px;
         }
     }
 }
@@ -2702,11 +2702,12 @@ nav {
 }
 
 .footer-nav {
-    margin-top: -8px;
+    margin-top: -12px;
     p {
         color: $gray-lighter;
         display: inline-block;
-        font-size: 13px;
+        font-size: 12px;
+        font-family: 'Museo';
     }
     text-align: center;
 }
@@ -3099,15 +3100,14 @@ nav {
     }
 
     .right {
-        margin: auto 0;
+        margin: auto 0px auto auto;
         display: -webkit-flex;
         display: flex;
+        padding-left: 74px;
         flex-direction: row;
-        @media screen and (max-width: 730px) {
-            padding-left: 71px;
-        }
-        @media screen and (max-width: 500px) {
-            padding: 0;
+
+        @media screen and (max-width: 500px){
+          padding-left: 0;
         }
     }
 
@@ -3137,6 +3137,7 @@ nav {
         @media screen and (max-width: 500px) {
             order: 3;
             width: 100%;
+            margin-top: 0px;
         }
 
         p {
@@ -3163,15 +3164,9 @@ nav {
         @media screen and (max-width: 745px) {
             padding-top: 7px;
         }
-        @media screen and (max-width: 730px) {
-            flex-wrap: wrap;
-            height: 110px;
-        }
-        @media screen and (max-width: 730px) {
-            height: 150px;
-        }
         @media screen and (max-width: 500px) {
-            height: 170px;
+            flex-wrap: wrap;
+            height: 120px;
             padding-top: 10px;
         }
     }
@@ -3191,20 +3186,6 @@ nav {
         height: 45px;
         display: inline-block;
         margin: auto auto auto 0;
-        @media screen and (max-width: 450px) {
-            margin-top: 15px;
-        }
-
-        &.nav-general {
-            padding-right: 145px;
-            @media screen and (max-width: 730px) {
-                padding: 0;
-                margin: auto 0;
-            }
-            @media screen and (max-width: 500px) {
-                margin-right: auto;
-            }
-        }
     }
 }
 
@@ -3426,6 +3407,10 @@ nav {
           max-width: 800px;
         }
 
+        &.bottom{
+          margin-bottom: 40px;
+        }
+
         &.max-width {
             max-width: 700px;
             margin: auto;
@@ -3437,7 +3422,7 @@ nav {
         .sub-gray {
             font-size: 25px;
             line-height: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             padding: 0 20px;
 
             &.not-bottom{
@@ -5489,6 +5474,15 @@ bluelink {
     &.bottom{
       margin-bottom: 30px;
     }
+
+    &.top{
+      margin-top: 10px;
+    }
+
+    &.bigger-font{
+      font-size: 30px;
+      font-family: 'Museo_700';
+    }
 }
 
 .justify-textarea {
@@ -6259,7 +6253,8 @@ video#bgvid {
 }
 
 #by-category{
-  margin-top: -70px;
+  margin-top: -100px;
+  padding-top: 30px;
 }
 
 

@@ -10,7 +10,7 @@
             <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>{{'OUR' | translate }}</a>
             <div class="simple-cont">
             <!--  <p class="bluelink signup-nav button" ng-click="request=true">Join</p>-->
-            <p class="login-btn" ng-click="login=true">{{'LOGIN' | translate }}</p>
+            <p class="login-btn" ng-click="isLogged()">{{'LOGIN' | translate }}</p>
               <p class="bluelink signup-nav" ng-click="join=true">{{'SIGNUP' | translate }}</p>
               <!--<p class="bluelink signup-nav button" ng-click="request=true">{{'JOIN' | translate }}</p>
               <span class='scroll-debug'>{{scrolled}}</span>-->
@@ -278,7 +278,7 @@
           <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
             <div class="flex-cont">
               <p class="close-x" ng-click="join=false">&times</p>
-              <p class="sub-gray bottom">{{'SIGNUP' | translate }}</p>
+              <p class="sub-gray bottom bigger-font top">{{'SIGNUP' | translate }}</p>
               <div class="form-input">
                   <img  ng-src="{{nameError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}">
                   <input type="text" name="signup-name" ng-click="clearErrors()"  ng-model="user.name" placeholder="Name" required/>
@@ -317,7 +317,7 @@
           <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf">
             <div class="flex-cont">
               <p class="close-x" ng-click="login=false">&times</p>
-              <p class="sub-gray bottom">{{'LOGIN' | translate }}</p>
+              <p class="sub-gray bottom bigger-font top">{{'LOGIN' | translate }}</p>
               <form name="loginForm" class="form-input">
                   <img ng-src="{{emailError?'/static/img/Login_user_red.svg':'/static/img/Login_user.svg'}}" >
                   <input type="email" ng-click="clearErrors()" ng-click="clearErrors()"  ng-model="user.email" ng-style="emailError && {'color':'#F26649'}" name="input-login-mail" placeholder="Username or email" required="true">
