@@ -12,6 +12,7 @@ const mongoose = require('mongoose')
 // models
 const User = require("../models/user.js")
 const Idea = require("../models/idea.js")
+const Pivot = require("../models/pivot.js")
 const Category = require("../models/category.js")
 const Feedback = require("../models/feedback.js")
 const Guest = require("../models/guest.js")
@@ -162,7 +163,7 @@ router.use(function(req, res, next) {
 // RETURN ALL AVAILABLE CATEGORIES
 router.get('/tags', function(req, res){
   Category.find({})
-  .exec(function(err, tags){ß
+  .exec(function(err, tags){
     if (err)
       res.status(500).json({'error': err})
     else
@@ -296,7 +297,7 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
       //save comment
       feedback.save(function(err, feedback) {
         if (err)  return res.status(500).json({'err':err})
-        Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id}, { $push: {'feedback': feedback._id } }, { multi: true })
+        Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id}, { $push: {'feedback': feedback._id } }, { multi: true })
         .exec(function(err, ideas) {
           if (err) return res.status(500).json({'error': err})
           feedback.populate({
