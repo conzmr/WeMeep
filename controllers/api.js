@@ -277,6 +277,7 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
   const pivot = req.params.pivot
   // get the idea specified by the id
   Idea.findById(req.params.idea_id)
+  .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
@@ -372,6 +373,7 @@ router.route('/ideas/:idea_id/:pivot/interest')
   const pivot = req.params.pivot
   // get the idea specified by the id
   Idea.findById(req.params.idea_id)
+  .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
@@ -415,47 +417,52 @@ router.route('/ideas/self/create')
 
       Idea.findOne({members: req.U_ID, ideaname: ideaname})
       .exec(function(err, ideaFound){
-        if (err) {
-          return res.status(500).json({'err':err})
-        }
-        if (ideaFound)
-          return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
+        if (err) return res.status(500).json({'err':err})
+        if (ideaFound) return res.status(300).json({'err':{message: "Error, you already have an idea with this name."}})
 
-        let idea = new Idea({
-          admin: req.U_ID,
-          banner: req.body.banner,
-          description: req.body.description,
+        //create the first pivot
+        let pivot = new Pivot({
           problem: req.body.problem,
-          name: req.body.name,
-          category: req.body.category,
-          ideaname: ideaname
+          description: req.body.description,
+          number: 1
         })
-        if (!req.body.members || req.body.members.length == 0)
-          idea.members = [req.U_ID]
-        else {
-          idea.members = req.body.members
-          idea.members.push(req.U_ID)
-        }
-        //create and add first pivot
-        const pivot = {_id: idea._id, number: 1}
-        idea.pivots.push(pivot)
 
-        idea.save(function(err, idea) {
-          if (err)
-            return res.status(500).json({'err':err})
-          User.update(
-            { _id: {$in: idea.members} },
-            { $push: {"ideas":  idea._id} },
-            { multi: true }
-          )
-          .exec(function(err){
-            if (err)
-              return res.status(500).json({'error': err,});
-            else
-              return res.status(201).json({message: 'Idea created!', idea_id: idea._id});
+        pivot.save(function(error, pivot){
+          if (error) return res.status(500).json({'error':error})
+
+          //now create the idea
+          let idea = new Idea({
+            admin: req.U_ID,
+            banner: req.body.banner,
+            description: req.body.description,
+            name: req.body.name,
+            category: req.body.category,
+            ideaname: ideaname
+          })
+          if (!req.body.members || req.body.members.length == 0)
+            idea.members = [req.U_ID]
+          else {
+            idea.members = req.body.members
+            idea.members.push(req.U_ID)
+          }
+          //add the first pivot to the idea
+          idea.pivots.push(pivot._id)
+
+          idea.save(function(err, idea) {
+            if (err) return res.status(500).json({'err':err})
+            User.update(
+              { _id: {$in: idea.members} },
+              { $push: {"ideas":  idea._id} },
+              { multi: true }
+            )
+            .exec(function(err){
+              if (err) return res.status(500).json({'error': err,})
+
+              return res.status(201).json({message: 'Idea created!', idea_id: idea._id})
           })
         })
       })
+    })
   })
 })
 

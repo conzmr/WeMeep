@@ -23,20 +23,10 @@ var ideaSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  problem: String,
   country: String,
-  views: [{
+  pivots: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    unique: true
-  }],
-  pivots: [
-    {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Idea'
-      },
-      number: Number
+    ref: 'Pivot'
   }]
 });
 
