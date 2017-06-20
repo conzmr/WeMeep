@@ -128,8 +128,8 @@
                 <div class="idea-header">
                     <p ng-show="!editIdea" class="idea-title">{{idea.name}}
                     </p>
-                    <div class="simple-cont width-100">
-                    <input ng-show="editIdea" type="text" ng-click="scope.ideaNameError=false" name="edit-idea-name-input" class="simple-input title-dark bigger" placeholder="Idea Name" ng-model="idea.name">
+                    <div ng-show="editIdea" class="simple-cont width-100">
+                    <input  type="text" ng-click="scope.ideaNameError=false" name="edit-idea-name-input" class="simple-input title-dark bigger" placeholder="Idea Name" ng-model="idea.name">
                     <p class="red-text error less-25 left-0" ng-show="ideaNameError">Please add a title for your idea.</p>
                     </div>
 
@@ -221,7 +221,6 @@
                     <p class="username" ng-bind="comment.user.username"></p>
                     <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStartToFeedback(comment._id, $index)">
                     <p class="star" ng-bind="comment.stars.length"></p>
-                    <a class="delete right" ng-click="wantoToDeleteFeedback(comment._id, $index)">  &times </a>
                   </div>
                   <div class="tab-paragraph" ng-bind="comment.comment">
                   </div>
@@ -270,13 +269,13 @@
     <div ng-show="pivoting" class="flex-modal white " id="Pivotear-modal">
         <div class="centered-form modal-form complete" click-outside="pivoting=false" outside-if-not="new-pivot">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="pivoting=false">x</p>
+                <p class="close-x upper" ng-click="pivoting=false">&times</p>
                 <p class="sub-gray medium-margin">NEW PIVOT</p>
                 <div class="flex-cont left-align">
                     <p class="lighter-gray">Previous Pivots</p>
                     <div class="inner-nav selector">
-                      <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
-                      <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
+                      <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivotsModal()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
+                      <ul class="selectorType" ng-show="showPivotsModal" click-outside="showPivotsModal=false" outside-if-not="select-pivot">
                         <div class="flex-cont user-menu">
                           <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="pivotSelected==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
 
@@ -313,15 +312,15 @@
                         <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                         </p>
                         <p class="red-text error bottom-0" ng-show="pivotDescriptionError">Please add a description of your idea.</p>
-                        <textarea name="description" class="" ng-model="newIdea" maxlength="300" ng-click="pivotDescriptionError = false" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
-                        <p class="textarea-length">300</p>
+                        <textarea name="description" class="" ng-model="newIdea" maxlength="600" ng-click="pivotDescriptionError = false" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <p class="textarea-length">600</p>
                     </div>
                     <div class="form-description movil-p ">
                         <img class="big-img" src="/static/img/Create Idea_problem.svg">
                         <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                         </p>
-                        <textarea name="description" class="" ng-model="newProblem" maxlength="300" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
-                        <p class="textarea-length">300</p>
+                        <textarea name="description" class="" ng-model="newProblem" maxlength="600" placeholder="What's new on this pivot? How has your idea improved?"></textarea>
+                        <p class="textarea-length">600</p>
                     </div>
                 </div>
                 <a class="color-button blue complete-form" href="" ng-click="createNewPivot()">Pivot</a>

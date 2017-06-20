@@ -38,10 +38,10 @@ angular.module("wetopiaApp")
     var actionParam = $stateParams.actionParam;
 
     if(actionParam){
-      if(actionParam == 'login'){
+      if(actionParam == 'in'){
         $scope.login = true;
       }
-      else if(actionParam == 'signup'){
+      else if(actionParam == 'up'){
         $scope.join = true;
       }
     }

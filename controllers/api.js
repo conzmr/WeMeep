@@ -307,7 +307,17 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
               select: 'image name username'
           }, function(err, feedback){
             if (err) return res.status(500).json({'error': err,});
-            else return res.status(200).json({'message': "Feedback sent"})
+            else
+                  feedback.populate({
+          path: 'user',
+           model: 'User',
+           select: 'image name username'
+       },function(err, feedback){
+         if (err)
+           return res.status(500).json({'error': err,});
+         else
+           res.status(201).json({feedback});
+       })
           })
         })
       })

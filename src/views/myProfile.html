@@ -105,7 +105,7 @@
                     <p class="gray-lighter small bottom">{{user.email}}</p>
                   </div>
                   <p ui-sref="myProfile">My Profile</p>
-                  <p>My Ideas</p>
+                  <p ng-href="#myIdeas" offset="30" du-smooth-scroll du-scrollspy ng-click="gotoMyIdeas()">My Ideas</p>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
@@ -213,7 +213,7 @@
 
         <div class="section-cont">
             <div class="flex-cont row sub-nav max-width">
-                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}">My Ideas</p>
+                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}" id="myIdeas" >My Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
             </div>

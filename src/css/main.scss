@@ -1768,6 +1768,8 @@ nav {
 }
 
 .idea-title {
+  line-height: 40px;
+  margin-bottom: 20px;
     font: {
         size: 40px;
         family: 'Museo_700';
@@ -1802,8 +1804,7 @@ nav {
     }
 
     .idea-header-info {
-        margin-top: 20px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
 
         .polygon-clip-hexagon {
             height: 30px;
@@ -2078,7 +2079,6 @@ nav {
 }
 
 #res-statistics {
-    margin-top: 15px;
     padding: 0;
 
     .form-input {
@@ -2527,10 +2527,10 @@ nav {
 }
 
 .cards-cont {
-    padding: 15px 0;
+    padding: 0;
     width: 100%;
     clear: both;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -2543,7 +2543,7 @@ nav {
 }
 
 .card {
-    width: 210px;
+    width: 200px;
     margin: 20px 30px;
     display: inline-block;
     cursor: pointer;
@@ -2575,7 +2575,7 @@ nav {
         }
 
         .right-img {
-            height: 18px;
+            height: 15px;
             margin: auto 0 auto auto;
         }
     }
@@ -2722,8 +2722,8 @@ nav {
 }
 
 .category {
-    width: 108px;
-    height: 150px;
+    width: 98px;
+    height: 130px;
     position: relative;
     cursor: pointer;
     margin: 15px 10px;
@@ -3080,7 +3080,7 @@ nav {
 .transparent-nav {
     background: transparent;
     padding: 0 50px;
-    height: 80px;
+    height: 60px;
     max-width: 100%;
     position: fixed;
     display: -webkit-flex;
@@ -3421,8 +3421,9 @@ nav {
         }
 
         &.for-scroll{
-          padding-top: 120px;
-          margin-top: 0;
+          padding-top: 80px;
+          margin: 0 auto;
+          max-width: 800px;
         }
 
         &.max-width {
@@ -3435,8 +3436,13 @@ nav {
 
         .sub-gray {
             font-size: 25px;
-            line-height: 30px;
+            line-height: 25px;
+            margin-bottom: 20px;
             padding: 0 20px;
+
+            &.not-bottom{
+              margin-bottom: 10px;
+            }
 
             &:hover {
                 &:not(.not-hov) {
@@ -3604,10 +3610,7 @@ nav {
     }
 
     .sub-gray {
-        margin: 0 auto 50px;
-        @media screen and (max-width: 500px) {
-            margin-bottom: 0;
-        }
+        margin: 0px auto;
     }
 
     &.ng-show {
@@ -3644,7 +3647,7 @@ nav {
 
     p {
         margin: 8px 0;
-        line-height: 25px;
+
 
         &.no-margin {
             margin: 0;
@@ -4102,9 +4105,9 @@ nav {
         }
 
         &.bluelink {
-            margin-top: -7px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 2px;
         }
     }
 
@@ -4899,6 +4902,10 @@ bluelink {
     -moz-appearance: none;
     margin-top: 0;
 
+    .username-name-tag{
+      padding: 0px;
+    }
+
     input {
         height: 24px;
         border-radius: 2px;
@@ -4916,11 +4923,12 @@ bluelink {
     .user-tag {
         color: $gray-lighter;
         @include font("Museo", 300);
-        line-height: 20px;
+        line-height: 14px;
+        font-size: 13px;
     }
 
     .name-tag {
-        font-size: 15px;
+        font-size: 14px;
         color: $gray-dark;
         margin-right: 3px;
         @include font("Museo", 300);
@@ -4970,8 +4978,6 @@ bluelink {
     }
 
     .user-team-img {
-        height: 30px;
-        width: 30px;
         display: inline-flex;
         margin: auto 2px auto 0;
 
@@ -4980,8 +4986,8 @@ bluelink {
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             -webkit-clip-path: url("#polygon-clip-hexagon");
             clip-path: url("#polygon-clip-hexagon");
-            height: 30px;
-            width: 30px;
+            height: 36px;
+            width: 32px;
             background: {
                 size: cover;
                 position: center;
@@ -4998,6 +5004,15 @@ bluelink {
         height: 30px !important;
         margin: auto 0 auto auto;
     }
+}
+
+.username-name-tag{
+  .name-tag{
+    margin: auto auto auto 0px;
+  }
+  .user-tag{
+    margin: auto auto auto 0px;
+  }
 }
 
 .autocomplete-template {
@@ -5137,7 +5152,7 @@ bluelink {
         }
 
         p {
-            font-size: 13px;
+            font-size: 14px;
             color: $gray-dark;
             line-height: 18px;
             padding: 0;
@@ -5157,7 +5172,7 @@ bluelink {
             padding: 5px 20px;
             margin-left: 12px;
             border-radius: 2px;
-            margin-top: -16px;
+            margin-top: -13px;
 
             &::-webkit-input-placeholder {
                 color: $gray-lighter;
@@ -5395,7 +5410,7 @@ bluelink {
 .go-back-btn {
     position: absolute;
     left: 20px;
-    top: 123px;
+    top: 80px;
     height: 30px;
     width: 100px;
     cursor: pointer;
@@ -5467,8 +5482,12 @@ bluelink {
       margin: 20px auto;
 
       &.no-bottom{
-        margin-bottom: 10px;
+        margin-bottom: 0px;
       }
+    }
+
+    &.bottom{
+      margin-bottom: 30px;
     }
 }
 
@@ -6045,7 +6064,7 @@ video#bgvid {
     margin: 0 auto;
 
     .sub-gray {
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
 }
 
@@ -6076,7 +6095,7 @@ video#bgvid {
 
     .simple-cont {
         text-align: left;
-        margin: 5px auto auto auto;
+        margin: 0px auto auto auto;
         width: auto;
     }
 
@@ -6102,6 +6121,7 @@ video#bgvid {
         font-weight: lighter;
         text-align: left;
         font-size: 14px;
+        margin-top: 0px;
     }
 }
 
@@ -6235,6 +6255,7 @@ video#bgvid {
 #load-more-ideas{
   padding: 8px 28px;
   margin-bottom: 30px;
+  margin-top: -50px;
 }
 
 #by-category{
