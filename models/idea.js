@@ -13,11 +13,7 @@ var ideaSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the category */
     ref: 'Category',
     required:true
-  },
-  feedback: [{
-    type: mongoose.Schema.Types.ObjectId, /* Object ID for the Feedback */
-    ref: 'Feedback'
-  }],
+  },ß
    interests: [{
       _id: {
         type: mongoose.Schema.Types.ObjectId, /* Object ID from User */
