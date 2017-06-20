@@ -510,6 +510,7 @@ router.route('/ideas/:idea_id/:pivot')
   const pivot = req.params.pivot
   // get the idea specified by the id
   Idea.findById(req.params.idea_id)
+  .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
@@ -521,7 +522,7 @@ router.route('/ideas/:idea_id/:pivot')
       })
 
       //add view to pivot
-      Idea.findByIdAndUpdate(idea.pivots[pivot - 1].id, { $addToSet: {views: req.U_ID} })
+      Pivot.findByIdAndUpdate(idea.pivots[pivot - 1].id, { $addToSet: {views: req.U_ID} })
       .exec(function(err) {
         if (err)
           res.status(500).json({'error': err, 'success': false});
