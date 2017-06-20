@@ -20,6 +20,7 @@ const DeletedIdea = require("../models/deleted_idea.js")
 
 // config files
 const invite = require("../config/createinvitation.js")
+const welcome = require("../config/mailing_welcome.js")
 const jwtConfig = require("../config/jwt.js")
 
 // storage and upload
@@ -154,6 +155,24 @@ router.use(function(req, res, next) {
     res.status(403).json({'message': "No token provided"});
   }
 });
+
+/*************************************
+***                                ***
+***         MAILING SERVICES       ***
+***                                ***
+*************************************/
+// WELCOME MAIL
+router.post('/welcome', function(req, res) {
+  //Get user information
+  User.findById(req.U_ID)
+  .exec((err, user) => { // if there are any errors, return the error
+    if (err) return res.status(500).json({'error': err, 'success': "false", 'message': "Error finding that specified user"}); // return shit if a server error occurs
+    welcome.sendMail(req, user, function(response){
+        if (response.success) res.status(201).json({'message': 'Sent mail successfully'})
+        else res.status(500).json({'message': 'Something went wrong with your welcome email'})
+    })
+  })
+})
 
 /*************************************
 ***                                ***
