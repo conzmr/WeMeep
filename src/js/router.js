@@ -63,11 +63,24 @@ angular.module('wetopiaApp')
                   controller: "myProfileCtrl",
                   templateUrl: "/static/views/myProfile.html"
             })
-            .state("profileSection", {
-                url: "/profile/:username/:section",
+            .state("myProfileSection", {
+                url: "/myProfile/:section",
                   authenticate: true,
                   controller: "myProfileCtrl",
                   templateUrl: "/static/views/myProfile.html"
+            })
+            .state("profileSection", {
+                url: "/profile/:username/:section",
+                  authenticate: true,
+                  controller: "profileCtrl",
+                  templateUrl: "/static/views/profile.html",
+                  onEnter: function(localStorageService,  $stateParams, $state){
+                  if(localStorageService.get('username')==$stateParams.username){
+                     $state.go('myProfileSection', {section: $stateParams.section});
+                     event.preventDefault();
+                   }
+                }
+                //CHEK THIS
             })
             .state("profile", {
                 url: "/profile/:username",
@@ -76,10 +89,16 @@ angular.module('wetopiaApp')
                 authenticate: true,
                onEnter: function(localStorageService,  $stateParams, $state){
                if(localStorageService.get('username')==$stateParams.username){
-                  $state.transitionTo ('myProfile');
+                  $state.go('myProfile');
                   event.preventDefault();
                 }
              }
+            })
+            .state("goProfileSection", {
+                url: "/profile/:username/:section",
+                controller: "myIdeaCtrl",
+                templateUrl: "/static/views/myIdea.html",
+                authenticate: true
             })
             .state("test", {
                 url: "/test",
@@ -136,7 +155,6 @@ angular.module('wetopiaApp')
 
 //Run service to check the token is valid
 .run(function($rootScope, $state, AuthService,  $window, $injector, $anchorScroll) {
-    $anchorScroll.yOffset = -5000;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
        $window.scrollTo(0, 0);
         if (toState.authenticate && !AuthService.isAuthenticated()) { // User isn’t authenticated

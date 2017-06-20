@@ -8,7 +8,7 @@ angular.module('wetopiaApp')
         return years+ " years";
       };
     })
-    .controller('myProfileCtrl', function($scope, $anchorScroll, $stateParams, localStorageService, profileDataService, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
+    .controller('myProfileCtrl', function($scope, $anchorScroll, $stateParams, $document, localStorageService, profileDataService, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -25,6 +25,7 @@ angular.module('wetopiaApp')
         var adminsData = [];
         $scope.testResults = [];
         var username = localStorageService.get('username');
+        $location.path('/profile/'+username).replace();
 
         var calculateResults = function (obj) {
           for( var key in obj ) {
@@ -34,19 +35,22 @@ angular.module('wetopiaApp')
         }
       }
 
-      function gotoMyIdeas() {
-      $location.hash('myIdeas');
-      $anchorScroll();
+      function goToInnerNavSection() {
+        var section = angular.element(document.getElementById('section'));
+        $document.scrollToElement(section, 550, 1000);
     };
+
 
        var goToSection= $stateParams.section;
 
-       if(goToSection == "myIdeas"){
-         gotoMyIdeas();
+       if(goToSection){
+         goToInnerNavSection();
+         if(goToSection=="ideas"){
+          //  $scope.ideas=true;
+          $location.path('/profile/'+username+'/ideas').replace();
+         }
        }
-       else{
-         $location.path('/profile/'+username).replace();
-       }
+
 
       $scope.logOut = function(){
         localStorageService.clearAll();

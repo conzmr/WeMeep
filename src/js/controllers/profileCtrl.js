@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-.controller('profileCtrl', function($scope, $rootScope,signupDataService, $stateParams, profileDataService, Upload, $state, $window, localStorageService, categoriesDataService, ideaDataService) {
+.controller('profileCtrl', function($scope, $rootScope,signupDataService, $document, $location, $stateParams, profileDataService, Upload, $state, $window, localStorageService, categoriesDataService, ideaDataService) {
   $scope.notification = false;
   $scope.showNotifications=false;
   $scope.showUserMenu=false;
@@ -16,6 +16,8 @@ angular.module('wetopiaApp')
   $scope.testDone = false;
   $scope.ideasData = [];
   $scope.testResults = [];
+  var username= $stateParams.username;
+
 
   $scope.getBannerImage = function(category){
     return $scope.categoriesBanner[category].banner;
@@ -60,6 +62,23 @@ angular.module('wetopiaApp')
   $scope.changeShowMenu = function(){
     $scope.showUserMenu = !$scope.showUserMenu;
   }
+
+  function goToInnerNavSection() {
+    var section = angular.element(document.getElementById('userSection'));
+    $document.scrollToElement(section, 550, 1000);
+};
+
+
+   var goToSection= $stateParams.section;
+
+   if(goToSection){
+     goToInnerNavSection();
+     if(goToSection=="ideas"){
+      //  $scope.ideas=true;
+      console.log('here');
+      $location.path('/profile/'+username+'/ideas').replace();
+     }
+   }
 
 
   $scope.colors = [
@@ -168,9 +187,6 @@ function convertToYears( date ){
   var years = Math.floor((Date.now() - date) / MS_PER_YEAR);
   return years;
 }
-
-
- var username= $stateParams.username;
 
  profileDataService.getProfileInfo(username, function(response) {
    if(response.status==200){

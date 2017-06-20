@@ -1376,7 +1376,7 @@ nav {
             }
         }
 
-        p {
+        p, .nav-txt {
             font-size: 14px;
             margin: 7px auto;
             cursor: pointer;
@@ -5458,7 +5458,6 @@ bluelink {
 
     &.light{
       color: $gray-lighter;
-      margin-bottom: 10px !important;
       font-weight: bold;
       font-family: 'Museo';
     }

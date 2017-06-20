@@ -7,10 +7,6 @@
           <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
           <p class="blue-text">IDEA</p>
         </div>
-        <div class="wrapper">
-            <input id="nav-search" placeholder="What are you looking for?" type="search" name="navsearch" />
-            <i class="fa fa-search"></i>
-        </div>
         <div class="right">
           <div class="display-inner">
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
@@ -105,7 +101,7 @@
                     <p class="gray-lighter small bottom">{{user.email}}</p>
                   </div>
                   <p ui-sref="myProfile">My Profile</p>
-                  <p ng-href="#myIdeas" offset="30" du-smooth-scroll du-scrollspy ng-click="gotoMyIdeas()">My Ideas</p>
+                  <a class="nav-txt" ng-click="changeShowMenu()" ng-href="#section" offset="80" du-smooth-scroll du-scrollspy>My Ideas</a>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
@@ -211,9 +207,9 @@
             </div>
         </div>
 
-        <div class="section-cont">
-            <div class="flex-cont row sub-nav max-width">
-                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}" id="myIdeas" >My Ideas</p>
+        <div class="section-cont" >
+            <div class="flex-cont row sub-nav max-width" id="section">
+                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}" >My Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
             </div>
