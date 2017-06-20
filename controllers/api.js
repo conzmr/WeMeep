@@ -536,29 +536,30 @@ router.route('/ideas/:idea_id/:pivot')
 .put(function (req, res) {
   // Pivot Management
   const pivot = req.params.pivot
-  // get the idea specified by the id
-  Idea.findById(req.params.idea_id)
+  const banner = req.body.banner
+  const description = req.body.description
+  const problem = req.body.problem
+  const members = req.body.members
+  const country = req.body.country
+  // Update the idea
+  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, problem, members } }, { new: true })
+  .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
+
+        // sort pivots
         idea.pivots.sort((a, b) => {
           return parseFloat(a.number) - parseFloat(b.number)
         })
 
         const myIdea = idea.pivots[pivot - 1].id
-        const banner = req.body.banner
-        const description = req.body.description
-        const problem = req.body.problem
-        const members = req.body.members
-        const country = req.body.country
-
-        Idea.findOneAndUpdate({'_id': myIdea}, { $set: { banner, country, description, problem, members } }, { new: true })
+        //Update pivot specific information
+        Pivot.findOneAndUpdate({'_id': myIdea}, { $set: { description, problem } }, { new: true })
         .exec((error, user) => {
-          if (error) {
-            return res.status(500).json({ error })
-          }
-          res.status(200).json({ user })
+          if (error) return res.status(500).json({ error })
+          return res.status(200).json({ user })
         })
       }
     })
