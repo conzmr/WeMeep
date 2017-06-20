@@ -175,8 +175,9 @@
                     <p ng-show="!editIdea" class="tab-paragraph">
                         {{idea.description}}
                     </p>
-                    <div class="simple-cont width-100">
-                    <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="What's your idea about?" ng-click="descriptionError=false" ng-model="idea.description"></textarea>
+                    <div class="simple-cont width-100" ng-show="editIdea">
+                    <textarea maxlength="600"  name="idea-textarea" class="feedback no-outline indent" placeholder="What's your idea about?" ng-click="descriptionError=false" ng-model="idea.description"></textarea>
+                    <p class="textarea-length">600</p>
                     <p class="red-text error less-15 left textarea" ng-show="descriptionError">Please add a description of your idea.</p>
                     </div>
 
@@ -188,13 +189,14 @@
                       {{idea.problem}}
                     </p>
                     <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="Does your idea solve an issue? Which one?" ng-model="idea.problem"></textarea>
+                    <p class="textarea-length" ng-show="editIdea">600</p>
                   </div>
 
                   <a class="color-button blue left no-bottom border-radius-6 indent"  ng-show="editIdea" ng-click="updateIdea()" href="">Done</a>
                 </div>
             </div>
             <div class="mid-page flex-cont">
-              <input id="idea-input-banner" type="file" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+              <input id="idea-input-banner" type="file" ng-disabled="!editIdea" ngf-select name="file" ng-model="idea.banner" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
                 <label for="idea-input-banner" class="idea-img"  ng-style="editIdea && {'cursor': 'pointer'}" ngf-background="idea.banner ||  getBannerImage(idea.category.name)">
               </label>
             </div>
@@ -382,15 +384,15 @@
     <div class="flex-modal white" ng-show="wantToDiscard">
         <div class="centered-form modal-form complete" click-outside="wantToDiscard=false" outside-if-not="discard-btn">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="wantToDiscard=false">x</p>
-                <p class="sub-gray">DISCARD</p>
-                <p class="simple-paragraph">Are you sure you want to discard completely this idea?</p>
+                <p class="close-x upper" ng-click="wantToDiscard=false">&times</p>
+                <p class="sub-gray medium-margin">DISCARD</p>
+                <p class="simple-paragraph lighter">Are you sure you want to discard completely this idea?</p>
                 <!-- <p class="medium light no-margin">You can also save it to get back to it later.</p> -->
                 <div class="flex-cont row eighty">
-                    <a class="color-button blue complete-form discard" id="yes-delete" href="" ng-click="toDelete()">Yes</a>
+                    <a class="color-button blue complete-form discard no-bottom" id="yes-delete" ng-click="toDelete()">Yes</a>
                     <!-- <a class="color-button blue complete-form discard" id="save-idea" href="" ng-click="saveIdea()">Save it</a> -->
                 </div>
-                <a href="" class="medium-bold gray" ng-click="wantToDiscard=false">Cancel</a>
+                <a class="medium-bold gray less-top lighter-font pointer" ng-click="wantToDiscard=false">Cancel</a>
             </div>
         </div>
     </div>
@@ -398,12 +400,12 @@
     <div class="flex-modal white" ng-show="whyDiscard">
         <div class="centered-form modal-form complete" click-outside="whyDiscard = false" outside-if-not="yes-delete">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="whyDiscard = false">x</p>
-                <p class="sub-gray">DISCARD</p>
+                <p class="close-x upper" ng-click="whyDiscard = false">&times</p>
+                <p class="sub-gray medium-margin bottom">DISCARD</p>
                 <p class="medium light no-margin">We're sorry to see your idea go.</p>
                 <p class="medium light no-margin">Can you tell us more of why you chose</p>
                 <p class="medium light no-margin">to get rid of it?</p>
-                <textarea name="why-discard" class="justify-textarea" maxlength="300" ng-model="whyDeleted" placeholder="Tell us about your experience. "></textarea>
+                <textarea name="why-discard" class="justify-textarea"  ng-model="whyDeleted" placeholder="Tell us about your experience. "></textarea>
                 <div class="flex-cont row">
                     <a class="color-button blue complete-form discard no-bottom" id="discard-btn" ng-click="deleteIdea()">Delete</a>
                 </div>
@@ -414,8 +416,8 @@
     <div class="flex-modal white" ng-show="discarded">
         <div class="centered-form modal-form complete" click-outside="goHome('discarded')" outside-if-not="discard-btn">
             <div class="flex-cont">
-                <p class="close-x upper" ng-click="goHome('discarded')">x</p>
-                <p class="sub-gray">DISCARDED</p>
+                <p class="close-x upper" ng-click="goHome('discarded')">&times</p>
+                <p class="sub-gray medium-margin">DISCARDED</p>
                 <div class="simple-cont margin">
                     <p class="medium light no-margin">Your idea has been deleted.</p>
                     <p class="medium light no-margin">We've received your comments and</p>

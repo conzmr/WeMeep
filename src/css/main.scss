@@ -632,7 +632,7 @@ a {
         }
 
         &.indent{
-          margin: 0px auto 20px 52px;
+          margin: 0px auto 0px 52px;
           width: 90%;
 
           @media screen and (max-width: 650px){
@@ -4001,6 +4001,17 @@ nav {
         textarea {
             font-size: 14px;
             padding-top: 10px;
+            outline: none;
+
+            &::-webkit-input-placeholder {
+                color: $gray-lighter;
+                font-size: 14px;
+            }
+
+            &::-moz-placeholder {
+                color: $gray-lighter;
+                font-size: 14px;
+            }
         }
 
         .textarea {
@@ -4416,6 +4427,11 @@ bluelink {
     width: auto;
     text-align: center;
     color: $text-gray;
+
+    &.lighter{
+      color: $gray-lighter;
+      font-family: 'Museo';
+    }
 }
 
 .center-paragraph {
@@ -5157,6 +5173,7 @@ bluelink {
             padding: 5px 20px;
             margin-left: 12px;
             border-radius: 2px;
+            outline: none;
             margin-top: -13px;
 
             &::-webkit-input-placeholder {
@@ -5439,6 +5456,14 @@ bluelink {
 
     &.gray {
         color: $gray-lighter;
+    }
+
+    &.lighter-font{
+      font-family: 'Museo';
+    }
+
+    &.less-top{
+      margin-top: -5px !important;
     }
 
     &.pointer {

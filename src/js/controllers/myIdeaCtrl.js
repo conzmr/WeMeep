@@ -163,7 +163,6 @@ angular.module('wetopiaApp')
             comment : $scope.whyDeleted
           }
           ideaDataService.deleteIdea(idea_id, $scope.currentPivot, comment, function(response){
-            console.log(response);
           });
         }
 
