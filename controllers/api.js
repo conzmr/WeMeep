@@ -573,14 +573,16 @@ router.route('/ideas/:idea_id/:pivot')
     if (!idea) return res.status(404).json({'error': {'message': "Idea not found"}})
     if (idea.members.indexOf(req.U_ID) <= -1) return res.status(401).json({error:{message: "This is not your idea. GFY you hacker!"}})
     else {
-      // DELETE EVERYTHING BASED IN PIVOTS
+      // DELETE ALL THE PIVOTS
       (idea.pivots).forEach((pivot) => {
-        Idea.findById(pivot)
+        Pivot.findById(pivot)
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
         })
       })
 
+      //TODO: Remove pivot reference from idea
+      //TODO: Delete the Idea haha
       // Remove idea reference from user
       User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
       .exec((error, user) => {
@@ -617,25 +619,24 @@ router.route('/ideas/this/:idea_id/pivot')
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
-      let pivot = new Idea({
-        admin: req.U_ID,
-        banner: idea.banner,
+
+      // create the pivot
+      let pivot = new Pivot({
         description: req.body.description,
         problem: req.body.problem,
-        name: idea.name,
-        category: idea.category,
-        ideaname: idea.ideaname,
-        members: idea.members
+        number: idea.pivots.length + 1
       })
 
+      //TODO: Update description from idea
+
       pivot.save(function(err, newIdea) {
-        if (err)
-          return res.status(500).json({'err':err})
-        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': {'_id': newIdea.id, 'number':idea.pivots.length + 1} } }, { new: true })
+        if (err) return res.status(500).json({'err':err})
+
+        // add reference of pivot to the specified idea
+        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': newIdea } }, { new: true })
         .exec(function(err){
-          if (err) return res.status(500).json({'error': err,});
-          else
-            return res.status(201).json({message: 'Created Pivot!', pivot: newIdea});
+          if (err) return res.status(500).json({'error': err})
+          return res.status(201).json({message: 'Created Pivot!', pivot: newIdea})
         })
       })
     }
@@ -722,10 +723,13 @@ router.route('/ideas/:idea_id/:pivot/stats')
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
+
+        // sort pivots
         idea.pivots.sort((a, b) => {
           return parseFloat(a.number) - parseFloat(b.number)
         })
 
+        //get statitstics based on pivot reference
         const myIdea = idea.pivots[pivot - 1].id
           /* Interests */
           const interestAggregator = [
@@ -777,9 +781,9 @@ router.route('/ideas/:idea_id/:pivot/stats')
           ]
 
           const promises = [
-            Idea.aggregate(interestAggregator).exec(),
-            Idea.aggregate(viewAggregator).exec(),
-            Idea.aggregate(feedbackAggregator).exec(),
+            Pivot.aggregate(interestAggregator).exec(),
+            Pivot.aggregate(viewAggregator).exec(),
+            Pivot.aggregate(feedbackAggregator).exec(),
             Feedback.aggregate(starsAggregator).exec()
           ]
            Promise.all(promises).then(function(results) {
