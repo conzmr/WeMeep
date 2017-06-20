@@ -472,18 +472,23 @@ router.route('/ideas/:idea_id/:pivot')
   const pivot = req.params.pivot
   // get the idea specified by the id
   Idea.findById(req.params.idea_id)
+  .populate('members', 'username image')
+  .populate('admin', 'username image')
+  .populate('category', 'name description')
+  .populate('pivots', 'id')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
 
+      // order pivots
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
       })
 
-      Idea.findById(idea.pivots[pivot - 1].id)
+      // Pivot specific information
+      Pivot.findById(idea.pivots[pivot - 1].id)
       .lean()
-      .populate('members', 'username image')
       .populate({
         path: 'feedback',
         model: 'Feedback',
@@ -493,19 +498,12 @@ router.route('/ideas/:idea_id/:pivot')
           select: 'image name username'
         }
       })
-      .populate('admin', 'username image')
-      .populate('category', 'name description')
-      .exec(function (err, project) {
-        if (err) {
-          res.status(500).json({'error': err, 'success': false});
-        }
-        else {
-          res.json(project);
-        }
+      .exec(function (err, pivot) {
+        if (err) res.status(500).json({'error': err, 'success': false})
+        else return res.status(200).json({idea, pivot})
       })
     }
   })
-
 })
 // ADD UNIQUE VIEW TRACKING TO AN SPECIFIC IDEA/PIVOT
 .post(function (req, res) {
