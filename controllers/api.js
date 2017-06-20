@@ -381,12 +381,12 @@ router.route('/ideas/:idea_id/:pivot/interest')
         return parseFloat(a.number) - parseFloat(b.number)
       })
 
-      Idea.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+      Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
 
         if (!ideas) {
-          Idea.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+          Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
           .exec(function(err, ideas) {
             if (err) return res.status(500).json({'error': err})
             return res.status(200).json({'message': "Success showing interest."})
