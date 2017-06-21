@@ -1,23 +1,24 @@
-'use strict';
+const http = require('http')
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const configDB = require("./config/database")
+const API = require("./controllers/api.js")
+const morgan = require('morgan')
 
-let http = require('http'),
-    express = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    configDB = require("./config/database"),
-    API = require("./controllers/api.js"),
-    morgan = require('morgan')
+const app = express()
+const server = http.createServer(app)
 
-let app = express(),
-    server = http.createServer(app)
+//Socket IO constant
+const io = require('socket.io')(server)
 
 // Database Configuration
 mongoose.connect(configDB.url); //connect to database
 
 //Parser
-app.use(bodyParser.json()); /* JSON support */
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev')); // use morgan to log requests to the console
+app.use(bodyParser.json()) /* JSON support */
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan('dev')) // use morgan to log requests to the console
 
 //Static routing
 app.use('/static', express.static(__dirname + '/public'))
@@ -27,6 +28,19 @@ app.use('/api', API)
 
 app.use('/', function(req, res) {
     res.sendFile( __dirname + '/public/views/index.html') // Use res.sendfile, as it streams instead of reading the file into memory.
-});
+})
 
-server.listen(8080);
+//SocketIO integration
+io.on('connection', (socket) => {
+  console.log("A user connected!")
+  // This event will trigger when any user is connected.
+  // You can use 'socket' to emit and receive events.
+  // socket.on('comment added',function(data){
+  //   // When any connected client emit this event, we will receive it here.
+  //   io.emit('something happend') // for all.
+  //   socket.broadcast.emit('something happend') // for all except me.
+  // })
+})
+
+//server listening to 8080 port
+server.listen(8080)

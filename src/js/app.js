@@ -104,3 +104,16 @@ angular.module('wetopiaApp', ['ui.router', 'LocalStorageModule',
         }
     }
 }])
+
+.factory('socket', ['$rootScope', function($rootScope) {
+  var socket = io();
+
+  return {
+    on: function(eventName, callback){
+      socket.on(eventName, callback);
+    },
+    emit: function(eventName, data) {
+      socket.emit(eventName, data);
+    }
+  };
+}]);
