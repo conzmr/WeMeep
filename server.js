@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
   socket.on('comment', (data) => {
     // When any connected client emit this event, we will receive it here.
     console.log("Someone commented")
-    io.emit("Someone commented")
+    io.emit('notify')
     /* io.emit('something happend') // for all. */
     /* socket.broadcast.emit('something happend') // for all except me. */
   })
