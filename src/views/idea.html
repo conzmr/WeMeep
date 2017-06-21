@@ -273,15 +273,15 @@
 
 
     <div class="flex-modal white" ng-show="wantToDeleteComment">
-        <div class="centered-form modal-form complete" click-outside="wantToDeleteComment=false" outside-if-not="delete">
+        <div class="centered-form modal-form complete width-500" click-outside="wantToDeleteComment=false" outside-if-not="delete">
             <div class="flex-cont">
                 <p class="close-x upper" ng-click="wantToDeleteComment=false">&times</p>
-                <p class="sub-gray">DELETE A COMMENT</p>
-                <p class="simple-paragraph">Are you sure you want to delete this comment?</p>
+                <p class="sub-gray medium-margin">DELETE A COMMENT</p>
+                <p class="simple-paragraph lighter">Are you sure you want to delete this comment?</p>
                 <div class="flex-cont row eighty">
-                    <a class="color-button blue complete-form discard" id="yes-delete-comment"  ng-click="deleteFeedback()">Yes, Delete it</a>
+                    <a class="color-button blue complete-form discard no-bottom" id="yes-delete-comment"  ng-click="deleteFeedback()">Yes, Delete it</a>
                 </div>
-                <a href="" class="medium-bold gray" ng-click="wantToDeleteComment=false">Cancel</a>
+                <a href="" class="medium-bold gray less-top lighter-font pointer" ng-click="wantToDeleteComment=false">Cancel</a>
             </div>
         </div>
     </div>
@@ -290,7 +290,7 @@
         <div class="centered-form modal-form complete" click-outside="deletedComment=false" outside-if-not="yes-delete-comment">
             <div class="flex-cont">
                 <p class="close-x upper" ng-click="deletedComment=false">&times</p>
-                <p class="sub-gray">DELETED</p>
+                <p class="sub-gray medium-margin">DELETED</p>
                 <div class="simple-cont margin">
                     <p class="medium light no-margin">Your comment has been deleted.</p>
                 </div>

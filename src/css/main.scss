@@ -3938,6 +3938,11 @@ nav {
         width: auto;
         padding: 25px 40px;
 
+        &.width-500{
+          width: 100%;
+          max-width: 500px;
+        }
+
         .normal-paragraph {
             margin: 0 15px;
             width: 100%;
