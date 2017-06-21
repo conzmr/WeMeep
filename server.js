@@ -31,15 +31,17 @@ app.use('/', function(req, res) {
 })
 
 //SocketIO integration
+// This event will trigger when any user is connected.
 io.on('connection', (socket) => {
   console.log("A user connected!")
-  // This event will trigger when any user is connected.
   // You can use 'socket' to emit and receive events.
-  // socket.on('comment added',function(data){
-  //   // When any connected client emit this event, we will receive it here.
-  //   io.emit('something happend') // for all.
-  //   socket.broadcast.emit('something happend') // for all except me.
-  // })
+  socket.on('comment', (data) => {
+    // When any connected client emit this event, we will receive it here.
+    console.log("Someone commented")
+    io.emit("Someone commented")
+    /* io.emit('something happend') // for all. */
+    /* socket.broadcast.emit('something happend') // for all except me. */
+  })
 })
 
 //server listening to 8080 port

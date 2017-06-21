@@ -1,6 +1,6 @@
 angular.module("wetopiaApp")
 
-.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper) {
+.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper, socket) {
     $scope.join = false;
     $scope.login = false;
     $scope.request = false;
@@ -416,5 +416,8 @@ $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
 };
 
+$scope.pushNotification = function(){
+  socket.emit('comment')
+}
 
 })
