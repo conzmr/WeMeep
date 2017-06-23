@@ -5,7 +5,13 @@ angular.module('wetopiaApp')
                 url: "/",
                 controller: "landingCtrl",
                 templateUrl: "/static/views/wetopiaLanding.html",
-                authenticate: false //Doesn't requires authentication
+                authenticate: false, //Doesn't requires authentication
+                onEnter: function(localStorageService, $state){
+                if(localStorageService.get('username')){
+                   $state.go('home');
+                   event.preventDefault();
+                 }
+              }
             })
             .state("landingAction", {
                 url: "/sign/:actionParam",

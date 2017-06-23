@@ -47,12 +47,9 @@ angular.module("wetopiaApp")
       }
     }
 
-    $scope.isLogged = function(){
+    function isLogged(){
       if(localStorageService.get('username')){
         $state.go('home');
-      }
-      else{
-        login = true;
       }
     }
 
@@ -370,18 +367,12 @@ $scope.signUp = function (invalidEmail) {
 }
 }
 
-$scope.signIn = function(invalidEmail) {
+$scope.signIn = function() {
   var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
     $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
-  }
-  if(invalidEmail){
-    toLogUser.username = $scope.user.email;
-  }
-  else{
-    toLogUser.email = $scope.user.email;
   }
   if(!$scope.user.password){
     $scope.passwordMessageError="Please enter your password. ";
@@ -389,8 +380,10 @@ $scope.signIn = function(invalidEmail) {
   }
   if($scope.user.email&&$scope.user.password){
     toLogUser.password = $scope.user.password;
-  loginDataService.authenticate(toLogUser,
-  function(res) {
+    toLogUser.username = $scope.user.email;
+    toLogUser.email = $scope.user.email;
+    loginDataService.authenticate(toLogUser,
+    function(res) {
     localStorageService.clearAll();
     localStorageService.set('token', res.data.token);
     localStorageService.set('username', res.data.username);
