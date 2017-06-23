@@ -1568,7 +1568,7 @@ nav {
     width: 100%;
     background: white;
     height: auto;
-    text-align: center;
+    // text-align: center;
     padding: 120px 10px 80px;
     box-sizing: border-box;
     @media screen and (max-width: 730px) {
@@ -1763,7 +1763,7 @@ nav {
         top: 0;
         bottom: 30px;
     }
-    word-break: break-all;
+    word-break: break-word;
     @include font( 'Museo', 300);
 }
 
@@ -1881,10 +1881,6 @@ nav {
     }
 }
 
-.left {
-    float: left;
-    text-align: left;
-}
 
 .left,
 .right {
@@ -2529,11 +2525,9 @@ nav {
 .cards-cont {
     padding: 0;
     width: 100%;
-    clear: both;
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
-    text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -2553,9 +2547,19 @@ nav {
     .user {
         height: 35px;
         display: flex;
-        justify-content: center;
-        text-align: center;
         flex-direction: row;
+        width: 100%;
+        margin: 0px auto;
+
+        p {
+            color: $gray-lighter;
+            font-family: 'Museo';
+            display: inline-block;
+            width: auto;
+            margin: auto auto auto 0px;
+            font-size: 14px;
+            line-height: 15px;
+        }
 
         .polygon-clip-hexagon {
             height: 30px;
@@ -2567,11 +2571,6 @@ nav {
 
         .polygon-each-img-wrap {
             margin: auto 5px auto 0;
-        }
-
-        p {
-            font-size: 12px;
-            margin: 8px 0;
         }
 
         .right-img {
@@ -2589,7 +2588,6 @@ nav {
 }
 
 .card-img {
-    clear: both;
     width: 100%;
     background-size: cover;
     box-sizing: border-box;
@@ -2607,23 +2605,45 @@ nav {
     margin-bottom: 5px;
     padding: 5px 13px;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    text-align: center;
     flex-direction: column;
     height: 150px;
+    overflow: hidden;
+    position: relative;
+
+    .white-padding-bottom{
+      height: 20px;
+      top: 136px;
+      left: 0px;
+    }
 
     .dark-title {
-        margin: 10px auto 5px 0;
+        margin: 5px auto 0px 0;
         font-size: 15px;
         text-align: left;
-        font-family: 'Museo';
+        font-family: 'Museo_D';
+        font-weight: normal;
+        max-height: 38px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .card-p {
         margin: 0 auto auto 0;
         text-align: left;
         font-size: 13px;
+        word-break: break-all;
+        text-overflow: ellipsis;
+    }
+
+    .ellipsis{
+      font-size: 13px;
+      background: white;
+      color: $gray-dark;
+      z-index: 1000;
+    }
+
+    .read-more{
+      font-size: 13px;
     }
 
     .left {
@@ -3401,6 +3421,18 @@ nav {
             margin-bottom: 20px;
         }
 
+        &.margin-bottom{
+          border-bottom: 1px solid $pt-gray;
+          padding-bottom: 15px;
+          margin: auto;
+          margin-bottom: 30px;
+          width: 95%;
+
+          .sub-gray{
+            margin-bottom: 0px;
+          }
+        }
+
         &.for-scroll{
           padding-top: 80px;
           margin: 0 auto;
@@ -3638,6 +3670,11 @@ nav {
             margin: 0;
             line-height: 20px;
             font-size: 16px;
+        }
+
+        &.centered{
+          margin: 2px auto;
+          text-align: center;
         }
     }
 
@@ -3925,6 +3962,10 @@ nav {
 
     &.down {
         top: 25px;
+    }
+
+    &.dark{
+      color: $gray-lighter;
     }
 }
 
@@ -5270,6 +5311,7 @@ bluelink {
 .tab-paragraph {
     margin: 0 auto auto 40px;
     font-size: 16px;
+    word-break: break-word;
     @media screen and (max-width: 600px) {
         margin: {
             left: 0;
@@ -5288,6 +5330,17 @@ bluelink {
     font-family: 'Museo_D';
     padding: 8px 10px;
     cursor: pointer;
+
+    &.larger{
+      padding: 8px 30px;
+    }
+
+    &.stylized{
+      font-size: 16px;
+      font-family: 'Museo';
+      font-weight: bold;
+      border-radius: 7px;
+    }
 
 
     &.right {
@@ -5492,6 +5545,10 @@ bluelink {
       font-family: 'Museo';
     }
 
+    &.bigger{
+      font-size: 30px !important;
+    }
+
     &.medium-margin{
       margin: 20px auto;
 
@@ -5512,6 +5569,10 @@ bluelink {
       font-size: 30px;
       font-family: 'Museo_700';
     }
+
+    &.smaller-font{
+      font-size: 22px;
+    }
 }
 
 .justify-textarea {
@@ -5524,6 +5585,18 @@ bluelink {
     height: 80px;
 }
 
+.upper-container{
+
+  &.margin-top{
+    margin: 0px auto;
+    width: 95%;
+  }
+
+  .right{
+    margin: auto 0px auto auto;
+  }
+}
+
 .title-dark {
     color: $gray-medium;
     font-family: 'Museo_700';
@@ -5532,7 +5605,8 @@ bluelink {
     line-height: 30px !important;
 
     &.disable{
-      color: $gray-lighter;
+      color: $disable-gray;
+      text-align: center;
     }
 
     &.left {
@@ -6335,4 +6409,55 @@ video#bgvid {
 .swap-animation.ng-enter-active {
   opacity: 1;
   transition: 0.5s;
+}
+
+.read-more{
+  color: $wetopia-blue;
+  font-family: 'Museo';
+  cursor: pointer;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.white-padding-bottom{
+  width: 100%;
+  position: absolute;
+  background: white;
+}
+
+#welcome-modal{
+  background: white url('/static/img/PopUp bienvenida/fondo_cuadritos-01.png') no-repeat center top;
+  background-size: contain;
+  max-width: 550px;
+  width: 550px;
+  padding: 15px !important;
+
+  .centered-logo{
+    height: 120px;
+    margin: 30px auto 10px;
+  }
+
+  .blue-text{
+    font-size: 18px;
+    line-height: 16px;
+    margin: 0px auto;
+  }
+
+  .centered-img{
+    width: 250px;
+    margin: auto auto 15px auto;
+  }
+
+  .simple-paragraph{
+    font-family: 'Museo';
+    margin: 15px auto;
+  }
+
+  .color-button{
+    margin: 10px auto 20px;
+    font-size: 17px;
+    font-family: 'Museo';
+    font-weight: lighter;
+    padding: 8px 35px;
+  }
 }

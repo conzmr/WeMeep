@@ -1,6 +1,5 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope, $window, localStorageService, $state, categoriesDataService, ideaDataService) {
-
+.controller('homeCtrl', function($scope, $window, localStorageService, $state, categoriesDataService, ideaDataService, signupDataService) {
 $scope.notification = false;
 $scope.showNotifications=false;
 $scope.showUserMenu=false;
@@ -14,6 +13,7 @@ $scope.currentUser.image = localStorageService.get('image');
 $scope.categoriesService = categoriesDataService.categories;
 $scope.showingIdeas = [];
 $scope.recommendedCategories = [];
+$scope.welcome = signupDataService.user.isNew;
 var initialLimit = 8;
 $scope.limitIdeas = initialLimit;
 getTrendingIdeas();
@@ -101,5 +101,9 @@ $scope.selectCategory = function(category, id_name){
   getIdeasByCategory(id_name);
   // $window.scrollTo(0, 0);
 }
+
+$scope.isEllipsisActive = function(e) {
+      return (e.offsetWidth < e.scrollWidth);
+ }
 
 })

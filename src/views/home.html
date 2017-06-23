@@ -146,19 +146,22 @@
                     </div>
                     <div class="card-info ">
                         <div class="user">
-                            <div class="left">
                                 <div class="polygon-each-img-wrap">
                                     <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>{{idea.admin.username}}</p>
-                            </div>
-                            <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
+                                <p class="lighter-gray left">{{idea.admin.username}}</p>
+                                <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
                         <p class="dark-title">{{idea.name}}</p>
-                        <p class="card-p">
-                            {{idea.description}}
-                        </p>
+                        <span class="card-p">
+                            {{idea.description | limitTo: 55}}
+                        </span>
+                        <span class="ellipsis" ng-show="idea.description.length>55">...
+                        <span  class="read-more">See More</span>
+                        </span>
+                        <div class="white-padding-bottom">
+                        </div>
                     </div>
                     </div>
                     <div class="footer-nav">
@@ -263,4 +266,23 @@
         -->
       </div>
     </div>
+
+    <div class="flex-modal white" ng-show="welcome">
+        <div class="centered-form modal-form complete" id="welcome-modal" click-outside="welcome=false">
+            <div class="flex-cont">
+                <p class="close-x upper dark" ng-click="welcome=false">&times</p>
+                <img src="/static/img/PopUp bienvenida/popup_bienvenida-03.svg" class="centered-logo" alt="Wetopia logo">
+                <p class="blue-text">WELCOME TO</p>
+                  <img src="/static/img/PopUp bienvenida/popup_bienvenida-02.svg" class="centered-img" alt="Wetopia logo">
+                <p class="simple-paragraph">We hope you enjoy and find it helpful the <span class="bolder">first part</span>
+                of the platform. <span class="bolder">Wetopia</span> is still on <span class="bolder">development</span>,
+              so we expect more to come!</p>
+                <p class="simple-paragraph">Thanks for your support!</p>
+                <div class="flex-cont row eighty">
+                    <a class="color-button blue larger stylized right" ng-click="welcome=false">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>

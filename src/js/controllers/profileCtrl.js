@@ -190,6 +190,10 @@ function convertToYears( date ){
 
  profileDataService.getProfileInfo(username, function(response) {
    if(response.status==200){
+     if(response.data.user==null){
+       $state.go('home');
+     }
+     else{
      $scope.user = response.data.user;
      var obj = response.data.user.testResults;
      calculateResults(obj);
@@ -202,6 +206,7 @@ function convertToYears( date ){
          }
        })
      }
+      }
    }
    else {
      $state.go('home');

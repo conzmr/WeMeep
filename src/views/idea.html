@@ -209,8 +209,13 @@
             </div>
         </div>
 
+        <div class="flex-cont mid-page left-align pad-left" ng-show="interestShowed">
+          <p class="sub-gray smaller-font">THANKS FOR YOUR OPINION!</p>
+          <p class="medium light no-margin centered">WE'LL CONSIDER IT FOR OUR LATEST UPDATES!</p>
+        </div>
 
-        <div class="flex-cont mid-page left-align pad-left">
+
+        <div class="flex-cont mid-page left-align pad-left" ng-show="!interestShowed">
             <p class="black-medium dark">How good is this idea?</p>
             <div id="res-statistics" class="left-align">
                 <table class="right-num">
@@ -233,7 +238,7 @@
                 </table>
                 <div class="form-input" ng-show="likeFeedback" >
                   <input type="text" name="why-like" placeholder="Why?" ng-model="whyInterest" required="true">
-                  <a class="color-button blue right complete-form send-feedback-btn"  href="" ng-click="likeFeedback=false">Send</a>
+                  <a class="color-button blue right complete-form send-feedback-btn"  href="" ng-click="giveLike()">Send</a>
                 </div>
             </div>
           </div>

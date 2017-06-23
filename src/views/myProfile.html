@@ -100,7 +100,7 @@
                     <p class="gray-dark">{{user.username}}</p>
                     <p class="gray-lighter small bottom">{{user.email}}</p>
                   </div>
-                  <p ui-sref="myProfile">My Profile</p>
+                  <p ng-href="#upper-cont-profile" offset="180" ng-click="changeShowMenu()" du-smooth-scroll du-scrollspy>My Profile</p>
                   <a class="nav-txt" ng-click="changeShowMenu()" ng-href="#section" offset="80" du-smooth-scroll du-scrollspy>My Ideas</a>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
@@ -208,10 +208,13 @@
         </div>
 
         <div class="section-cont" >
-            <div class="flex-cont row sub-nav max-width" id="section">
-                <p class="sub-gray light" ng-click="showIdeas()" ng-class="{'active blue': ideas}" >My Ideas</p>
+            <div class="flex-cont row sub-nav margin-bottom" id="section">
+                <p class="sub-gray light bigger" ng-click="showIdeas()" ng-class="{'active blue': ideas}" >My Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">My Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
+            </div>
+            <div class="flex-cont upper-container margin-top">
+              <a class="color-button blue larger stylized right" href="/createIdea/first">Create Idea +</a>
             </div>
             <div class="cards-cont">
               <div class="simple-margin-top" ng-show="user.ideas.length==0">
@@ -223,19 +226,22 @@
                   </div>
                   <div class="card-info ">
                       <div class="user">
-                          <div class="left">
                               <div class="polygon-each-img-wrap">
                                   <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                   </div>
                               </div>
-                              <p>{{idea.admin.username}}</p>
-                          </div>
-                          <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
+                              <p class="lighter-gray left">{{idea.admin.username}}</p>
+                              <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                       </div>
                       <p class="dark-title">{{idea.name}}</p>
-                      <p class="card-p">
-                          {{idea.description}}
-                      </p>
+                      <span class="card-p">
+                          {{idea.description | limitTo: 55}}
+                      </span>
+                      <span class="ellipsis" ng-show="idea.description.length>55">...
+                      <span  class="read-more">See More</span>
+                      </span>
+                      <div class="white-padding-bottom">
+                      </div>
                   </div>
                   </div>
                   <div class="footer-nav">

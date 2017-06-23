@@ -35,13 +35,13 @@ angular.module('wetopiaApp')
                 url: "/createIdea",
                 controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdea.html",
-                authenticate: true //mover
+                authenticate: true
             })
             .state("createIdea.first", {
                 url: "/first",
                 // controller: "createIdeaCtrl",
                 templateUrl: "/static/views/createIdeaS1.html",
-                authenticate: true//mover
+                authenticate: true
             })
             .state("createIdea.second", {
                 url: "/second",

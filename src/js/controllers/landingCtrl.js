@@ -27,6 +27,7 @@ angular.module("wetopiaApp")
     $scope.usernameMessageError="";
     $scope.usernameError=false;
     $scope.user={};
+    var newUser = signupDataService.user;
     $scope.graphImg={
       Mario : '/static/img/GRAPH/test-grafica_mario.png',
       Constanza : '/static/img/GRAPH/test-grafica_cons.png',
@@ -337,6 +338,7 @@ $scope.signUp = function (invalidEmail) {
       localStorageService.set('email', res.data.email);
       localStorageService.set('user_id', res.data._id);
       $scope.join=false;
+      newUser.isNew = true;
       $state.go("home");
     }
   }, function(res) {
@@ -394,7 +396,7 @@ $scope.signIn = function(invalidEmail) {
     localStorageService.set('username', res.data.username);
     localStorageService.set('email', res.data.email);
     localStorageService.set('user_id', res.data._id);
-      localStorageService.set('image', res.data.image);
+    localStorageService.set('image', res.data.image);
     $state.go('home');
   },
   function(res) { //error callback

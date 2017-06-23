@@ -1,5 +1,5 @@
 angular.module('wetopiaApp')
-    .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, createIdeaDataService, localStorageService, $http, Upload, $state, $window) {
+    .controller('createIdeaCtrl', function($scope, $rootScope, $stateParams, $location, createIdeaDataService, localStorageService, $http, Upload, $state, $window) {
 
         let user_id = localStorageService.get('user_id');
         $scope.idea = createIdeaDataService.idea;
@@ -20,6 +20,10 @@ angular.module('wetopiaApp')
         $scope.errorSolutionMessage = "";
         $scope.errorOtherCategory = false;
         $scope.categorySelected = {};
+
+        if($location.path()=='/createIdea'){
+          $location.path('/createIdea/first')
+        }
 
 
         $scope.selectCategory = function(category) {

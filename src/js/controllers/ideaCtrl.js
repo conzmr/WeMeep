@@ -20,6 +20,7 @@ angular.module('wetopiaApp')
         $scope.showUserMenu=false;
         $scope.showPivots = false;
         $scope.like = "";
+        $scope.interestShowed = false;
         $scope.likeFeedback = false;
         $scope.categoriesBanner = categoriesDataService.categories;
         var idea_id= $stateParams.idea_id;
@@ -72,12 +73,16 @@ angular.module('wetopiaApp')
           })
         }
 
-        function giveLike(like_type){
+        $scope.giveLike =function(){
           let like = {
-            interest: like_type,
+            interest: $scope.like,
             comment: $scope.whyInterest
           }
           ideaDataService.giveLike(idea_id, $scope.currentPivot, like, function(response){
+            if(response.status == 200){
+              $scope.likeFeedback = false;
+              $scope.interestShowed = true;
+            }
           })
         }
 
@@ -119,10 +124,10 @@ angular.module('wetopiaApp')
           }
           else{
             $scope.like = like;
-            giveLike(like);
             $scope.likeFeedback = true;
           }
         }
+
 
         $scope.logOut = function(){
           localStorageService.clearAll();

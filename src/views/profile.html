@@ -156,8 +156,8 @@
           </div>
 
           <div class="section-cont">
-              <div class="flex-cont row sub-nav max-width" id="userSection">
-                <p class="sub-gray light" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Ideas</p>
+              <div class="flex-cont row sub-nav margin-bottom" id="userSection">
+                <p class="sub-gray light bigger" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
               </div>
@@ -171,19 +171,22 @@
                     </div>
                     <div class="card-info ">
                         <div class="user">
-                            <div class="left">
                                 <div class="polygon-each-img-wrap">
                                     <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>{{idea.admin.username}}</p>
-                            </div>
-                            <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
+                                <p class="lighter-gray left">{{idea.admin.username}}</p>
+                                <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
                         <p class="dark-title">{{idea.name}}</p>
-                        <p class="card-p">
-                            {{idea.description}}
-                        </p>
+                        <span class="card-p">
+                            {{idea.description | limitTo: 55}}
+                        </span>
+                        <span class="ellipsis" ng-show="idea.description.length>55">...
+                        <span  class="read-more">See More</span>
+                        </span>
+                        <div class="white-padding-bottom">
+                        </div>
                     </div>
                     </div>
                     <div class="footer-nav">
