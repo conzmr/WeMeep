@@ -14,21 +14,6 @@ var ideaSchema = new mongoose.Schema({
     ref: 'Category',
     required:true
   },
-  feedback: [{
-    type: mongoose.Schema.Types.ObjectId, /* Object ID for the Feedback */
-    ref: 'Feedback'
-  }],
-   interests: [{
-      _id: {
-        type: mongoose.Schema.Types.ObjectId, /* Object ID from User */
-        ref: 'User' /* User Schema. Remember to define it as this in the export module */
-      },
-      /* This type could be: money, love, like, dislike */
-      type: {
-        type: String,
-        required: true
-      }
-  }],
   ideaname:String, /* Codename for the project to reference it */
   members: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -38,20 +23,10 @@ var ideaSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  problem: String,
   country: String,
-  views: [{
+  pivots: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    unique: true
-  }],
-  pivots: [
-    {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Idea'
-      },
-      number: Number
+    ref: 'Pivot'
   }]
 });
 

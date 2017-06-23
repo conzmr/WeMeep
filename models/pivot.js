@@ -3,26 +3,6 @@ const mongoose = require('mongoose')
 //Pivot Schema
 var pivotSchema = new mongoose.Schema({
   number: Number,
-  admin: {
-    type: mongoose.Schema.Types.ObjectId, /* Object ID for the user administrator */
-    ref: 'User',
-    required: true
-  },
-  banner: String,
-  category: {
-    type: mongoose.Schema.Types.ObjectId, /* Object ID for the category */
-    ref: 'Category',
-    required:true
-  },
-  ideaname: String, /* Codename for the project to reference it */
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  name: {
-    type: String,
-    required: true
-  },
   problem: String,
   description: String,
   interests: [{
@@ -47,4 +27,4 @@ var pivotSchema = new mongoose.Schema({
   }]
 })
 
-module.exports = mongoose.model('Idea', ideaSchema);
+module.exports = mongoose.model('Pivot', pivotSchema)

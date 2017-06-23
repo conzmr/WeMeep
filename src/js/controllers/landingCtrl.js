@@ -235,7 +235,6 @@ $timeout(function(){
         let invitationInfo = {}
         invitationInfo.email = email
         invitationInfo.lang = $translate.proposedLanguage() == 'es' ? $scope.esMail : $scope.enMail
-        console.log(invitationInfo.lang);
         JSON.stringify(invitationInfo);
         invitationDataService.invitation(invitationInfo, function(res) {
             if (res.status == 201){
