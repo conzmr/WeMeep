@@ -17,6 +17,7 @@ const Category = require("../models/category.js")
 const Feedback = require("../models/feedback.js")
 const Guest = require("../models/guest.js")
 const DeletedIdea = require("../models/deleted_idea.js")
+const Notification = require("../models/notification.js")
 
 // config files
 const invite = require("../config/createinvitation.js")
@@ -825,4 +826,40 @@ router.route('/ideas/:idea_id/:pivot/stats')
   })
 })
 
-module.exports = router;
+/*************************************
+***                                ***
+***          NOTIFICATIONS         ***
+***                                ***
+*************************************/
+// CREATE NEW NOTIFICATION
+router.route('/notifications/')
+.post(function (req, res) {
+  // check if the sender exists
+  User.findById(req.U_ID)
+  .exec(function(err, user) {
+    if (err) return res.status(500).json({'error': err})
+
+    // create the notification
+    let notification = new Notification({
+      type: req.body.type,
+      sender: req.U_ID,
+      idea: req.body.idea
+    })
+
+    notification.save(function(err, notification) {
+      if (err) return res.status(500).json({'err':err})
+      // notify to all members of the idea
+      User.update(
+        { _id: {$in: req.body.members} },
+        { $push: {"notifications":  notification._id} },
+        { multi: true }
+      )
+      .exec(function(err){
+        if (err) return res.status(500).json({'error': err,})
+        return res.status(201).json({message: 'Notification created!'})
+      })
+    })
+  })
+})
+
+module.exports = router
