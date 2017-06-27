@@ -16,9 +16,9 @@ var feedbackSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  idea: { /* Bi-directional relation */
+  pivot: { /* Bi-directional relation */
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the user creator */
-    ref: 'Idea',
+    ref: 'Pivot',
     required: true
   }
 });

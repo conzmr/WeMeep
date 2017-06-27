@@ -302,7 +302,6 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
-
       //order pivots
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
@@ -312,7 +311,7 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
       let feedback = new Feedback({
         user: req.U_ID,
         comment: req.body.text,
-        idea: req.params.idea_id
+        pivot: idea.pivots[pivot - 1].id
       })
 
       //save comment
@@ -326,18 +325,8 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
               model: 'User',
               select: 'image name username'
           }, function(err, feedback){
-            if (err) return res.status(500).json({'error': err,});
-            else
-                  feedback.populate({
-          path: 'user',
-           model: 'User',
-           select: 'image name username'
-       },function(err, feedback){
-         if (err)
-           return res.status(500).json({'error': err,});
-         else
-           res.status(201).json({feedback});
-       })
+            if (err) return res.status(500).json({'error': err,})
+            else res.status(201).json({feedback})
           })
         })
       })
@@ -376,17 +365,24 @@ router.route('/ideas/:idea_id/:feedback_id/star')
 router.route('/feedback/:feedback_id')
 // DELETE FEEDBACK
 .delete(function (req, res) {
+  // find if feedback reference is valid
   Feedback.findById(req.params.feedback_id)
   .exec(function(err, feedback){
     if (err) return res.status(500).json({'error': err})
     if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
     if (feedback.user != req.U_ID) return res.status(401).json({error:{message: "This is not your comment. GFY you hacker!"}})
     else {
+      // delete document from collection
         Feedback.findById(req.params.feedback_id)
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
-          return res.status(200).json({'message': "Feedback successfully deleted"})
-          //TODO: Remove reference from idea/pivot
+
+          Pivot.findById(feedback.pivot)
+          .update({ $pull: { 'feedback': req.params.feedback_id } })
+          .exec(function(err, feedback){
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'message': "Feedback successfully deleted"})
+          })
         })
     }
   })
