@@ -607,28 +607,30 @@ router.route('/ideas/:idea_id/:pivot')
         })
       })
 
-      //TODO: Remove pivot reference from idea
-      //TODO: Delete the Idea haha
-      // Remove idea reference from user
-      User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
-      .exec((error, user) => {
-        if (error) return res.status(500).json({ error })
+      Idea.findById(req.params.idea_id)
+      .remove((err) => {
+        if (err) return res.status(500).json({'error': err})
+        // Remove idea reference from user
+        User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
+        .exec((error, user) => {
+          if (error) return res.status(500).json({ error })
 
-        // Save information of deleted idea
-        let deletedIdea = new DeletedIdea({
-          user: req.U_ID,
-          description: idea.description,
-          problem: idea.problem,
-          name: idea.name,
-          category: idea.category,
-          interests: idea.interests,
-          views: idea.views,
-          comment: req.body.comment
-        })
+          // Save information of deleted idea
+          let deletedIdea = new DeletedIdea({
+            user: req.U_ID,
+            description: idea.description,
+            problem: idea.problem,
+            name: idea.name,
+            category: idea.category,
+            interests: idea.interests,
+            views: idea.views,
+            comment: req.body.comment
+          })
 
-        deletedIdea.save(function(err, newIdea) {
-          if (err) return res.status(500).json({'err':err})
-          return res.status(200).json({'message': "Idea successfully deleted"})
+          deletedIdea.save(function(err, newIdea) {
+            if (err) return res.status(500).json({'err':err})
+            return res.status(200).json({'message': "Idea successfully deleted"})
+          })
         })
       })
     }
