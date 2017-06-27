@@ -41,6 +41,9 @@ io.on('connection', (socket) => {
     io.emit('notify')
     /* io.emit('something happend') // for all. */
     /* socket.broadcast.emit('something happend') // for all except me. */
+
+    //Send only to an specific client
+    //socket.broadcast.to(socketid).emit('message', 'for your eyes only');
   })
 })
 

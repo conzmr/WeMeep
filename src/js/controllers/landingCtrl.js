@@ -420,6 +420,8 @@ $scope.pushNotification = function(){
   socket.emit('comment')
   socket.on('notify', () => {
     $scope.notifyMe()
+    //call service to create notification at (/notifications)
+    //call function to push to notification array or update notification center
   })
 }
 
