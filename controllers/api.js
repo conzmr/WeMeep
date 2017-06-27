@@ -661,7 +661,7 @@ router.route('/ideas/this/:idea_id/pivot')
         if (err) return res.status(500).json({'err':err})
 
         // add reference of pivot to the specified idea
-        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': newIdea } }, { new: true })
+        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': newIdea }, $set: { description: req.body.description } }, { new: true })
         .exec(function(err){
           if (err) return res.status(500).json({'error': err})
           return res.status(201).json({message: 'Created Pivot!', pivot: newIdea})
