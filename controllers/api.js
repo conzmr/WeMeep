@@ -405,21 +405,46 @@ router.route('/ideas/:idea_id/:pivot/interest')
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
 
+      // order pivots
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
       })
 
-      Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+      // look for same interest (already shown)
+      Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID}, 'interests.type': {$eq: req.body.interest } })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
 
+        // if there is no ideas with same interest, look for any interest shown
         if (!ideas) {
-          Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
-          .exec(function(err, ideas) {
+          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+          .exec(function(err, results) {
             if (err) return res.status(500).json({'error': err})
-            return res.status(200).json({'message': "Success showing interest."})
+
+            // if there is no results, this means the user have never shown interest in this idea (new interest shown)
+            if (!results) {
+              Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+              .exec(function(err, ideas) {
+                if (err) return res.status(500).json({'error': err})
+                return res.status(200).json({'message': "Success showing interest."})
+              })
+            }
+            // this means the user want to change the type of interest
+            else {
+              Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $pull: {'interests': {'_id': req.U_ID}} })
+              .exec((err, ideas) => {
+                if (err) return res.status(500).json({'error': err})
+
+                Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+                .exec(function(err, ideas) {
+                  if (err) return res.status(500).json({'error': err})
+                  return res.status(200).json({'message': "Success showing interest."})
+                })
+              })
+            }
           })
         }
+        // this means the same interest is being shown
         else return res.status(400).json({'message': "Already shown interest."})
       })
     }
@@ -654,8 +679,6 @@ router.route('/ideas/this/:idea_id/pivot')
         problem: req.body.problem,
         number: idea.pivots.length + 1
       })
-
-      //TODO: Update description from idea
 
       pivot.save(function(err, newIdea) {
         if (err) return res.status(500).json({'err':err})
