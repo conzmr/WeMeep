@@ -1,6 +1,6 @@
 angular.module("wetopiaApp")
 
-.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper, socket) {
+.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper, socket, $http) {
     $scope.join = false;
     $scope.login = false;
     $scope.request = false;
@@ -415,6 +415,14 @@ $scope.signIn = function(invalidEmail) {
 $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
 };
+
+socket.on('socket', function(socketId){ // client gets the socket event here
+  console.log("GET EVENT");
+   $http.get(window.HOST + '/api/socket/'+ socketId)
+   .then(function(response){
+    if(response.status == 200) console.log("Successfully got socket information")
+  })
+})
 
 $scope.pushNotification = function(){
   socket.emit('comment')

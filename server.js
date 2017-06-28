@@ -30,10 +30,21 @@ app.use('/', function(req, res) {
     res.sendFile( __dirname + '/public/views/index.html') // Use res.sendfile, as it streams instead of reading the file into memory.
 })
 
+// Keep track of open sockets
+var sockets = []
+
+// track userIds for all connected users
+GLOBAL.users = {}
+
 //SocketIO integration
 // This event will trigger when any user is connected.
 io.on('connection', (socket) => {
   console.log("A user connected!")
+  sockets.push(socket) //push the open socket to the data structure
+  GLOBAL.users.lastConnected = socket.id // sets the user's socketId
+
+  socket.emit('socket', socket.id) // sends a socket event over to the client
+
   // You can use 'socket' to emit and receive events.
   socket.on('comment', (data) => {
     // When any connected client emit this event, we will receive it here.

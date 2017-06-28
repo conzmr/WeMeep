@@ -132,6 +132,17 @@ router.post('/authenticate', function(req, res) {
   })
 })
 
+router.route('/socket/:id')
+.get(function(req, res) {
+  if (req.U_ID && req.params.id == GLOBAL.users.lastConnected) {
+    // you could loop through here instead for more accuracy but at the cost of speed
+    GLOBAL.users[req.U_ID] = GLOBAL.users.lastConnected // here the userId pairs with the socketId
+  }
+  delete GLOBAL.users.lastConnected // get rid of this temporary spot
+  return res.status(200).json({message: 'Socket information setted'})
+})
+
+
 /*************************************
 ***                                ***
 ***          MIDDLEWARE JWT        ***
