@@ -1,6 +1,6 @@
 angular.module("wetopiaApp")
 
-.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper, socket, $http) {
+.controller("landingCtrl", function($scope, $document, $window, $state, $stateParams, $location, $timeout, $interval, invitationDataService, $translate, localStorageService, signupDataService, Upload, loginDataService, jwtHelper) {
     $scope.join = false;
     $scope.login = false;
     $scope.request = false;
@@ -415,60 +415,5 @@ $scope.signIn = function(invalidEmail) {
 $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
 };
-
-socket.on('socket', function(socketId){ // client gets the socket event here
-  console.log("GET EVENT");
-   $http.get(window.HOST + '/api/socket/'+ socketId)
-   .then(function(response){
-    if(response.status == 200) console.log("Successfully got socket information")
-  })
-})
-
-$scope.pushNotification = function(){
-  socket.emit('comment')
-  socket.on('notify', () => {
-    $scope.notifyMe()
-    //call service to create notification at (/notifications)
-    //call function to push to notification array or update notification center
-  })
-}
-
-$scope.notifyMe = function() {
-  // Let's check if the browser supports notifications
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification")
-  }
-  // Let's check if the user is okay to get some notification
-  else if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
-    var options = {
-          body: "Someone has commented your idea",
-          dir : "ltr"
-      }
-    var notification = new Notification("New comment", options)
-  }
-  // Otherwise, we need to ask the user for permission
-  // Note, Chrome does not implement the permission static property
-  // So we have to check for NOT 'denied' instead of 'default'
-  else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-      // Whatever the user answers, we make sure we store the information
-      if (!('permission' in Notification)) {
-        Notification.permission = permission
-      }
-      // If the user is okay, let's create a notification
-      if (permission === "granted") {
-        var options = {
-                body: "message",
-                dir : "ltr"
-        }
-        var notification = new Notification(" Posted a comment")
-      }
-    })
-  }
-  // At last, if the user already denied any notification, and you
-  // want to be respectful there is no need to bother them any more.
-}
-
 
 })

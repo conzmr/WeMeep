@@ -108,10 +108,6 @@ angular.module('wetopiaApp', ['ui.router', 'LocalStorageModule',
 .factory('socket', ['$rootScope', function($rootScope, $http) {
   var socket = io()
 
-
-
-    //$.get( "/socket/" + socketId ) // sends the socket id over to the app (along with the already logged in session)
-
   return {
     on: function(eventName, callback){
       socket.on(eventName, callback)

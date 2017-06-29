@@ -132,17 +132,6 @@ router.post('/authenticate', function(req, res) {
   })
 })
 
-router.route('/socket/:id')
-.get(function(req, res) {
-  if (req.U_ID && req.params.id == GLOBAL.users.lastConnected) {
-    // you could loop through here instead for more accuracy but at the cost of speed
-    GLOBAL.users[req.U_ID] = GLOBAL.users.lastConnected // here the userId pairs with the socketId
-  }
-  delete GLOBAL.users.lastConnected // get rid of this temporary spot
-  return res.status(200).json({message: 'Socket information setted'})
-})
-
-
 /*************************************
 ***                                ***
 ***          MIDDLEWARE JWT        ***
@@ -731,7 +720,6 @@ router.route('/ideas/trending')
 
         // get category of every idea
         ideas.forEach((idea) => {
-          console.log(idea.name + " ES " + idea.pivots[idea.pivots.length - 1].views.length)
           trendingIdeas.push({
             _id: idea.id,
             trending: idea.pivots[idea.pivots.length - 1].views.length + idea.pivots[idea.pivots.length - 1].feedback.length, //get only the last pivot information. Since we do care only about recent activity
@@ -894,5 +882,17 @@ router.route('/notifications/')
     })
   })
 })
+
+router.route('/socket/:id')
+.get(function(req, res) {
+  if (req.U_ID && req.params.id == GLOBAL.users.lastConnected) {
+    // you could loop through here instead for more accuracy but at the cost of speed
+    GLOBAL.users[req.U_ID] = GLOBAL.users.lastConnected // here the userId pairs with the socketId
+    console.log(GLOBAL.users)
+  }
+  delete GLOBAL.users.lastConnected // get rid of this temporary spot
+  return res.status(200).json({message: 'Socket information setted'})
+})
+
 
 module.exports = router
