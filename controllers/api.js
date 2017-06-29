@@ -725,15 +725,16 @@ router.route('/ideas/trending')
       Idea.find()
       .populate('admin', 'username image')
       .populate('category', 'name description')
+      .populate('pivots')
       .exec(function (err, ideas) {
         let trendingIdeas = []
 
         // get category of every idea
         ideas.forEach((idea) => {
-
+          console.log(idea.name + " ES " + idea.pivots[idea.pivots.length - 1].views.length)
           trendingIdeas.push({
             _id: idea.id,
-            trending: idea.views.length + idea.feedback.length,
+            trending: idea.pivots[idea.pivots.length - 1].views.length + idea.pivots[idea.pivots.length - 1].feedback.length, //get only the last pivot information. Since we do care only about recent activity
             name: idea.name,
             description: idea.description,
             admin: idea.admin,
@@ -743,7 +744,7 @@ router.route('/ideas/trending')
         })
 
         let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
-        trendingIdeas.sort((a,b) => b.trending - a.trending);
+        trendingIdeas.sort((a,b) => b.trending - a.trending)
 
         return res.status(200).json(trendingIdeas)
   })
