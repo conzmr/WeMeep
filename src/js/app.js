@@ -16,7 +16,7 @@ require('angular-scroll-animate')
 
 //Change in production
 //to http://wetopia.co and in development to http://localhost:8080
-window.HOST = 'http://localhost:8080'
+window.HOST = 'http://192.168.1.64:8080'
 
 angular.module('wetopiaApp', ['ui.router', 'LocalStorageModule',
         'angular-jwt', 'pascalprecht.translate', 'ngFileUpload', 'ngTagsInput', 'ngAnimate', 'chart.js', 'angular-click-outside', 'duScroll','angulartics', 'angulartics.segment','angular-scroll-animate'

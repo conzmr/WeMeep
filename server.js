@@ -46,10 +46,9 @@ io.on('connection', (socket) => {
   socket.emit('socket', socket.id) // sends a socket event over to the client
 
   // You can use 'socket' to emit and receive events.
-  socket.on('comment', (data) => {
+  socket.on('comment', (userId) => {
     // When any connected client emit this event, we will receive it here.
-    console.log("Someone commented")
-    io.emit('notify')
+    socket.to(GLOBAL.users[userId]).emit('notify')
     /* io.emit('something happend') // for all. */
     /* socket.broadcast.emit('something happend') // for all except me. */
 

@@ -110,7 +110,7 @@ socket.on('socket', function(socketId){ // client gets the socket event here
 })
 
 $scope.pushNotification = function(){
-  socket.emit('comment')
+  socket.emit('comment', '59401c5fa5631108c32f1691')
   socket.on('notify', () => {
     $scope.notifyMe()
     //call service to create notification at (/notifications)
