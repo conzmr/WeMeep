@@ -44,7 +44,12 @@ var userSchema = new mongoose.Schema({
     },
     //new attributes
     profession: String,
-    birthdate: Number
+    birthdate: Number,
+    // notifications
+    notifications:[{
+      type: mongoose.Schema.Types.ObjectId, /* Object ID from ideas */
+      ref: 'Notification'
+    }]
 })
 
 userSchema.methods.comparePassword = function (password) {

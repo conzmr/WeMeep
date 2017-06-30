@@ -17,6 +17,7 @@ const Category = require("../models/category.js")
 const Feedback = require("../models/feedback.js")
 const Guest = require("../models/guest.js")
 const DeletedIdea = require("../models/deleted_idea.js")
+const Notification = require("../models/notification.js")
 
 // config files
 const invite = require("../config/createinvitation.js")
@@ -301,7 +302,6 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
-
       //order pivots
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
@@ -311,7 +311,7 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
       let feedback = new Feedback({
         user: req.U_ID,
         comment: req.body.text,
-        idea: req.params.idea_id
+        pivot: idea.pivots[pivot - 1].id
       })
 
       //save comment
@@ -325,18 +325,8 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
               model: 'User',
               select: 'image name username'
           }, function(err, feedback){
-            if (err) return res.status(500).json({'error': err,});
-            else
-                  feedback.populate({
-          path: 'user',
-           model: 'User',
-           select: 'image name username'
-       },function(err, feedback){
-         if (err)
-           return res.status(500).json({'error': err,});
-         else
-           res.status(201).json({feedback});
-       })
+            if (err) return res.status(500).json({'error': err,})
+            else res.status(201).json({feedback})
           })
         })
       })
@@ -375,17 +365,24 @@ router.route('/ideas/:idea_id/:feedback_id/star')
 router.route('/feedback/:feedback_id')
 // DELETE FEEDBACK
 .delete(function (req, res) {
+  // find if feedback reference is valid
   Feedback.findById(req.params.feedback_id)
   .exec(function(err, feedback){
     if (err) return res.status(500).json({'error': err})
     if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
     if (feedback.user != req.U_ID) return res.status(401).json({error:{message: "This is not your comment. GFY you hacker!"}})
     else {
+      // delete document from collection
         Feedback.findById(req.params.feedback_id)
         .remove(function(err){
           if (err) return res.status(500).json({'error': err})
-          return res.status(200).json({'message': "Feedback successfully deleted"})
-          //TODO: Remove reference from idea/pivot
+
+          Pivot.findById(feedback.pivot)
+          .update({ $pull: { 'feedback': req.params.feedback_id } })
+          .exec(function(err, feedback){
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'message': "Feedback successfully deleted"})
+          })
         })
     }
   })
@@ -408,21 +405,46 @@ router.route('/ideas/:idea_id/:pivot/interest')
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
 
+      // order pivots
       idea.pivots.sort((a, b) => {
         return parseFloat(a.number) - parseFloat(b.number)
       })
 
-      Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+      // look for same interest (already shown)
+      Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID}, 'interests.type': {$eq: req.body.interest } })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
 
+        // if there is no ideas with same interest, look for any interest shown
         if (!ideas) {
-          Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
-          .exec(function(err, ideas) {
+          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+          .exec(function(err, results) {
             if (err) return res.status(500).json({'error': err})
-            return res.status(200).json({'message': "Success showing interest."})
+
+            // if there is no results, this means the user have never shown interest in this idea (new interest shown)
+            if (!results) {
+              Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+              .exec(function(err, ideas) {
+                if (err) return res.status(500).json({'error': err})
+                return res.status(200).json({'message': "Success showing interest."})
+              })
+            }
+            // this means the user want to change the type of interest
+            else {
+              Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $pull: {'interests': {'_id': req.U_ID}} })
+              .exec((err, ideas) => {
+                if (err) return res.status(500).json({'error': err})
+
+                Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
+                .exec(function(err, ideas) {
+                  if (err) return res.status(500).json({'error': err})
+                  return res.status(200).json({'message': "Success showing interest."})
+                })
+              })
+            }
           })
         }
+        // this means the same interest is being shown
         else return res.status(400).json({'message': "Already shown interest."})
       })
     }
@@ -610,28 +632,30 @@ router.route('/ideas/:idea_id/:pivot')
         })
       })
 
-      //TODO: Remove pivot reference from idea
-      //TODO: Delete the Idea haha
-      // Remove idea reference from user
-      User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
-      .exec((error, user) => {
-        if (error) return res.status(500).json({ error })
+      Idea.findById(req.params.idea_id)
+      .remove((err) => {
+        if (err) return res.status(500).json({'error': err})
+        // Remove idea reference from user
+        User.findOneAndUpdate({'_id': user}, { $pull: { 'ideas': idea.id} }, { new: true })
+        .exec((error, user) => {
+          if (error) return res.status(500).json({ error })
 
-        // Save information of deleted idea
-        let deletedIdea = new DeletedIdea({
-          user: req.U_ID,
-          description: idea.description,
-          problem: idea.problem,
-          name: idea.name,
-          category: idea.category,
-          interests: idea.interests,
-          views: idea.views,
-          comment: req.body.comment
-        })
+          // Save information of deleted idea
+          let deletedIdea = new DeletedIdea({
+            user: req.U_ID,
+            description: idea.description,
+            problem: idea.problem,
+            name: idea.name,
+            category: idea.category,
+            interests: idea.interests,
+            views: idea.views,
+            comment: req.body.comment
+          })
 
-        deletedIdea.save(function(err, newIdea) {
-          if (err) return res.status(500).json({'err':err})
-          return res.status(200).json({'message': "Idea successfully deleted"})
+          deletedIdea.save(function(err, newIdea) {
+            if (err) return res.status(500).json({'err':err})
+            return res.status(200).json({'message': "Idea successfully deleted"})
+          })
         })
       })
     }
@@ -656,13 +680,11 @@ router.route('/ideas/this/:idea_id/pivot')
         number: idea.pivots.length + 1
       })
 
-      //TODO: Update description from idea
-
       pivot.save(function(err, newIdea) {
         if (err) return res.status(500).json({'err':err})
 
         // add reference of pivot to the specified idea
-        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': newIdea } }, { new: true })
+        Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $addToSet: {'pivots': newIdea }, $set: { description: req.body.description } }, { new: true })
         .exec(function(err){
           if (err) return res.status(500).json({'error': err})
           return res.status(201).json({message: 'Created Pivot!', pivot: newIdea})
@@ -692,15 +714,15 @@ router.route('/ideas/trending')
       Idea.find()
       .populate('admin', 'username image')
       .populate('category', 'name description')
+      .populate('pivots')
       .exec(function (err, ideas) {
         let trendingIdeas = []
 
         // get category of every idea
         ideas.forEach((idea) => {
-
           trendingIdeas.push({
             _id: idea.id,
-            trending: idea.views.length + idea.feedback.length,
+            trending: idea.pivots[idea.pivots.length - 1].views.length + idea.pivots[idea.pivots.length - 1].feedback.length, //get only the last pivot information. Since we do care only about recent activity
             name: idea.name,
             description: idea.description,
             admin: idea.admin,
@@ -710,7 +732,7 @@ router.route('/ideas/trending')
         })
 
         let categories = Object.keys(trendingIdeas).sort(function(a,b){return trendingIdeas[b]-trendingIdeas[a]})
-        trendingIdeas.sort((a,b) => b.trending - a.trending);
+        trendingIdeas.sort((a,b) => b.trending - a.trending)
 
         return res.status(200).json(trendingIdeas)
   })
@@ -825,4 +847,52 @@ router.route('/ideas/:idea_id/:pivot/stats')
   })
 })
 
-module.exports = router;
+/*************************************
+***                                ***
+***          NOTIFICATIONS         ***
+***                                ***
+*************************************/
+// CREATE NEW NOTIFICATION
+router.route('/notifications/')
+.post(function (req, res) {
+  // check if the sender exists
+  User.findById(req.U_ID)
+  .exec(function(err, user) {
+    if (err) return res.status(500).json({'error': err})
+
+    // create the notification
+    let notification = new Notification({
+      type: req.body.type,
+      sender: req.U_ID,
+      idea: req.body.idea
+    })
+
+    notification.save(function(err, notification) {
+      if (err) return res.status(500).json({'err':err})
+      // notify to all members of the idea
+      User.update(
+        { _id: {$in: req.body.members} },
+        { $push: {"notifications":  notification._id} },
+        { multi: true }
+      )
+      .exec(function(err){
+        if (err) return res.status(500).json({'error': err,})
+        return res.status(201).json({message: 'Notification created!'})
+      })
+    })
+  })
+})
+
+router.route('/socket/:id')
+.get(function(req, res) {
+  if (req.U_ID && req.params.id == GLOBAL.users.lastConnected) {
+    // you could loop through here instead for more accuracy but at the cost of speed
+    GLOBAL.users[req.U_ID] = GLOBAL.users.lastConnected // here the userId pairs with the socketId
+    console.log(GLOBAL.users)
+  }
+  delete GLOBAL.users.lastConnected // get rid of this temporary spot
+  return res.status(200).json({message: 'Socket information setted'})
+})
+
+
+module.exports = router

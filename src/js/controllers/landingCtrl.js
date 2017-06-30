@@ -420,5 +420,4 @@ $scope.animateHowItWorks = function($element) {
 		$element.addClass('visible');
 };
 
-
 })
