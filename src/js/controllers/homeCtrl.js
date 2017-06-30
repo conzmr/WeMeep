@@ -109,16 +109,26 @@ socket.on('socket', function(socketId){ // client gets the socket event here
   })
 })
 
+socket.on('notify', (sender) => {
+  $scope.notifyMe(sender)
+  //call service to create notification at (/notifications)
+  //call function to push to notification array or update notification center
+})
+
 $scope.pushNotification = function(){
-  socket.emit('comment', '59401c5fa5631108c32f1691')
-  socket.on('notify', () => {
-    $scope.notifyMe()
-    //call service to create notification at (/notifications)
-    //call function to push to notification array or update notification center
-  })
+
+  let sender = {
+    userId: '59401c5fa5631108c32f1691',
+    username: $scope.currentUser.username,
+    image: $scope.currentUser.image,
+    name:  $scope.currentUser.username, //change for name
+    idea: 'Deep Stranded' //change for idea name
+  }
+
+  socket.emit('comment', sender)
 }
 
-$scope.notifyMe = function() {
+$scope.notifyMe = function(sender) {
   // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification")
@@ -127,10 +137,10 @@ $scope.notifyMe = function() {
   else if (Notification.permission === "granted") {
     // If it's okay let's create a notification
     var options = {
-          body: "Someone has commented your idea",
-          dir : "ltr"
+          body: sender.name + " has commented your idea " + sender.idea,
+          icon: sender.image
       }
-    var notification = new Notification("New comment", options)
+    var notification = new Notification("Wetopia", options)
   }
   // Otherwise, we need to ask the user for permission
   // Note, Chrome does not implement the permission static property
@@ -144,10 +154,10 @@ $scope.notifyMe = function() {
       // If the user is okay, let's create a notification
       if (permission === "granted") {
         var options = {
-                body: "message",
-                dir : "ltr"
+                body:  sender.name + " has commented your idea" + sender.idea,
+                icon:  sender.image
         }
-        var notification = new Notification(" Posted a comment")
+        var notification = new Notification("Wetopia")
       }
     })
   }
