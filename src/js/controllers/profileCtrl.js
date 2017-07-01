@@ -200,8 +200,8 @@ function convertToYears( date ){
      for(var i = 0; i < $scope.user.ideas.length; i++){
        var j =0;
        ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
-         if(response.data){
-           $scope.ideasData[j] = response.data;
+         if(response.data.idea){
+           $scope.ideasData[j] = response.data.idea;
            j++;
          }
        })

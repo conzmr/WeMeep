@@ -1,5 +1,5 @@
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <nav class="transparent-nav scroll-white static" >
         <a class=" logo "  href="/home"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
         <div class="center-action">
@@ -158,15 +158,15 @@
                  <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                 </p>
                 <p class="tab-paragraph">
-                  {{idea.description}}
+                    {{idea.pivots[currentPivot-1].description}}
                 </p>
 
-                <div class="simple-cont" ng-show="idea.problem">
+                <div class="simple-cont" ng-show="idea.pivots[currentPivot-1].problem">
                 <img class="big-img" src="/static/img/Create Idea_problem.svg">
                 <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                 </p>
                 <p class="tab-paragraph">
-                  {{idea.problem}}
+                    {{idea.pivots[currentPivot-1].problem}}
                 </p>
               </div>
             </div>
@@ -188,10 +188,10 @@
 
             <p class="black-medium bolder">Current Pivot Feedback</p>
             <div class="comments flex-cont">
-              <div class="simple-margin-top" ng-show="idea.feedback.length==0">
+              <div class="simple-margin-top" ng-show="pivot.feedback.length==0">
                 <p  class="title-dark disable">Be the first comment.</p>
               </div>
-              <div class="comment flex-box" ng-repeat="comment in idea.feedback" >
+              <div class="comment flex-box" ng-repeat="comment in pivot.feedback" >
                 <div class="flex-cont comment-top">
                   <div class="polygon-each-img-wrap">
                       <div class="polygon-clip-hexagon" ngf-background="comment.user.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'">
@@ -199,7 +199,7 @@
                   </div>
                   <p class="name" ng-bind="comment.user.name"></p>
                   <p class="username" ng-bind="comment.user.username"></p>
-                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStartToFeedback(comment._id, $index)">
+                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStarToFeedback(comment._id, $index)">
                   <p class="star" ng-bind="comment.stars.length"></p>
                   <a class="delete right" ng-click="wantoToDeleteFeedback(comment._id, $index)" ng-if="currentUser.username == comment.user.username">  &times </a>
                 </div>

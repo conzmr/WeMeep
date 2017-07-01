@@ -46,18 +46,23 @@ angular.module('wetopiaApp')
     .then(callback, errorCallback)
   }
 
-  this.giveStartToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
+  this.giveStarToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
     return $http.post(window.HOST + '/api/ideas/'+idea_id+'/'+feedback_id+'/star')
     .then(callback, errorCallback)
   }
 
-  this.deleteStartToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
+  this.deleteStarToFeedback = function (idea_id, feedback_id, callback, errorCallback) {
     return $http.delete(window.HOST + '/api/ideas/'+idea_id+'/'+feedback_id+'/star')
     .then(callback, errorCallback)
   }
 
   this.giveLike = function (idea_id, pivot_id, like_type, callback, errorCallback) {
     return $http.post(window.HOST + '/api/ideas/'+idea_id+'/'+pivot_id+'/interest', like_type)
+    .then(callback, errorCallback)
+  }
+
+  this.getLike = function (idea_id, pivot_id, callback, errorCallback) {
+    return $http.get(window.HOST + '/api/ideas/'+idea_id+'/'+pivot_id+'/interest')
     .then(callback, errorCallback)
   }
 

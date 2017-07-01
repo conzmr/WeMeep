@@ -450,6 +450,22 @@ router.route('/ideas/:idea_id/:pivot/interest')
     }
   })
 })
+.get(function (req, res) {
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .populate('pivots')
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
+          .exec(function(err, results) {
+            if (err) return res.status(500).json({'error': err})
+          })
+        }
+      })
+    })
 
 router.route('/ideas/self/create')
 // CREATE AN IDEA WITH IT'S FIRST PIVOT
@@ -526,7 +542,7 @@ router.route('/ideas/:idea_id/:pivot')
   .populate('members', 'username image')
   .populate('admin', 'username image')
   .populate('category', 'name description')
-  .populate('pivots', 'id')
+  .populate('pivots', 'id number problem description feedback')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
@@ -592,8 +608,9 @@ router.route('/ideas/:idea_id/:pivot')
   const problem = req.body.problem
   const members = req.body.members
   const country = req.body.country
+  const name = req.body.name
   // Update the idea
-  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, problem, members } }, { new: true })
+  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, problem, members, name } }, { new: true })
   .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})

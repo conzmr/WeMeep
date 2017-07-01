@@ -41,8 +41,8 @@ angular.module('wetopiaApp')
         $scope.members = [];
         $scope.descriptionError = false;
 
-        $scope.giveStartToFeedback = function(feedback_id){
-          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+        $scope.giveStarToFeedback = function(feedback_id){
+          ideaDataService.giveStarToFeedback(idea_id, feedback_id, function(response){
             if(response.status==201){
               $scope.getIdea($scope.currentPivot);
             }
@@ -61,10 +61,13 @@ angular.module('wetopiaApp')
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
+          $scope.showPivotsModal = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
-            if(response.data){
+            if(response.data.idea){
+              console.log(response.data.idea);
               $scope.currentPivot = pivotNumber;
-              $scope.idea = response.data;
+              $scope.idea = response.data.idea;
+              $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               if($scope.idea.admin._id != user_id){
                 $state.go('idea', {idea_id:idea_id});
               }
@@ -117,8 +120,8 @@ angular.module('wetopiaApp')
           }
         }
 
-        $scope.giveStartToFeedback = function(feedback_id, index){
-          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+        $scope.giveStarToFeedback = function(feedback_id, index){
+          ideaDataService.giveStarToFeedback(idea_id, feedback_id, function(response){
             if(response.status==201){
               $scope.idea.feedback[index].stars.push(response.data);
             }
@@ -180,9 +183,10 @@ angular.module('wetopiaApp')
           $scope.ideaNameError= false;
           $scope.members.push($scope.idea.admin);
           let newInformation = {
+            name: $scope.idea.name,
             banner: $scope.idea.banner,
-            problem: $scope.idea.problem,
-            description: $scope.idea.description,
+            problem: $scope.idea.pivots[$scope.currentPivot-1].problem,
+            description: $scope.pivots[$scope.currentPivot-1].description,
             country: $scope.idea.country,
             members: $scope.members
           }

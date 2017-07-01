@@ -55,6 +55,7 @@ var getIdeasByCategory = function(category){
 function getRecommendedCategories(){
   categoriesDataService.getRecommendedCategories(function(response){
     if(response.data){
+      console.log(response);
       $scope.recommendedCategories = response.data;
     }
   })
