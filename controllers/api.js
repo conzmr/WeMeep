@@ -395,6 +395,24 @@ router.route('/feedback/:feedback_id')
 *************************************/
 // SHOW INTEREST ON AN IDEA BY PIVOT
 router.route('/ideas/:idea_id/:pivot/interest')
+.get(function (req, res) {
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .populate('pivots')
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} }, {'interests.type':1})
+          .exec(function(err, results) {
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'interest': results} )
+      })
+    }
+  })
+})
+
 .post(function (req, res) {
   const pivot = req.params.pivot
   // get the idea specified by the id
@@ -414,13 +432,11 @@ router.route('/ideas/:idea_id/:pivot/interest')
       Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID}, 'interests.type': {$eq: req.body.interest } })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
-
         // if there is no ideas with same interest, look for any interest shown
         if (!ideas) {
           Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
           .exec(function(err, results) {
             if (err) return res.status(500).json({'error': err})
-
             // if there is no results, this means the user have never shown interest in this idea (new interest shown)
             if (!results) {
               Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
@@ -444,28 +460,17 @@ router.route('/ideas/:idea_id/:pivot/interest')
             }
           })
         }
-        // this means the same interest is being shown
-        else return res.status(400).json({'message': "Already shown interest."})
-      })
-    }
-  })
-})
-.get(function (req, res) {
-  const pivot = req.params.pivot
-  // get the idea specified by the id
-  Idea.findById(req.params.idea_id)
-  .populate('pivots')
-  .exec((error, idea) => {
-    if (error) res.status(500).json({'error': error, 'success': false})
-    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
-    else {
-          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
-          .exec(function(err, results) {
+        // this means the interest is being deleted
+        else{
+          Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $pull: {'interests': {'_id': req.U_ID}} })
+          .exec((err, ideas) => {
             if (err) return res.status(500).json({'error': err})
-          })
-        }
-      })
+            return res.status(200).json({'message': "Deleted interest."})
+        })
+      }
     })
+  }})
+})
 
 router.route('/ideas/self/create')
 // CREATE AN IDEA WITH IT'S FIRST PIVOT

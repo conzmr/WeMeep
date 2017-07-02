@@ -73,8 +73,13 @@ angular.module('wetopiaApp')
         }
 
         function getLike(){
-          ideaDataService.giveLike(idea_id, $scope.currentPivot, function(response){
-            console.log(response);
+          ideaDataService.getLike(idea_id, $scope.currentPivot, function(response){
+            if(response.data.interest){
+                $scope.like = response.data.interest.interests[0].type;
+            }
+            else{
+              $scope.like ="";
+            }
           })
         }
 
@@ -111,6 +116,7 @@ angular.module('wetopiaApp')
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data.idea;
               $scope.pivot = response.data.pivot;
+              getLike();
               $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               if($scope.idea.admin._id == user_id){
                 $state.go('myIdea', {idea_id:idea_id});
@@ -130,8 +136,15 @@ angular.module('wetopiaApp')
 
         $scope.changeLike = function(like){
           if($scope.like==like){
-            $scope.like = "";
+            let deleteLike = {
+              interest: $scope.like
+            }
             $scope.likeFeedback = false;
+            ideaDataService.giveLike(idea_id, $scope.currentPivot, deleteLike, function(response){
+              if(response.status == 200){
+                  $scope.like = "";
+              }
+            })
           }
           else{
             $scope.like = like;
