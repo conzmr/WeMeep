@@ -879,7 +879,8 @@ router.route('/notifications/')
     let notification = new Notification({
       type: req.body.type,
       sender: req.U_ID,
-      idea: req.body.idea
+      idea: req.body.idea,
+      pivot: req.body.pivot
     })
 
     notification.save(function(err, notification) {
@@ -892,11 +893,40 @@ router.route('/notifications/')
       )
       .exec(function(err){
         if (err) return res.status(500).json({'error': err,})
-        return res.status(201).json({message: 'Notification created!'})
+        return res.status(201).json({notification})
       })
     })
   })
 })
+.get(function (req, res) {
+  User.findById(req.U_ID)
+  .exec(function(err, user) {
+    if (err)
+      return res.status(500).json({'error': err})
+    Notification.find()
+    .populate('sender', 'name image')
+    .populate('idea', 'name _id')
+    .exec(function (err, notifications) {
+      if (err)
+        return res.status(500).json({'error': err})
+      Notification.find({'seen':false})
+      .exec(function (err, notification) {
+        if (err)
+          return res.status(500).json({'error': err})
+        return res.status(200).json({notifications, notification})
+      })
+  })
+})
+})
+.put(function (req, res) {
+  Notification.findOneAndUpdate({'_id': req.body.id}, { $push: {'seen': true } })
+  .exec(function(err) {
+    if (err)
+      return res.status(500).json({'error': err})
+    return res.status(201).json({'Message':'Success'})
+})
+})
+
 
 router.route('/socket/:id')
 .get(function(req, res) {

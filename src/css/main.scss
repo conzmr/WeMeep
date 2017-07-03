@@ -1190,7 +1190,6 @@ nav {
                 }
             }
 
-            &.act-pivot,
             &.prev-pivot {
                 &:after {
                     color: $text-gray;
@@ -1198,9 +1197,24 @@ nav {
             }
 
             &.prev-pivot {
+              &:after {
+                  content: "th pivot";
+              }
+              &.first{
                 &:after {
-                    content: "º pivot";
+                    content: "st pivot";
                 }
+              }
+              &.second{
+                &:after {
+                    content: "nd pivot";
+                }
+              }
+              &.third{
+                &:after {
+                    content: "rd pivot";
+                }
+              }
             }
 
             &.act-pivot {
@@ -1219,60 +1233,87 @@ nav {
                 }
             }
 
-            &.like-1,
-            &.like-2,
-            &.like-3,
-            &.like-4 {
+            &.prev-pivot {
+              &:after {
+                color: $text-gray;
+                  content: "th pivot";
+              }
+              &.first{
                 &:after {
-                    background: {
-                        repeat: no-repeat;
-                        size: cover;
-                        position: center;
-                    }
-                    height: 13px;
-                    display: inline-block;
-                    width: 11px;
-                    content: " ";
+                    content: "st pivot";
+                }
+              }
+              &.second{
+                &:after {
+                    content: "nd pivot";
+                }
+              }
+              &.third{
+                &:after {
+                    content: "rd pivot";
+                }
+              }
+            }
+
+            &.like1,
+            &.like2,
+            &.like3,
+            &.like4 {
+                &:after {
+                  width: auto;
+                    // background: {
+                    //     repeat: no-repeat;
+                    //     size: cover;
+                    //     position: center;
+                    // }
+                    // height: 13px;
+                    // display: inline-block;
+                    // width: 11px;
+                    // content: " ";
                 }
             }
 
-            &.like-4 {
+            &.like4 {
                 &:before {
-                    content: '"I love it and I want it know" ';
+                    content: '"I buy it!" ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 4.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 4.svg");
                 }
             }
 
-            &.like-3 {
+            &.like3 {
                 &:before {
-                    content: '"I like it but it\0027s not my thing" ';
+                    content: '"I love it!" ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 3.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 3.svg");
                 }
             }
 
-            &.like-2 {
+            &.like2 {
                 &:before {
-                    content: '"I like it but still lacks something." ';
+                    content: '"Not bad." ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 2.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 2.svg");
                 }
             }
 
-            &.like-1 {
+            &.like1 {
                 &:before {
                     content: '"I don\0027t like it." ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 1.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 1.svg");
                 }
             }
         }
@@ -5609,6 +5650,11 @@ bluelink {
       text-align: center;
     }
 
+    &.smaller{
+      font-size: 25px;
+      font-family: 'Museo_D';
+    }
+
     &.left {
         margin: auto auto auto 0;
     }
@@ -6377,6 +6423,11 @@ video#bgvid {
   &.second{
     &:after{
       content: 'nd Pivot'
+    }
+  }
+  &.third{
+    &:after{
+      content: 'rd Pivot'
     }
   }
 }

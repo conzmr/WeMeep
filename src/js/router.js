@@ -26,13 +26,19 @@ angular.module('wetopiaApp')
                 authenticate: true
             })
             .state("myIdea", {
-                url: "/idea/:idea_id",
+                url: "/idea/:idea_id/:pivotNumber",
+                params: {
+                  pivotNumber: 1+"",  // default value of x is 5
+                    },
                 controller: "myIdeaCtrl",
                 templateUrl: "/static/views/myIdea.html",
                 authenticate: true
             })
             .state("idea", {
-                url: "/idea/:idea_id",
+                url: "/idea/:idea_id/:pivotNumber",
+                params: {
+                  pivotNumber: 1+"",  // default value of x is 5
+                    },
                 controller: "ideaCtrl",
                 templateUrl: "/static/views/idea.html",
                 authenticate: true
@@ -127,7 +133,7 @@ angular.module('wetopiaApp')
 
 
         // Send to landingpage if the URL was not found
-        $urlRouterProvider.otherwise("not-found");
+        $urlRouterProvider.otherwise('home');
 
         // delete the # in the url
         $locationProvider.html5Mode({
