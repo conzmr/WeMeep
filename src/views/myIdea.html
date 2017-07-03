@@ -173,22 +173,22 @@
                     <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                     </p>
                     <p ng-show="!editIdea" class="tab-paragraph">
-                        {{idea.pivots[currentPivot-1].description}}
+                        {{pivot.description}}
                     </p>
                     <div class="simple-cont width-100" ng-show="editIdea">
-                    <textarea maxlength="600"  name="idea-textarea" class="feedback no-outline indent" placeholder="What's your idea about?" ng-click="descriptionError=false" ng-model="idea.pivots[currentPivot-1].description"></textarea>
+                    <textarea maxlength="600"  name="idea-textarea" class="feedback no-outline indent" placeholder="What's your idea about?" ng-click="descriptionError=false" ng-model="pivot.description"></textarea>
                     <p class="textarea-length">600</p>
                     <p class="red-text error less-15 left textarea" ng-show="descriptionError">Please add a description of your idea.</p>
                     </div>
 
-                    <div class="simple-cont width-100" ng-show="idea.pivots[currentPivot-1].problem || editIdea">
+                    <div class="simple-cont width-100" ng-show="pivot.problem || editIdea">
                     <img class="big-img" src="/static/img/Create Idea_problem.svg">
                     <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                     </p>
                     <p ng-show="!editIdea" class="tab-paragraph">
-                      {{idea.pivots[currentPivot-1].problem}}
+                      {{pivot.problem}}
                     </p>
-                    <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="Does your idea solve an issue? Which one?" ng-model="idea.pivots[currentPivot-1].problem"></textarea>
+                    <textarea maxlength="600" ng-show="editIdea" name="idea-textarea" class="feedback no-outline indent" placeholder="Does your idea solve an issue? Which one?" ng-model="pivot.problem"></textarea>
                     <p class="textarea-length" ng-show="editIdea">600</p>
                   </div>
 
@@ -205,11 +205,11 @@
             <div class="flex-cont mid-page left-align pad-left">
                 <p class="black-medium bolder">Current Pivot Feedback</p>
                 <div class="comments flex-cont">
-                  <div class="simple-margin-top" ng-show="idea.pivots[currentPivot-1].feedback.length==0||idea.pivots[currentPivot-1].feedback.length==undefined">
+                  <div class="simple-margin-top" ng-show="pivot.feedback.length==0||pivot.feedback.length==undefined">
                     <p  class="title-dark disable">No comments yet.</p>
                   </div>
 
-                <div class="comment flex-box" ng-repeat="comment in idea.pivots[currentPivot-1].feedback" >
+                <div class="comment flex-box" ng-repeat="comment in pivot.feedback" >
                   <div class="flex-cont comment-top">
                     <div class="polygon-each-img-wrap">
                         <div class="polygon-clip-hexagon" ngf-background="comment.user.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'">
@@ -233,22 +233,22 @@
                     <table class="right-num">
                         <tr>
                             <td><img src="/static/img/like 4_Hover.svg"></td>
-                            <td class="number">{{idea.stats.money}}</td>
+                            <td class="number">{{pivot.stats.money}}</td>
                             <td>would buy it</td>
                         </tr>
                         <tr>
                             <td><img src="/static/img/like 3_Hover.svg"></td>
-                            <td class="number">{{idea.stats.love}}</td>
+                            <td class="number">{{pivot.stats.love}}</td>
                             <td>love it</td>
                         </tr>
                         <tr>
                             <td><img src="/static/img/like 2_Hover.svg"></td>
-                            <td class="number">{{idea.stats.like}}</td>
+                            <td class="number">{{pivot.stats.like}}</td>
                             <td>think it's not bad</td>
                         </tr>
                         <tr>
                             <td><img src="/static/img/like 1_Hover.svg"></td>
-                            <td class="number">{{idea.stats.dislike}}</td>
+                            <td class="number">{{pivot.stats.dislike}}</td>
                             <td>don't like it</td>
                         </tr>
                     </table>
@@ -288,7 +288,7 @@
                    <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg" ng-click="copy('idea')"></span>
                         </p>
                         <p class="normal-paragraph">
-                          {{idea.pivots[currentPivot-1].description}}
+                          {{pivot.description}}
                         </p>
                     </div>
                     <div class="form-description movil-p">
@@ -297,7 +297,7 @@
                   <img class="duplicate-idea-img" src="/static/img/Duplicate_Idea.svg" ng-click="copy('problem')"></span>
                         </p>
                         <p class="normal-paragraph">
-                          {{idea.pivots[currentPivot-1].problem}}
+                          {{pivot.problem}}
                         </p>
                     </div>
                 </div>

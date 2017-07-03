@@ -59,15 +59,8 @@ angular.module('wetopiaApp')
             if(response.status==201){
               $scope.pivot.feedback[index].stars.push(response.data);
             }
-          }, function(response){
-            switch (response.status) {
-              case 400:
-                ideaDataService.deleteStarToFeedback(idea_id, feedback_id, function(response){
-                  if(response.status==201){
-                      $scope.pivot.feedback[index].stars.splice(commentIndex, 1);
-                  }
-                })
-                break;
+            else if(response.status == 200){
+              $scope.pivot.feedback[index].stars.splice(commentIndex, 1);
             }
           })
         }
@@ -112,10 +105,10 @@ angular.module('wetopiaApp')
           $scope.showPivots = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data){
-              console.log(response.data.pivot);
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data.idea;
               $scope.pivot = response.data.pivot;
+              $scope.interestShowed = false;
               getLike();
               $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               if($scope.idea.admin._id == user_id){

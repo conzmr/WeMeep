@@ -333,6 +333,7 @@ $scope.signUp = function (invalidEmail) {
       localStorageService.set('username', res.data.username);
       localStorageService.set('email', res.data.email);
       localStorageService.set('user_id', res.data._id);
+      localStorageService.set('name', res.data.name);
       $scope.join=false;
       newUser.isNew = true;
       $state.go("home");
@@ -389,6 +390,7 @@ $scope.signIn = function() {
     localStorageService.set('email', res.data.email);
     localStorageService.set('user_id', res.data._id);
     localStorageService.set('image', res.data.image);
+    localStorageService.set('name', res.data.name);
     $state.go('home');
   },
   function(res) { //error callback

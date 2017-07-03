@@ -95,7 +95,7 @@ router.post('/signup', function(req, res){
             res.status(500).json({'error': err, 'message': "Could not save user."});
           else { // Create a token and --- sign with the user information --- and secret password
             var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) //Expires in 60 hours
-            res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token })
+            res.status(200).json({ '_id': user._id, 'username': user.username, 'name': user.name, 'email': user.email, 'token': token })
           }
         })
       }
@@ -126,7 +126,7 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'username': user.username, 'name': user.name, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
       }
     }
   })
@@ -343,22 +343,17 @@ router.route('/ideas/:idea_id/:feedback_id/star')
   .exec(function(err, result) {
     if (err) {
       res.status(500).json({'error': err})
-    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
-      res.status(400).json({'message': "Already starred."})
+    } else if (result.nModified == 0){ //If the comment wasn't modified, it was already starred
+      Feedback.findById(req.params.feedback_id)
+      .update({ $pull: { 'stars': req.U_ID } })
+      .exec(function(err, feedback){
+        if (err) return res.status(500).json({'error': err})
+        return res.status(200).json(feedback)
+      })
+    }
     else {
       res.status(201).json(result)
     }
-  })
-})
-// UNSTAR A COMMENT
-.delete(function (req, res) {
-  Feedback.findById(req.params.feedback_id)
-  .update({ $pull: { 'stars': req.U_ID } })
-  .exec(function(err, feedback){
-    if (err) return res.status(500).json({'error': err})
-    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
-    if (feedback.nModified == 0) return res.status(400).json({'message': "Not starred"}) //If the comment wasn't modified, it was not starred
-    return res.status(201).json(feedback)
   })
 })
 

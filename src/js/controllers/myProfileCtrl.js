@@ -91,6 +91,7 @@ angular.module('wetopiaApp')
                     if(response.status==200){
                         $scope.user.birthdate = newUserInformation.birthdate;
                         localStorageService.set('image', response.data.user.image);
+                        localStorageService.set('name', res.data.user.name);
                     }
                   }).then(updateAgeViews());
 		                // profileDataService.updateProfilePicture(res.data.file_name, function(response){
@@ -106,6 +107,7 @@ angular.module('wetopiaApp')
               if(response.status==200){
                   $scope.user.birthdate = newUserInformation.birthdate;
                   localStorageService.set('image', response.data.user.image);
+                  localStorageService.set('name', res.data.user.name);
               }
             }).then(updateAgeViews());
           }

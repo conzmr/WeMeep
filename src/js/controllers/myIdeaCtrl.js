@@ -41,32 +41,14 @@ angular.module('wetopiaApp')
         $scope.members = [];
         $scope.descriptionError = false;
 
-        $scope.giveStarToFeedback = function(feedback_id){
-          ideaDataService.giveStarToFeedback(idea_id, feedback_id, function(response){
-            if(response.status==201){
-              $scope.getIdea($scope.currentPivot);
-            }
-          }, function(response){
-            switch (response.status) {
-              case 400:
-                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
-                  if(response.status==201){
-                    $scope.getIdea($scope.currentPivot);
-                  }
-                })
-                break;
-            }
-          })
-        }
-
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
           $scope.showPivotsModal = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
             if(response.data.idea){
-              console.log(response.data.idea);
               $scope.currentPivot = pivotNumber;
               $scope.idea = response.data.idea;
+              $scope.pivot = response.data.pivot;
               $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               if($scope.idea.admin._id != user_id){
                 $state.go('idea', {idea_id:idea_id});
@@ -94,7 +76,7 @@ angular.module('wetopiaApp')
                       stats.money = data[i].count;
                     }
                   }
-                  $scope.idea.stats = stats;
+                  $scope.pivot.stats = stats;
                 })
               var j=0;
               for(var i =0; i < $scope.idea.members.length; i++){
@@ -123,17 +105,10 @@ angular.module('wetopiaApp')
         $scope.giveStarToFeedback = function(feedback_id, index){
           ideaDataService.giveStarToFeedback(idea_id, feedback_id, function(response){
             if(response.status==201){
-              $scope.idea.feedback[index].stars.push(response.data);
+              $scope.pivot.feedback[index].stars.push(response.data);
             }
-          }, function(response){
-            switch (response.status) {
-              case 400:
-                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
-                  if(response.status==201){
-                      $scope.idea.feedback[index].stars.splice(commentIndex, 1);
-                  }
-                })
-                break;
+            else if(response.status == 200){
+              $scope.pivot.feedback[index].stars.splice(commentIndex, 1);
             }
           })
         }
@@ -147,7 +122,7 @@ angular.module('wetopiaApp')
         $scope.deleteFeedback = function(){
           ideaDataService.deleteFeedback(currentComment, function(response){
             if(response.status==200){
-              $scope.idea.feedback.splice(commentIndex, 1);
+              $scope.pivot.feedback.splice(commentIndex, 1);
             }
           })
           $scope.wantToDeleteComment = false;
@@ -170,7 +145,7 @@ angular.module('wetopiaApp')
         }
 
         $scope.updateIdea = function(){
-          if(!$scope.idea.description){
+          if(!$scope.pivot.description){
             $scope.descriptionError=true;
           }
           if(!$scope.idea.name){
@@ -185,8 +160,8 @@ angular.module('wetopiaApp')
           let newInformation = {
             name: $scope.idea.name,
             banner: $scope.idea.banner,
-            problem: $scope.idea.pivots[$scope.currentPivot-1].problem,
-            description: $scope.pivots[$scope.currentPivot-1].description,
+            problem: $scope.pivot.problem,
+            description: $scope.pivot.description,
             country: $scope.idea.country,
             members: $scope.members
           }
@@ -204,8 +179,8 @@ angular.module('wetopiaApp')
 
         $scope.copy = function (type){
           if(type=='idea'){
-            if($scope.newIdea!=$scope.idea.description){
-              $scope.newIdea = $scope.idea.description;
+            if($scope.newIdea!=$scope.pivot.description){
+              $scope.newIdea = $scope.pivot.description;
             }
             else{
               $scope.newIdea = "";
@@ -213,8 +188,8 @@ angular.module('wetopiaApp')
 
           }
           else if(type=='problem'){
-            if($scope.newProblem!=$scope.idea.problem){
-              $scope.newProblem = $scope.idea.problem;
+            if($scope.newProblem!=$scope.pivot.problem){
+              $scope.newProblem = $scope.pivot.problem;
             }
             else{
               $scope.newProblem ="";
@@ -300,7 +275,6 @@ angular.module('wetopiaApp')
 
         $scope.updateIdeaInfo = function(){
           $scope.editIdea = false;
-          console.log("puchale");
         }
 
     })
