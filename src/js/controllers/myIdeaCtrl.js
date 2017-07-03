@@ -14,7 +14,7 @@ angular.module('wetopiaApp')
         }
       };
     })
-    .controller('myIdeaCtrl', function($scope, $window, localStorageService, $http, $state, ideaDataService, categoriesDataService, $filter, $stateParams) {
+    .controller('myIdeaCtrl', function($scope, $window, localStorageService, $http, $state, Upload, ideaDataService, categoriesDataService, $filter, $stateParams) {
         $scope.pivoting = false;
         $scope.notification = false;
         $scope.showNotifications=false;
@@ -165,12 +165,36 @@ angular.module('wetopiaApp')
             country: $scope.idea.country,
             members: $scope.members
           }
+          if (!isString($scope.idea.banner)&&$scope.idea.banner!=undefined){
+                   Upload.upload({
+                           url: window.HOST + '/api/upload',
+                           data: {
+                               file: $scope.idea.banner
+                           }
+                       })
+                       .then(function(res) {
+                         if(res.data.file_name){
+                           newInformation.banner = '/static/uploads/'+ res.data.file_name;
+                         }
+                         ideaDataService.updateIdeaInformation(idea_id, $scope.currentPivot, newInformation, function(response){
+                           if(response.status!=200){
+                             window.alert("There was a problem. Please, try again later.");
+                           }
+                         })
+                     }, function(errRes) {
+                       console.log(errRes);
+                     });
+          }
           ideaDataService.updateIdeaInformation(idea_id, $scope.currentPivot, newInformation, function(response){
             if(response.status!=200){
               window.alert("There was a problem. Please, try again later.");
             }
           })
           }
+        }
+
+        function isString (obj) {
+          return (Object.prototype.toString.call(obj) === '[object String]');
         }
 
         $scope.getBannerImage = function(category){

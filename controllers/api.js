@@ -610,18 +610,16 @@ router.route('/ideas/:idea_id/:pivot')
   const country = req.body.country
   const name = req.body.name
   // Update the idea
-  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, problem, members, name } }, { new: true })
+  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, members, name } }, { new: true })
   .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
     else {
-
         // sort pivots
         idea.pivots.sort((a, b) => {
           return parseFloat(a.number) - parseFloat(b.number)
         })
-
         const myIdea = idea.pivots[pivot - 1].id
         //Update pivot specific information
         Pivot.findOneAndUpdate({'_id': myIdea}, { $set: { description, problem } }, { new: true })
