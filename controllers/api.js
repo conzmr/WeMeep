@@ -95,7 +95,7 @@ router.post('/signup', function(req, res){
             res.status(500).json({'error': err, 'message': "Could not save user."});
           else { // Create a token and --- sign with the user information --- and secret password
             var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) //Expires in 60 hours
-            res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'token': token })
+            res.status(200).json({ '_id': user._id, 'username': user.username, 'name': user.name, 'email': user.email, 'token': token })
           }
         })
       }
@@ -126,7 +126,7 @@ router.post('/authenticate', function(req, res) {
       } else {
         console.log('---------all cool!!');
         var token = jwt.sign({"_id": user._id}, jwtConfig.secret, { expiresIn: 216000 }) // expires in 6 hours
-        res.status(200).json({ '_id': user._id, 'username': user.username, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
+        res.status(200).json({ '_id': user._id, 'username': user.username, 'name': user.name, 'email': user.email, 'image':user.image, 'token': token }) // Return the information including token as JSON
       }
     }
   })
@@ -345,22 +345,17 @@ router.route('/ideas/:idea_id/:feedback_id/star')
   .exec(function(err, result) {
     if (err) {
       res.status(500).json({'error': err})
-    } else if (result.nModified == 0) //If the comment wasn't modified, it was already starred
-      res.status(400).json({'message': "Already starred."})
+    } else if (result.nModified == 0){ //If the comment wasn't modified, it was already starred
+      Feedback.findById(req.params.feedback_id)
+      .update({ $pull: { 'stars': req.U_ID } })
+      .exec(function(err, feedback){
+        if (err) return res.status(500).json({'error': err})
+        return res.status(200).json(feedback)
+      })
+    }
     else {
       res.status(201).json(result)
     }
-  })
-})
-// UNSTAR A COMMENT
-.delete(function (req, res) {
-  Feedback.findById(req.params.feedback_id)
-  .update({ $pull: { 'stars': req.U_ID } })
-  .exec(function(err, feedback){
-    if (err) return res.status(500).json({'error': err})
-    if (!feedback) return res.status(404).json({'error': {'message': "Feedback not found"}})
-    if (feedback.nModified == 0) return res.status(400).json({'message': "Not starred"}) //If the comment wasn't modified, it was not starred
-    return res.status(201).json(feedback)
   })
 })
 
@@ -397,6 +392,24 @@ router.route('/feedback/:feedback_id')
 *************************************/
 // SHOW INTEREST ON AN IDEA BY PIVOT
 router.route('/ideas/:idea_id/:pivot/interest')
+.get(function (req, res) {
+  const pivot = req.params.pivot
+  // get the idea specified by the id
+  Idea.findById(req.params.idea_id)
+  .populate('pivots')
+  .exec((error, idea) => {
+    if (error) res.status(500).json({'error': error, 'success': false})
+    else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else {
+          Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} }, {'interests.type':1})
+          .exec(function(err, results) {
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'interest': results} )
+      })
+    }
+  })
+})
+
 .post(function (req, res) {
   const pivot = req.params.pivot
   // get the idea specified by the id
@@ -418,13 +431,11 @@ router.route('/ideas/:idea_id/:pivot/interest')
       Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID}, 'interests.type': {$eq: req.body.interest } })
       .exec(function(err, ideas) {
         if (err) return res.status(500).json({'error': err})
-
         // if there is no ideas with same interest, look for any interest shown
         if (!ideas) {
           Pivot.findOne({'_id': idea.pivots[pivot - 1].id, 'interests._id': {$eq: req.U_ID} })
           .exec(function(err, results) {
             if (err) return res.status(500).json({'error': err})
-
             // if there is no results, this means the user have never shown interest in this idea (new interest shown)
             if (!results) {
               Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $addToSet: {'interests': {'_id': req.U_ID, 'type':req.body.interest, 'comment': req.body.comment} } }, { new: true })
@@ -448,11 +459,16 @@ router.route('/ideas/:idea_id/:pivot/interest')
             }
           })
         }
-        // this means the same interest is being shown
-        else return res.status(400).json({'message': "Already shown interest."})
-      })
-    }
-  })
+        // this means the interest is being deleted
+        else{
+          Pivot.findOneAndUpdate({'_id': idea.pivots[pivot - 1].id }, { $pull: {'interests': {'_id': req.U_ID}} })
+          .exec((err, ideas) => {
+            if (err) return res.status(500).json({'error': err})
+            return res.status(200).json({'message': "Deleted interest."})
+        })
+      }
+    })
+  }})
 })
 
 router.route('/ideas/self/create')
@@ -530,7 +546,7 @@ router.route('/ideas/:idea_id/:pivot')
   .populate('members', 'username image')
   .populate('admin', 'username image')
   .populate('category', 'name description')
-  .populate('pivots', 'id')
+  .populate('pivots', 'id number problem description feedback')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
@@ -600,8 +616,9 @@ router.route('/ideas/:idea_id/:pivot')
   const problem = req.body.problem
   const members = req.body.members
   const country = req.body.country
+  const name = req.body.name
   // Update the idea
-  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, problem, members } }, { new: true })
+  Idea.findOneAndUpdate({'_id': req.params.idea_id}, { $set: { banner, country, description, members, name } }, { new: true })
   .populate('pivots')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
@@ -609,12 +626,10 @@ router.route('/ideas/:idea_id/:pivot')
     else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
     else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
-
         // sort pivots
         idea.pivots.sort((a, b) => {
           return parseFloat(a.number) - parseFloat(b.number)
         })
-
         const myIdea = idea.pivots[pivot - 1].id
         //Update pivot specific information
         Pivot.findOneAndUpdate({'_id': myIdea}, { $set: { description, problem } }, { new: true })
@@ -876,7 +891,8 @@ router.route('/notifications/')
     let notification = new Notification({
       type: req.body.type,
       sender: req.U_ID,
-      idea: req.body.idea
+      idea: req.body.idea,
+      pivot: req.body.pivot
     })
 
     notification.save(function(err, notification) {
@@ -889,11 +905,40 @@ router.route('/notifications/')
       )
       .exec(function(err){
         if (err) return res.status(500).json({'error': err,})
-        return res.status(201).json({message: 'Notification created!'})
+        return res.status(201).json({notification})
       })
     })
   })
 })
+.get(function (req, res) {
+  User.findById(req.U_ID)
+  .exec(function(err, user) {
+    if (err)
+      return res.status(500).json({'error': err})
+    Notification.find()
+    .populate('sender', 'name image')
+    .populate('idea', 'name _id')
+    .exec(function (err, notifications) {
+      if (err)
+        return res.status(500).json({'error': err})
+      Notification.find({'seen':false})
+      .exec(function (err, notification) {
+        if (err)
+          return res.status(500).json({'error': err})
+        return res.status(200).json({notifications, notification})
+      })
+  })
+})
+})
+.put(function (req, res) {
+  Notification.findOneAndUpdate({'_id': req.body.id}, { $push: {'seen': true } })
+  .exec(function(err) {
+    if (err)
+      return res.status(500).json({'error': err})
+    return res.status(201).json({'Message':'Success'})
+})
+})
+
 
 router.route('/socket/:id')
 .get(function(req, res) {

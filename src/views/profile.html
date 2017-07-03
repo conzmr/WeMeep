@@ -7,89 +7,28 @@
           <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
           <p class="blue-text">IDEA</p>
         </div>
-        <div class="wrapper">
-            <input id="nav-search" type="search" placeholder="What are you looking for?"  name="navsearch" />
-            <i class="fa fa-search"></i>
-        </div>
         <div class="right">
           <div class="display-inner">
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
               <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
                   <p class="sub-gray">NOTIFICATIONS</p>
                   <div class="scroll-list">
-                      <li class="not-block says new">
+                    <div class="simple-cont" ng-show="!currentUser.notifications||currentUser.notifications.length==0">
+                      <p  class="title-dark smaller disable">You have no notifications yet.</p>
+                    </div>
+                      <li class="not-block" ui-sref="myIdea({idea_id: notification.idea._id, pivotNumber: notification.pivot})" ng-repeat="notification in currentUser.notifications" ng-class="{commented: notification.type == 'comment', says: notification.type != 'comment', new: !notification.seen}">
                         <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            <div class="polygon-clip-hexagon" ngf-background="notification.sender.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                             </div>
                         </div>
                           <p>
-                              <span class="name">Mary</span>
-                              <span class="like-4"></span>
-                              <span class="on">Idea Name</span>
+                              <span class="name">{{notification.sender.name}}</span>
+                              <span ng-show="notification.type!='comment'" ng-class="{like4 : notification.type == 'money', like3 : notification.type == 'love', like2 : notification.type == 'like', like1 : notification.type == 'dislike'}"></span>
+                              <span class="prev-pivot" ng-class="{first: notification.pivot == 1, second: notification.pivot == 2, third: notification.pivot == 3}">{{notification.pivot}}</span>
+                              <span class="on">{{notification.idea.name}}</span>
 
                           </p>
                       </li>
-                      <li class="not-block commented new">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Mary</span>
-                              <span class="act-pivot"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Kevin</span>
-                              <span class="like-3"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Erick</span>
-                              <span class="like-2"></span>
-                              <span class="on">Idea Name</span>
-                          <!--    <span class=time-ago>2 days</span>-->
-                          </p>
-                      </li>
-                      <li class="not-block commented">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Josh</span>
-                              <span class="prev-pivot">3</span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Pancho</span>
-                              <span class="like-1"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-
                   </div>
               </ul>
           </div>
@@ -105,7 +44,7 @@
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p ui-sref="myProfile">My Profile</p>
-                  <p>My Ideas</p>
+                  <a class="nav-txt" ng-href="/profile/myProfile/ideas">My Ideas</a>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
@@ -160,8 +99,8 @@
           </div>
 
           <div class="section-cont">
-              <div class="flex-cont row sub-nav max-width">
-                <p class="sub-gray light" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Created Ideas</p>
+              <div class="flex-cont row sub-nav margin-bottom" id="userSection">
+                <p class="sub-gray light bigger" ng-click="showIdeas()"  ng-class="{'active blue': ideas}">Ideas</p>
                 <!-- <p class="sub-gray" ng-click="showProjects()" ng-class="{'active red': projects}">Projects</p> -->
                 <!-- <p class="sub-gray" ng-click="showFollowing()" ng-class="{'active aqua': following}">Following</p> -->
               </div>
@@ -175,19 +114,22 @@
                     </div>
                     <div class="card-info ">
                         <div class="user">
-                            <div class="left">
                                 <div class="polygon-each-img-wrap">
                                     <div class="polygon-clip-hexagon" ngf-background="idea.admin.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                                     </div>
                                 </div>
-                                <p>{{idea.admin.username}}</p>
-                            </div>
-                            <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
+                                <p class="lighter-gray left">{{idea.admin.username}}</p>
+                                <img class="right-img" src="/static/img/PROJECT_VIEWS/Idea_ICON.svg">
                         </div>
                         <p class="dark-title">{{idea.name}}</p>
-                        <p class="card-p">
-                            {{idea.description}}
-                        </p>
+                        <span class="card-p">
+                            {{idea.description | limitTo: 55}}
+                        </span>
+                        <span class="ellipsis" ng-show="idea.description.length>55">...
+                        <span  class="read-more">See More</span>
+                        </span>
+                        <div class="white-padding-bottom">
+                        </div>
                     </div>
                     </div>
                     <div class="footer-nav">
@@ -227,7 +169,7 @@
           <a href="/home" class="small">Home</a>
           <a href="/myProfile" class="small">My Profile</a>
           <a href="/createIdea/first" class="small">Create Idea</a>
-          <a href="/myIdea" class="small">My Ideas</a>
+          <a href="/myProfile/ideas" class="small">My Ideas</a>
         </div>
         <div class="icons">
           <img src="/static/img/wetopia_dark.png">

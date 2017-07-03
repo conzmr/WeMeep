@@ -1,6 +1,5 @@
 angular.module('wetopiaApp')
-.controller('homeCtrl', function($scope, localStorageService, $state, categoriesDataService, ideaDataService, notificationDataService, socket) {
-
+.controller('homeCtrl', function($scope, $window, localStorageService, $state, $filter, categoriesDataService, ideaDataService, signupDataService, notificationDataService, socket) {
 $scope.notification = false;
 $scope.showNotifications=false;
 $scope.showUserMenu=false;
@@ -11,12 +10,17 @@ $scope.currentUser = {};
 $scope.currentUser.email = localStorageService.get('email');
 $scope.currentUser.username = localStorageService.get('username');
 $scope.currentUser.image = localStorageService.get('image');
+$scope.currentUser.id = localStorageService.get('user_id');
+$scope.currentUser.name = localStorageService.get('name');
+$scope.currentUser.notifications = [];
 $scope.categoriesService = categoriesDataService.categories;
 $scope.showingIdeas = [];
 $scope.recommendedCategories = [];
+$scope.welcome = signupDataService.user.isNew;
 var initialLimit = 8;
 $scope.limitIdeas = initialLimit;
 getTrendingIdeas();
+getNotifications();
 
 $scope.goBack = function(){
   $scope.selectedCategory="";
@@ -39,6 +43,7 @@ function getTrendingIdeas(){
   ideaDataService.getTrendingIdeas(function(response) {
     if(response.data){
       $scope.showingIdeas = response.data;
+      console.log(response.data);
     }
   })
 }
@@ -55,6 +60,7 @@ var getIdeasByCategory = function(category){
 function getRecommendedCategories(){
   categoriesDataService.getRecommendedCategories(function(response){
     if(response.data){
+      console.log(response);
       $scope.recommendedCategories = response.data;
     }
   })
@@ -71,6 +77,23 @@ $scope.logOut = function(){
 
 $scope.changeShowNotifications = function(){
   $scope.showNotifications = !$scope.showNotifications;
+  if($scope.showNotifications && $scope.notification){
+    for(var i=0; i<$scope.currentUser.notifications.length; i++){
+      if(!$scope.currentUser.notifications[i].seen){
+        seeNotifications($scope.currentUser.notifications[i]._id);
+      }
+    }
+    $scope.notification=false;
+  }
+}
+
+function seeNotifications(notification_id){
+  let notification ={
+    id: notification_id
+  }
+  notificationDataService.seenTrueNotifications(notification, function(response){
+    console.log(response);
+  })
 }
 
 $scope.changeShowMenu = function(){
@@ -99,7 +122,18 @@ $scope.AllIdeas = function(){
 $scope.selectCategory = function(category, id_name){
   $scope.selectedCategory = category.toUpperCase();
   getIdeasByCategory(id_name);
+  // $window.scrollTo(0, 0);
 }
+
+function getNotifications(){
+  notificationDataService.getNotifications(function(response){
+    if(response.data.notification.length>0){
+      $scope.notification = true;
+    }
+    $scope.currentUser.notifications = response.data.notifications;
+  })
+}
+
 
 /**** NOTIFICATIONS SECTION ***/
 socket.on('socket', function(socketId){ // client gets the socket event here
@@ -110,37 +144,54 @@ socket.on('socket', function(socketId){ // client gets the socket event here
 })
 
 socket.on('notify', (sender) => {
-  $scope.notifyMe(sender)
-  //call service to create notification at (/notifications)
-  //call function to push to notification array or update notification center
+  notifyMe(sender);
+  $scope.notification = true;
+  var newNotification = {
+    user: {
+      image: sender.image,
+      name: sender.name
+    },
+    idea: {
+      _id: sender.ideaId,
+      name: sender.idea
+    },
+    pivot: sender.pivot,
+    type: sender.type
+  }
+  $scope.currentUser.notifications.push(newNotification);
 })
 
-$scope.pushNotification = function(){
-
-  let sender = {
-    userId: '59401c5fa5631108c32f1691',
-    username: $scope.currentUser.username,
-    image: $scope.currentUser.image,
-    name:  $scope.currentUser.username, //change for name
-    idea: 'Deep Stranded' //change for idea name
+function notifyMe(sender) {
+  var notification_message;
+  switch (sender.type) {
+    case 'money':
+    notification_message = ' says "I buy it!" on your '
+    break;
+    case 'love':
+    notification_message = ' says "I love it!" on your '
+    break;
+    case 'like':
+    notification_message = ' says "Not bad" on your '
+    break;
+    case 'dislike':
+    notification_message = ' says "I don\'t like it" on your '
+    break;
+    default:
+    notification_message = " commented on your "
+    break;
   }
-
-  socket.emit('comment', sender)
-}
-
-$scope.notifyMe = function(sender) {
+  var options = {
+    body: sender.name + notification_message + $filter('enumeration')(sender.pivot) + " of "+sender.idea,
+    icon: sender.image
+  }
   // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification")
+    alert("This browser does not support desktop notifications.")
   }
   // Let's check if the user is okay to get some notification
   else if (Notification.permission === "granted") {
     // If it's okay let's create a notification
-    var options = {
-          body: sender.name + " has commented your idea " + sender.idea,
-          icon: sender.image
-      }
-    var notification = new Notification("Wetopia", options)
+    var notification = new Notification("Wetopia", options);
   }
   // Otherwise, we need to ask the user for permission
   // Note, Chrome does not implement the permission static property
@@ -149,21 +200,16 @@ $scope.notifyMe = function(sender) {
     Notification.requestPermission(function (permission) {
       // Whatever the user answers, we make sure we store the information
       if (!('permission' in Notification)) {
-        Notification.permission = permission
+        Notification.permission = permission;
       }
       // If the user is okay, let's create a notification
       if (permission === "granted") {
-        var options = {
-                body:  sender.name + " has commented your idea" + sender.idea,
-                icon:  sender.image
-        }
-        var notification = new Notification("Wetopia")
+        var notification = new Notification("Wetopia", options);
       }
     })
   }
   // At last, if the user already denied any notification, and you
   // want to be respectful there is no need to bother them any more.
 }
-
 
 })

@@ -27,6 +27,7 @@ angular.module("wetopiaApp")
     $scope.usernameMessageError="";
     $scope.usernameError=false;
     $scope.user={};
+    var newUser = signupDataService.user;
     $scope.graphImg={
       Mario : '/static/img/GRAPH/test-grafica_mario.png',
       Constanza : '/static/img/GRAPH/test-grafica_cons.png',
@@ -43,6 +44,12 @@ angular.module("wetopiaApp")
       }
       else if(actionParam == 'up'){
         $scope.join = true;
+      }
+    }
+
+    function isLogged(){
+      if(localStorageService.get('username')){
+        $state.go('home');
       }
     }
 
@@ -175,7 +182,7 @@ angular.module("wetopiaApp")
 
     $scope.openLogin= function() {
         $scope.closeSignup();
-        $scope.login = true;
+        $scope.isLogged();
     }
 
     $scope.closeSignup = function(){
@@ -326,7 +333,9 @@ $scope.signUp = function (invalidEmail) {
       localStorageService.set('username', res.data.username);
       localStorageService.set('email', res.data.email);
       localStorageService.set('user_id', res.data._id);
+      localStorageService.set('name', res.data.name);
       $scope.join=false;
+      newUser.isNew = true;
       $state.go("home");
     }
   }, function(res) {
@@ -358,18 +367,12 @@ $scope.signUp = function (invalidEmail) {
 }
 }
 
-$scope.signIn = function(invalidEmail) {
+$scope.signIn = function() {
   var toLogUser= {}
   $scope.clearErrors();
   if(!$scope.user.email){
     $scope.emailMessageError="Please enter your username or email. ";
     $scope.emailError = true;
-  }
-  if(invalidEmail){
-    toLogUser.username = $scope.user.email;
-  }
-  else{
-    toLogUser.email = $scope.user.email;
   }
   if(!$scope.user.password){
     $scope.passwordMessageError="Please enter your password. ";
@@ -377,14 +380,17 @@ $scope.signIn = function(invalidEmail) {
   }
   if($scope.user.email&&$scope.user.password){
     toLogUser.password = $scope.user.password;
-  loginDataService.authenticate(toLogUser,
-  function(res) {
+    toLogUser.username = $scope.user.email;
+    toLogUser.email = $scope.user.email;
+    loginDataService.authenticate(toLogUser,
+    function(res) {
     localStorageService.clearAll();
     localStorageService.set('token', res.data.token);
     localStorageService.set('username', res.data.username);
     localStorageService.set('email', res.data.email);
     localStorageService.set('user_id', res.data._id);
-      localStorageService.set('image', res.data.image);
+    localStorageService.set('image', res.data.image);
+    localStorageService.set('name', res.data.name);
     $state.go('home');
   },
   function(res) { //error callback

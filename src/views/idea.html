@@ -1,5 +1,5 @@
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <nav class="transparent-nav scroll-white static" >
         <a class=" logo "  href="/home"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
         <div class="center-action">
@@ -7,89 +7,28 @@
           <a href="/createIdea/first"><img src="/static/img/create.svg"/></a>
           <p class="blue-text">IDEA</p>
         </div>
-        <div class="wrapper">
-            <input id="nav-search" type="search" placeholder="What are you looking for?"  name="navsearch" />
-            <i class="fa fa-search"></i>
-        </div>
         <div class="right">
           <div class="display-inner">
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
               <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
                   <p class="sub-gray">NOTIFICATIONS</p>
                   <div class="scroll-list">
-                      <li class="not-block says new">
+                    <div class="simple-cont" ng-show="!currentUser.notifications||currentUser.notifications.length==0">
+                      <p  class="title-dark smaller disable">You have no notifications yet.</p>
+                    </div>
+                      <li class="not-block" ui-sref="myIdea({idea_id: notification.idea._id, pivotNumber: notification.pivot})" ng-repeat="notification in currentUser.notifications" ng-class="{commented: notification.type == 'comment', says: notification.type != 'comment', new: !notification.seen}">
                         <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
+                            <div class="polygon-clip-hexagon" ngf-background="notification.sender.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                             </div>
                         </div>
                           <p>
-                              <span class="name">Mary</span>
-                              <span class="like-4"></span>
-                              <span class="on">Idea Name</span>
+                              <span class="name">{{notification.sender.name}}</span>
+                              <span ng-show="notification.type!='comment'" ng-class="{like4 : notification.type == 'money', like3 : notification.type == 'love', like2 : notification.type == 'like', like1 : notification.type == 'dislike'}"></span>
+                              <span class="prev-pivot" ng-class="{first: notification.pivot == 1, second: notification.pivot == 2, third: notification.pivot == 3}">{{notification.pivot}}</span>
+                              <span class="on">{{notification.idea.name}}</span>
 
                           </p>
                       </li>
-                      <li class="not-block commented new">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Mary</span>
-                              <span class="act-pivot"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Kevin</span>
-                              <span class="like-3"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Erick</span>
-                              <span class="like-2"></span>
-                              <span class="on">Idea Name</span>
-                          <!--    <span class=time-ago>2 days</span>-->
-                          </p>
-                      </li>
-                      <li class="not-block commented">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Josh</span>
-                              <span class="prev-pivot">3</span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-                      <li class="not-block says">
-                        <div class="polygon-each-img-wrap">
-                            <div class="polygon-clip-hexagon" ng-style="{'background-image': 'url(/static/img/navigation-menu/User_ICON.svg)'}"> <!--modify as create idea 3-->
-                            </div>
-                        </div>
-                          <p>
-                              <span class="name">Pancho</span>
-                              <span class="like-1"></span>
-                              <span class="on">Idea Name</span>
-
-                          </p>
-                      </li>
-
                   </div>
               </ul>
           </div>
@@ -105,7 +44,7 @@
                     <p class="gray-lighter small bottom">{{currentUser.email}}</p>
                   </div>
                   <p ui-sref="myProfile">My Profile</p>
-                  <p>My Ideas</p>
+                  <a class="nav-txt" ng-href="/myProfile/ideas">My Ideas</a>
                   <!-- <p>Settings</p> -->
                   <p class="gray-lighter" ng-click="logOut()">Log Out</p>
                 </div>
@@ -146,10 +85,10 @@
                 </div>
 
                 <div class="inner-nav selector">
-                    <input type="text" class="color-button blue left selector numeration" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
+                    <input type="text" class="color-button blue left selector" ng-class="{first: pivotSelected == 1, second: pivotSelected == 2}" id="select-pivot" ng-click="changeShowPivots()" name="pivot-selector" ng-model="pivotSelected" readonly="readonly" >
                     <ul class="selectorType" ng-show="showPivots" click-outside="showPivots=false" outside-if-not="select-pivot">
                       <div class="flex-cont user-menu">
-                        <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2}" ng-style="currentPivot==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
+                        <li ng-repeat="pivot in idea.pivots" class="numeration" ng-class="{first: pivot.number == 1, second: pivot.number == 2, third: pivot.number == 3}" ng-style="currentPivot==pivot.number && {'color': '#00A8CB'}" ng-click="getIdea(pivot.number)" ng-bind="pivot.number"></li>
                       </div>
                     </ul>
                 </div>
@@ -162,15 +101,15 @@
                  <p class="form-subtitle color"><span class="big-txt aqua-text">Idea</span>
                 </p>
                 <p class="tab-paragraph">
-                  {{idea.description}}
+                    {{pivot.description}}
                 </p>
 
-                <div class="simple-cont" ng-show="idea.problem">
+                <div class="simple-cont" ng-show="pivot.problem">
                 <img class="big-img" src="/static/img/Create Idea_problem.svg">
                 <p class="form-subtitle color"> <span class="big-txt red-text">Problem</span>
                 </p>
                 <p class="tab-paragraph">
-                  {{idea.problem}}
+                    {{pivot.problem}}
                 </p>
               </div>
             </div>
@@ -192,10 +131,10 @@
 
             <p class="black-medium bolder">Current Pivot Feedback</p>
             <div class="comments flex-cont">
-              <div class="simple-margin-top" ng-show="idea.feedback.length==0">
+              <div class="simple-margin-top" ng-show="pivot.feedback.length==0">
                 <p  class="title-dark disable">Be the first comment.</p>
               </div>
-              <div class="comment flex-box" ng-repeat="comment in idea.feedback" >
+              <div class="comment flex-box" ng-repeat="comment in pivot.feedback" >
                 <div class="flex-cont comment-top">
                   <div class="polygon-each-img-wrap">
                       <div class="polygon-clip-hexagon" ngf-background="comment.user.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'">
@@ -203,7 +142,7 @@
                   </div>
                   <p class="name" ng-bind="comment.user.name"></p>
                   <p class="username" ng-bind="comment.user.username"></p>
-                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStartToFeedback(comment._id, $index)">
+                  <img class="star-img" ng-src="{{comment.stars.length > 0 && '/static/img/starActive_Idea.svg' || '/static/img/starDis_Idea.svg'}}" ng-click="giveStarToFeedback(comment._id, $index)">
                   <p class="star" ng-bind="comment.stars.length"></p>
                   <a class="delete right" ng-click="wantoToDeleteFeedback(comment._id, $index)" ng-if="currentUser.username == comment.user.username">  &times </a>
                 </div>
@@ -213,8 +152,13 @@
             </div>
         </div>
 
+        <div class="flex-cont mid-page left-align pad-left" ng-show="interestShowed">
+          <p class="sub-gray smaller-font">THANKS FOR YOUR OPINION!</p>
+          <p class="medium light no-margin centered">WE'LL CONSIDER IT FOR OUR LATEST UPDATES!</p>
+        </div>
 
-        <div class="flex-cont mid-page left-align pad-left">
+
+        <div class="flex-cont mid-page left-align pad-left" ng-show="!interestShowed">
             <p class="black-medium dark">How good is this idea?</p>
             <div id="res-statistics" class="left-align">
                 <table class="right-num">
@@ -237,7 +181,7 @@
                 </table>
                 <div class="form-input" ng-show="likeFeedback" >
                   <input type="text" name="why-like" placeholder="Why?" ng-model="whyInterest" required="true">
-                  <a class="color-button blue right complete-form send-feedback-btn"  href="" ng-click="likeFeedback=false">Send</a>
+                  <a class="color-button blue right complete-form send-feedback-btn"  href="" ng-click="giveLike()">Send</a>
                 </div>
             </div>
           </div>
@@ -252,7 +196,7 @@
         <a href="/home" class="small">Home</a>
         <a href="/myProfile" class="small">My Profile</a>
         <a href="/createIdea/first" class="small">Create Idea</a>
-        <a href="/myIdea" class="small">My Ideas</a>
+        <a href="/myProfile/ideas" class="small">My Ideas</a>
       </div>
       <div class="icons">
         <img src="/static/img/wetopia_dark.png">
@@ -277,15 +221,15 @@
 
 
     <div class="flex-modal white" ng-show="wantToDeleteComment">
-        <div class="centered-form modal-form complete" click-outside="wantToDeleteComment=false" outside-if-not="delete">
+        <div class="centered-form modal-form complete width-500" click-outside="wantToDeleteComment=false" outside-if-not="delete">
             <div class="flex-cont">
                 <p class="close-x upper" ng-click="wantToDeleteComment=false">&times</p>
-                <p class="sub-gray">DELETE A COMMENT</p>
-                <p class="simple-paragraph">Are you sure you want to delete this comment?</p>
+                <p class="sub-gray medium-margin">DELETE A COMMENT</p>
+                <p class="simple-paragraph lighter">Are you sure you want to delete this comment?</p>
                 <div class="flex-cont row eighty">
-                    <a class="color-button blue complete-form discard" id="yes-delete-comment"  ng-click="deleteFeedback()">Yes, Delete it</a>
+                    <a class="color-button blue complete-form discard no-bottom" id="yes-delete-comment"  ng-click="deleteFeedback()">Yes, Delete it</a>
                 </div>
-                <a href="" class="medium-bold gray" ng-click="wantToDeleteComment=false">Cancel</a>
+                <a href="" class="medium-bold gray less-top lighter-font pointer" ng-click="wantToDeleteComment=false">Cancel</a>
             </div>
         </div>
     </div>
@@ -294,7 +238,7 @@
         <div class="centered-form modal-form complete" click-outside="deletedComment=false" outside-if-not="yes-delete-comment">
             <div class="flex-cont">
                 <p class="close-x upper" ng-click="deletedComment=false">&times</p>
-                <p class="sub-gray">DELETED</p>
+                <p class="sub-gray medium-margin">DELETED</p>
                 <div class="simple-cont margin">
                     <p class="medium light no-margin">Your comment has been deleted.</p>
                 </div>
