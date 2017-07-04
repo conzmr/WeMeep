@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/JacobGarcia/Wetopia.git"
   },
+  "engines": {
+     "node": "4.4.4"
+  }
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.4",
