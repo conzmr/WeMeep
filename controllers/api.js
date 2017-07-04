@@ -911,27 +911,44 @@ router.route('/notifications/')
   })
 })
 .get(function (req, res) {
-  User.findById(req.U_ID)
+  User.find({'_id':req.U_ID},{'notifications':1, '_id':0})
+  .populate({
+  path: 'notifications',
+  model: 'Notification',
+  populate: {
+    path: 'sender',
+    model: 'User',
+    select: 'image name'
+  }
+})
+.populate({
+path: 'notifications',
+model: 'Notification',
+populate: {
+  path: 'idea',
+  model: 'Idea',
+  select: '_id name'
+}
+})
   .exec(function(err, user) {
     if (err)
       return res.status(500).json({'error': err})
-    Notification.find()
-    .populate('sender', 'name image')
-    .populate('idea', 'name _id')
-    .exec(function (err, notifications) {
-      if (err)
-        return res.status(500).json({'error': err})
-      Notification.find({'seen':false})
-      .exec(function (err, notification) {
-        if (err)
-          return res.status(500).json({'error': err})
-        return res.status(200).json({notifications, notification})
-      })
-  })
+    var newNotification = false;
+    user.forEach(function(user){
+      var i=0;
+      while(!newNotification && i<user.notifications.length){
+        if(!user.notifications[i].seen){
+          newNotification = true;
+        }
+        i++;
+      }
+    })
+    return res.status(201).json({'notifications': user[0].notifications, 'new notification': newNotification})
 })
 })
 .put(function (req, res) {
-  Notification.findOneAndUpdate({'_id': req.body.id}, { $push: {'seen': true } })
+  const seen = true;
+  Notification.findOneAndUpdate({'_id': req.body.id}, { $set: {seen}})
   .exec(function(err) {
     if (err)
       return res.status(500).json({'error': err})

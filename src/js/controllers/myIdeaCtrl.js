@@ -47,15 +47,6 @@ angular.module('wetopiaApp')
         $scope.descriptionError = false;
         getNotifications();
 
-        function getNotifications(){
-          notificationDataService.getNotifications(function(response){
-            if(response.data.notification.length>0){
-              $scope.notification = true;
-            }
-            $scope.currentUser.notifications = response.data.notifications;
-          })
-        }
-
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
           $scope.showPivotsModal = false;
@@ -308,7 +299,6 @@ angular.module('wetopiaApp')
             id: notification_id
           }
           notificationDataService.seenTrueNotifications(notification, function(response){
-            console.log(response);
           })
         }
 
@@ -333,6 +323,16 @@ angular.module('wetopiaApp')
           $scope.editIdea = false;
         }
 
+        function getNotifications(){
+          notificationDataService.getNotifications(function(response){
+            if(response.data['new notification']){
+              $scope.notification = true;
+            }
+            $scope.currentUser.notifications = response.data.notifications;
+          })
+        }
+
+
         /**** NOTIFICATIONS SECTION ***/
         socket.on('socket', function(socketId){ // client gets the socket event here
           console.log("GET EVENT " + socketId)
@@ -343,28 +343,25 @@ angular.module('wetopiaApp')
 
         socket.on('notify', (sender) => {
           notifyMe(sender);
-          createNotification(sender.type);
           $scope.notification = true;
-          //update my notifications
-          //call service to create notification at (/notifications)
-          //call function to push to notification array or update notification center
-        })
-
-        function createNotification(type){
-          let notification = {
-            type: type,
-            idea: $scope.idea._id,
-            members: $scope.idea.members,
-            pivot: $scope.currentPivot
+          var newNotification = {
+            sender: {
+              image: sender.image,
+              name: sender.name
+            },
+            idea: {
+              _id: sender.ideaId,
+              name: sender.idea
+            },
+            pivot: sender.pivot,
+            type: sender.type
           }
-          notificationDataService.createNewNotification(notification, function(response){
-            console.log(response);
-            $scope.currentUser.notifications.push(response.data);
-          })
-        }
+          $scope.currentUser.notifications.push(newNotification);
+        })
 
         function notifyMe(sender) {
           var notification_message;
+          $scope.notification = true;
           switch (sender.type) {
             case 'money':
             notification_message = " says I buy it! to your "

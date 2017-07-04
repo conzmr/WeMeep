@@ -43,7 +43,6 @@ function getTrendingIdeas(){
   ideaDataService.getTrendingIdeas(function(response) {
     if(response.data){
       $scope.showingIdeas = response.data;
-      console.log(response.data);
     }
   })
 }
@@ -60,7 +59,6 @@ var getIdeasByCategory = function(category){
 function getRecommendedCategories(){
   categoriesDataService.getRecommendedCategories(function(response){
     if(response.data){
-      console.log(response);
       $scope.recommendedCategories = response.data;
     }
   })
@@ -92,7 +90,6 @@ function seeNotifications(notification_id){
     id: notification_id
   }
   notificationDataService.seenTrueNotifications(notification, function(response){
-    console.log(response);
   })
 }
 
@@ -127,7 +124,7 @@ $scope.selectCategory = function(category, id_name){
 
 function getNotifications(){
   notificationDataService.getNotifications(function(response){
-    if(response.data.notification.length>0){
+    if(response.data['new notification']){
       $scope.notification = true;
     }
     $scope.currentUser.notifications = response.data.notifications;
@@ -147,7 +144,7 @@ socket.on('notify', (sender) => {
   notifyMe(sender);
   $scope.notification = true;
   var newNotification = {
-    user: {
+    sender: {
       image: sender.image,
       name: sender.name
     },
@@ -163,6 +160,7 @@ socket.on('notify', (sender) => {
 
 function notifyMe(sender) {
   var notification_message;
+  $scope.notification = true;
   switch (sender.type) {
     case 'money':
     notification_message = ' says "I buy it!" on your '

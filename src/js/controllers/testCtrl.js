@@ -19,15 +19,6 @@ angular.module('wetopiaApp')
         $scope.user.notifications = [];
         getNotifications();
 
-        function getNotifications(){
-          notificationDataService.getNotifications(function(response){
-            if(response.data.notification.length>0){
-              $scope.notification = true;
-            }
-            $scope.currentUser.notifications = response.data.notifications;
-          })
-        }
-
         $scope.showWantToSave = function() {
             $scope.wantToSave = true;
         }
@@ -365,6 +356,16 @@ angular.module('wetopiaApp')
 
         ];
 
+        function getNotifications(){
+          notificationDataService.getNotifications(function(response){
+            if(response.data['new notification']){
+              $scope.notification = true;
+            }
+            $scope.currentUser.notifications = response.data.notifications;
+          })
+        }
+
+
         /**** NOTIFICATIONS SECTION ***/
         socket.on('socket', function(socketId){ // client gets the socket event here
           console.log("GET EVENT " + socketId)
@@ -377,7 +378,7 @@ angular.module('wetopiaApp')
           notifyMe(sender);
           $scope.notification = true;
           var newNotification = {
-            user: {
+            sender: {
               image: sender.image,
               name: sender.name
             },
@@ -393,6 +394,7 @@ angular.module('wetopiaApp')
 
         function notifyMe(sender) {
           var notification_message;
+          $scope.notification = true;
           switch (sender.type) {
             case 'money':
             notification_message = ' says "I buy it!" on your '

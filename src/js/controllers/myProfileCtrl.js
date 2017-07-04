@@ -337,7 +337,7 @@ socket.on('notify', (sender) => {
   notifyMe(sender);
   $scope.notification = true;
   var newNotification = {
-    user: {
+    sender: {
       image: sender.image,
       name: sender.name
     },

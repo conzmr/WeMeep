@@ -1,6 +1,6 @@
 angular.module('wetopiaApp')
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-        $stateProvider
+      $stateProvider
             .state("landing", {
                 url: "/",
                 controller: "landingCtrl",
@@ -9,12 +9,14 @@ angular.module('wetopiaApp')
                 onEnter: function(localStorageService, $state){
                   let auth = true
                   var token = localStorageService.get('token') //Get token
+                  if(token){
                   //Check that the token is valid, time interval
                   var params = self.parseJwt(token)
                   if (!(Math.round(new Date().getTime() / 1000) <= params.exp)) auth = false
                   if (token && auth) {
                     $state.go('home')
                     event.preventDefault()
+                  }
                   }
                 }
             })
