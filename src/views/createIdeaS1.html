@@ -23,7 +23,8 @@
     <div class="form-description">
         <img src="/static/img/Create Idea_idea.svg">
         <p>Describe your idea</p>
-        <textarea name="description" class="" maxlength="300" ng-click="clearErrors()" placeholder="What do you have in mind? Give a short and clear description!" ng-model="idea.description"></textarea>
+        <textarea name="description" class="" maxlength="600" ng-click="clearErrors()" placeholder="What do you have in mind? Give a short and clear description!" ng-model="idea.description"></textarea>
+        <p class="textarea-length">600</p>
         <p class="red-text error less" ng-bind="errorDescriptionMessage" ng-show="errorDescription"></p>
     </div>
     <div class="form-description">
@@ -37,7 +38,8 @@
         </label>
         </div>
         <div ng-show="solveProblem" id="show-problem">
-            <textarea class="" name="problem" maxlength="300" placeholder="What issue?" ng-model="idea.problem"></textarea>
+            <textarea class="" name="problem" maxlength="600" placeholder="What issue?" ng-model="idea.problem"></textarea>
+            <p class="textarea-length">600</p>
         </div>
     </div>
     <input class="blue-button form-button" type="button" name="createIdea-button" value="Next"  id="next-btn-create" ng-click="goNext()">

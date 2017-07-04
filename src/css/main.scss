@@ -632,7 +632,7 @@ a {
         }
 
         &.indent{
-          margin: 0px auto 20px 52px;
+          margin: 0px auto 0px 52px;
           width: 90%;
 
           @media screen and (max-width: 650px){
@@ -1019,81 +1019,81 @@ nav {
     }
 }
 
-.wrapper {
-    display: inline-block;
-    vertical-align: middle;
-    margin: auto;
-    height: auto;
-    margin-right: 20px;
-    width: 210px;
-    text-align: right;
-    position: relative;
-    display: flex;
-
-    @media screen and (max-width: 730px) {
-        order: 4;
-        flex: 1 100%;
-        text-align: center;
-        margin: auto;
-    }
-
-    &:hover {
-        input {
-            border: 1px solid $wetopia-aqua;
-        }
-    }
-
-    i {
-        &.fa-search {
-            color: $wetopia-aqua;
-            cursor: pointer;
-            z-index: 4;
-            font-size: 20px;
-            font-weight: lighter;
-            margin: auto auto auto -25px;
-        }
-    }
-
-    input {
-        border-radius: 6px;
-        z-index: 3;
-        margin: auto 0 auto auto;
-        font-size: 16px;
-        padding: 6px;
-        height: auto;
-        background-color: white;
-        width: 210px;
-        text-indent: 2px;
-        &::-webkit-input-placeholder {
-            color: transparent;
-            font-size: 13px;
-            font-style: italic;
-            font-family: 'Museo';
-        }
-
-        &::-moz-placeholder {
-            color: transparent;
-            font-size: 13px;
-            font-family: 'Museo';
-            font-style: italic;
-        }
-
-        &:focus, &:hover{
-            border: 1px solid $wetopia-aqua;
-            &::-webkit-input-placeholder {
-                color: $gray-lighter;
-            }
-
-            &::-moz-placeholder {
-                color: $gray-lighter;
-            }
-        }
-
-        &::-webkit-search-cancel-button {
-            -webkit-appearance: none;
-        }
-    }
-}
+// .wrapper {
+//     display: inline-block;
+//     vertical-align: middle;
+//     margin: auto;
+//     height: auto;
+//     margin-right: 20px;
+//     width: 210px;
+//     text-align: right;
+//     position: relative;
+//     display: flex;
+//
+//     @media screen and (max-width: 730px) {
+//         order: 4;
+//         flex: 1 100%;
+//         text-align: center;
+//         margin: auto;
+//     }
+//
+//     &:hover {
+//         input {
+//             border: 1px solid $wetopia-aqua;
+//         }
+//     }
+//
+//     i {
+//         &.fa-search {
+//             color: $wetopia-aqua;
+//             cursor: pointer;
+//             z-index: 4;
+//             font-size: 20px;
+//             font-weight: lighter;
+//             margin: auto auto auto -25px;
+//         }
+//     }
+//
+//     input {
+//         border-radius: 6px;
+//         z-index: 3;
+//         margin: auto 0 auto auto;
+//         font-size: 16px;
+//         padding: 6px;
+//         height: auto;
+//         background-color: white;
+//         width: 210px;
+//         text-indent: 2px;
+//         &::-webkit-input-placeholder {
+//             color: transparent;
+//             font-size: 13px;
+//             font-style: italic;
+//             font-family: 'Museo';
+//         }
+//
+//         &::-moz-placeholder {
+//             color: transparent;
+//             font-size: 13px;
+//             font-family: 'Museo';
+//             font-style: italic;
+//         }
+//
+//         &:focus, &:hover{
+//             border: 1px solid $wetopia-aqua;
+//             &::-webkit-input-placeholder {
+//                 color: $gray-lighter;
+//             }
+//
+//             &::-moz-placeholder {
+//                 color: $gray-lighter;
+//             }
+//         }
+//
+//         &::-webkit-search-cancel-button {
+//             -webkit-appearance: none;
+//         }
+//     }
+// }
 
 .scroll-list {
     overflow-y: scroll;
@@ -1190,7 +1190,6 @@ nav {
                 }
             }
 
-            &.act-pivot,
             &.prev-pivot {
                 &:after {
                     color: $text-gray;
@@ -1198,9 +1197,24 @@ nav {
             }
 
             &.prev-pivot {
+              &:after {
+                  content: "th pivot";
+              }
+              &.first{
                 &:after {
-                    content: "º pivot";
+                    content: "st pivot";
                 }
+              }
+              &.second{
+                &:after {
+                    content: "nd pivot";
+                }
+              }
+              &.third{
+                &:after {
+                    content: "rd pivot";
+                }
+              }
             }
 
             &.act-pivot {
@@ -1219,60 +1233,87 @@ nav {
                 }
             }
 
-            &.like-1,
-            &.like-2,
-            &.like-3,
-            &.like-4 {
+            &.prev-pivot {
+              &:after {
+                color: $text-gray;
+                  content: "th pivot";
+              }
+              &.first{
                 &:after {
-                    background: {
-                        repeat: no-repeat;
-                        size: cover;
-                        position: center;
-                    }
-                    height: 13px;
-                    display: inline-block;
-                    width: 11px;
-                    content: " ";
+                    content: "st pivot";
+                }
+              }
+              &.second{
+                &:after {
+                    content: "nd pivot";
+                }
+              }
+              &.third{
+                &:after {
+                    content: "rd pivot";
+                }
+              }
+            }
+
+            &.like1,
+            &.like2,
+            &.like3,
+            &.like4 {
+                &:after {
+                  width: auto;
+                    // background: {
+                    //     repeat: no-repeat;
+                    //     size: cover;
+                    //     position: center;
+                    // }
+                    // height: 13px;
+                    // display: inline-block;
+                    // width: 11px;
+                    // content: " ";
                 }
             }
 
-            &.like-4 {
+            &.like4 {
                 &:before {
-                    content: '"I love it and I want it know" ';
+                    content: '"I buy it!" ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 4.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 4.svg");
                 }
             }
 
-            &.like-3 {
+            &.like3 {
                 &:before {
-                    content: '"I like it but it\0027s not my thing" ';
+                    content: '"I love it!" ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 3.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 3.svg");
                 }
             }
 
-            &.like-2 {
+            &.like2 {
                 &:before {
-                    content: '"I like it but still lacks something." ';
+                    content: '"Not bad." ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 2.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 2.svg");
                 }
             }
 
-            &.like-1 {
+            &.like1 {
                 &:before {
                     content: '"I don\0027t like it." ';
                 }
 
                 &:after {
-                    background-image: url("/static/img/Likes/noti_like 1.svg");
+                  content: "on ";
+                    // background-image: url("/static/img/Likes/noti_like 1.svg");
                 }
             }
         }
@@ -1376,7 +1417,7 @@ nav {
             }
         }
 
-        p {
+        p, .nav-txt {
             font-size: 14px;
             margin: 7px auto;
             cursor: pointer;
@@ -1568,7 +1609,7 @@ nav {
     width: 100%;
     background: white;
     height: auto;
-    text-align: center;
+    // text-align: center;
     padding: 120px 10px 80px;
     box-sizing: border-box;
     @media screen and (max-width: 730px) {
@@ -1763,7 +1804,7 @@ nav {
         top: 0;
         bottom: 30px;
     }
-    word-break: break-all;
+    word-break: break-word;
     @include font( 'Museo', 300);
 }
 
@@ -1881,10 +1922,6 @@ nav {
     }
 }
 
-.left {
-    float: left;
-    text-align: left;
-}
 
 .left,
 .right {
@@ -2470,7 +2507,7 @@ nav {
 }
 
 .content {
-    background-color: whitesmoke;
+    background-color: white;
     margin-top: 0;
     padding: 100px 60px 30px;
     max-width: 1500px;
@@ -2529,11 +2566,9 @@ nav {
 .cards-cont {
     padding: 0;
     width: 100%;
-    clear: both;
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
-    text-align: center;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -2553,9 +2588,19 @@ nav {
     .user {
         height: 35px;
         display: flex;
-        justify-content: center;
-        text-align: center;
         flex-direction: row;
+        width: 100%;
+        margin: 0px auto;
+
+        p {
+            color: $gray-lighter;
+            font-family: 'Museo';
+            display: inline-block;
+            width: auto;
+            margin: auto auto auto 0px;
+            font-size: 14px;
+            line-height: 15px;
+        }
 
         .polygon-clip-hexagon {
             height: 30px;
@@ -2567,11 +2612,6 @@ nav {
 
         .polygon-each-img-wrap {
             margin: auto 5px auto 0;
-        }
-
-        p {
-            font-size: 12px;
-            margin: 8px 0;
         }
 
         .right-img {
@@ -2589,11 +2629,10 @@ nav {
 }
 
 .card-img {
-    clear: both;
     width: 100%;
     background-size: cover;
     box-sizing: border-box;
-    height: 160px;
+    height: 140px;
     border: 1px solid $wetopia-blue;
     border-radius: 10px 10px 0 0;
 }
@@ -2607,23 +2646,45 @@ nav {
     margin-bottom: 5px;
     padding: 5px 13px;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    text-align: center;
     flex-direction: column;
-    height: 160px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+
+    .white-padding-bottom{
+      height: 20px;
+      top: 136px;
+      left: 0px;
+    }
 
     .dark-title {
-        margin: 10px auto 5px 0;
-        font-size: 16px;
+        margin: 5px auto 0px 0;
+        font-size: 15px;
         text-align: left;
-        @include font( 'Museo', 900);
+        font-family: 'Museo_D';
+        font-weight: normal;
+        max-height: 38px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .card-p {
         margin: 0 auto auto 0;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
+        word-break: break-all;
+        text-overflow: ellipsis;
+    }
+
+    .ellipsis{
+      font-size: 13px;
+      background: white;
+      color: $gray-dark;
+      z-index: 1000;
+    }
+
+    .read-more{
+      font-size: 13px;
     }
 
     .left {
@@ -2640,11 +2701,11 @@ nav {
 
         p {
             color: $gray-lighter;
-            @include font( 'Museo', 300);
+            font-family: 'Museo';
             display: inline-block;
             width: auto;
             margin: auto auto auto 0px;
-            font-size: 15px;
+            font-size: 14px;
         }
     }
 }
@@ -2702,11 +2763,12 @@ nav {
 }
 
 .footer-nav {
-    margin-top: -8px;
+    margin-top: -12px;
     p {
         color: $gray-lighter;
         display: inline-block;
-        font-size: 13px;
+        font-size: 12px;
+        font-family: 'Museo';
     }
     text-align: center;
 }
@@ -3099,15 +3161,14 @@ nav {
     }
 
     .right {
-        margin: auto 0;
+        margin: auto 0px auto auto;
         display: -webkit-flex;
         display: flex;
+        padding-left: 74px;
         flex-direction: row;
-        @media screen and (max-width: 730px) {
-            padding-left: 71px;
-        }
-        @media screen and (max-width: 500px) {
-            padding: 0;
+
+        @media screen and (max-width: 500px){
+          padding-left: 0;
         }
     }
 
@@ -3137,6 +3198,7 @@ nav {
         @media screen and (max-width: 500px) {
             order: 3;
             width: 100%;
+            margin-top: 0px;
         }
 
         p {
@@ -3163,15 +3225,9 @@ nav {
         @media screen and (max-width: 745px) {
             padding-top: 7px;
         }
-        @media screen and (max-width: 730px) {
-            flex-wrap: wrap;
-            height: 110px;
-        }
-        @media screen and (max-width: 730px) {
-            height: 150px;
-        }
         @media screen and (max-width: 500px) {
-            height: 170px;
+            flex-wrap: wrap;
+            height: 120px;
             padding-top: 10px;
         }
     }
@@ -3191,20 +3247,6 @@ nav {
         height: 45px;
         display: inline-block;
         margin: auto auto auto 0;
-        @media screen and (max-width: 450px) {
-            margin-top: 15px;
-        }
-
-        &.nav-general {
-            padding-right: 145px;
-            @media screen and (max-width: 730px) {
-                padding: 0;
-                margin: auto 0;
-            }
-            @media screen and (max-width: 500px) {
-                margin-right: auto;
-            }
-        }
     }
 }
 
@@ -3420,10 +3462,26 @@ nav {
             margin-bottom: 20px;
         }
 
+        &.margin-bottom{
+          border-bottom: 1px solid $pt-gray;
+          padding-bottom: 15px;
+          margin: auto;
+          margin-bottom: 30px;
+          width: 95%;
+
+          .sub-gray{
+            margin-bottom: 0px;
+          }
+        }
+
         &.for-scroll{
           padding-top: 80px;
           margin: 0 auto;
           max-width: 800px;
+        }
+
+        &.bottom{
+          margin-bottom: 40px;
         }
 
         &.max-width {
@@ -3437,7 +3495,7 @@ nav {
         .sub-gray {
             font-size: 25px;
             line-height: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             padding: 0 20px;
 
             &.not-bottom{
@@ -3654,6 +3712,11 @@ nav {
             line-height: 20px;
             font-size: 16px;
         }
+
+        &.centered{
+          margin: 2px auto;
+          text-align: center;
+        }
     }
 
     .sub-paragraph {
@@ -3774,7 +3837,6 @@ nav {
     margin: 10px 0;
     /*If it is a btn
     cursor: pointer;
-
     &:active {
         transform: scale(0.95);
     }*/
@@ -3941,6 +4003,10 @@ nav {
     &.down {
         top: 25px;
     }
+
+    &.dark{
+      color: $gray-lighter;
+    }
 }
 
 .modal-form {
@@ -3952,6 +4018,11 @@ nav {
     &.complete {
         width: auto;
         padding: 25px 40px;
+
+        &.width-500{
+          width: 100%;
+          max-width: 500px;
+        }
 
         .normal-paragraph {
             margin: 0 15px;
@@ -4016,6 +4087,17 @@ nav {
         textarea {
             font-size: 14px;
             padding-top: 10px;
+            outline: none;
+
+            &::-webkit-input-placeholder {
+                color: $gray-lighter;
+                font-size: 14px;
+            }
+
+            &::-moz-placeholder {
+                color: $gray-lighter;
+                font-size: 14px;
+            }
         }
 
         .textarea {
@@ -4383,7 +4465,7 @@ bluelink {
     width: auto;
 
     img {
-        margin: 10px auto 20px;
+        margin: 10px auto;
         @media screen and (max-width: 600px) {
             height: 16px;
         }
@@ -4431,6 +4513,11 @@ bluelink {
     width: auto;
     text-align: center;
     color: $text-gray;
+
+    &.lighter{
+      color: $gray-lighter;
+      font-family: 'Museo';
+    }
 }
 
 .center-paragraph {
@@ -5172,6 +5259,7 @@ bluelink {
             padding: 5px 20px;
             margin-left: 12px;
             border-radius: 2px;
+            outline: none;
             margin-top: -13px;
 
             &::-webkit-input-placeholder {
@@ -5263,6 +5351,7 @@ bluelink {
 .tab-paragraph {
     margin: 0 auto auto 40px;
     font-size: 16px;
+    word-break: break-word;
     @media screen and (max-width: 600px) {
         margin: {
             left: 0;
@@ -5281,6 +5370,17 @@ bluelink {
     font-family: 'Museo_D';
     padding: 8px 10px;
     cursor: pointer;
+
+    &.larger{
+      padding: 8px 30px;
+    }
+
+    &.stylized{
+      font-size: 16px;
+      font-family: 'Museo';
+      font-weight: bold;
+      border-radius: 7px;
+    }
 
 
     &.right {
@@ -5456,6 +5556,14 @@ bluelink {
         color: $gray-lighter;
     }
 
+    &.lighter-font{
+      font-family: 'Museo';
+    }
+
+    &.less-top{
+      margin-top: -5px !important;
+    }
+
     &.pointer {
         cursor: pointer;
     }
@@ -5473,9 +5581,12 @@ bluelink {
 
     &.light{
       color: $gray-lighter;
-      margin-bottom: 10px !important;
       font-weight: bold;
       font-family: 'Museo';
+    }
+
+    &.bigger{
+      font-size: 30px !important;
     }
 
     &.medium-margin{
@@ -5489,6 +5600,19 @@ bluelink {
     &.bottom{
       margin-bottom: 30px;
     }
+
+    &.top{
+      margin-top: 10px;
+    }
+
+    &.bigger-font{
+      font-size: 30px;
+      font-family: 'Museo_700';
+    }
+
+    &.smaller-font{
+      font-size: 22px;
+    }
 }
 
 .justify-textarea {
@@ -5501,6 +5625,18 @@ bluelink {
     height: 80px;
 }
 
+.upper-container{
+
+  &.margin-top{
+    margin: 0px auto;
+    width: 95%;
+  }
+
+  .right{
+    margin: auto 0px auto auto;
+  }
+}
+
 .title-dark {
     color: $gray-medium;
     font-family: 'Museo_700';
@@ -5509,7 +5645,13 @@ bluelink {
     line-height: 30px !important;
 
     &.disable{
-      color: $gray-lighter;
+      color: $disable-gray;
+      text-align: center;
+    }
+
+    &.smaller{
+      font-size: 25px;
+      font-family: 'Museo_D';
     }
 
     &.left {
@@ -6259,7 +6401,8 @@ video#bgvid {
 }
 
 #by-category{
-  margin-top: -70px;
+  margin-top: -100px;
+  padding-top: 30px;
 }
 
 
@@ -6279,6 +6422,11 @@ video#bgvid {
   &.second{
     &:after{
       content: 'nd Pivot'
+    }
+  }
+  &.third{
+    &:after{
+      content: 'rd Pivot'
     }
   }
 }
@@ -6311,4 +6459,55 @@ video#bgvid {
 .swap-animation.ng-enter-active {
   opacity: 1;
   transition: 0.5s;
+}
+
+.read-more{
+  color: $wetopia-blue;
+  font-family: 'Museo';
+  cursor: pointer;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.white-padding-bottom{
+  width: 100%;
+  position: absolute;
+  background: white;
+}
+
+#welcome-modal{
+  background: white url('/static/img/PopUp bienvenida/fondo_cuadritos-01.png') no-repeat center top;
+  background-size: contain;
+  max-width: 550px;
+  width: 550px;
+  padding: 15px !important;
+
+  .centered-logo{
+    height: 120px;
+    margin: 30px auto 10px;
+  }
+
+  .blue-text{
+    font-size: 18px;
+    line-height: 16px;
+    margin: 0px auto;
+  }
+
+  .centered-img{
+    width: 250px;
+    margin: auto auto 15px auto;
+  }
+
+  .simple-paragraph{
+    font-family: 'Museo';
+    margin: 15px auto;
+  }
+
+  .color-button{
+    margin: 10px auto 20px;
+    font-size: 17px;
+    font-family: 'Museo';
+    font-weight: lighter;
+    padding: 8px 35px;
+  }
 }

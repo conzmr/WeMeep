@@ -9,12 +9,15 @@ angular.module('wetopiaApp')
         else if(input == 2){
           return input+"nd Pivot";
         }
+        else if(input == 3){
+          return input+"rd Pivot";
+        }
         else{
           return input+"th Pivot";
         }
       };
     })
-    .controller('myIdeaCtrl', function($scope, $window, localStorageService, $http, $state, ideaDataService, categoriesDataService, $filter, $stateParams) {
+    .controller('myIdeaCtrl', function($scope, $window, localStorageService, $http, $state, Upload, ideaDataService, categoriesDataService, $filter, $stateParams, notificationDataService, socket) {
         $scope.pivoting = false;
         $scope.notification = false;
         $scope.showNotifications=false;
@@ -29,6 +32,7 @@ angular.module('wetopiaApp')
         $scope.ideaNameError = false;
         $scope.categoriesBanner = categoriesDataService.categories;
         var idea_id= $stateParams.idea_id;
+        var pivotNumber= $stateParams.pivotNumber;
         var currentComment = "";
         var commentIndex = "";
         $scope.currentUser = {};
@@ -36,37 +40,33 @@ angular.module('wetopiaApp')
         $scope.currentUser.email = localStorageService.get('email');
         $scope.currentUser.username = localStorageService.get('username');
         $scope.currentUser.image = localStorageService.get('image');
-        $scope.currentPivot = 1;
+        $scope.currentUser.notifications = [];
+        $scope.currentPivot = pivotNumber;
         $scope.pivotSelected = $filter('enumeration')($scope.currentPivot);
         $scope.members = [];
         $scope.descriptionError = false;
+        getNotifications();
 
-        $scope.giveStartToFeedback = function(feedback_id){
-          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
-            if(response.status==201){
-              $scope.getIdea($scope.currentPivot);
+        function getNotifications(){
+          notificationDataService.getNotifications(function(response){
+            if(response.data.notification.length>0){
+              $scope.notification = true;
             }
-          }, function(response){
-            switch (response.status) {
-              case 400:
-                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
-                  if(response.status==201){
-                    $scope.getIdea($scope.currentPivot);
-                  }
-                })
-                break;
-            }
+            $scope.currentUser.notifications = response.data.notifications;
           })
         }
 
         $scope.getIdea = function(pivotNumber){
           $scope.showPivots = false;
+          $scope.showPivotsModal = false;
           ideaDataService.getIdeaInformation(idea_id, pivotNumber, function(response){
-            if(response.data){
+            if(response.status==200){
               $scope.currentPivot = pivotNumber;
-              $scope.idea = response.data;
+              $scope.idea = response.data.idea;
+              $scope.pivot = response.data.pivot;
+              $scope.pivotSelected = $filter('enumeration')(pivotNumber);
               if($scope.idea.admin._id != user_id){
-                $state.go('idea', {idea_id:idea_id});
+                $state.go('idea', {idea_id:idea_id, pivotNumber: pivotNumber});
               }
               else{
                 ideaDataService.getIdeaStats(idea_id, pivotNumber, function(response){
@@ -91,7 +91,7 @@ angular.module('wetopiaApp')
                       stats.money = data[i].count;
                     }
                   }
-                  $scope.idea.stats = stats;
+                  $scope.pivot.stats = stats;
                 })
               var j=0;
               for(var i =0; i < $scope.idea.members.length; i++){
@@ -117,20 +117,13 @@ angular.module('wetopiaApp')
           }
         }
 
-        $scope.giveStartToFeedback = function(feedback_id, index){
-          ideaDataService.giveStartToFeedback(idea_id, feedback_id, function(response){
+        $scope.giveStarToFeedback = function(feedback_id, index){
+          ideaDataService.giveStarToFeedback(idea_id, feedback_id, function(response){
             if(response.status==201){
-              $scope.idea.feedback[index].stars.push(response.data);
+              $scope.pivot.feedback[index].stars.push(response.data);
             }
-          }, function(response){
-            switch (response.status) {
-              case 400:
-                ideaDataService.deleteStartToFeedback(idea_id, feedback_id, function(response){
-                  if(response.status==201){
-                      $scope.idea.feedback[index].stars.splice(commentIndex, 1);
-                  }
-                })
-                break;
+            else if(response.status == 200){
+              $scope.pivot.feedback[index].stars.splice(commentIndex, 1);
             }
           })
         }
@@ -144,7 +137,7 @@ angular.module('wetopiaApp')
         $scope.deleteFeedback = function(){
           ideaDataService.deleteFeedback(currentComment, function(response){
             if(response.status==200){
-              $scope.idea.feedback.splice(commentIndex, 1);
+              $scope.pivot.feedback.splice(commentIndex, 1);
             }
           })
           $scope.wantToDeleteComment = false;
@@ -163,12 +156,11 @@ angular.module('wetopiaApp')
             comment : $scope.whyDeleted
           }
           ideaDataService.deleteIdea(idea_id, $scope.currentPivot, comment, function(response){
-            console.log(response);
           });
         }
 
         $scope.updateIdea = function(){
-          if(!$scope.idea.description){
+          if(!$scope.pivot.description){
             $scope.descriptionError=true;
           }
           if(!$scope.idea.name){
@@ -181,11 +173,32 @@ angular.module('wetopiaApp')
           $scope.ideaNameError= false;
           $scope.members.push($scope.idea.admin);
           let newInformation = {
+            name: $scope.idea.name,
             banner: $scope.idea.banner,
-            problem: $scope.idea.problem,
-            description: $scope.idea.description,
+            problem: $scope.pivot.problem,
+            description: $scope.pivot.description,
             country: $scope.idea.country,
             members: $scope.members
+          }
+          if (!isString($scope.idea.banner)&&$scope.idea.banner!=undefined){
+                   Upload.upload({
+                           url: window.HOST + '/api/upload',
+                           data: {
+                               file: $scope.idea.banner
+                           }
+                       })
+                       .then(function(res) {
+                         if(res.data.file_name){
+                           newInformation.banner = '/static/uploads/'+ res.data.file_name;
+                         }
+                         ideaDataService.updateIdeaInformation(idea_id, $scope.currentPivot, newInformation, function(response){
+                           if(response.status!=200){
+                             window.alert("There was a problem. Please, try again later.");
+                           }
+                         })
+                     }, function(errRes) {
+                       console.log(errRes);
+                     });
           }
           ideaDataService.updateIdeaInformation(idea_id, $scope.currentPivot, newInformation, function(response){
             if(response.status!=200){
@@ -195,14 +208,18 @@ angular.module('wetopiaApp')
           }
         }
 
+        function isString (obj) {
+          return (Object.prototype.toString.call(obj) === '[object String]');
+        }
+
         $scope.getBannerImage = function(category){
           return $scope.categoriesBanner[category].banner;
         }
 
         $scope.copy = function (type){
           if(type=='idea'){
-            if($scope.newIdea!=$scope.idea.description){
-              $scope.newIdea = $scope.idea.description;
+            if($scope.newIdea!=$scope.pivot.description){
+              $scope.newIdea = $scope.pivot.description;
             }
             else{
               $scope.newIdea = "";
@@ -210,8 +227,8 @@ angular.module('wetopiaApp')
 
           }
           else if(type=='problem'){
-            if($scope.newProblem!=$scope.idea.problem){
-              $scope.newProblem = $scope.idea.problem;
+            if($scope.newProblem!=$scope.pivot.problem){
+              $scope.newProblem = $scope.pivot.problem;
             }
             else{
               $scope.newProblem ="";
@@ -276,6 +293,23 @@ angular.module('wetopiaApp')
 
         $scope.changeShowNotifications = function(){
           $scope.showNotifications = !$scope.showNotifications;
+          if($scope.showNotifications && $scope.notification){
+            for(var i=0; i<$scope.currentUser.notifications.length; i++){
+              if(!$scope.currentUser.notifications[i].seen){
+                seeNotifications($scope.currentUser.notifications[i]._id);
+              }
+            }
+            $scope.notification=false;
+          }
+        }
+
+        function seeNotifications(notification_id){
+          let notification ={
+            id: notification_id
+          }
+          notificationDataService.seenTrueNotifications(notification, function(response){
+            console.log(response);
+          })
         }
 
         $scope.changeShowMenu = function(){
@@ -297,7 +331,87 @@ angular.module('wetopiaApp')
 
         $scope.updateIdeaInfo = function(){
           $scope.editIdea = false;
-          console.log("puchale");
+        }
+
+        /**** NOTIFICATIONS SECTION ***/
+        socket.on('socket', function(socketId){ // client gets the socket event here
+          console.log("GET EVENT " + socketId)
+          notificationDataService.getSocketInformation(socketId, (response) => {
+            if(response.status == 200) console.log("Successfully got socket information")
+          })
+        })
+
+        socket.on('notify', (sender) => {
+          notifyMe(sender);
+          createNotification(sender.type);
+          $scope.notification = true;
+          //update my notifications
+          //call service to create notification at (/notifications)
+          //call function to push to notification array or update notification center
+        })
+
+        function createNotification(type){
+          let notification = {
+            type: type,
+            idea: $scope.idea._id,
+            members: $scope.idea.members,
+            pivot: $scope.currentPivot
+          }
+          notificationDataService.createNewNotification(notification, function(response){
+            console.log(response);
+            $scope.currentUser.notifications.push(response.data);
+          })
+        }
+
+        function notifyMe(sender) {
+          var notification_message;
+          switch (sender.type) {
+            case 'money':
+            notification_message = " says I buy it! to your "
+            break;
+            case 'love':
+            notification_message = " says I love it! to your "
+            break;
+            case 'like':
+            notification_message = " says Not bad to your "
+            break;
+            case 'dislike':
+            notification_message = " says I don't like it to your"
+            break;
+            default:
+            notification_message = " commented your "
+            break;
+          }
+          var options = {
+            body: sender.name + notification_message + $filter('enumeration')(sender.pivot) + " on "+sender.idea,
+            icon: sender.image
+          }
+          // Let's check if the browser supports notifications
+          if (!("Notification" in window)) {
+            alert("This browser does not support desktop notifications.")
+          }
+          // Let's check if the user is okay to get some notification
+          else if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            var notification = new Notification("Wetopia", options);
+          }
+          // Otherwise, we need to ask the user for permission
+          // Note, Chrome does not implement the permission static property
+          // So we have to check for NOT 'denied' instead of 'default'
+          else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+              // Whatever the user answers, we make sure we store the information
+              if (!('permission' in Notification)) {
+                Notification.permission = permission;
+              }
+              // If the user is okay, let's create a notification
+              if (permission === "granted") {
+                var notification = new Notification("Wetopia", options);
+              }
+            })
+          }
+          // At last, if the user already denied any notification, and you
+          // want to be respectful there is no need to bother them any more.
         }
 
     })

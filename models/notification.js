@@ -11,7 +11,8 @@ var notificationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, /* Object ID for the Idea */
     ref: 'Idea'
   },
-  seen: {type: Boolean, default: true }
+  pivot: Number,
+  seen: {type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Notification', notificationSchema)

@@ -8,7 +8,7 @@ angular.module('wetopiaApp')
         return years+ " years";
       };
     })
-    .controller('myProfileCtrl', function($scope, $anchorScroll, $stateParams, localStorageService, profileDataService, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService) {
+    .controller('myProfileCtrl', function($scope, $anchorScroll, $stateParams, $document, localStorageService, profileDataService, $window, $location, $filter, Upload, ideaDataService, $state, categoriesDataService, notificationDataService, socket) {
         $scope.notification = false;
         $scope.showNotifications=false;
         $scope.showUserMenu=false;
@@ -20,11 +20,22 @@ angular.module('wetopiaApp')
         $scope.usernameError=false;
         $scope.ideasData = [];
         $scope.user = {};
+        $scope.user.notifications = [];
         // $scope.age = $filter('toYears')($scope.user.birthdate);
         $scope.categoriesBanner = categoriesDataService.categories;
         var adminsData = [];
         $scope.testResults = [];
         var username = localStorageService.get('username');
+        $location.path('/profile/'+username).replace();
+
+        function getNotifications(){
+          notificationDataService.getNotifications(function(response){
+            if(response.data.notification.length>0){
+              $scope.notification = true;
+            }
+            $scope.user.notifications = response.data.notifications;
+          })
+        }
 
         var calculateResults = function (obj) {
           for( var key in obj ) {
@@ -34,19 +45,22 @@ angular.module('wetopiaApp')
         }
       }
 
-      function gotoMyIdeas() {
-      $location.hash('myIdeas');
-      $anchorScroll();
+      function goToInnerNavSection() {
+        var section = angular.element(document.getElementById('section'));
+        $document.scrollToElement(section, 550, 1000);
     };
+
 
        var goToSection= $stateParams.section;
 
-       if(goToSection == "myIdeas"){
-         gotoMyIdeas();
+       if(goToSection){
+         goToInnerNavSection();
+         if(goToSection=="ideas"){
+          //  $scope.ideas=true;
+          $location.path('/profile/'+username+'/ideas').replace();
+         }
        }
-       else{
-         $location.path('/profile/'+username).replace();
-       }
+
 
       $scope.logOut = function(){
         localStorageService.clearAll();
@@ -87,6 +101,7 @@ angular.module('wetopiaApp')
                     if(response.status==200){
                         $scope.user.birthdate = newUserInformation.birthdate;
                         localStorageService.set('image', response.data.user.image);
+                        localStorageService.set('name', res.data.user.name);
                     }
                   }).then(updateAgeViews());
 		                // profileDataService.updateProfilePicture(res.data.file_name, function(response){
@@ -102,6 +117,7 @@ angular.module('wetopiaApp')
               if(response.status==200){
                   $scope.user.birthdate = newUserInformation.birthdate;
                   localStorageService.set('image', response.data.user.image);
+                  localStorageService.set('name', res.data.user.name);
               }
             }).then(updateAgeViews());
           }
@@ -141,6 +157,23 @@ angular.module('wetopiaApp')
 
         $scope.changeShowNotifications = function(){
           $scope.showNotifications = !$scope.showNotifications;
+          if($scope.showNotifications && $scope.notification){
+            for(var i=0; i<$scope.user.notifications.length; i++){
+              if(!$scope.user.notifications[i].seen){
+                seeNotifications($scope.user.notifications[i]._id);
+              }
+            }
+            $scope.notification=false;
+          }
+        }
+
+        function seeNotifications(notification_id){
+          let notification ={
+            id: notification_id
+          }
+          notificationDataService.seenTrueNotifications(notification, function(response){
+            console.log(response);
+          })
         }
 
         $scope.changeShowMenu = function(){
@@ -262,14 +295,15 @@ function updateAgeViews() {
 profileDataService.getProfileInfo(username, function(response) {
   if(response.status==200){
     $scope.user = response.data.user;
+    getNotifications();
     updateAgeViews();
     var obj = response.data.user.testResults;
     calculateResults(obj);
     for(var i = 0; i < $scope.user.ideas.length; i++){
       var j =0;
       ideaDataService.getIdeaInformation($scope.user.ideas[i], 1, function(response){
-        if(response.data){
-          $scope.ideasData[j] = response.data;
+        if(response.data.idea){
+          $scope.ideasData[j] = response.data.idea;
           j++;
         }
       })
@@ -289,6 +323,83 @@ $scope.uploadAvatar = function(file){
       }, function (errRes) { //catch error
           $window.alert('Error status: ' + errRes.status);
     });
+}
+
+/**** NOTIFICATIONS SECTION ***/
+socket.on('socket', function(socketId){ // client gets the socket event here
+  console.log("GET EVENT " + socketId)
+  notificationDataService.getSocketInformation(socketId, (response) => {
+    if(response.status == 200) console.log("Successfully got socket information")
+  })
+})
+
+socket.on('notify', (sender) => {
+  notifyMe(sender);
+  $scope.notification = true;
+  var newNotification = {
+    user: {
+      image: sender.image,
+      name: sender.name
+    },
+    idea: {
+      _id: sender.ideaId,
+      name: sender.idea
+    },
+    pivot: sender.pivot,
+    type: sender.type
+  }
+  $scope.currentUser.notifications.push(newNotification);
+})
+
+function notifyMe(sender) {
+  var notification_message;
+  switch (sender.type) {
+    case 'money':
+    notification_message = ' says "I buy it!" on your '
+    break;
+    case 'love':
+    notification_message = ' says "I love it!" on your '
+    break;
+    case 'like':
+    notification_message = ' says "Not bad" on your '
+    break;
+    case 'dislike':
+    notification_message = ' says "I don\'t like it" on your '
+    break;
+    default:
+    notification_message = " commented on your "
+    break;
+  }
+  var options = {
+    body: sender.name + notification_message + $filter('enumeration')(sender.pivot) + " of "+sender.idea,
+    icon: sender.image
+  }
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notifications.")
+  }
+  // Let's check if the user is okay to get some notification
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Wetopia", options);
+  }
+  // Otherwise, we need to ask the user for permission
+  // Note, Chrome does not implement the permission static property
+  // So we have to check for NOT 'denied' instead of 'default'
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      // Whatever the user answers, we make sure we store the information
+      if (!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+      // If the user is okay, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Wetopia", options);
+      }
+    })
+  }
+  // At last, if the user already denied any notification, and you
+  // want to be respectful there is no need to bother them any more.
 }
 
             })
