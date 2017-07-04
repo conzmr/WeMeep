@@ -11,11 +11,11 @@
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
               <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
                   <p class="sub-gray">NOTIFICATIONS</p>
-                  <div class="scroll-list">
+                  <div class="scroll-list" ng-class="{'flex-cont':!currentUser.notifications||currentUser.notifications.length==0}">
                     <div class="simple-cont" ng-show="!currentUser.notifications||currentUser.notifications.length==0">
                       <p  class="title-dark smaller disable">You have no notifications yet.</p>
                     </div>
-                      <li class="not-block" ui-sref="myIdea({idea_id: notification.idea._id, pivotNumber: notification.pivot})" ng-repeat="notification in currentUser.notifications" ng-class="{commented: notification.type == 'comment', says: notification.type != 'comment', new: !notification.seen}">
+                      <li class="not-block" ui-sref="myIdea({idea_id: notification.idea._id, pivotNumber: notification.pivot})" ng-repeat="notification in currentUser.notifications | orderBy:'_id':true" ng-class="{commented: notification.type == 'comment', says: notification.type != 'comment', new: !notification.seen}">
                         <div class="polygon-each-img-wrap">
                             <div class="polygon-clip-hexagon" ngf-background="notification.sender.image || '/static/img/PROJECT_VIEWS/User_ICON.svg'"> <!--modify as create idea 3-->
                             </div>
