@@ -60,4 +60,4 @@ io.on('connection', (socket) => {
 })
 
 //server listening to 8080 port
-server.listen(8080)
+server.listen(process.env.PORT || 8080)
