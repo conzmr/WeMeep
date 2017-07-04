@@ -7,11 +7,16 @@ angular.module('wetopiaApp')
                 templateUrl: "/static/views/wetopiaLanding.html",
                 authenticate: false, //Doesn't requires authentication
                 onEnter: function(localStorageService, $state){
-                if(localStorageService.get('username')){
-                   $state.go('home');
-                   event.preventDefault();
-                 }
-              }
+                  let auth = true
+                  var token = localStorageService.get('token') //Get token
+                  //Check that the token is valid, time interval
+                  var params = self.parseJwt(token)
+                  if (!(Math.round(new Date().getTime() / 1000) <= params.exp)) auth = false
+                  if (token && auth) {
+                    $state.go('home')
+                    event.preventDefault()
+                  }
+                }
             })
             .state("landingAction", {
                 url: "/sign/:actionParam",

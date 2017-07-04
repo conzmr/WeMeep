@@ -301,6 +301,8 @@ router.route('/users/:username') //just when the url has "id=" it will run, othe
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
       //order pivots
       idea.pivots.sort((a, b) => {
@@ -416,6 +418,8 @@ router.route('/ideas/:idea_id/:pivot/interest')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
 
       // order pivots
@@ -546,6 +550,8 @@ router.route('/ideas/:idea_id/:pivot')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
 
       // order pivots
@@ -581,6 +587,8 @@ router.route('/ideas/:idea_id/:pivot')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
 
       // order pivots
@@ -615,6 +623,8 @@ router.route('/ideas/:idea_id/:pivot')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else {
         // sort pivots
         idea.pivots.sort((a, b) => {
@@ -787,6 +797,8 @@ router.route('/ideas/:idea_id/:pivot/stats')
   .exec((error, idea) => {
     if (error) res.status(500).json({'error': error, 'success': false})
     else if (!idea) res.status(404).json({'error': 'Idea not found', 'success': false})
+    else if (pivot < 1 || pivot != parseInt(pivot)) res.status(400).json({'error': 'Malformed API request', 'success': false})
+    else if (pivot > idea.pivots.length) res.status(404).json({'error': 'Pivot not found', 'success': false})
     else if (idea.members.indexOf(req.U_ID) <= -1) return res.status(300).json({error: {message: "This is not your idea. Get the hell outta here. "}})
     else {
 
