@@ -16,7 +16,7 @@
               <img id="notifications-icon" ng-click="changeShowNotifications()" ng-src="{{notification?'/static/img/navigation-menu/ACT_Notif_Icon.svg':'/static/img/navigation-menu/Notif_Icon.svg'}}" >
               <ul ng-show="showNotifications" click-outside="showNotifications=false" outside-if-not="notifications-icon">
                   <p class="sub-gray">NOTIFICATIONS</p>
-                  <div class="scroll-list">
+                  <div class="scroll-list" ng-class="{'flex-cont':!currentUser.notifications||currentUser.notifications.length==0}">
                     <div class="simple-cont" ng-show="!currentUser.notifications||currentUser.notifications.length==0">
                       <p  class="title-dark smaller disable">You have no notifications yet.</p>
                     </div>

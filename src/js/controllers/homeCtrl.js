@@ -127,7 +127,8 @@ $scope.selectCategory = function(category, id_name){
 
 function getNotifications(){
   notificationDataService.getNotifications(function(response){
-    if(response.data.notification.length>0){
+    console.log(response.data);
+    if(response.data['new notification']){
       $scope.notification = true;
     }
     $scope.currentUser.notifications = response.data.notifications;
