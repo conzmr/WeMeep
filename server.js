@@ -13,7 +13,7 @@ const server = http.createServer(app)
 const io = require('socket.io')(server)
 
 // Database Configuration
-mongoose.connect(configDB.url); //connect to database
+mongoose.connect(process.env.MONGOLAB_URI || configDB.url); //connect to database
 
 //Parser
 app.use(bodyParser.json()) /* JSON support */
