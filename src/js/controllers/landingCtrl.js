@@ -178,11 +178,13 @@ angular.module("wetopiaApp")
     $scope.openSignup = function(){
       $scope.closeLogin();
       $scope.join = true;
+      $scope.movilMenu = false;
     }
 
     $scope.openLogin= function() {
         $scope.closeSignup();
-        $scope.isLogged();
+        $scope.login = true;
+        $scope.movilMenu = false;
     }
 
     $scope.closeSignup = function(){

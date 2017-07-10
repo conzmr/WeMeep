@@ -275,7 +275,7 @@
 
       </div>
       <div class="flex-modal white " ng-show="join">
-          <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land">
+          <div class="centered-form modal-form" id="landing-cf"  click-outside="closeSignup()" outside-if-not="join-button, signup-nav, login-land, hamburguer-signup">
             <div class="flex-cont">
               <p class="close-x" ng-click="join=false">&times</p>
               <p class="sub-gray bottom bigger-font top">{{'SIGNUP' | translate }}</p>
@@ -314,7 +314,7 @@
       </div>
 <!--Also flex modal black-->
       <div class="flex-modal white " id="login-land"  ng-show="login">
-          <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf">
+          <div class="centered-form modal-form" click-outside="closeLogin()" outside-if-not="login-btn landing-cf hamburguer-login movil-land-menu">
             <div class="flex-cont">
               <p class="close-x" ng-click="login=false">&times</p>
               <p class="sub-gray bottom bigger-font top">{{'LOGIN' | translate }}</p>
@@ -373,9 +373,11 @@
           </div>
       </div>
 
-      <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu" g>
+      <div class="flex-modal" id="movil-land-menu"  ng-show="movilMenu">
         <img class=" logo " src="/static/img/logo_t.svg ">
               <p class="close-x" ng-click="movilMenu=false">&times</p>
+              <p class="sub-white" ng-click="openLogin()" id="hamburguer-login" >{{'LOGIN' | translate }}</p>
+              <p class="sub-white" ng-click="openSignup()" id="hamburguer-signup">{{'SIGNUP' | translate }}</p>
               <p class="sub-white" ng-click="movilMenu=false" href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{'WHY_STARTUP' | translate }}</p>
               <p class="sub-white" ng-click="movilMenu=false"  href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>{{'HOW' | translate }}</p>
               <p class="sub-white" ng-click="movilMenu=false" href="#features" offset="30" du-smooth-scroll du-scrollspy >{{'FEATURES' | translate }}</p>
