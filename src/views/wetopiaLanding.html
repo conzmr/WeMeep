@@ -1,13 +1,10 @@
 <body ng-app="wetopiaApp" ui-view>
     <div ng-class="{'blur': join || login || request||movilMenu }" ng-mousemove="landingCtrl.onMove($event)">
         <nav class="transparent-nav fadeIn fast" ng-class="{ 'scroll-white' : (scrolled > 1) }">
-              <a class=" logo "  href="/"><img class=" logo nav-general" src="/static/img/logo_t.svg "></a>
+              <a class=" logo "  href="/home"><div class="logo-word"><red>We</red><blue>Meep</blue></div></a>
             <img class="hamburguer-menu " src="/static/img/hamburguermenu-min.png " ng-click="movilMenu=true">
               <div class="menu ">
-              <a href="#why-a-startup" offset="30" du-smooth-scroll du-scrollspy >{{ 'WHY_STARTUP' | translate }}</a>
-              <a href="#how-it-works" offset="30" du-smooth-scroll du-scrollspy>{{'HOW' | translate }}</a>
-              <a href="#features" offset="30" du-smooth-scroll du-scrollspy>{{'FEATURES' | translate }}</a>
-            <a href="#our-team" offset="30" du-smooth-scroll du-scrollspy>{{'OUR' | translate }}</a>
+
             <div class="simple-cont">
             <!--  <p class="bluelink signup-nav button" ng-click="request=true">Join</p>-->
             <p class="login-btn" ng-click="login = true">{{'LOGIN' | translate }}</p>
@@ -27,14 +24,14 @@
 
         </div>
 
-        <div class="flex-cont" id="why-a-startup" ng-style="{'height':h }">
+        <div class="flex-cont" id="why-a-startup" ng-style="{'height':100% }">
           <h1 class="title">{{'WHY' | translate }}<span class="title blue" ng-bind='wordTitle' ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span>{{'STARTUP' | translate }}</h1>
           <h2 class="subtitle cursive"><span class="subtitle cursive span" ng-bind="sentenceSubtitle" ng-class="{ 'fadeIn fast' : fadeInOn, 'fadeOut fast' : fadeOutOn }"></span></h2>
             <div class="sub-cont " >
               <!--  <a class="blue-button join-button join-btn-land "  href="" ng-click="join=true ">Join Now!</a>-->
                   <div class="form-input flex-cont email">
                     <p class="center-paragraph ">{{'REASONS' | translate }}</p>
-                    <p class="simple-paragraph">{{'THING' | translate }}</p>
+                    <p class="simple-paragraph">{{'WAITING' | translate }} {{'TODAY' | translate }}</p>
                       <!-- <p class="sub-paragraph fadeIn fast">{{'SOON' | translate }}</p> -->
                       <a class="blue-button join-button join-btn-land request-btn border-complete" ng-click="join=true">{{'SIGNNOW' | translate }}!</a>
                   </div>
@@ -44,234 +41,9 @@
             </div>
 
 <div class="section-cont" id="gradient-bg">
-  <div class="flex-cont" id="how-it-works">
-    <p class="sub-gray">{{'HOW_WORKS' | translate }}</p>
-    <div class="flex-cont row wrap" id="process-block" when-visible="animateHowItWorks">
-      <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">{{'CREATE' | translate }}</p>
-        <img src="/static/img/HOW/IDEA.svg" alt="Create your idea">
-      </div>
-      <div class="flex-cont process-cont down">
-        <img src="/static/img/HOW/Feedback.svg" alt="Receive feedback">
-        <p class="simple-paragraph">{{'RECEIVE' | translate }}</p>
-      </div>
-      <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">{{'MEASURE' | translate }}</p>
-        <img src="/static/img/HOW/Potential.svg" alt="Mesure the potential">
-      </div>
-      <div class="flex-cont process-cont down">
-        <img src="/static/img/HOW/Startup.svg" alt="Build a startup">
-        <p class="simple-paragraph">{{'BUILD' | translate }}</p>
-      </div>
-      <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">{{'FIND' | translate }}</p>
-        <img src="/static/img/HOW/Team.svg" alt="Find a team">
-      </div>
-      <div class="flex-cont process-cont down">
-        <img src="/static/img/HOW/Answers.svg" alt="Solve your doubts">
-        <p class="simple-paragraph">{{'SOLVE' | translate }}</p>
-      </div>
-      <div class="flex-cont process-cont up">
-        <p class="simple-paragraph">{{'DEVELOP' | translate }}</p>
-        <img src="/static/img/HOW/MVP.svg" alt="Develop your product">
-      </div>
-      <div class="flex-cont process-cont down">
-        <img src="/static/img/HOW/Launch.svg" alt="Launch">
-        <p class="simple-paragraph">{{'LAUNCH' | translate }}</p>
-      </div>
-    </div>
-  </div>
 
-  <div class="flex-cont" id="the-community" ng-style="visibility && {'visibility':'visible'}">
-    <div class="flex-cont row experts-cont" ng-class="{ 'fadeIn fast' : fadeInExpert, 'fadeOut fast' : fadeOutExpert }">
-      <img class="exp-photo" ng-src="{{expertsInfo[experts].photo}}">
-      <div class="simple-cont">
-      <p class="quote" ng-bind="expertsInfo[experts].quote"></p>
-        <p class="quote-sign" ng-bind="expertsInfo[experts].sign"></p>
-        <p class="darker uppercase" ng-bind="expertsInfo[experts].qualitative"></p>
-        </div>
-        <img class="exp-logo" ng-src="{{expertsInfo[experts].logo}}">
-    </div>
-  </div>
-
-  <div class="flex-cont" id="features">
-    <p class="sub-gray">{{'THE_FEATURES' | translate }}</p>
-    <div class="flex-cont row wrap">
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/PIVOT.svg" alt="Pivot">
-        <p class="simple-paragraph">{{'PIVOT' | translate }}</p>
-        <p class="medium-txt">{{'CHANGE' | translate }}
-        {{'CHANGE2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/NETWORK.svg" alt="Network">
-        <p class="simple-paragraph">{{'NETWORK' | translate }}</p>
-        <p class="medium-txt">{{'EXPAND' | translate }}
-          {{'EXPAND2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/FEEDBACK.svg" alt="Feedback">
-        <p class="simple-paragraph">{{'FEEDBACK' | translate }}</p>
-        <p class="medium-txt">{{'SAVE' | translate }}
-          {{'SAVE2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/PROFILE.svg" alt="Profile">
-        <p class="simple-paragraph">{{'PROFILE' | translate }}</p>
-        <p class="medium-txt">{{'SKILLS' | translate }}
-          {{'SKILLS2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/TEAM.svg" alt="Dreamteam">
-        <p class="simple-paragraph">{{'DREAMTEAM' | translate }}</p>
-        <p class="medium-txt">{{'MVP' | translate }}
-        {{'MVP2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/QA.svg" alt="Q&A">
-        <p class="simple-paragraph">{{'QA' | translate }}</p>
-        <p class="medium-txt">{{'ASK' | translate }}
-          {{'ASK2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/PRIVACY.svg" alt="Privacy">
-        <p class="simple-paragraph">{{'PRIVACY' | translate }}</p>
-        <p class="medium-txt">{{'DEVELOPING' | translate }}
-        {{'DEVELOPING2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/STATUS.svg" alt="Status">
-        <p class="simple-paragraph">{{'STATUS' | translate }}</p>
-        <p class="medium-txt">{{'HELP' | translate }}
-        {{'HELP2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/JOBLIST.svg" alt="Joblist">
-        <p class="simple-paragraph">{{'JOBLIST' | translate }}</p>
-        <p class="medium-txt">{{'MONEY' | translate }}
-          {{'MONEY2' | translate }}</p>
-      </div>
-      <div class="flex-cont tools-cont">
-        <img src="/static/img/Tools/EARLYADOPTERS.svg" alt="Early adpoter">
-        <p class="simple-paragraph">{{'EARLY' | translate }}</p>
-        <p class="medium-txt">{{'COMMUNITY' | translate }}
-        {{'COMMUNITY2' | translate }}</p>
-      </div>
-
-
-    </div>
-  </div>
-
-    <div class="flex-cont" id="our-team" >
-      <p class="sub-gray">{{'TEAM' | translate }}</p>
-      <div class="flex-cont" >
-        <div class="flex-cont">
-          <img id="team-graph" ng-src="{{graph}}" >
-        </div>
-        <div class="flex-cont row wrap">
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Pedro'}"
-          ng-mouseover="changeGraph('Pedro')" ng-mouseout="changeGraph('Pedro')">
-            <img src="/static/img/TEAM/team-pedro.png" alt="Pedro Camarena"
-            id='pedro' ng-click="changeGraph('Pedro')"
-            click-outside="changeGraph('All')" outside-if-not="luis mario constanza ilse">
-            <div class="simple-cont">
-              <p class="simple-paragraph">{{'PEDRO' | translate }}</p>
-              <p class="small-italic">{{'MANAGER' | translate }}</p>
-            </div>
-          </div>
-
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Luis'}"
-          ng-mouseover="changeGraph('Luis')" ng-mouseout="changeGraph('Luis')">
-            <img src="/static/img/TEAM/team-luis.png" alt="Luis Mendoza"
-            id='luis'  ng-click="changeGraph('Luis')"
-            click-outside="changeGraph('All')" outside-if-not="pedro mario constanza ilse">
-            <div class="simple-cont">
-              <p class="simple-paragraph">{{'LUIS' | translate }}</p>
-              <p class="small-italic">{{'BRAND' | translate }}</p>
-            </div>
-          </div>
-
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Constanza'}"
-           ng-mouseover="changeGraph('Constanza')" ng-mouseout="changeGraph('Constanza')">
-            <img src="/static/img/TEAM/team-cons.png" alt="Constanza Madrigal"
-            id="constanza" ng-click="changeGraph('Constanza')"
-           click-outside="changeGraph('All')" outside-if-not="luis mario pedro ilse">
-            <div class="simple-cont">
-              <p class="simple-paragraph">{{'CONZ' | translate }}</p>
-              <p class="small-italic">{{'FRONT' | translate }}</p>
-            </div>
-          </div>
-
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Mario'}"
-          ng-mouseover="changeGraph('Mario')" ng-mouseout="changeGraph('Mario')">
-            <img src="/static/img/TEAM/team-mario.png" alt="Mario García"
-            id="mario" ng-click="changeGraph('Mario')"
-           click-outside="changeGraph('All')" outside-if-not="luis pedro constanza ilse">
-            <div class="simple-cont">
-              <p class="simple-paragraph">{{'MARIO' | translate }}</p>
-              <p class="small-italic">{{'BACK' | translate }}</p>
-            </div>
-          </div>
-
-          <div class="flex-cont team-cont " ng-class="{'click': selectedMember == 'Ilse'}"
-          ng-mouseover="changeGraph('Ilse')" ng-mouseout="changeGraph('Ilse')">
-            <img src="/static/img/TEAM/team-ilse.png" alt="Ilse Mora"
-            id="ilse" ng-click="changeGraph('Ilse')"
-            click-outside="changeGraph('All')" outside-if-not="luis mario constanza pedro">
-            <div class="simple-cont">
-              <p class="simple-paragraph">{{'ILSE' | translate }}</p>
-              <p class="small-italic">{{'DESIGN' | translate }}</p>
-            </div>
-          </div>
-
-        </div>
-
-
-
-      </div>
-    </div>
-
-<div class="section-cont">
-<div class="flex-cont" id="bottom-land-bg" >
-  <p class="center-paragraph">{{'WAITING' | translate }}</p>
-  <p class="simple-paragraph">{{'TODAY' | translate }}.</p>
-<div class="form-input flex-cont email" id="form-input-footer">
-  <a class="blue-button join-button join-btn-land request-btn border-complete" ng-click="join=true">{{'SIGNNOW' | translate }}!</a>
 </div>
-</div>
-</div>
-</div>
-<div class="footer flex-cont">
 
-  <div class="left">
-    <a  href="/home"  class="small">Home</a>
-    <a href="/myProfile" class="small">My Profile</a>
-    <a  href="/createIdea/first" class="small">Create Idea</a>
-    <a href="/myIdea" class="small">My Idea</a>
-  </div>
-
-
-  <div class="icons">
-    <img src="/static/img/wetopia_dark-min.png">
-    <div class="simple-cont">
-      <a href="https://www.facebook.com/wetopiaCo/"  target="_blank"><img src="/static/img/fb_icon_dark.svg"></a>
-      <a href="https://twitter.com/wetopiaco"  target="_blank"><img src="/static/img/twitter.svg"></a>
-      <a href="https://www.instagram.com/wetopia.co/"  target="_blank"><img src="/static/img/instagram_dark.svg"></a>
-      <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
-    </div>
-
-  </div>
-
-  <div class="right">
-    <p class="medium-bold">Wetopia (c) 2017</p>
-    <a href="/blog" class="small">Blog</a>
-    <!--
-    <p class="small">Terms & Conditions</p>
-    <p class="small">Privacy Policy</p>
-    <p class="small">Ethics Code</p>
-    -->
-  </div>
-</div>
 
       </div>
       <div class="flex-modal white " ng-show="join">
@@ -363,9 +135,9 @@
             <p class="smaller">{{'MEANTIME' | translate }}</p>
               <div class="icons">
                 <div class="simple-cont">
-            <a href="https://www.facebook.com/wetopiaCo/"  target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
-            <a href="https://twitter.com/wetopiaco"  target="_blank" ><img src="/static/img/twitter.svg"></a>
-            <a href="https://www.instagram.com/wetopia.co/"  target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
+            <a href=""  target="_blank" ><img src="/static/img/fb_icon_dark.svg"></a>
+            <a href=""  target="_blank" ><img src="/static/img/twitter.svg"></a>
+            <a href=""  target="_blank" ><img src="/static/img/instagram_dark.svg"></a>
             <!--<a href="#"><img src="/static/img/snap_dark.svg"></a>-->
                 </div>
               </div>

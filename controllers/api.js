@@ -8,6 +8,12 @@ const path = require('path')
 const bcrypt = require('bcrypt-nodejs')
 const router = express.Router()
 const mongoose = require('mongoose')
+const configDB = require("../config/database")
+
+// Database Configuration
+mongoose.connect(configDB.url,  {
+  useMongoClient: true}
+);
 
 // models
 const User = require("../models/user.js")

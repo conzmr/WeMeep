@@ -3245,7 +3245,7 @@ nav {
 
     .logo {
         height: 45px;
-        display: inline-block;
+        display: flex;
         margin: auto auto auto 0;
     }
 }
@@ -3327,12 +3327,12 @@ nav {
 .logo-word {
     display: inline-block;
     margin: auto 10px;
-    height: 25px;
+    height: 30px;
     letter-spacing: 3px;
 
     blue,
     red {
-        font-size: 18px;
+        font-size: 24px;
     }
 }
 

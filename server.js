@@ -12,8 +12,6 @@ const server = http.createServer(app)
 //Socket IO constant
 const io = require('socket.io')(server)
 
-// Database Configuration
-mongoose.connect(process.env.MONGOLAB_URI || configDB.url) //connect to database
 
 //Parser
 app.use(bodyParser.json()) /* JSON support */
@@ -58,6 +56,8 @@ io.on('connection', (socket) => {
     //socket.broadcast.to(socketid).emit('message', 'for your eyes only');
   })
 })
+
+
 
 //server listening to 8080 port
 server.listen(process.env.PORT || 8080)
